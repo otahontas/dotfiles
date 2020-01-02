@@ -1,0 +1,6 @@
+Font configuration files should be symlinked from /etc/fonts/conf.avail/ to this folder.
+
+Currently using:
+- 10-sub-pixel-rgb.conf
+- 11-lcdfilter-default.conf
+- 70-no-bitmaps.conf

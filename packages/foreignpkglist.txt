@@ -1,0 +1,5 @@
+antibody
+dasht
+s
+spotifyd-full
+wl-clipboard-x11

@@ -1,0 +1,8 @@
+provider: duckduckgo
+blacklist: [google, gmail, googleplus]
+customProviders [
+    {
+      name: osm
+      url: "https://www.openstreetmap.org/search?query=%s"
+    }
+]

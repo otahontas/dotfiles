@@ -1,0 +1,18 @@
+[calendars]
+
+[[private]]
+path = ~/.local/share/vdirsyncer/calendars/selfhost/
+color = light magenta
+type = calendar
+
+[[studying]]
+path = ~/.local/share/vdirsyncer/calendars/university/
+color = light green
+type = calendar
+
+[locale]
+timeformat = %H:%M
+dateformat = %m/%d/%Y
+longdateformat = %m/%d/%Y
+datetimeformat = %m/%d/%Y %H:%M
+longdatetimeformat = %m/%d/%Y %H:%M

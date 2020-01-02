@@ -1,0 +1,58 @@
+
+# Function to write daily diary. Follows file naming conventions by 
+# https://f-droid.org/en/packages/org.billthefarmer.diary/ so syncing between
+# arch and android is convinient
+funcname diary() {
+    if [[ ! -d ~/documents/life/diary/$(date +"%Y/%m") ]]; then
+        mkdir -p ~/documents/life/diary/$(date +"%Y/%m")
+    fi
+
+    nvim ~/documents/life/diary/$(date +"%Y/%m/%d").txt    
+}
+
+# Fast way to open folders and files with fzf. Hidden folders are also
+# searched.
+funcname f() {
+    case $1 in
+        cd) cd "$(fd -H -t d . | fzf)"
+        ;;
+        open) rifle "$(fzf)"
+        ;;
+        vim) nvim "$(fzf)"
+        ;;
+        *)
+            echo "Usage: `basename $0` command"
+            echo "Possible commands: open/cd/vim"
+            return 1
+        ;;
+    esac
+    return 0
+}
+
+# Create folder and cd to it
+funcname mcd() {
+    mkdir "$1" && cd "$1"
+}
+
+# Wrapper for ranger, automatically changes to last visited directory when
+# quitting
+funcname ranger() {
+    tempfile="$(mktemp -t tmp.XXXXXX)"
+    /usr/bin/ranger --choosedir="$tempfile" "${@:-$(pwd)}"
+    test -f "$tempfile" &&
+    if [ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]; then
+        cd -- "$(cat "$tempfile")"
+    fi
+    rm -f -- "$tempfile"
+}
+
+# Every once in a while spotifyd becomes unavailable. This allows to restart it
+# and launch spt in one command.
+funcname spt_restart() {
+    pkill spotifyd; spotifyd; spt
+}
+
+# Launch todo file with vim
+funcname todo() {
+    nvim ~/documents/todo/todo.txt
+}

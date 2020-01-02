@@ -1,0 +1,17 @@
+[user]
+	name = Otto Ahoniemi
+	email = otto@ottoahoniemi.fi
+[push]
+    default = matching
+[alias] 
+    ap = add -p
+    aa = add -A
+    a = add
+    s = status
+    d = diff
+    co = checkout
+    br = branch
+    last = log -1 HEAD
+    cane = commit --amend --no-edit
+    cm = commit -m
+	hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
