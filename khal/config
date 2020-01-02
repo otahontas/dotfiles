@@ -1,7 +1,7 @@
 [calendars]
 
 [[private]]
-path = ~/.local/share/vdirsyncer/calendars/selfhost/
+path = ~/.local/share/vdirsyncer/calendars/selfhost/private/
 color = light magenta
 type = calendar
 

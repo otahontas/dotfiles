@@ -12,5 +12,5 @@ Configuration for Arch Linux, zsh, sway, kitty, neovim and more. These files cur
 - Keep files well-documented
 - Use XDG Base Directories as much as possible
 - Prefer cli tools and Wayland compatibility 
-    - Current pacman and aur installed software can be found from packages
+    - Current pacman and aur installed software can be found from [packages](tree/master/packages)
 - Allow easy setup on new computers with (upcoming) script
