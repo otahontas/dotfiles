@@ -9,7 +9,7 @@ alias ls="ls --color=auto"
 # Set some programs to use XDG Base
 alias tmux="tmux -u -f $XDG_CONFIG_HOME/tmux/config"
 alias mvn="mvn -gs '$XDG_CONFIG_HOME/maven/settings.xml'"
-alias wget="wget --hsts-file='$XDG_CACHE_HOME/wget-hsts'"
+alias wget="wget --hsts-file='$XDG_DATA_HOME/wget-hsts'"
 
 # Listing commands
 alias ll="ls -l"

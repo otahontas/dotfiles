@@ -10,10 +10,11 @@ export XDG_CONFIG_DIRS=/etc/xdg
 # Set some programs to use XDG Base Directories
 export DOCKER_CONFIG=$XDG_CONFIG_HOME/docker
 export GNUPGHOME=$XDG_DATA_HOME/gnupg
+export GOPATH=$XDG_DATA_HOME/go
 export GRADLE_USER_HOME=$XDG_DATA_HOME/gradle
+export LESSHISTFILE=$XDG_CACHE_HOME/less/history
 export PASSWORD_STORE_DIR=$XDG_DATA_HOME/pass
 export RUSTUP_HOME=$XDG_DATA_HOME/rustup
-export WGETRC=$XDG_CONFIG_HOME/wgetrc
 export ZDOTDIR=$XDG_CONFIG_HOME/zsh
 
 # Enable Wayland for Firefox
