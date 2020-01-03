@@ -1,4 +1,5 @@
 <h1 align="center"> Dotfiles ❤ </h1>
+
 Configuration for Arch Linux, zsh, sway, kitty, neovim and more.
 
 ![example screenshot](https://raw.githubusercontent.com/otahontas/dotfiles/master/screenshot.png)
