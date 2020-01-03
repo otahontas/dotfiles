@@ -1,16 +1,32 @@
 # Dotfiles
-Configuration for Arch Linux, zsh, sway, kitty, neovim and more. These files currently live in my ~/.config -folder on different computers.
+Configuration for Arch Linux, zsh, sway, kitty, neovim and more.
 
 ## Goals
-- Simple and good-looking design choices:
-    - Current colorscheme is [Rigel](https://rigel.netlify.com/)
-    - Fonts are:
-        - [FiraCode](https://github.com/tonsky/FiraCode) for coding and terminal
-        - [Meslo Nerd Font](https://github.com/romkatv/powerlevel10k#recommended-meslo-nerd-font-patched-for-powerlevel10k) for added bunch of Glyphs
-        - Google Noto fonts and Google Noto emoji font as base-level fonts
-- Keep files quite minimal, so it's easy to debug and stays fast
+- Simple and good-looking design choices
+    - Fonts:
+- Keep files quite minimal, so setup is easy to debug and stays fast
 - Keep files well-documented
 - Use XDG Base Directories as much as possible
 - Prefer cli tools and Wayland compatibility 
-    - Current pacman and aur installed software can be found from [packages](tree/master/packages)
-- Allow easy setup on new computers with (upcoming) script
+- Allow easy setup on new computers
+
+## Important programs
+- CLI:
+    - Shell: Zsh with Antibody plugin manager and Powerlevel10K theme
+    - Editor: Neovim with bunch of plugins mimicking IDE style configurations
+    - Multiplexer: Tmux
+    - Version control: Git
+    - Fuzzy finder: Fzf
+    - File manager: Ranger
+    - Worth of mentioning cli apps: aerc & hydroxide (mails), khal & khard & vdirsyncer (calendars&contacts), pass (passwords), spotify-tui & spotifyd (Spotify), s (web search launcher), syncthing (sync) and duplicity (backups)
+- GUI:
+    - Window manager: Sway
+    - App launcher: Bemenu
+    - Terminal: Kitty
+    - Browser: Firefox Dev edition
+    - Colorscheme is [Rigel](https://rigel.netlify.com/) and is implemented in Kitty, Neovim, Sway and Bemenu. GTK-theme (e.g. for Firefox) is Arc-Dark.
+    - Fonts are [FiraCode](https://github.com/tonsky/FiraCode) for coding and terminal, [Meslo Nerd Font](https://github.com/romkatv/powerlevel10k#recommended-meslo-nerd-font-patched-for-powerlevel10k) for added bunch of Glyphs and Google Noto fonts (including noto-emojis) as base-level fonts.
+
+## Installation
+- Clone repo into $HOME/.config
+- Symlink files according to notes inside files

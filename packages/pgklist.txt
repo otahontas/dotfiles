@@ -29,7 +29,6 @@ hub
 imagemagick
 imlib2
 imv
-inotify-tools
 intel-ucode
 iw
 iwd
