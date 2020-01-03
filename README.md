@@ -6,9 +6,7 @@ Configuration for Arch Linux, zsh, sway, kitty, neovim and more.
 
 ## Goals
 - Simple and good-looking design choices
-    - Fonts:
-- Keep files quite minimal, so setup is easy to debug and stays fast
-- Keep files well-documented
+- Keep files quite minimal and well-documented, so setup is easy to debug and stays fast
 - Use XDG Base Directories as much as possible
 - Prefer cli tools and Wayland compatibility 
 - Allow easy setup on new computers
