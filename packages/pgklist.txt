@@ -24,6 +24,7 @@ gdb
 git
 go
 gradle
+grim
 highlight
 hub
 imagemagick
