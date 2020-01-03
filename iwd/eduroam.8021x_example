@@ -1,0 +1,12 @@
+# Eduroam settings for University of Helsinki. Add needed credentials and copy
+# to /var/lib/iwd/ with sudo
+
+[Security]
+EAP-Method=PEAP
+EAP-Identity=anonymous@helsinki.fi
+EAP-PEAP-Phase2-Method=MSCHAPv2
+EAP-PEAP-Phase2-Identity=usename@helsinki.fi
+EAP-PEAP-Phase2-Password=password
+
+[Settings]
+AutoConnect=true

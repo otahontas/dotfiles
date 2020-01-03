@@ -6,7 +6,7 @@ funcname aur_updates() {
         git_status=$(git --work-tree="$folder" --git-dir="$folder/.git" status)
         branch_status=$(echo $git_status | grep 'Your branch')
         if [[ $branch_status != *"up to date"* ]]; then
-            echo "$folder can updated, details below:"
+            echo "=== $folder can updated, details below: ==="
             echo "$git_status"
         fi
     done
