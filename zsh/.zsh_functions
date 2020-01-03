@@ -1,3 +1,16 @@
+# Function to check all aur packages for updates. Relies on git.
+funcname aur_updates() {
+    aurpath=$HOME/aur
+    for folder in $aurpath/*
+    do 
+        git_status=$(git --work-tree="$folder" --git-dir="$folder/.git" status)
+        branch_status=$(echo $git_status | grep 'Your branch')
+        if [[ $branch_status != *"up to date"* ]]; then
+            echo "$folder can updated, details below:"
+            echo "$git_status"
+        fi
+    done
+}
 
 # Function to write daily diary. Follows file naming conventions by 
 # https://f-droid.org/en/packages/org.billthefarmer.diary/ so syncing between
