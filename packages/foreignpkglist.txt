@@ -1,5 +1,7 @@
 antibody
 dasht
+lscolors-git
 s
+spotify-tui
 spotifyd-full
 wl-clipboard-x11
