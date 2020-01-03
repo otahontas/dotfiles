@@ -1,0 +1,51 @@
+[general]
+status_path = "~/.config/vdirsyncer/status/"
+
+# This config fetches confidental details from pass. 
+# Parsing is needed for caldav and carddav details and is done with an external script. 
+# See script 'parse_pass_details' for usage info.
+
+[pair selfhost]
+a = "selfhost_local"
+b = "selfhost_remote"
+collections = ["from a", "from b"]
+metadata = ["color"]
+
+[storage selfhost_local]
+type = "filesystem"
+path = "~/.local/share/vdirsyncer/calendars/selfhost/"
+fileext = ".ics"
+
+[storage selfhost_remote]
+type = "caldav"
+url.fetch = ["command", "~/.config/vdirsyncer/parse_pass_details.sh", "dev/selfhost/baikal", "6"]
+username.fetch = ["command", "~/.config/vdirsyncer/parse_pass_details.sh", "dev/selfhost/baikal", "5"]
+password.fetch = ["command", "~/.config/vdirsyncer/parse_pass_details.sh", "dev/selfhost/baikal", "1"]
+
+[pair university]
+a = "university_local"
+b = "university_remote"
+collections = null
+
+[storage university_local]
+type = "filesystem"
+path = "~/.local/share/vdirsyncer/calendars/university/"
+fileext = ".ics"
+
+[storage university_remote]
+type = "http"
+url.fetch = ["command", "pass", "studying/helsinki.fi_ical"]
+
+[pair facebook]
+a = "facebook_local"
+b = "facebook_remote"
+collections = null
+
+[storage facebook_local]
+type = "filesystem"
+path = "~/.local/share/vdirsyncer/calendars/facebook/"
+fileext = ".ics"
+
+[storage facebook_remote]
+type = "http"
+url.fetch = ["command", "pass", "life/facebook.com_ical"]

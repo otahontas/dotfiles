@@ -5,14 +5,19 @@ path = ~/.local/share/vdirsyncer/calendars/selfhost/private/
 color = light magenta
 type = calendar
 
-[[studying]]
+[[university]]
 path = ~/.local/share/vdirsyncer/calendars/university/
 color = light green
 type = calendar
 
+[[facebook]]
+path = ~/.local/share/vdirsyncer/calendars/facebook/
+color = light blue
+type = calendar
+
 [locale]
 timeformat = %H:%M
-dateformat = %m/%d/%Y
-longdateformat = %m/%d/%Y
-datetimeformat = %m/%d/%Y %H:%M
-longdatetimeformat = %m/%d/%Y %H:%M
+dateformat = %d/%m/%Y
+longdateformat = $d/%m/%Y
+datetimeformat = %d/%m/%Y %H:%M
+longdatetimeformat = %d/%m/%Y %H:%M
