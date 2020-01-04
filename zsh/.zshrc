@@ -33,8 +33,9 @@ setopt extendedglob
 # Set up completions, compinit file folder and corrections
 zstyle :compinstall filename '$ZDOTDIR/.zshrc'
 zstyle ':completion:*' menu select
-autoload -Uz compinit && compinit -d $XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION
+autoload -Uz compinit && compinit
 autoload bashcompinit && bashcompinit
+source $ZDOTDIR/.bash_completions.zsh
 setopt correct
 setopt correctall
 
