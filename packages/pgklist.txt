@@ -10,13 +10,13 @@ bemenu
 brightnessctl
 browserpass
 browserpass-firefox
-check
 ctags
 dhcpcd
 docker
 duplicity
 fakeroot
 fd
+ffmpegthumbnailer
 firefox-developer-edition
 fzf
 gcc
@@ -44,6 +44,7 @@ make
 man-db
 man-pages
 maven
+mpv
 neovim
 nodejs
 noto-fonts
@@ -53,6 +54,7 @@ pass
 pkgconf
 pulseaudio
 pulseaudio-alsa
+python-pillow
 python-poetry
 python-pynvim
 ranger
@@ -69,7 +71,6 @@ trash-cli
 ttf-fira-code
 ufw
 unzip
-valgrind
 vdirsyncer
 w3m
 wget
@@ -78,8 +79,9 @@ wl-clipboard
 xdg-user-dirs
 xdg-utils
 yarn
+youtube-dl
 zathura
-zathura-pdf-mupdf
+zathura-pdf-poppler
 zathura-ps
 zip
 zsh

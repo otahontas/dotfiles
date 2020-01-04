@@ -1,9 +1,11 @@
 # Config files are symlinked so don't add them
 fontconfig/conf.d/*.conf
 
-# Don't add files or folders that mainly contain just auth tokens and temp files
-pulse/
+# Don't add files or folders that mainly contain just auth tokens and temp stuff
+dconf/
 hub
+pulse/
 spotify-tui/
 syncthing/
 vdirsyncer/status/
+zsh/.zcompdump
