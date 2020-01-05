@@ -1,0 +1,6 @@
+[Unit]
+Description=Copy bootloader configs to ~/.config
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c '/usr/bin/rsync -a /boot/loader ~/.config/boot'
