@@ -1,5 +1,4 @@
 provider: duckduckgo
-blacklist: [google, gmail, googleplus]
 customProviders [
     {
       name: osm
