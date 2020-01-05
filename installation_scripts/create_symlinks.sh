@@ -1,6 +1,4 @@
 #!/bin/sh
-echo "=== INFO ==="
-echo "This script creates all necessary symlinks from and to ~/.config"
 echo "// Symlinking zshenv to HOME and sourcing it"
 dest=$HOME/.zshenv
 [[ -e $dest ]] || ln -s $HOME/.config/.zshenv $HOME && source $dest
@@ -33,4 +31,4 @@ for f in $XDG_CONFIG_HOME/pacman-hooks/*.hook; do
     name=$(echo $f | xargs -n 1 basename)
     [[ -e $destfolder/$name ]] || sudo ln -s $f $destfolder/
 done
-echo "Done"
+echo "Done\n"
