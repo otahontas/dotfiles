@@ -19,8 +19,10 @@ PASSWORD_STORE_DIR  DEFAULT=${XDG_DATA_HOME}/pass
 RUSTUP_HOME         DEFAULT=${XDG_DATA_HOME}/rustup
 ZDOTDIR             DEFAULT=${XDG_CONFIG_HOME}/zsh
 
-# Enable Wayland for Firefox
+# Set every possible backend to use wayland
 MOZ_ENABLE_WAYLAND  DEFAULT=1
+QT_QPA_PLATFORM     DEFAULT=wayland
+DISPLAY             DEFAULT=wayland
 
 # Set up visual and editor
 VISUAL              DEFAULT=nvim

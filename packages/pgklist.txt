@@ -55,6 +55,7 @@ pulseaudio-alsa
 python-pillow
 python-poetry
 python-pynvim
+qt5-wayland
 ranger
 rsync
 rustup
