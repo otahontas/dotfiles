@@ -1,9 +1,4 @@
 #!/bin/sh
-echo "// Symlinking zshenv to HOME and sourcing it"
-dest=$HOME/.zshenv
-[[ -e $dest ]] || ln -s $HOME/.config/.zshenv $HOME && source $dest
-echo "Done"
-
 echo "// Symlinking font configs from /etc/fonts/conf.avail/"
 destfolder=$XDG_CONFIG_HOME/fontconfig/conf.d
 configlist=$destfolder/fontconfigs
@@ -31,4 +26,4 @@ for f in $XDG_CONFIG_HOME/pacman-hooks/*.hook; do
     name=$(echo $f | xargs -n 1 basename)
     [[ -e $destfolder/$name ]] || sudo ln -s $f $destfolder/
 done
-echo "Done\n"
+echo "Done"

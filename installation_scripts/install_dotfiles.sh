@@ -21,7 +21,7 @@ echo "Making sure all config scripts are executable by chmodding them"
 find $config_folder -name "*.sh" -exec sudo chmod u+x {} \;
 
 echo "Creating enviromental variables and symlinks"
-bash $config_folder/installation_scripts/create_symlinks.sh
+/bin/sh $config_folder/installation_scripts/create_symlinks.sh
 
 echo "// Everythign installed, check your ~/.config folder and reboot"
 exit 0

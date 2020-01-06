@@ -1,5 +1,4 @@
 # Don't add symlinked stuff
-fontconfig/conf.d/*.conf
 systemd/user/*.wants/
 
 # Don't add files or folders that mainly contain just auth tokens and temp stuff
