@@ -1,0 +1,33 @@
+# Note: This file is always sourced and should be symlinked to $HOME/.pam_environment
+# .pam_env is read before other files, in particular before /.profile, ~/.bash_profile and ~/.zshenv. 
+# Settings env variables here allows them to be used in all shells
+
+# Set XDG Base Directories
+XDG_CONFIG_HOME     DEFAULT=@{HOME}/.config
+XDG_CACHE_HOME      DEFAULT=@{HOME}/.cache
+XDG_DATA_HOME       DEFAULT=@{HOME}/.local/share
+XDG_DATA_DIRS       DEFAULT=/usr/local/share:/usr/share
+XDG_CONFIG_DIRS     DEFAULT=/etc/xdg
+
+# Set some programs to use XDG Base Directories
+DOCKER_CONFIG       DEFAULT=${XDG_CONFIG_HOME}/docker
+GNUPGHOME           DEFAULT=${XDG_DATA_HOME}/gnupg
+GOPATH              DEFAULT=${XDG_DATA_HOME}/go
+GRADLE_USER_HOME    DEFAULT=${XDG_DATA_HOME}/gradle
+LESSHISTFILE        DEFAULT=${XDG_CACHE_HOME}/less/history
+PASSWORD_STORE_DIR  DEFAULT=${XDG_DATA_HOME}/pass
+RUSTUP_HOME         DEFAULT=${XDG_DATA_HOME}/rustup
+ZDOTDIR             DEFAULT=${XDG_CONFIG_HOME}/zsh
+
+# Enable Wayland for Firefox
+MOZ_ENABLE_WAYLAND  DEFAULT=1
+
+# Set up visual and editor
+VISUAL              DEFAULT=nvim
+EDITOR              DEFAULT=${VISUAL}
+
+# Allow systemd user to start ssh-agent
+SSH_AUTH_SOCK       DEFAULT=${XDG_RUNTIME_DIR}/ssh-agent.socket
+
+# Add yarn installed global packages to path
+PATH                DEFAULT=${PATH}:${XDG_DATA_HOME}/yarn/global/node_modules/.bin/
