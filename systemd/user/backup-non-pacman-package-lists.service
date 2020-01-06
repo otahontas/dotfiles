@@ -1,0 +1,6 @@
+[Unit]
+Description=Run scripts that prints different package list backups to packages folder
+
+[Service]
+Type=oneshot
+ExecStart=/home/otahontas/.config/systemd/user/scripts/backup-non-pacman-package-lists.sh
