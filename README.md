@@ -33,4 +33,4 @@ Configuration for Arch Linux, zsh, sway, kitty, neovim and more.
 - Execute installation_scripts/create_pam_symlink.sh or copy/symlink .pam_enviroment to $HOME
 - Reboot
 - Execute installation_scripts/install_dotfiles.sh
-- For whole Arch OS (+optionally Win 10 dual-boot) installation, check out [ARCH_INSTALL.md](https://raw.githubusercontent.com/otahontas/dotfiles/ARCH_INSTALL.md)
+- For whole Arch OS (+optionally Win 10 dual-boot) installation, check out [ARCH_INSTALL.md](https://github.com/otahontas/dotfiles/blob/master/ARCH_INSTALL.md)

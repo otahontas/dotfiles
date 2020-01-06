@@ -12,6 +12,7 @@ ctags
 dhcpcd
 docker
 duplicity
+etckeeper
 fakeroot
 fd
 ffmpegthumbnailer

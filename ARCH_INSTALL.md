@@ -34,7 +34,7 @@
     - Enable and start systemd-resolved and iwd, connect to wifi
     - (install firefox if needed)
     - Clone this repo
-    - Install packages 
+    - Install packages with `pacman -S --needed - < packages/pkglist.txt`
     - Install aur packages
     - Symlink .pam_environment with installation_scripts/create_pam_symlink.sh
     - Reboot
