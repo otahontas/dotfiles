@@ -2,8 +2,9 @@
 
 echo "=== DOTFILES INSTALLATION ==="
 echo "This script will install dotfiles by setting necessary enviromental variables and doing some symlinkings. Sudo is needed and asked when necessary.\n"
-echo "NOTE: This scripts backups your previours ~/.config folder to ~/.config.back!"
-echo "NOTE: Script assumes you've installed all necessary applications first. If this is not the case, please quit and install applications"
+echo "NOTE: Script backups your previours ~/.config folder to ~/.config.back!"
+echo "NOTE: Script assumes you've installed all necessary applications and have
+.pam_enviroment loaded first. If this is not the case, please quit and install applications and .pam_environment"
 
 read -p "Press y to continue or any other key to quit " choice
 case "$choice" in 
