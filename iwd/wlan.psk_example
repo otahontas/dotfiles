@@ -1,9 +1,0 @@
-# Example of wifi with autoconnection enabled. Add [Settings] part to wanted .psk
-# files in /var/lib/iwd/. 
-
-[Security]
-PreSharedKey=
-Passphrase=
-
-[Settings]
-AutoConnect=true
