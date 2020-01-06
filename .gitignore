@@ -1,6 +1,3 @@
-# Don't add symlinked stuff
-systemd/user/*.wants/
-
 # Don't add files or folders that mainly contain just auth tokens and temp stuff
 boot/loader/random-seed
 dconf/
