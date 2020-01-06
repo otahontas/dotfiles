@@ -1,0 +1,15 @@
+#window {
+margin: 5px;
+border: 1px solid #e6e6dc;
+background-color: #002635;
+} 
+
+#input {
+margin: 5px;
+color: #e6e6dc;
+background-color: #77929e;
+}
+
+#inner-box {
+padding: 5px
+}

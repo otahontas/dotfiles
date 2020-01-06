@@ -6,3 +6,4 @@ s
 spotify-tui
 spotifyd-full
 wl-clipboard-x11
+wofi

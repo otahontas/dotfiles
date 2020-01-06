@@ -50,11 +50,7 @@ set $down j
 set $up k
 set $right l
 set $term kitty
-set $beopts \
-    --fn 'MesloLGS NF Bold' \
-    --tb="$bg" --fb="$bg" --nb="$bg" --hb="$bg" \
-    --tf="$fg" --ff="$red1" --nf="$white1" --hf="$green1"
-set $menu bemenu-run $beopts | xargs swaymsg exec --
+set $menu wofi | xargs swaymsg exec --
 
 # Idle settings for locking and sleeping. Set on by default, but can be toggled
 # off and on again with keybindings.

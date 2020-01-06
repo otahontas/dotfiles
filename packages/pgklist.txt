@@ -6,7 +6,6 @@ arc-gtk-theme
 arc-icon-theme
 atool
 base
-bemenu
 brightnessctl
 browserpass
 browserpass-firefox
