@@ -53,8 +53,8 @@ funcname backup_mounter() {
     if [[ $1 == 'm' && $2 != '' ]]; then
         sudo cryptsetup open $2 $name
         [[ -e $dest ]] || sudo mkdir -p $dest
-        [[ -w $dest ]] || sudo chmod 777 $dest
         sudo mount /dev/mapper/$name $dest
+        [[ -w $dest ]] || sudo chmod 777 $dest
     elif [[ $1 == 'u' ]]; then
         sudo umount $dest
         sudo cryptsetup close $name

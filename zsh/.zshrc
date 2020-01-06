@@ -9,11 +9,6 @@ fi
 source $ZDOTDIR/.zsh_aliases
 source $ZDOTDIR/.zsh_functions
 
-# Load plugins staticly with antibody
-# Note: Run 'antibody bundle < .zsh_plugins.txt > .zsh_plugins.sh' after 
-# updating .zsh_plugins.txt -list
-source $ZDOTDIR/.zsh_plugins.sh
-
 # Create big enough history file, disable duplicates and allow different zsh
 # shells to share history all the time (e.g. don't wait until shell is closed)
 HISTFILE=$XDG_DATA_HOME/zsh/histfile
@@ -38,6 +33,10 @@ autoload bashcompinit && bashcompinit
 source $ZDOTDIR/.bash_completions.zsh
 setopt correct
 setopt correctall
+
+# Load plugins
+source <(antibody init)
+antibody bundle < $ZDOTDIR/.zsh_plugins.txt
 
 # Set vi-mode to launch immidiately and set up binding for history search
 export KEYTIMEOUT=1
