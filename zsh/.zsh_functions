@@ -23,6 +23,18 @@ funcname diary() {
     nvim ~/documents/life/diary/$(date +"%Y/%m/%d").txt    
 }
 
+# Function to change wallpaper. Previous wallapaper gets backuped into
+# ~/media/wallpaper_archive, which is created if there is no archive
+funcname change_wallpaper() {
+    h=1440
+    w=2560
+    mkdir -p ~/media/bg_archive
+    bg=~/media/background.jpg
+    mv $bg ~/media/bg_archive/bg_$(date +%Y_%m_%d).jpg
+    curl -L https://source.unsplash.com/random/"$w"x"$h" -o $bg
+    echo "Reload your sway config to set new wallpaper"
+}
+
 # Create folder and cd to it
 funcname mcd() {
     mkdir "$1" && cd "$1"
