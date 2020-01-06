@@ -22,7 +22,7 @@ Configuration for Arch Linux, zsh, sway, kitty, neovim and more.
     - Worth of mentioning cli apps: aerc & hydroxide (mails), khal & khard & vdirsyncer (calendars&contacts), pass (passwords), spotify-tui & spotifyd (Spotify), s (web search launcher), syncthing (sync) and duplicity (backups)
 - GUI:
     - Window manager: Sway
-    - App launcher: Bemenu
+    - App launcher: Wofi
     - Terminal: Kitty
     - Browser: Firefox Dev edition
     - Colorscheme is [Rigel](https://rigel.netlify.com/) and is implemented in Kitty, Neovim, Sway and Bemenu. GTK-theme (e.g. for Firefox) is Arc-Dark.

@@ -1,6 +1,5 @@
 acpi
 alsa-utils
-android-tools
 ant
 arc-gtk-theme
 arc-icon-theme

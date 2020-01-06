@@ -28,6 +28,3 @@ EDITOR              DEFAULT=${VISUAL}
 
 # Allow systemd user to start ssh-agent
 SSH_AUTH_SOCK       DEFAULT=${XDG_RUNTIME_DIR}/ssh-agent.socket
-
-# Add yarn installed global packages to path
-PATH                DEFAULT=${PATH}:${XDG_DATA_HOME}/yarn/global/node_modules/.bin/

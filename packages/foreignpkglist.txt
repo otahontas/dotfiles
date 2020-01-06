@@ -1,6 +1,7 @@
 aerc
 antibody
 dasht
+kanttiinit-git
 lscolors-git
 s
 spotify-tui
