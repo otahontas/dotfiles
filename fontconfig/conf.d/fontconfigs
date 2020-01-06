@@ -1,5 +1,0 @@
-# List of configuration files that should be symlinked to this folder from
-# /etc/fonts/conf.avail
-10-sub-pixel-rgb.conf
-11-lcdfilter-default.conf
-70-no-bitmaps.conf
