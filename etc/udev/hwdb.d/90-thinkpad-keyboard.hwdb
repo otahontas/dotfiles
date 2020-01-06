@@ -1,0 +1,3 @@
+evdev:name:ThinkPad Extra Buttons:dmi:bvn*:bvr*:bd*:svnLENOVO*:pn*
+ KEYBOARD_KEY_49=prog1
+ KEYBOARD_KEY_45=prog2

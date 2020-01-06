@@ -1,0 +1,9 @@
+[Unit]
+Description=Run etc-folder backup after boot and once a day
+
+[Timer]
+OnBootSec=30s
+OnUnitActiveSec=1d
+
+[Install]
+WantedBy=timers.target 
