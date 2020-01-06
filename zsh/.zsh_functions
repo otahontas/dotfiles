@@ -12,17 +12,6 @@ funcname aur_updates() {
     done
 }
 
-# Function to write daily diary. Follows file naming conventions by 
-# https://f-droid.org/en/packages/org.billthefarmer.diary/ so syncing between
-# arch and android is convinient
-funcname diary() {
-    if [[ ! -d ~/documents/life/diary/$(date +"%Y/%m") ]]; then
-        mkdir -p ~/documents/life/diary/$(date +"%Y/%m")
-    fi
-
-    nvim ~/documents/life/diary/$(date +"%Y/%m/%d").txt    
-}
-
 # Function to change wallpaper. Previous wallapaper gets backuped into
 # ~/media/wallpaper_archive, which is created if there is no archive
 funcname change_wallpaper() {
@@ -35,9 +24,44 @@ funcname change_wallpaper() {
     echo "Reload your sway config to set new wallpaper"
 }
 
+# Function to write daily diary. Follows file naming conventions by 
+# https://f-droid.org/en/packages/org.billthefarmer.diary/ so syncing between
+# arch and android is convinient
+funcname diary() {
+    if [[ ! -d ~/documents/life/diary/$(date +"%Y/%m") ]]; then
+        mkdir -p ~/documents/life/diary/$(date +"%Y/%m")
+    fi
+
+    nvim ~/documents/life/diary/$(date +"%Y/%m/%d").txt    
+}
+
 # Create folder and cd to it
 funcname mcd() {
     mkdir "$1" && cd "$1"
+}
+
+# Mounts encrypted backup disk given as argument to /media/backup -folder, which is
+# created and given write permissions if not already available
+funcname backup_mounter() {
+    guide="Give m/u as parameter to mount or unmount. If mounting, also give disk as parameter"
+    if [[ $# -eq 0 ]]; then
+        echo $guide
+        return 1
+    fi
+    name=backup
+    dest=/media/$name
+    if [[ $1 == 'm' && $2 != '' ]]; then
+        sudo cryptsetup open $2 $name
+        [[ -e $dest ]] || sudo mkdir -p $dest
+        [[ -w $dest ]] || sudo chmod 777 $dest
+        sudo mount /dev/mapper/$name $dest
+    elif [[ $1 == 'u' ]]; then
+        sudo umount $dest
+        sudo cryptsetup close $name
+    else
+        echo $guide
+        return 1
+    fi
 }
 
 # Wrapper for ranger, automatically changes to last visited directory when
