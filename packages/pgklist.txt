@@ -9,7 +9,6 @@ brightnessctl
 browserpass
 browserpass-firefox
 ctags
-dhcpcd
 docker
 duplicity
 etckeeper
