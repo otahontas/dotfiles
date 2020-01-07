@@ -1,5 +1,5 @@
 [Unit]
-Description=Run scripts that prints different package list backups to packages folder
+Description=Run script that lists different non-pacman packages to ~/.config/packages
 
 [Service]
 Type=oneshot

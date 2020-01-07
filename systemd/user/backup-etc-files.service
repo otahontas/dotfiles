@@ -1,5 +1,5 @@
 [Unit]
-Description=Run etc-folder backup script
+Description=Run etc-folder backup script that backups the most important file from etc
 
 [Service]
 Type=oneshot

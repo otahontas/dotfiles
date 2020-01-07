@@ -2,7 +2,7 @@
 Description=Run bootloader backup after boot and once a week
 
 [Timer]
-OnBootSec=30s
+OnStartupSec=5m
 OnUnitActiveSec=1w
 
 [Install]

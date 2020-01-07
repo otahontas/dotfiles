@@ -1,5 +1,5 @@
 [Unit]
-Description=Run non-pacman-packagelist backup after boot and once a day
+Description=Run duplicity backups after boot and once a day.
 
 [Timer]
 OnStartupSec=5m
