@@ -38,6 +38,7 @@
     - Install aur packages
     - Symlink .pam_environment with installation_scripts/create_pam_symlink.sh
     - Reboot
+    - Initialize etckeeper with `sudo etckeeper commit "init"` (or copy previous etc folder from backup, if you have one)
     - Check that files in boot and etc (like bootloader and systemd services) listed in this repo are in place in system /boot and /etc too
     - Run installation_scripts/install_dotfiles.sh
     - Unmute alsa

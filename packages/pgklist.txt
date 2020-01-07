@@ -47,7 +47,9 @@ neovim
 nodejs
 noto-fonts
 noto-fonts-emoji
+ntfs-3g
 openssh
+p7zip
 pass
 pkgconf
 pulseaudio
