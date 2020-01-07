@@ -47,8 +47,5 @@ bindkey -M vicmd 'j' history-substring-search-down
 source /usr/share/LS_COLORS/dircolors.sh
 source $ZDOTDIR/.fzf.zsh
 
-# Set pinentry shell to use non-gui backend when ran interactively
-export DISPLAY=
-
 # Load prompt
 [[ ! -f $ZDOTDIR/.p10k.zsh ]] || source $ZDOTDIR/.p10k.zsh
