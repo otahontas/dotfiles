@@ -1,23 +1,29 @@
-# (Windows 10 installation)
-- I'm suggesting to go through this first, since it makes efi-boot -configuration easier
-- Boot from Windows 10 bootable media
-- Install Windows 10 normally, but resize boot partition during installation. If this is not done, the default boot partition is quite likely to be too small for Win 10 and Arch boot images.
-    - Check out this guide: <https://www.ctrl.blog/entry/how-to-esp-windows-setup.html>
+# (Windows 10 installation if dual-booting) 
+- Create Win10 bootable media
+- Boot from Arch bootable media and format disk with `gdisk` (or your favourite tool)
+    - Empty disk and create new partition gtp partition tabl
+    - create partitions for EFI (partiontype ef00) and Arch. Leave rest for Win
+- Boot from Win10 bootable media
+- Install Windows 10 with custom installation steps and let it only use unallocated space
 - Check that everything installed correctly.
+- Go through necessary steps in <https://wiki.archlinux.org/index.php/Dual_boot_with_Windows>
+    - at least disable Fast Startup and configure Windows to use UTC
 
 # Arch installation
 - Mainly follow: https://wiki.archlinux.org/index.php/Installation_guide
 - Notable customisations during installation:
     - Partitioning with LUKS + LVM:
-        - (If you didn't install windows 10, create boot partition at this point)
+        - (If you didn't install windows 10, you also need to create boot partition at this point)
         - Check out: <https://wiki.archlinux.org/index.php/Dm-crypt/Encrypting_an_entire_system#LVM_on_LUKS>
-            - Create suitable swap and let root fill up rest of the space
-        - Give label for root `cryptsetup config --label="arch_os" /dev/diskname`, so label can be used with bootloader later
+        - Give label for root `cryptsetup config --label="arch_os" /dev/diskname`, so label can be used with bootloader later. Do this before opening created luks.
+        - Create suitable swap and let root fill up rest of the space
         - mount root, mount boot, make swap
         - congigure mkinitcpio.conf (check [etc/mkinitcpio.conf](https://github.com/otahontas/dotfiles/blob/master/etc/mkinitcpio.conf)] and add necessary hooks
-    - install git and iwd (to clone and install this repo later)
+    - install git and etckeeper. Initialize etckeeper. 
+        - Skip this part if you want to use previosly used etckeeper repo.
+    - Install nvim, zsh and sudo.
     - Configure bootloader:
-        - install lvm and intel-microcodes
+        - install lvm and intel-ucode
         - install bootctl
         - configure loader.conf and arch entry (check [/boot/loader/entries/arch.conf](https://github.com/otahontas/dotfiles/blob/master/boot/loader/entries/arch.conf)] and add necessary hooks
     - set zsh as default shell for root chsh -s /bin/zsh
@@ -25,20 +31,18 @@
     ```
     useradd -m -g users -G wheel,input,video,docker -s /bin/zsh USERNAME
     passwd USERNAME
-    EDITOR=vi visudo (uncomment sudo access for wheel)
+    EDITOR=nvim visudo (uncomment sudo access for wheel)
 
     ```
     - exit, umount -R /mnt and reboot
 - After install stuff
     - login with created account
-    - Enable and start systemd-resolved and iwd, connect to wifi
-    - (install firefox if needed)
+    - Connect to wifi (with iwd and systemd-resolved on this setup)
     - Clone this repo
     - Install packages with `pacman -S --needed - < packages/pkglist.txt`
     - Install aur packages
     - Symlink .pam_environment with installation_scripts/create_pam_symlink.sh
     - Reboot
-    - Initialize etckeeper with `sudo etckeeper commit "init"` (or copy previous etc folder from backup, if you have one)
     - Check that files in boot and etc (like bootloader and systemd services) listed in this repo are in place in system /boot and /etc too
     - Run installation_scripts/install_dotfiles.sh
     - Unmute alsa
