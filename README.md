@@ -29,8 +29,8 @@ Configuration for Arch Linux, zsh, sway, kitty, neovim and more.
     - Fonts are [FiraCode](https://github.com/tonsky/FiraCode) for coding and terminal, [Meslo Nerd Font](https://github.com/romkatv/powerlevel10k#recommended-meslo-nerd-font-patched-for-powerlevel10k) for added bunch of Glyphs and Google Noto fonts (including noto-emojis) as base-level fonts.
 
 ## Installation
-- Clone repo into $HOME/.config
-- Execute installation_scripts/create_pam_symlink.sh or copy/symlink .pam_enviroment to $HOME
+- Clone repo into $HOME/.config or merge with your existing config 
+- Symlink pam_environment to $HOME/.pam_environment or set up environmental variables other way
 - Reboot
-- Execute installation_scripts/install_dotfiles.sh
+- Run installation_scripts/create_dirs_and_symlinks.sh
 - For whole Arch OS (+optionally Win 10 dual-boot) installation, check out [ARCH_INSTALL.md](https://github.com/otahontas/dotfiles/blob/master/ARCH_INSTALL.md)

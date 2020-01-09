@@ -21,7 +21,7 @@
         - congigure mkinitcpio.conf (check [etc/mkinitcpio.conf](https://github.com/otahontas/dotfiles/blob/master/etc/mkinitcpio.conf)] and add necessary hooks
     - install git and etckeeper. Initialize etckeeper. 
         - Skip this part if you want to use previosly used etckeeper repo.
-    - Install nvim, zsh and sudo.
+    - Install iwd, nvim, zsh and sudo.
     - Configure bootloader:
         - install lvm and intel-ucode
         - install bootctl
@@ -38,12 +38,17 @@
 - After install stuff
     - login with created account
     - Connect to wifi (with iwd and systemd-resolved on this setup)
-    - Clone this repo
+    - Clone this repo 
+    - Rename dotfiles-folder to ~/.config
+    - Symlink .pam_environment to $HOME/.pam_environment
     - Install packages with `pacman -S --needed - < packages/pkglist.txt`
-    - Install aur packages
-    - Symlink .pam_environment with installation_scripts/create_pam_symlink.sh
+        - Act upon alerts while installing
+    - Clone aur packages with installation_scripts/install_aur.sh
+        - This runs git clone for each package in package list and checks if they're already installed
+        - Install packages with makepkg `srci` or pacman -U package if package is part of package group
     - Reboot
+    - Create necessary directories and symlink rest of stuff with installation_script/create_dirs_and_symlinks.sh
+    - Check what has changed in .config with `git diff`, fix if necessary
     - Check that files in boot and etc (like bootloader and systemd services) listed in this repo are in place in system /boot and /etc too
-    - Run installation_scripts/install_dotfiles.sh
-    - Unmute alsa
+        - fix if necessary
     - Delete root password and lock root `passwd -dl root`
