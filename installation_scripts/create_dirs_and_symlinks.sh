@@ -1,6 +1,6 @@
 #!/bin/sh
 echo "// Creating folders"
-[[ -e $GNUPGHOME ]] || mkdir -p $GNUPGHOME
+[[ -e $GNUPGHOME ]] || mkdir -p $GNUPGHOME && chmod 700 $GNUPGHOME
 [[ -e $XDG_DATA_HOME/nvim/backup ]] || mkdir -p $XDG_DATA_HOME/nvim/backup
 
 echo "// Symlinking fonts folder to XDG_DATA_HOME"
