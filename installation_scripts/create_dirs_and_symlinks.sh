@@ -1,14 +1,7 @@
 #!/bin/sh
-echo "// Symlinking font configs from /etc/fonts/conf.avail/"
-destfolder=$XDG_CONFIG_HOME/fontconfig/conf.d
-configlist=$destfolder/fontconfigs
-while read F; do
-    # Parse comments out
-    if [[ ${F:0:1} != '#' ]]; then
-        [[ -e $destfolder/$F ]] || ln -s /etc/fonts/conf.avail/$F $destfolder/
-    fi
-done < $configlist
-echo "Done"
+echo "// Creating folders"
+[[ -e $GNUPGHOME ]] || mkdir -p $GNUPGHOME
+[[ -e $XDG_DATA_HOME/nvim/backup ]] || mkdir -p $XDG_DATA_HOME/nvim/backup
 
 echo "// Symlinking fonts folder to XDG_DATA_HOME"
 dest=$XDG_DATA_HOME/fonts
