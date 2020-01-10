@@ -46,6 +46,7 @@ bindkey -M vicmd 'j' history-substring-search-down
 # Load enviromental variables and settings only to be used with interactive shell
 source /usr/share/LS_COLORS/dircolors.sh
 source $ZDOTDIR/.fzf.zsh
+export PINENTRY_USER_DATA=USE_TTY=1
 
 # Load prompt
 [[ ! -f $ZDOTDIR/.p10k.zsh ]] || source $ZDOTDIR/.p10k.zsh
