@@ -43,11 +43,12 @@
     - Symlink .pam_environment to $HOME/.pam_environment
     - Install packages with `pacman -S --needed - < packages/pkglist.txt`
         - Act upon alerts while installing
-    - Clone aur packages with installation_scripts/install_aur.sh
+    - Clone aur packages with installation_scripts/check_aur_packages.sh
         - This runs git clone for each package in package list and checks if they're already installed
         - Install packages with makepkg `srci` or pacman -U package if package is part of package group
     - Reboot
-    - Create necessary directories and symlink rest of stuff with installation_script/create_dirs_and_symlinks.sh
+    - Run installation_scripts/finalize.sh
+        - This creates some directories and symlinks stuff from ~/.config to other directories
     - Check what has changed in .config with `git diff`, fix if necessary
     - Check that files in boot and etc (like bootloader and systemd services) listed in this repo are in place in system /boot and /etc too
         - fix if necessary
