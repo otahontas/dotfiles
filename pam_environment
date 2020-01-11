@@ -11,18 +11,18 @@ XDG_CONFIG_DIRS     DEFAULT=/etc/xdg
 
 # Set some programs to use XDG Base Directories
 DOCKER_CONFIG       DEFAULT=${XDG_CONFIG_HOME}/docker
-GNUPGHOME           DEFAULT=${XDG_DATA_HOME}/gnupg
+GNUPGHOME           DEFAULT=${XDG_CONFIG_HOME}/gnupg
 GOPATH              DEFAULT=${XDG_DATA_HOME}/go
 GRADLE_USER_HOME    DEFAULT=${XDG_DATA_HOME}/gradle
-LESSHISTFILE        DEFAULT=${XDG_CACHE_HOME}/less/history
+LESSHISTFILE        DEFAULT=${XDG_DATA_HOME}/less/history
 PASSWORD_STORE_DIR  DEFAULT=${XDG_DATA_HOME}/pass
 RUSTUP_HOME         DEFAULT=${XDG_DATA_HOME}/rustup
+WGETRC              DEFAULT=${XDG_CONFIG_HOME}/wget/wgetrc
 ZDOTDIR             DEFAULT=${XDG_CONFIG_HOME}/zsh
 
 # Set every possible backend to use wayland
 MOZ_ENABLE_WAYLAND  DEFAULT=1
 QT_QPA_PLATFORM     DEFAULT=wayland
-DISPLAY             DEFAULT=wayland
 
 # Set up visual and editor
 VISUAL              DEFAULT=nvim

@@ -66,6 +66,7 @@ sway
 swayidle
 swaylock
 syncthing
+thunderbird
 tldr
 tmux
 trash-cli

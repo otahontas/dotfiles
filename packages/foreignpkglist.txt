@@ -3,6 +3,7 @@ antibody
 dasht
 kanttiinit-git
 lscolors-git
+pinentry-wayland
 s
 spotify-tui
 spotifyd-full
