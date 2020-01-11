@@ -2,6 +2,7 @@
 echo "// Creating folders"
 [[ -e $XDG_DATA_HOME/less ]] || mkdir $XDG_DATA_HOME/less
 [[ -e $XDG_DATA_HOME/nvim/backup ]] || mkdir -p $XDG_DATA_HOME/nvim/backup
+[[ -e $XDG_DATA_HOME/wget ]] || mkdir $XDG_DATA_HOME/wget
 [[ -e $XDG_DATA_HOME/zsh ]] || mkdir $XDG_DATA_HOME/zsh
 
 echo "// Symlinking fonts folder to XDG_DATA_HOME"
