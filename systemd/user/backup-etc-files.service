@@ -1,6 +1,0 @@
-[Unit]
-Description=Run etc-folder backup script that backups the most important file from etc
-
-[Service]
-Type=oneshot
-ExecStart=/home/otahontas/.config/systemd/user/scripts/backup-etc-files.sh

@@ -1,2 +1,0 @@
-evdev:atkbd:dmi:*            # built-in keyboard: match all AT keyboards for now
- KEYBOARD_KEY_3a=esc	     # bind capslock to escape

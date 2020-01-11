@@ -16,16 +16,3 @@ for f in $XDG_CONFIG_HOME/pacman-hooks/*.hook; do
     [[ -e $destfolder/$name ]] || sudo ln -s $f $destfolder/
 done
 echo "Done"
-
-echo "// Symlinking udev hwdb-maps to /etc/udev/hwdb.d/"
-destfolder=/etc/udev/hwdb.d/
-for f in /home/otahontas/.config/etc/udev/hwdb.d/*; do
-    name=$(echo $f | xargs -n 1 basename)
-    [[ -e $destfolder/$name ]] || sudo ln -s $f $destfolder/
-done
-echo "Done"
-
-echo "// Reloading hwdb for new keymap"
-sudo udevadm hwdb --update
-sudo udevadm trigger
-echo "Done"

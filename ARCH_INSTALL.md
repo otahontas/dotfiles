@@ -18,13 +18,13 @@
         - Give label for root `cryptsetup config --label="arch_os" /dev/diskname`, so label can be used with bootloader later. Do this before opening created luks.
         - Create suitable swap and let root fill up rest of the space
         - mount root, mount boot, make swap
-        - congigure mkinitcpio.conf (check [etc/mkinitcpio.conf](https://github.com/otahontas/dotfiles/blob/master/etc/mkinitcpio.conf)] and add necessary hooks
+        - congigure mkinitcpio.conf and add encrypt, lvm2 and resume hooks
     - install git and etckeeper. Initialize etckeeper. 
-        - Skip this part if you want to use previosly used etckeeper repo.
+        - Skip etckeeper if you want to use previosly used etckeeper repo.
     - Install iwd, nvim, zsh and sudo.
     - Configure bootloader:
         - install lvm and intel-ucode
-        - install bootctl
+        - run bootctl install
         - configure loader.conf and arch entry (check [/boot/loader/entries/arch.conf](https://github.com/otahontas/dotfiles/blob/master/boot/loader/entries/arch.conf)] and add necessary hooks
     - set zsh as default shell for root chsh -s /bin/zsh
     - create new user 

@@ -32,5 +32,5 @@ Configuration for Arch Linux, zsh, sway, kitty, neovim and more.
 - Clone repo into $HOME/.config or merge with your existing config 
 - Symlink pam_environment to $HOME/.pam_environment or set up environmental variables other way
 - Reboot
-- Run installation_scripts/create_dirs_and_symlinks.sh
+- Run installation_scripts/finalize.sh
 - For whole Arch OS (+optionally Win 10 dual-boot) installation, check out [ARCH_INSTALL.md](https://github.com/otahontas/dotfiles/blob/master/ARCH_INSTALL.md)
