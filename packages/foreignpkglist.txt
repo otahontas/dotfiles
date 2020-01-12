@@ -1,6 +1,7 @@
 aerc
 antibody
 dasht
+heroku-cli
 kanttiinit-git
 lscolors-git
 pinentry-wayland

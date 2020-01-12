@@ -11,6 +11,7 @@ alias ra="ranger"
 alias v="nvim"
 alias vi="nvim"
 alias vim="nvim"
+alias vimdiff="nvim -d"
 
 # Programming
 alias py="python"

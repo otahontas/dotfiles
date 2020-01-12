@@ -10,6 +10,7 @@ a = "selfhost_local"
 b = "selfhost_remote"
 collections = ["from a", "from b"]
 metadata = ["color"]
+conflict_resolution = ["command", "nvim", "-d"]
 
 [storage selfhost_local]
 type = "filesystem"
