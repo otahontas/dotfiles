@@ -12,6 +12,7 @@
     co = checkout
     br = branch
     last = log -1 HEAD
-    cane = commit --amend --no-edit
     cm = commit -m
+    cane = commit --amend --no-edit
+    cedit = commit --amend
 	hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short

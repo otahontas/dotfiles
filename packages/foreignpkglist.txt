@@ -7,5 +7,6 @@ pinentry-wayland
 s
 spotify-tui
 spotifyd-full
+watson
 wl-clipboard-x11
 wofi
