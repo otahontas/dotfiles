@@ -1,6 +1,8 @@
 # Don't add files or folders that mainly contain just auth tokens and temp stuff
+aerc/accounts.conf
 boot/loader/random-seed
 dconf/
+docker/config.json
 gnupg/
 hub
 pulse/
