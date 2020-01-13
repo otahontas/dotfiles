@@ -5,7 +5,7 @@
 EAP-Method=PEAP
 EAP-Identity=anonymous@helsinki.fi
 EAP-PEAP-Phase2-Method=MSCHAPv2
-EAP-PEAP-Phase2-Identity=usename@helsinki.fi
+EAP-PEAP-Phase2-Identity=usename@ad.helsinki.fi
 EAP-PEAP-Phase2-Password=password
 
 [Settings]
