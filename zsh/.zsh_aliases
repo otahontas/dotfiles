@@ -25,3 +25,7 @@ alias wget="wget --hsts-file='$XDG_DATA_HOME/wget-hsts'"
 alias la="ls -la"
 alias ll="ls -l"
 alias lr="ls -Rl"
+
+# Backtracking
+alias ...="cd ../.."
+alias ....="cd ../../.."
