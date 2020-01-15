@@ -8,6 +8,7 @@ base
 brightnessctl
 browserpass
 browserpass-firefox
+catimg
 ctags
 docker
 docker-compose
@@ -49,6 +50,7 @@ nodejs
 noto-fonts
 noto-fonts-emoji
 ntfs-3g
+offlineimap
 openssh
 p7zip
 pass
@@ -67,7 +69,6 @@ sway
 swayidle
 swaylock
 syncthing
-thunderbird
 tldr
 tmux
 trash-cli

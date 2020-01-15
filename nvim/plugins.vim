@@ -17,6 +17,7 @@ Plug 'Rigellute/rigel'
 Plug 'dbeniamine/todo.txt-vim'
 Plug 'tpope/vim-commentary'
 Plug 'sunaku/vim-dasht'
+Plug 'sheerun/vim-polyglot'
 call plug#end()
 
 " Source plugin settings
