@@ -1,6 +1,5 @@
 [general]
 accounts = private
-fsync = False
 pythonfile = ~/.config/offlineimap/pass_get_details.py
 
 [Account private]
