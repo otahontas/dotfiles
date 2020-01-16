@@ -2,6 +2,7 @@
 nnoremap <leader>f :Files<CR>
 nnoremap <leader>hf :Files $HOME<CR>
 nnoremap <leader>b :Buffers <CR>
+nnoremap <leader>T :Tags <CR>
 
 " Esc exits fzf
 autocmd  FileType fzf tnoremap <Esc> <C-c>

@@ -8,16 +8,20 @@ endif
 
 " Load plugins
 call plug#begin('$XDG_DATA_HOME/nvim/plugged')
+Plug 'dense-analysis/ale'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'scrooloose/nerdtree'
-Plug 'Rigellute/rigel' 
+Plug 'Rigellute/rigel'
+Plug 'majutsushi/tagbar'
 Plug 'dbeniamine/todo.txt-vim'
 Plug 'tpope/vim-commentary'
-Plug 'sunaku/vim-dasht'
+Plug 'ryanoasis/vim-devicons'
+Plug 'airblade/vim-gitgutter'
 Plug 'sheerun/vim-polyglot'
+Plug 'tpope/vim-surround'
 call plug#end()
 
 " Source plugin settings
@@ -25,5 +29,6 @@ runtime pluginsettings/fzf.vim
 runtime pluginsettings/goyo.vim
 runtime pluginsettings/lightline.vim
 runtime pluginsettings/nerdtree.vim
+runtime pluginsettings/tagbar.vim
 runtime pluginsettings/todotxt-vim.vim
 runtime pluginsettings/vim-dasht.vim
