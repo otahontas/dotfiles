@@ -6,6 +6,7 @@ dconf/
 docker/config.json
 gnupg/
 hub
+offlineimap/pass_get_details.pyc
 pulse/
 spotify-tui/
 syncthing/
