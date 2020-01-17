@@ -10,6 +10,8 @@ XDG_DATA_DIRS       DEFAULT=/usr/local/share:/usr/share
 XDG_CONFIG_DIRS     DEFAULT=/etc/xdg
 
 # Set some programs to use XDG Base Directories
+ANDROID_SDK_HOME    DEFAULT={$XDG_CONFIG_HOME}/android
+CARGO_HOME          DEFAULT=${XDG_DATA_HOME}/cargo
 DOCKER_CONFIG       DEFAULT=${XDG_CONFIG_HOME}/docker
 GNUPGHOME           DEFAULT=${XDG_CONFIG_HOME}/gnupg
 GOPATH              DEFAULT=${XDG_DATA_HOME}/go
