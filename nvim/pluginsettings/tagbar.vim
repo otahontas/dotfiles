@@ -1,2 +1,2 @@
 " Mappings
-nnoremap <Leader>o :TagbarToggle<Return>
+nnoremap <Leader>t :TagbarToggle<Return>

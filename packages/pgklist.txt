@@ -44,6 +44,7 @@ lvm2
 make
 man-db
 man-pages
+marked
 maven
 mpv
 neovim
