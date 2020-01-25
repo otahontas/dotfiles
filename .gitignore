@@ -13,3 +13,4 @@ syncthing/
 vdirsyncer/status/
 watson/
 zsh/.zcompdump
+zsh/.p10k.zsh

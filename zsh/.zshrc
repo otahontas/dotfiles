@@ -11,6 +11,7 @@ source $ZDOTDIR/.zsh_functions
 
 # Create big enough history file, disable duplicates and allow different zsh
 # shells to share history all the time (e.g. don't wait until shell is closed)
+[[ -e $XDG_DATA_HOME/zsh ]] || mkdir $XDG_DATA_HOME/zsh
 HISTFILE=$XDG_DATA_HOME/zsh/histfile
 HISTSIZE=2500
 SAVEHIST=$HISTSIZE
@@ -30,7 +31,7 @@ zstyle :compinstall filename '$ZDOTDIR/.zshrc'
 zstyle ':completion:*' menu select
 autoload -Uz compinit && compinit
 autoload bashcompinit && bashcompinit
-source /home/otahontas/.config/zsh/.completions.zsh
+source $ZDOTDIR/.completions.zsh
 setopt correct
 setopt correctall
 

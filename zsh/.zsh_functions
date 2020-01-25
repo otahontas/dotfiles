@@ -32,7 +32,7 @@ funcname diary() {
         mkdir -p ~/documents/life/diary/$(date +"%Y/%m")
     fi
 
-    nvim ~/documents/life/diary/$(date +"%Y/%m/%d").txt    
+    v ~/documents/life/diary/$(date +"%Y/%m/%d").txt    
 }
 
 # Create folder and cd to it
@@ -84,5 +84,5 @@ funcname spt_restart() {
 
 # Launch todo file with vim
 funcname todo() {
-    nvim ~/documents/todo/todo.txt
+    v ~/documents/todo/todo.txt
 }

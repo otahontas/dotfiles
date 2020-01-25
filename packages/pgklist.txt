@@ -5,6 +5,8 @@ ant
 arc-gtk-theme
 arc-icon-theme
 atool
+autoconf
+automake
 base
 brightnessctl
 browserpass
@@ -47,10 +49,10 @@ man-pages
 marked
 maven
 mpv
-neovim
 nodejs
 noto-fonts
 noto-fonts-emoji
+npm
 ntfs-3g
 offlineimap
 openssh
@@ -61,7 +63,6 @@ pulseaudio
 pulseaudio-alsa
 python-pillow
 python-poetry
-python-pynvim
 qt5-wayland
 ranger
 rsync
@@ -71,6 +72,7 @@ sway
 swayidle
 swaylock
 syncthing
+texlive-core
 tldr
 tmux
 trash-cli
@@ -78,16 +80,16 @@ ttf-fira-code
 ufw
 unzip
 vdirsyncer
+vim
 w3m
 wget
 which
 wl-clipboard
 xdg-user-dirs
 xdg-utils
-yarn
-youtube-dl
 zathura
 zathura-pdf-poppler
 zathura-ps
+zeal
 zip
 zsh

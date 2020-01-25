@@ -4,6 +4,7 @@ heroku-cli
 kanttiinit-git
 lscolors-git
 pinentry-wayland
+redshift-wlr-gamma-control-git
 s
 spotify-tui
 spotifyd-full

@@ -8,10 +8,8 @@ alias ls="ls --color=auto"
 alias o="rifle"
 alias pa="pacman"
 alias ra="ranger"
-alias v="nvim"
-alias vi="nvim"
-alias vim="nvim"
-alias vimdiff="nvim -d"
+alias v="vim"
+alias vi="vim"
 
 # Programming
 alias py="python"

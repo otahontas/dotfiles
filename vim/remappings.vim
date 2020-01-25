@@ -3,9 +3,7 @@ let mapleader = "\<Space>"
 let maplocalleader = ","
 
 " Terminal shorcuts, ESC quits :terminal mode
-nnoremap <leader>vt <C-w>v<C-w>l:terminal<CR>I
-nnoremap <leader>st <C-w>s<C-w>j:terminal<CR>I
-tnoremap <ESC> <C-\><C-n>
+nnoremap <leader>vt :terminal<CR>
 
 " Toggle highlighting and hidden chars
 nnoremap <leader>nh :nohlsearch<CR>
@@ -16,6 +14,6 @@ nnoremap <leader>sc :set invlist<CR>
 nnoremap <leader>nb :bnext <CR>
 nnoremap <leader>pb :bprev <CR>
 
-" Copy and paste with system clipboard
-nnoremap <leader>y "+y
-nnoremap <leader>p "+p
+" Copy and paste with system clipboard. fix new way to do this
+"nnoremap <leader>y "+y
+"nnoremap <leader>p "+p
