@@ -1,7 +1,7 @@
 # Settings
 set-option -g default-shell /bin/zsh
 setw -g mode-keys vi
-set -g default-terminal "screen-256color"
+set -g default-terminal "xterm-256color"
 
 # Change main keybinding to ctrl+a
 unbind C-b
