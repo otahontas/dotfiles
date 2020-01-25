@@ -19,7 +19,8 @@ funcname change_wallpaper() {
     w=2560
     mkdir -p ~/media/bg_archive
     bg=~/media/background.jpg
-    mv $bg ~/media/bg_archive/bg_$(date +%Y_%m_%d).jpg
+    dest=~/media/bg_archive/bg_$(date +%Y_%m_%d).jpg
+    [[ -e $dest ]] || mv $bg ~/media/bg_archive/bg_$(date +%Y_%m_%d).jpg
     curl -L https://source.unsplash.com/random/"$w"x"$h" -o $bg
     echo "Reload your sway config to set new wallpaper"
 }
