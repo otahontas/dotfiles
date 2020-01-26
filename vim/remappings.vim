@@ -2,8 +2,11 @@
 let mapleader = "\<Space>"
 let maplocalleader = ","
 
-" Terminal shorcuts, ESC quits :terminal mode
-nnoremap <leader>te :terminal<CR>
+" Terminal shorcut
+nnoremap <leader>te :term<CR>
+
+" Make shortcut
+nnoremap <leader>mm :make!<CR>
 
 " Toggle highlighting and hidden chars
 nnoremap <leader>nh :nohlsearch<CR>
@@ -19,3 +22,6 @@ noremap <leader>yy :write !wl-copy<CR><CR>
 
 " Paste text below from system clipboard
 nnoremap <leader>pp :read !wl-paste<CR>
+
+" Fast saving
+nnoremap <leader>ww :w!<cr>

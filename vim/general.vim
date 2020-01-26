@@ -40,3 +40,16 @@ set history=1000
 set undofile
 set viminfo+=n$XDG_CACHE_HOME/vim/viminfo
 let g:netrw_home=$XDG_CACHE_HOME.'/vim'
+
+" Ignore compiled files
+set wildignore=*.o,*~,*.pyc
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
+
+" No annoying sound on errors
+set noerrorbells
+set novisualbell
+set t_vb=
+set tm=500
+
+" Return to last edit position when opening files
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif

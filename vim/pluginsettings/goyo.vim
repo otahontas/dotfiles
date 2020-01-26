@@ -1,6 +1,3 @@
-" Set goyo size
-let g:goyo_width=70
-
 " Disable stuff when entering Goyo
 function! s:goyo_enter()
     let b:quitting = 0
@@ -14,6 +11,7 @@ function! s:goyo_enter()
     set noshowmode
     set noshowcmd
     set scrolloff=999
+    colorscheme delek
     Limelight
 endfunction
 
@@ -26,6 +24,7 @@ function! s:goyo_leave()
     set showmode
     set showcmd
     set scrolloff=0
+    colorscheme rigel
     Limelight!
     if b:quitting && len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1
         if b:quitting_bang
