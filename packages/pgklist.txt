@@ -8,6 +8,7 @@ atool
 autoconf
 automake
 base
+bison
 brightnessctl
 browserpass
 browserpass-firefox
@@ -21,6 +22,7 @@ fakeroot
 fd
 ffmpegthumbnailer
 firefox-developer-edition
+flex
 fzf
 gcc
 gdb
@@ -58,6 +60,7 @@ offlineimap
 openssh
 p7zip
 pass
+patch
 pkgconf
 pulseaudio
 pulseaudio-alsa
