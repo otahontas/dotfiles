@@ -5,6 +5,7 @@ kanttiinit-git
 lscolors-git
 pinentry-wayland
 redshift-wlr-gamma-control-git
+routahe
 s
 spotify-tui
 spotifyd-full

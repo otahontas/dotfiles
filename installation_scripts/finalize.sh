@@ -1,8 +1,4 @@
 #!/bin/sh
-echo "// Creating folders" 
-# Note: Try to move these to config files themselves
-[[ -e $XDG_DATA_HOME/offlineimap ]] || mkdir -p $XDG_DATA_HOME/offlineimap
-
 echo "// Symlinking fonts folder to XDG_DATA_HOME"
 dest=$XDG_DATA_HOME/fonts
 [[ -e $dest ]] || ln -s $XDG_CONFIG_HOME/fonts $XDG_DATA_HOME/
