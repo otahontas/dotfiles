@@ -25,4 +25,5 @@ call plug#end()
 runtime pluginsettings/fzf.vim
 runtime pluginsettings/goyo.vim
 runtime pluginsettings/lightline.vim
+runtime pluginsettings/polyglot.vim
 runtime pluginsettings/todotxt-vim.vim
