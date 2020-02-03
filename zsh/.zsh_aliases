@@ -24,6 +24,9 @@ alias la="ls -la"
 alias ll="ls -l"
 alias lr="ls -Rl"
 
+# Tmux helper commands
+alias ts="tmux split-window"
+
 # Backtracking
 alias ...="cd ../.."
 alias ....="cd ../../.."
