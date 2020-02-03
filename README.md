@@ -1,6 +1,6 @@
 <h1 align="center"> Dotfiles ❤ </h1>
 
-Configuration for Arch Linux, zsh, sway, kitty, neovim and more.
+Configuration for Arch Linux, zsh, sway, kitty, vim and more.
 
 ![example screenshot](https://raw.githubusercontent.com/otahontas/dotfiles/master/screenshot.png)
 
@@ -14,7 +14,7 @@ Configuration for Arch Linux, zsh, sway, kitty, neovim and more.
 ## Important programs
 - CLI:
     - Shell: Zsh with Antibody plugin manager and Powerlevel10K theme
-    - Editor: Neovim with bunch of plugins mimicking IDE style configurations
+    - Editor: Vim as quite plain installation, uses omnicompletion, fzf and couple of plugins for ide-like features
     - Multiplexer: Tmux
     - Version control: Git
     - Fuzzy finder: Fzf
