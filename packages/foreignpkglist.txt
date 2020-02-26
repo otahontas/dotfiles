@@ -4,6 +4,7 @@ heroku-cli
 kanttiinit-git
 lscolors-git
 pinentry-wayland
+protonvpn-cli-ng
 redshift-wlr-gamma-control-git
 routahe
 s
