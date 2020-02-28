@@ -19,18 +19,25 @@ GRADLE_USER_HOME    	DEFAULT=${XDG_DATA_HOME}/gradle
 LESSHISTFILE        	DEFAULT=${XDG_DATA_HOME}/less_history
 NODE_REPL_HISTORY       DEFAULT=${XDG_DATA_HOME}/node_repl_history
 NPM_CONFIG_USERCONFIG   DEFAULT=${XDG_CONFIG_HOME}/npm/npmrc
+OCTAVE_HISTFILE         DEFAULT=${XDG_DATA_HOME}/octave_hist
 PASSWORD_STORE_DIR  	DEFAULT=${XDG_DATA_HOME}/pass
 RUSTUP_HOME         	DEFAULT=${XDG_DATA_HOME}/rustup
 VIMINIT             	DEFAULT=":source ${XDG_CONFIG_HOME}/vim/vimrc"
 ZDOTDIR             	DEFAULT=${XDG_CONFIG_HOME}/zsh
+WEECHAT_HOME            DEFAULT=$XDG_CONFIG_HOME/weechat
 
 # Set every possible backend to use wayland
-MOZ_ENABLE_WAYLAND  	DEFAULT=1
-QT_QPA_PLATFORM     	DEFAULT=wayland
+MOZ_ENABLE_WAYLAND  	    DEFAULT=1
+QT_QPA_PLATFORM     	    DEFAULT=wayland
+_JAVA_AWT_WM_NONREPARENTING DEFAULT=1
 
 # Set up visual and editor
 VISUAL              	DEFAULT=vim
 EDITOR              	DEFAULT=${VISUAL}
+
+# Set up java envs
+JAVA_HOME               DEFAULT=/usr/lib/jvm/java-11-openjdk/
+PATH                    DEFAULT=${JAVA_HOME}:${PATH}
 
 # Allow systemd user to start ssh-agent
 SSH_AUTH_SOCK       	DEFAULT=${XDG_RUNTIME_DIR}/ssh-agent.socket
