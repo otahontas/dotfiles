@@ -25,3 +25,6 @@ nnoremap <leader>pp :read !wl-paste<CR>
 
 " Fast saving
 nnoremap <leader>ww :w!<cr>
+
+" Change window pwd to current dir and print it
+nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
