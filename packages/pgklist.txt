@@ -13,7 +13,6 @@ brightnessctl
 browserpass
 browserpass-firefox
 catimg
-clang
 ctags
 docker
 docker-compose
