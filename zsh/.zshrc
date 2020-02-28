@@ -27,8 +27,9 @@ setopt autocd
 setopt extendedglob
 
 # Set up completions, compinit file folder and corrections
-zstyle :compinstall filename '$ZDOTDIR/.zshrc'
 zstyle ':completion:*' menu select
+zstyle ':completion:*:ssh:*' hosts off # TODO: configure correct way to ignore /etc/hosts
+zstyle :compinstall filename '$ZDOTDIR/.zshrc'
 autoload -Uz compinit && compinit
 autoload bashcompinit && bashcompinit
 source $ZDOTDIR/.completions.zsh
