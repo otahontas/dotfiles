@@ -69,7 +69,9 @@ bindsym $mod+Return exec $term
 bindsym $mod+Shift+q kill
 bindsym $mod+d exec $menu
 bindsym $mod+Shift+c reload
+bindsym $mod+Shift+o exec swaylock -f -c 000000
 bindsym $mod+Shift+p exec grim $HOME/screenshot_$(date -u +"%Y-%m-%d-%H:%M:%S").png
+bindsym $mod+Shift+Ctrl+p exec grim -g "$(slurp)" $HOME/screenshot_$(date -u +"%Y-%m-%d-%H:%M:%S").png
 bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
 
 # Movement keybindings
