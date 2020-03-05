@@ -28,7 +28,6 @@ setopt extendedglob
 
 # Set up completions, compinit file folder and corrections
 zstyle ':completion:*' menu select
-zstyle ':completion:*:ssh:*' hosts off # TODO: configure correct way to ignore /etc/hosts
 zstyle :compinstall filename '$ZDOTDIR/.zshrc'
 autoload -Uz compinit && compinit
 autoload bashcompinit && bashcompinit
@@ -54,11 +53,12 @@ if [[ ! -z "${WAYLAND_DISPLAY}" ]]; then
     export PINENTRY_USER_DATA=USE_TTY=1
 fi
 
-# Allow zsh to be started interactively while running a command
-if [[ $1 == eval ]]
-then
+# Zsh can be started interactively while running command with:
+# "zsh -is eval 'command'", where -i means interactive and -s reads eval from
+# stdin
+if [[ $1 == eval ]]; then
     "$@"
-set --
+    set --
 fi
 
 # Load prompt
