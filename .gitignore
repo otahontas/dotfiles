@@ -9,6 +9,7 @@ gnupg/
 hub
 offlineimap/pass_get_details.pyc
 pulse/
+QtProject.conf
 spotify-tui/
 syncthing/
 vdirsyncer/status/
