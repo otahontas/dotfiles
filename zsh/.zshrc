@@ -49,8 +49,16 @@ bindkey -M vicmd 'j' history-substring-search-down
 source /usr/share/LS_COLORS/dircolors.sh
 source $ZDOTDIR/.fzf.zsh
 
+# Setup pinetry settings for interactive usage
 if [[ ! -z "${WAYLAND_DISPLAY}" ]]; then
     export PINENTRY_USER_DATA=USE_TTY=1
+fi
+
+# Allow zsh to be started interactively while running a command
+if [[ $1 == eval ]]
+then
+    "$@"
+set --
 fi
 
 # Load prompt
