@@ -103,6 +103,5 @@ xdg-utils
 zathura
 zathura-pdf-poppler
 zathura-ps
-zeal
 zip
 zsh
