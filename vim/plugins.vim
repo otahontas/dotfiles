@@ -16,6 +16,7 @@ Plug 'Rigellute/rigel'
 Plug 'dbeniamine/todo.txt-vim'
 Plug 'lervag/vimtex'
 Plug 'tpope/vim-commentary'
+Plug 'sunaku/vim-dasht'
 Plug 'airblade/vim-gitgutter'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-surround'
@@ -27,3 +28,4 @@ runtime pluginsettings/goyo.vim
 runtime pluginsettings/lightline.vim
 runtime pluginsettings/polyglot.vim
 runtime pluginsettings/todotxt-vim.vim
+runtime pluginsettings/vim-dasht.vim
