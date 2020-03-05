@@ -64,6 +64,7 @@ openvpn
 p7zip
 pass
 patch
+perl-file-mimeinfo
 pkgconf
 pulseaudio
 pulseaudio-alsa
