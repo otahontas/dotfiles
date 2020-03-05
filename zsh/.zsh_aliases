@@ -1,18 +1,9 @@
 # Program aliases. Some of these are for most used commands, some just set
-# better defaults
+# Better defaults
 alias diff="diff --color=auto"
-alias g="git"
 alias grep="grep --color=auto"
 alias info="info --vi-keys"
 alias ls="ls --color=auto"
-alias o="rifle"
-alias pa="pacman"
-alias ra="ranger"
-alias v="vim"
-alias vi="vim"
-
-# Programming
-alias py="python"
 
 # Set some programs to use XDG Base
 alias mvn="mvn -gs '$XDG_CONFIG_HOME/maven/settings.xml'"
@@ -26,6 +17,9 @@ alias lr="ls -Rl"
 
 # Tmux helper commands
 alias ts="tmux split-window"
+
+# Open with rifle (from ranger), falls back to xdg-open
+alias o="rifle"
 
 # Backtracking
 alias ...="cd ../.."
