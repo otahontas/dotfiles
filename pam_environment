@@ -24,12 +24,17 @@ PASSWORD_STORE_DIR  	DEFAULT=${XDG_DATA_HOME}/pass
 RUSTUP_HOME         	DEFAULT=${XDG_DATA_HOME}/rustup
 VIMINIT             	DEFAULT=":source ${XDG_CONFIG_HOME}/vim/vimrc"
 ZDOTDIR             	DEFAULT=${XDG_CONFIG_HOME}/zsh
-WEECHAT_HOME            DEFAULT=$XDG_CONFIG_HOME/weechat
+WEECHAT_HOME            DEFAULT=${XDG_CONFIG_HOME}/weechat
+_JAVA_OPTIONS           DEFAULT="-Djava.util.prefs.userRoot="${XDG_CONFIG_HOME}"/java"
 
 # Set every possible backend to use wayland
-MOZ_ENABLE_WAYLAND  	    DEFAULT=1
-QT_QPA_PLATFORM     	    DEFAULT=wayland
-_JAVA_AWT_WM_NONREPARENTING DEFAULT=1
+MOZ_ENABLE_WAYLAND  	            DEFAULT=1
+#QT_QPA_PLATFORM     	            DEFAULT=wayland
+QT_WAYLAND_DISABLE_WINDOWDECORATION DEFAULT=1
+_JAVA_AWT_WM_NONREPARENTING         DEFAULT=1
+SDL_VIDEODRIVER                     DEFAULT=wayland
+ECORE_EVAS_ENGINE                   DEFAULT=wayland_egl
+ELM_ENGINE                          DEFAULT=wayland_egl
 
 # Set up visual and editor
 VISUAL              	DEFAULT=vim

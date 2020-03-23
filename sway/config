@@ -6,7 +6,7 @@ gaps {
     inner 5
 }
 default_border pixel 2
-xwayland disable
+xwayland enable
 
 # Colors from Rigel theme
 set $fg     #e6e6dc

@@ -1,5 +1,4 @@
-# Program aliases. Some of these are for most used commands, some just set
-# Better defaults
+# Set some better defaults
 alias diff="diff --color=auto"
 alias grep="grep --color=auto"
 alias info="info --vi-keys"
@@ -16,11 +15,20 @@ alias ll="ls -l"
 alias lr="ls -Rl"
 
 # Tmux helper commands
-alias ts="tmux split-window"
-
-# Open with rifle (from ranger), falls back to xdg-open
-alias o="rifle"
+alias tmuxsplit="tmux split-window"
 
 # Backtracking
 alias ...="cd ../.."
 alias ....="cd ../../.."
+
+# Aliases for daily tools
+alias calendar="vdirsyncer sync && khal interactive && vdirsyncer sync"
+alias calendar-offline="khal interactive"
+alias mail="offlineimap && aerc && offlineimap"
+alias mail-offline="aerc"
+alias spt-new="pkill spotifyd; spotifyd && spt"
+alias o="rifle"
+alias todo="$EDITOR ~/documents/todo/todo.txt"
+
+# Whatsapp in android emulator
+alias emulator="/home/otahontas/Android/Sdk/emulator/emulator"

@@ -1,13 +1,18 @@
 # Function to check all aur packages for updates. Relies on git.
 funcname aur_updates() {
-    aurpath=$HOME/aur
+    aurpath=$HOME/.aur
     for folder in $aurpath/*
-    do 
-        git_status=$(git --work-tree="$folder" --git-dir="$folder/.git" status)
+    do
+        dir="--work-tree=$folder --git-dir=$folder/.git"
+        eval "git $dir fetch" > /dev/null 2>&1
+        git_status=$(eval "git $dir status")
         branch_status=$(echo $git_status | grep 'Your branch')
         if [[ $branch_status != *"up to date"* ]]; then
-            echo "=== $folder can updated, details below: ==="
-            echo "$git_status"
+            echo "=== $folder can updated ==="
+            echo "=> Reseting head, deleting old files and pulling new files"
+            eval "git $dir reset --hard HEAD"
+            eval "git $dir clean -f -d"
+            eval "git $dir pull"
         fi
     done
 }
@@ -33,7 +38,7 @@ funcname diary() {
         mkdir -p ~/documents/life/diary/$(date +"%Y/%m")
     fi
 
-    v ~/documents/life/diary/$(date +"%Y/%m/%d").txt    
+    vim ~/documents/life/diary/$(date +"%Y/%m/%d").txt    
 }
 
 # Create folder and cd to it
@@ -75,15 +80,4 @@ funcname ranger() {
         cd -- "$(cat "$tempfile")"
     fi
     rm -f -- "$tempfile"
-}
-
-# Every once in a while spotifyd becomes unavailable. This allows to restart it
-# and launch spt in one command.
-funcname spt_restart() {
-    pkill spotifyd; spotifyd && spt
-}
-
-# Launch todo file with vim
-funcname todo() {
-    v ~/documents/todo/todo.txt
 }

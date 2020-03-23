@@ -1,6 +1,6 @@
 acpi
 alsa-utils
-android-tools
+ansible
 ant
 arc-gtk-theme
 arc-icon-theme
@@ -8,12 +8,16 @@ atool
 autoconf
 automake
 base
+biber
 bison
+bluez-utils
 brightnessctl
 browserpass
 browserpass-firefox
 catimg
+check
 ctags
+discord
 docker
 docker-compose
 duplicity
@@ -68,9 +72,11 @@ perl-file-mimeinfo
 pkgconf
 pulseaudio
 pulseaudio-alsa
+pulseaudio-bluetooth
+pulsemixer
+python-dnspython
 python-matplotlib
 python-pillow
-python-poetry
 qt5-wayland
 r
 ranger
@@ -83,7 +89,7 @@ swayidle
 swaylock
 syncthing
 systemd-resolvconf
-telegram-desktop
+texlive-bibtexextra
 texlive-core
 tldr
 tmux
@@ -91,6 +97,7 @@ trash-cli
 ttf-fira-code
 ufw
 unzip
+valgrind
 vdirsyncer
 vim
 w3m
@@ -100,6 +107,7 @@ which
 wl-clipboard
 xdg-user-dirs
 xdg-utils
+xorg-server-xwayland
 zathura
 zathura-pdf-poppler
 zathura-ps

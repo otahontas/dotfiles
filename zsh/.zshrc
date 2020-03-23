@@ -49,9 +49,9 @@ source /usr/share/LS_COLORS/dircolors.sh
 source $ZDOTDIR/.fzf.zsh
 
 # Setup pinetry settings for interactive usage
-if [[ ! -z "${WAYLAND_DISPLAY}" ]]; then
-    export PINENTRY_USER_DATA=USE_TTY=1
-fi
+#if [[ ! -z "${WAYLAND_DISPLAY}" ]]; then
+#    export PINENTRY_USER_DATA=USE_TTY=1
+#fi
 
 # Zsh can be started interactively while running command with:
 # "zsh -is eval 'command'", where -i means interactive and -s reads eval from

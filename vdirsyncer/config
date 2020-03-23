@@ -10,7 +10,7 @@ a = "selfhost_local"
 b = "selfhost_remote"
 collections = ["from a", "from b"]
 metadata = ["color"]
-conflict_resolution = ["command", "nvim", "-d"]
+conflict_resolution = ["command", "vimdiff"]
 
 [storage selfhost_local]
 type = "filesystem"
@@ -20,6 +20,23 @@ fileext = ".ics"
 [storage selfhost_remote]
 type = "caldav"
 url.fetch = ["command", "~/.config/vdirsyncer/parse_pass_details.sh", "dev/selfhost/baikal", "6"]
+username.fetch = ["command", "~/.config/vdirsyncer/parse_pass_details.sh", "dev/selfhost/baikal", "5"]
+password.fetch = ["command", "~/.config/vdirsyncer/parse_pass_details.sh", "dev/selfhost/baikal", "1"]
+
+[pair contacts]
+a = "contacts_local"
+b = "contacts_remote"
+collections = ["from a", "from b"]
+conflict_resolution = ["command", "vimdiff"]
+
+[storage contacts_local]
+type = "filesystem"
+path = "~/.local/share/vdirsyncer/contacts/selfhost/"
+fileext = ".vcf"
+
+[storage contacts_remote]
+type = "carddav"
+url.fetch = ["command", "~/.config/vdirsyncer/parse_pass_details.sh", "dev/selfhost/baikal", "7"]
 username.fetch = ["command", "~/.config/vdirsyncer/parse_pass_details.sh", "dev/selfhost/baikal", "5"]
 password.fetch = ["command", "~/.config/vdirsyncer/parse_pass_details.sh", "dev/selfhost/baikal", "1"]
 
