@@ -1,4 +1,5 @@
 # Don't add files or folders that mainly contain just auth tokens and temp stuff
+Slack/
 aerc/accounts.conf
 boot/loader/random-seed
 configstore/
@@ -13,6 +14,8 @@ spotify-tui/
 syncthing/
 tmc-cli/
 vdirsyncer/status/
+weechat/logs/
+weechat/matrix/
+weechat/weechat.log
 zsh/.p10k.zsh
 zsh/.zcompdump
-Slack/
