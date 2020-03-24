@@ -6,10 +6,11 @@ fi
 
 # Audio
 volume_status=$(amixer | grep "Front Left: Playback" | sed -E 's/(^|\])[^[]*($|\[)/ /g' | cut -d' ' -f3)
+audio_input=$(pactl list sinks | grep -A 2 "RUNNING" | grep "Description" | cut -d ' ' -f 2-4)
 if [[ $volume_status == 'off' ]]; then
     volume="🔇 Muted"
 else 
-    volume="🔊 $(amixer | grep "Front Left: Playback" | sed -E 's/(^|\])[^[]*($|\[)/ /g' | cut -d' ' -f2)"
+    volume="🔊 $(amixer | grep "Front Left: Playback" | sed -E 's/(^|\])[^[]*($|\[)/ /g' | cut -d' ' -f2) $audio_input"
 fi
 
 # Batteries for two battery Thinkpad T480
