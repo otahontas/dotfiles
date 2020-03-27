@@ -15,4 +15,4 @@
     cm = commit -m
     cane = commit --amend --no-edit
     cedit = commit --amend
-	hist = log --pretty=format:'%h %aD | %s%d [%an]' --graph --date=short
+    hist = log --pretty=format:'%h %aD | %s%d [%an]' --graph --date=short
