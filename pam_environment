@@ -41,6 +41,3 @@ EDITOR              	DEFAULT=${VISUAL}
 # Set up java envs
 JAVA_HOME               DEFAULT=/usr/lib/jvm/java-11-openjdk/
 PATH                    DEFAULT=${JAVA_HOME}:${PATH}
-
-# Allow systemd user to start ssh-agent
-SSH_AUTH_SOCK       	DEFAULT=${XDG_RUNTIME_DIR}/ssh-agent.socket

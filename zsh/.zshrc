@@ -44,22 +44,13 @@ export KEYTIMEOUT=1
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 
-# Load enviromental variables and settings only to be used with interactive shell
+# Load enviromental variables for various programs
 source /usr/share/LS_COLORS/dircolors.sh
 source $ZDOTDIR/.fzf.zsh
+source $ZDOTDIR/.gpg.zsh
 
-# Setup pinetry settings for interactive usage
-#if [[ ! -z "${WAYLAND_DISPLAY}" ]]; then
-#    export PINENTRY_USER_DATA=USE_TTY=1
-#fi
-
-# Zsh can be started interactively while running command with:
-# "zsh -is eval 'command'", where -i means interactive and -s reads eval from
-# stdin
-if [[ $1 == eval ]]; then
-    "$@"
-    set --
-fi
+# Load setup for launcing zsh with custom parameters
+source $ZDOTDIR/.parameters.zsh
 
 # Load prompt
 [[ ! -f $ZDOTDIR/.p10k.zsh ]] || source $ZDOTDIR/.p10k.zsh
