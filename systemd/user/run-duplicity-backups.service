@@ -1,5 +1,5 @@
 [Unit]
-Description=Run script that backups home and etc to local backup disk with duplicity
+Description=Run script that backups /home and /etc to local backup disk with duplicity
 
 [Service]
 Type=oneshot
