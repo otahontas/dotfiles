@@ -51,6 +51,7 @@ linux
 linux-firmware
 lvm2
 make
+mako
 man-db
 man-pages
 marked
@@ -60,11 +61,9 @@ nodejs
 noto-fonts
 noto-fonts-emoji
 npm
-ntfs-3g
 octave
 offlineimap
 openssh
-openvpn
 p7zip
 pass
 patch
@@ -74,12 +73,12 @@ pulseaudio
 pulseaudio-alsa
 pulseaudio-bluetooth
 pulsemixer
-python-dnspython
 python-matplotlib
 python-pillow
 qt5-wayland
 r
 ranger
+riot-desktop
 rsync
 rustup
 slurp
@@ -87,7 +86,6 @@ sudo
 sway
 swayidle
 swaylock
-syncthing
 systemd-resolvconf
 texlive-bibtexextra
 texlive-core
@@ -95,6 +93,7 @@ tldr
 tmux
 trash-cli
 ttf-fira-code
+udiskie
 ufw
 unzip
 valgrind

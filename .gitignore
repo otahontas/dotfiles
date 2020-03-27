@@ -8,6 +8,7 @@ configstore/
 dconf/
 discord/
 docker/config.json
+fonts/.uuid
 gnupg/
 hub
 offlineimap/pass_get_details.pyc

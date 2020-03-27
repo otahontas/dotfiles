@@ -18,4 +18,3 @@ spotifyd-full
 tmc-cli
 weechat-poljar-matrix-git
 wl-clipboard-x11
-zoom
