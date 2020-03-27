@@ -7,28 +7,23 @@ alias ls="ls --color=auto"
 # Set some programs to use XDG Base
 alias mvn="mvn -gs '$XDG_CONFIG_HOME/maven/settings.xml'"
 alias tmux="tmux -u -f $XDG_CONFIG_HOME/tmux/config"
-alias wget="wget --hsts-file='$XDG_DATA_HOME/wget-hsts'"
 
 # Listing commands
 alias la="ls -la"
 alias ll="ls -l"
 alias lr="ls -Rl"
 
-# Tmux helper commands
-alias tmuxsplit="tmux split-window"
-
 # Backtracking
 alias ...="cd ../.."
 alias ....="cd ../../.."
 
 # Aliases for daily tools
-alias calendar="vdirsyncer sync && khal interactive && vdirsyncer sync"
 alias calendar-offline="khal interactive"
-alias mail="offlineimap && aerc && offlineimap"
+alias calendar="vdirsyncer sync && khal interactive && vdirsyncer sync"
 alias mail-offline="aerc"
-alias spt-new="pkill spotifyd; spotifyd && spt"
+alias mail="offlineimap && aerc && offlineimap"
 alias o="rifle"
+alias spt-new="pkill spotifyd; spotifyd && spt"
+alias sys="systemctl"
+alias sysu="systemctl --user"
 alias todo="$EDITOR ~/documents/todo/todo.txt"
-
-# Whatsapp in android emulator
-alias emulator="/home/otahontas/Android/Sdk/emulator/emulator"
