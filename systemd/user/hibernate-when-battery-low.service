@@ -1,0 +1,6 @@
+[Unit]
+Description=Launch battery check and hibernation timer
+
+[Service]
+Type=oneshot
+ExecStart="/home/otahontas/.config/systemd/user/scripts/hibernate-when-battery-low.sh"
