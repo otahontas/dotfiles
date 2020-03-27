@@ -1,0 +1,6 @@
+[Unit]
+Description=Push etckeeper repo to remote
+
+[Service]
+Type=oneshot
+ExecStart="/home/otahontas/.config/systemd/user/scripts/push-etckeeper.sh"
