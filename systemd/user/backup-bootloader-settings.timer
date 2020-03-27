@@ -1,8 +1,8 @@
 [Unit]
-Description=Run bootloader backup after boot and once a week
+Description=Run bootloader backup after boot and every week
 
 [Timer]
-OnStartupSec=5m
+OnStartupSec=1m
 OnUnitActiveSec=1w
 
 [Install]
