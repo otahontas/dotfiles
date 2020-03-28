@@ -14,6 +14,8 @@ hub
 offlineimap/pass_get_details.pyc
 pulse/
 spotify-tui/
+systemd/user/default.target.wants/
+systemd/user/timers.target.wants/
 tmc-cli/
 vdirsyncer/status/
 weechat/logs/

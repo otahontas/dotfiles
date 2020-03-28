@@ -4,7 +4,10 @@ dasht
 heroku-cli
 kanttiinit-git
 libolm
+libselinux
+libsepol
 lscolors-git
+neovim-nightly
 pinentry-wayland
 python-nio
 python-olm

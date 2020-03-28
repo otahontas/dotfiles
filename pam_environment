@@ -26,6 +26,7 @@ WEECHAT_HOME            DEFAULT=${XDG_CONFIG_HOME}/weechat
 WGETRC                  DEFAULT=${XDG_CONFIG_HOME}/wget/wgetrc
 ZDOTDIR             	DEFAULT=${XDG_CONFIG_HOME}/zsh
 _JAVA_OPTIONS           DEFAULT=-Djava.util.prefs.userRoot=${XDG_CONFIG_HOME}/java
+MATLAB_LOG_DIR          DEFAULT=${XDG_CACHE_HOME}/matlab
 
 # Set every possible backend to use wayland
 ECORE_EVAS_ENGINE                   DEFAULT=wayland_egl
@@ -43,3 +44,6 @@ EDITOR              	DEFAULT=${VISUAL}
 # Set up java envs
 JAVA_HOME               DEFAULT=/usr/lib/jvm/java-11-openjdk/
 PATH                    DEFAULT=${JAVA_HOME}:${PATH}
+
+# Add user-spesific bin-stuff to PATH
+PATH                    DEFAULT={PATH}:@{HOME}/.bin
