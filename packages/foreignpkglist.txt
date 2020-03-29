@@ -1,3 +1,4 @@
+absolutely-proprietary
 aerc
 antibody
 dasht
@@ -8,7 +9,6 @@ libselinux
 libsepol
 lscolors-git
 neovim-nightly
-pinentry-wayland
 python-nio
 python-olm
 python2-olm

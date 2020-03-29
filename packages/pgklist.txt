@@ -24,7 +24,6 @@ duplicity
 etckeeper
 fakeroot
 fd
-ffmpegthumbnailer
 firefox-developer-edition
 flex
 fzf
@@ -38,7 +37,6 @@ highlight
 httpie
 hub
 imagemagick
-imlib2
 imv
 intel-ucode
 iw
@@ -56,15 +54,12 @@ man-db
 man-pages
 marked
 maven
-mpv
 nodejs
 noto-fonts
 noto-fonts-emoji
 npm
-octave
 offlineimap
 openssh
-p7zip
 pass
 patch
 perl-file-mimeinfo
@@ -76,8 +71,8 @@ pulsemixer
 python-matplotlib
 python-pillow
 qt5-wayland
-r
 ranger
+reflector
 riot-desktop
 rsync
 rustup
