@@ -4,14 +4,10 @@ antibody
 dasht
 heroku-cli
 kanttiinit-git
-libolm
 libselinux
 libsepol
 lscolors-git
 neovim-nightly
-python-nio
-python-olm
-python2-olm
 redshift-wlr-gamma-control-git
 routahe
 s
@@ -19,5 +15,4 @@ slack-desktop
 spotify-tui
 spotifyd-full
 tmc-cli
-weechat-poljar-matrix-git
 wl-clipboard-x11

@@ -38,8 +38,11 @@ set backup
 set fileencoding=utf-8
 set history=1000
 set undofile
-set viminfo+=n$XDG_CACHE_HOME/vim/viminfo
 let g:netrw_home=$XDG_CACHE_HOME.'/vim'
+" Different settings from vim and nvim"
+if !has('nvim')
+    set viminfo+=n$XDG_CACHE_HOME/vim/viminfo
+endif
 
 " Ignore compiled files
 set wildignore=*.o,*~,*.pyc

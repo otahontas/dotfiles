@@ -45,6 +45,7 @@ jq
 khal
 khard
 kitty
+libolm
 linux
 linux-firmware
 lvm2
@@ -55,8 +56,6 @@ man-pages
 marked
 maven
 nodejs
-noto-fonts
-noto-fonts-emoji
 npm
 offlineimap
 openssh
@@ -70,10 +69,11 @@ pulseaudio-bluetooth
 pulsemixer
 python-matplotlib
 python-pillow
+python-pipenv
+python-pynvim
 qt5-wayland
 ranger
 reflector
-riot-desktop
 rsync
 rustup
 slurp
@@ -87,7 +87,10 @@ texlive-core
 tldr
 tmux
 trash-cli
+ttf-arphic-uming
 ttf-fira-code
+ttf-joypixels
+ttf-liberation
 udiskie
 ufw
 unzip
@@ -96,6 +99,7 @@ vdirsyncer
 vim
 w3m
 weechat
+weechat-matrix
 wget
 which
 wl-clipboard

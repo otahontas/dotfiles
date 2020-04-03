@@ -43,14 +43,13 @@ input "1:1:AT_Translated_Set_2_keyboard" {
     xkb_options "grp:ctrls_toggle, caps:swapescape"
 }
 
-# Variables for vim style movement, terminal and bemenu program launcher
+# Variables for movements and programs
 set $mod Mod4
 set $left h
 set $down j
 set $up k
 set $right l
 set $term kitty
-set $menu wofi | xargs swaymsg exec --
 
 # Idle settings for locking and sleeping. Set on by default, but can be toggled
 # off and on again with keybindings.
@@ -64,14 +63,15 @@ exec $idle
 bindsym $mod+i exec $idle
 bindsym $mod+Shift+i exec pkill swayidle
 
-# Basic keybindings
+# Keybindings for the most common tasks
 bindsym $mod+Return exec $term
 bindsym $mod+Shift+q kill
-bindsym $mod+d exec kitty --class=launcher sh -c "compgen -c | sort -u | fzf | xargs -r swaymsg -t command exec"  
-bindsym $mod+Shift+d exec kitty --class=opener zsh -is eval "source $ZDOTDIR/cond_settings/exit_after_running.zsh"
+bindsym $mod+d exec $term --class=launcher sh -c "compgen -c | sort -u | fzf | xargs -r swaymsg -t command exec"  
+bindsym $mod+Shift+d exec $term --class=opener zsh -is eval "source $ZDOTDIR/cond_settings/exit_after_running.zsh"
 for_window [app_id="^launcher$|^opener$"] floating enable, resize set width 800 px height 400 px
 bindsym $mod+Shift+c reload
-bindsym $mod+Shift+o exec swaylock -f -c 000000
+bindsym $mod+Shift+o exec swaylock -f -c 000000 
+bindsym $mod+Shift+Ctrl+o exec swaylock -f -c 000000 && systemctl suspend
 bindsym $mod+Shift+p exec grim $HOME/screenshot_$(date -u +"%Y-%m-%d-%H:%M:%S").png
 bindsym $mod+Shift+Ctrl+p exec grim -g "$(slurp)" $HOME/screenshot_$(date -u +"%Y-%m-%d-%H:%M:%S").png
 bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
