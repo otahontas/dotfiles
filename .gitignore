@@ -1,6 +1,4 @@
 # Don't add files or folders that mainly contain just auth tokens and temp stuff
-Electron/
-Riot/
 Slack/
 aerc/accounts.conf
 boot/loader/random-seed
@@ -18,9 +16,6 @@ systemd/user/default.target.wants/
 systemd/user/timers.target.wants/
 tmc-cli/
 vdirsyncer/status/
-weechat/logs/
-weechat/matrix/
-weechat/python/
-weechat/weechat.log
+weechat/
 zsh/.p10k.zsh
 zsh/.zcompdump
