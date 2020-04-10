@@ -38,11 +38,11 @@ set backup
 set fileencoding=utf-8
 set history=1000
 set undofile
-let g:netrw_home=$XDG_CACHE_HOME.'/vim'
-" Different settings from vim and nvim"
-if !has('nvim')
-    set viminfo+=n$XDG_CACHE_HOME/vim/viminfo
+if empty(glob('$XDG_DATA_HOME/nvim/backup/'))
+    silent !mkdir -p $XDG_DATA_HOME/nvim/backup
 endif
+set backupdir=~/.local/share/nvim/backup//
+let g:netrw_home=$XDG_CACHE_HOME.'/nvim'
 
 " Ignore compiled files
 set wildignore=*.o,*~,*.pyc
@@ -57,9 +57,7 @@ set tm=500
 " Return to last edit position when opening files
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
-
-" Auto highlight words
-" autosave delay, cursorhold trigger, default: 4000ms
+" Auto highlight words, autosave delay, cursorhold trigger, default: 4000ms
 setl updatetime=300
 
 highlight WordUnderCursor cterm=underline gui=underline

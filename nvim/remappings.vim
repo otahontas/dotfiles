@@ -3,7 +3,9 @@ let mapleader = "\<Space>"
 let maplocalleader = ","
 
 " Terminal shorcut
-nnoremap <leader>te :term<CR>
+nnoremap <leader>vt <C-w>v<C-w>l:terminal<CR>I
+nnoremap <leader>st <C-w>s<C-w>j:terminal<CR>I
+tnoremap <ESC> <C-\><C-n>
 
 " Make shortcut
 nnoremap <leader>mm :make!<CR>
@@ -17,11 +19,9 @@ nnoremap <leader>sc :set invlist<CR>
 nnoremap <leader>nb :bnext <CR>
 nnoremap <leader>pb :bprev <CR>
 
-" Write selected text to system clipboard
-noremap <leader>yy :write !wl-copy<CR><CR>
-
-" Paste text below from system clipboard
-nnoremap <leader>pp :read !wl-paste<CR>
+" copy and paste with system clipboard
+nnoremap <leader>y "+y
+nnoremap <leader>p "+p
 
 " Fast saving
 nnoremap <leader>ww :w!<cr>
