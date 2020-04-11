@@ -1,18 +1,18 @@
 # Settings
 set-option -g default-shell /bin/zsh
 setw -g mode-keys vi
-set -g default-terminal "xterm-256color"
+set -g default-terminal "screen-256color"
 
 # Change main keybinding to ctrl+a
 unbind C-b
 set-option -g prefix C-a
 bind-key C-a send-prefix
 
-bind r source-file ~/.tmux.conf\; display "Reloaded config"
+bind r source-file $XDG_CONFIG_HOME/tmux/config \; display "Reloaded config"
 
-# Vim style splits
-bind v split-window -h
-bind s split-window -v
+# Set up better splits: vim style bindings + opening new pane in current path
+bind v split-window -h  -c "#{pane_current_path}"
+bind s split-window -v  -c "#{pane_current_path}"
 
 # Vim style movement between panels
 bind h select-pane -L
