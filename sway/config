@@ -38,12 +38,16 @@ input "1739:0:Synaptics_TM3276-022" {
     click_method none
     natural_scroll enabled
 }
+
 input "1:1:AT_Translated_Set_2_keyboard" {
     xkb_layout "us(altgr-intl), fi(nodeadkeys)"
-    xkb_options "grp:ctrls_toggle, caps:swapescape"
 }
 
+input * { 
+    xkb_options "grp:ctrls_toggle, caps:swapescape"
+}
 # Variables for movements and programs
+#
 set $mod Mod4
 set $left h
 set $down j
