@@ -6,4 +6,4 @@ Target = *
 
 [Action]
 When = PostTransaction
-Exec = /bin/sh -c '/usr/bin/pacman -Qqen > /home/otahontas/.config/packages/pgklist.txt ; /usr/bin/pacman -Qqem > /home/otahontas/.config/packages/foreignpkglist.txt'
+Exec = /bin/sh -c '/usr/bin/pacman -Qqen > /home/otahontas/.config/packages/pkglist.txt ; /usr/bin/pacman -Qqem > /home/otahontas/.config/packages/foreignpkglist.txt'

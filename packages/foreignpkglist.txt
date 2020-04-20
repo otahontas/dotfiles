@@ -1,14 +1,17 @@
 absolutely-proprietary
 aerc
 antibody
-dasht
+gomuks-git
 heroku-cli
+jitsi-meet-desktop-bin
 kanttiinit-git
 libselinux
 libsepol
 lscolors-git
-neovim-nightly
+neovim-remote
+pycharm-professional
 redshift-wlr-gamma-control-git
+rocketchat-client-bin
 routahe
 s
 slack-desktop
@@ -16,3 +19,4 @@ spotify-tui
 spotifyd-full
 tmc-cli
 wl-clipboard-x11
+zoom
