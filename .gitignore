@@ -1,21 +1,31 @@
 # Don't add files or folders that mainly contain just auth tokens and temp stuff
+JetBrains/
+Jitsi Meet/
+QtProject.conf
+Rocket.Chat/
 Slack/
+TabNine/
 aerc/accounts.conf
+android/
 boot/loader/random-seed
+coc/
 configstore/
 dconf/
 discord/
 docker/config.json
 fonts/.uuid
 gnupg/
+gomuks/
 hub
+java/
 offlineimap/pass_get_details.pyc
 pulse/
 spotify-tui/
+syncthing/
 systemd/user/default.target.wants/
 systemd/user/timers.target.wants/
 tmc-cli/
 vdirsyncer/status/
-weechat/
+zoomus.conf
 zsh/.p10k.zsh
 zsh/.zcompdump
