@@ -32,5 +32,4 @@ runtime pluginsettings/lightline.vim
 runtime pluginsettings/nerdtree.vim
 runtime pluginsettings/polyglot.vim
 runtime pluginsettings/todotxt-vim.vim
-runtime pluginsettings/vim-dasht.vim
 runtime pluginsettings/vimtex.vim
