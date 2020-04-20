@@ -15,19 +15,22 @@ Plug 'junegunn/fzf.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'lervag/vimtex'
-Plug 'neovim/nvim-lsp'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'ryanoasis/vim-devicons'
 Plug 'scrooloose/nerdtree'
 Plug 'sheerun/vim-polyglot'
-Plug 'sunaku/vim-dasht'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
-Plug 'ryanoasis/vim-devicons'
+Plug 'itchyny/vim-gitbranch'
 call plug#end()
 
 " Source plugin settings
+runtime pluginsettings/coc.vim
 runtime pluginsettings/fzf.vim
 runtime pluginsettings/goyo.vim
 runtime pluginsettings/lightline.vim
+runtime pluginsettings/nerdtree.vim
 runtime pluginsettings/polyglot.vim
 runtime pluginsettings/todotxt-vim.vim
 runtime pluginsettings/vim-dasht.vim
+runtime pluginsettings/vimtex.vim

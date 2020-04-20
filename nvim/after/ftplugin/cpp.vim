@@ -1,6 +1,3 @@
-" Set completions
-setlocal omnifunc=syntaxcomplete#Complete
-
 " Compile only this c++ file with gcc and print possible errors
 " For more complex cases, make should be used
 nnoremap <buffer><localleader>cc :call Compile()<Return>

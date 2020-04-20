@@ -70,3 +70,7 @@ function! HighlightCursorWord()
         exe printf('match WordUnderCursor /\V\<%s\>/', escape(cword, '/\'))
     endif
 endfunction
+
+" Set some extra diff-heuristics
+" https://vimways.org/2018/the-power-of-diff/
+set diffopt+=indent-heuristic,algorithm:patience
