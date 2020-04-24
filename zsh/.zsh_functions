@@ -15,6 +15,8 @@ funcname aur_updates() {
             eval "git $dir pull"
         fi
     done
+    echo "==="
+    echo "Remember to check out git-based builds and manually build them if needed!"
 }
 
 # Function to change wallpaper. Previous wallapaper gets backuped into

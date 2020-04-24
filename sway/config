@@ -44,6 +44,7 @@ input "1:1:AT_Translated_Set_2_keyboard" {
 }
 
 input * { 
+    xkb_layout "us(altgr-intl), fi(nodeadkeys)"
     xkb_options "grp:ctrls_toggle, caps:swapescape"
 }
 # Variables for movements and programs

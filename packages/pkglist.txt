@@ -1,11 +1,8 @@
 acpi
-alsa-utils
 android-tools
 ansible
-ant
 arc-gtk-theme
 arc-icon-theme
-atool
 autoconf
 automake
 base
@@ -14,8 +11,6 @@ bison
 bluez-utils
 brightnessctl
 browserpass
-browserpass-firefox
-catimg
 check
 clang
 ctags
@@ -33,10 +28,8 @@ gcc
 gdb
 git
 go-pie
-gradle
 grim
 highlight
-httpie
 hub
 imagemagick
 imv
@@ -47,8 +40,7 @@ jq
 khal
 khard
 kitty
-kubectl
-libolm
+libreoffice-fresh
 linux
 linux-firmware
 lvm2
@@ -72,9 +64,6 @@ pulseaudio
 pulseaudio-alsa
 pulseaudio-bluetooth
 pulsemixer
-python-mygpoclient
-python-pillow
-python-pipenv
 python-pynvim
 qt5-wayland
 ranger
@@ -102,8 +91,6 @@ udiskie
 ufw
 valgrind
 vdirsyncer
-w3m
-wget
 which
 wl-clipboard
 xdg-user-dirs
@@ -111,5 +98,4 @@ xdg-utils
 xorg-server-xwayland
 zathura
 zathura-pdf-poppler
-zathura-ps
 zsh

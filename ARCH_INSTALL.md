@@ -42,14 +42,14 @@
     - Connect to wifi (with iwd and systemd-resolved on this setup)
     - Clone this repo 
     - Moves dotfiles-folder to ~/.config
-    - Symlink .pam_environment to $HOME/.pam_environment
+    - Symlink .pam_environment_arch to $HOME/.pam_environment
     - Install packages with `pacman -S --needed - < packages/pkglist.txt`
         - Act upon alerts while installing
     - Clone aur packages with installation_scripts/check_aur_packages.sh
         - This runs git clone for each package in package list and checks if they're already installed
-        - Install packages with makepkg `srci` or pacman -U package if package is part of package group
+        - Install packages with `makepkg -srci` or `pacman -U package` if package is part of package group
     - Reboot
-    - Run installation_scripts/finalize.sh
-        - This creates some directories and symlinks stuff from ~/.config to other directories
+    - Run installation_scripts/create_symlinks.sh
+        - This symlinks stuff from ~/.config to other directories
     - Check what has changed in .config with `git diff`, fix if necessary
     - Delete root password and lock root `passwd -dl root`
