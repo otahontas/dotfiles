@@ -39,10 +39,6 @@ input "1739:0:Synaptics_TM3276-022" {
     natural_scroll enabled
 }
 
-input "1:1:AT_Translated_Set_2_keyboard" {
-    xkb_layout "us(altgr-intl), fi(nodeadkeys)"
-}
-
 input * { 
     xkb_layout "us(altgr-intl), fi(nodeadkeys)"
     xkb_options "grp:ctrls_toggle, caps:swapescape"
