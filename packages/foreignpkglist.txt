@@ -12,4 +12,5 @@ s
 spotify-tui
 spotifyd-full
 tmc-cli
+ungoogled-chromium-bin
 wl-clipboard-x11

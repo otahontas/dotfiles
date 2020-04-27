@@ -5,6 +5,7 @@ android/
 boot/loader/random-seed
 coc/
 configstore/
+chromium/
 dconf/
 discord/
 docker/config.json
@@ -24,3 +25,4 @@ tmc-cli/
 vdirsyncer/status/
 zsh/.p10k.zsh
 zsh/.zcompdump
+mimeapps.list

@@ -48,4 +48,4 @@ JAVA_HOME               DEFAULT=/usr/lib/jvm/java-11-openjdk/
 PATH                    DEFAULT=${JAVA_HOME}:${PATH}
 
 # Add user-spesific bin-stuff to PATH
-PATH                    DEFAULT={PATH}:@{HOME}/.bin
+PATH                    DEFAULT=${XDG_DATA_HOME}/bin:${PATH}

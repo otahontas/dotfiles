@@ -1,4 +1,5 @@
 acpi
+alsa-utils
 android-tools
 ansible
 arc-gtk-theme
@@ -19,6 +20,7 @@ docker
 docker-compose
 duplicity
 etckeeper
+exfat-utils
 fakeroot
 fd
 firefox-developer-edition
@@ -91,6 +93,7 @@ udiskie
 ufw
 valgrind
 vdirsyncer
+w3m
 which
 wl-clipboard
 xdg-user-dirs
