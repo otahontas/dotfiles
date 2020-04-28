@@ -40,8 +40,8 @@ input "1739:0:Synaptics_TM3276-022" {
 }
 
 input * { 
-    xkb_layout "us(altgr-intl), fi(nodeadkeys)"
-    xkb_options "grp:ctrls_toggle, caps:swapescape"
+    xkb_layout "us(altgr-intl)"
+    xkb_options "caps:swapescape"
 }
 # Variables for movements and programs
 #

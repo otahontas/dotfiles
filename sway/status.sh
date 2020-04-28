@@ -30,11 +30,8 @@ else
     wifi="📡 $wifi_name"
 fi
 
-# Kb layout
-kb="⌨️ $(swaymsg -t get_inputs | jq '.[3].xkb_active_layout_name' | sed -E 's/"//g' | cut -d' ' -f1)"
-
 # Date
 datetime="⏰ $(date +'%Y-%m-%d %l:%M %p')"
 
 # Finalize output
-echo $idle $volume $wifi $battery $kb $datetime
+echo $idle $volume $wifi $battery $datetime
