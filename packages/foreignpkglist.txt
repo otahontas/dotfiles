@@ -1,10 +1,8 @@
-absolutely-proprietary
 aerc-git
 antibody
 gomuks-git
 heroku-cli
 kanttiinit-git
-lscolors-git
 neovim-remote
 redshift-wlr-gamma-control-git
 routahe
@@ -12,5 +10,4 @@ s
 spotify-tui
 spotifyd-full
 tmc-cli
-ungoogled-chromium-bin
 wl-clipboard-x11

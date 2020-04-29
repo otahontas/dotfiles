@@ -45,7 +45,6 @@ bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 
 # Load enviromental variables for various programs
-source /usr/share/LS_COLORS/dircolors.sh
 source $ZDOTDIR/.fzf.zsh
 source $ZDOTDIR/.gpg.zsh
 

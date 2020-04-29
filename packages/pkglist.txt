@@ -13,6 +13,7 @@ bluez-utils
 brightnessctl
 browserpass
 check
+chromium
 clang
 ctags
 discord
@@ -38,7 +39,6 @@ imv
 intel-ucode
 iw
 iwd
-jq
 khal
 khard
 kitty
@@ -52,6 +52,7 @@ man-db
 man-pages
 marked
 maven
+mpv
 neovim
 nodejs
 npm
@@ -66,6 +67,7 @@ pulseaudio
 pulseaudio-alsa
 pulseaudio-bluetooth
 pulsemixer
+pwgen
 python-pynvim
 qt5-wayland
 ranger
@@ -99,6 +101,7 @@ wl-clipboard
 xdg-user-dirs
 xdg-utils
 xorg-server-xwayland
+xournalpp
 zathura
 zathura-pdf-poppler
 zsh
