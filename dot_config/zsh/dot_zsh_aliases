@@ -1,0 +1,25 @@
+# Set some better defaults
+alias diff="diff --color=auto"
+alias grep="grep --color=auto"
+alias info="info --vi-keys"
+alias ls="exa"
+alias vimdiff="nvim -d"
+
+# Listing commands
+alias la="ls -la"
+alias ll="ls -l"
+alias lr="ls -Rl"
+
+# Backtracking
+alias ...="cd ../.."
+alias ....="cd ../../.."
+
+# Aliases for daily tools
+alias calendar="vdirsyncer sync && khal interactive && vdirsyncer sync"
+alias mail="offlineimap && aerc && offlineimap"
+alias o="rifle"
+alias spt-new="pkill spotifyd; spotifyd && spt"
+alias sys="systemctl"
+alias sysu="systemctl --user"
+alias todo="$EDITOR ~/documents/todo/todo.txt"
+alias todone="$EDITOR ~/documents/todo/done.txt"
