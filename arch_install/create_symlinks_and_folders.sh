@@ -16,3 +16,4 @@ echo "// Creating folders for HOME"
 [[ -e ~/downloads ]] || mkdir ~/downloads
 [[ -e ~/documents ]] || mkdir ~/documents
 [[ -e ~/media ]] || mkdir ~/media
+[[ -e ~/public ]] || mkdir ~/public

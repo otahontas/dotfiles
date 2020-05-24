@@ -27,7 +27,7 @@
     - Configure bootloader:
         - install lvm and intel-ucode
         - run bootctl install
-        - configure loader.conf and arch entry ([check entry example](../dot_config/boot/loader/entries/arch.conf)] and add necessary hooks
+        - configure loader.conf and arch entry ([check examples](boot)] and add necessary hooks
     - set zsh as default shell for root chsh -s /bin/zsh
     - create new user 
     ```
@@ -42,7 +42,7 @@
     - Connect to wifi 
     - Setup env variables, packages, dotfiles:
       - [arch_pgklist](../packages/arch_pkglist.txt) includes pacman packages
-      - [arch_foreign_pkglist](../packages/arch_foreign_pkglist.txt) includes aur packages
+      - [arch_foreignpkglist](../packages/arch_foreignpkglist.txt) includes aur packages
         - You can run clone script for aur packages
         - Follow warnings during package installs
       - Install dotfiles from this repo with chezmoi
