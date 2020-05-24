@@ -1,0 +1,6 @@
+[Unit]
+Description=Run script that backups /home and /etc to local backup disk with duplicity
+
+[Service]
+Type=oneshot
+ExecStart=/home/otahontas/.config/systemd/user/scripts/run-duplicity-backups.sh

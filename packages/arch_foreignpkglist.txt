@@ -16,10 +16,8 @@ pyenv-virtualenv
 redshift-wlr-gamma-control-git
 routahe
 s
-slack-desktop
 spotify-tui
 spotifyd-full
-sway-alttab-bin
 webstorm
 webstorm-jre
 wl-clipboard-x11

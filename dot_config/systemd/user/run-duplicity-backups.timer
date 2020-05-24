@@ -1,0 +1,9 @@
+[Unit]
+Description=Run duplicity backups after boot and once a day.
+
+[Timer]
+OnStartupSec=1m
+OnUnitActiveSec=1d
+
+[Install]
+WantedBy=timers.target 

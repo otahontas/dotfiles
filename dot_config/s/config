@@ -1,0 +1,10 @@
+provider: duckduckgo
+
+customProviders [
+    {
+      name: osm
+      url: "https://www.openstreetmap.org/search?query=%s"
+    }
+]
+
+whitelist: [duckduckgo, archwiki, aur, osm, cplusplus, python, github]
