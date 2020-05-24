@@ -2,7 +2,7 @@
 
 Configuration for Arch Linux, zsh, sway, kitty, nvim and more. Managed with [chezmoi](https://www.chezmoi.io/).
 
-![example screenshot](https://raw.githubusercontent.com/otahontas/dotfiles/master/screenshot.png)
+![example screenshot](screenshot.png)
 
 ## Goals
 - Keep files quite minimal and well-documented, so setup is easy to debug and stays fast
@@ -28,4 +28,4 @@ Configuration for Arch Linux, zsh, sway, kitty, nvim and more. Managed with [che
 
 ## Installation
 - For whole Arch OS (+optionally Win 10 dual-boot) installation guide, check out [installation_guide.md](arch_install/installation_guide.md)
-- You probably don't want to install these files directly to your system, but take a look and copy what you like. If you however want to install these, [chezmoi](https://www.chezmoi.io/docs/how-to/#use-completely-separate-config-files-on-different-machines) can be used for installation process.
+- You probably don't want to install these files directly to your system, but take a look and copy what you like. (If you however want to install these, [chezmoi](https://www.chezmoi.io/docs/how-to/#use-completely-separate-config-files-on-different-machines) can be used.)

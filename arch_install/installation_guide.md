@@ -6,7 +6,7 @@
     - create partitions for EFI (partiontype ef00) and Arch. Leave rest for Win
 - Boot from Win10 bootable media
 - Install Windows 10 with custom installation steps and let it only use unallocated space
-- Note: Win10 will try to force you into creating Microsoft account, avoid this by disconnecting from wifi / lan ((https://www.howtogeek.com/442609/confirmed-windows-10-setup-now-prevents-local-account-creation/)[check out more here])
+- Note: Win10 will try to force you into creating Microsoft account, avoid this by disconnecting from wifi / lan ([more info here](https://www.howtogeek.com/442609/confirmed-windows-10-setup-now-prevents-local-account-creation/))
 - Check that everything installed correctly.
 - Go through necessary steps in <https://wiki.archlinux.org/index.php/Dual_boot_with_Windows>
     - at least disable Fast Startup and configure Windows to use UTC
@@ -27,7 +27,7 @@
     - Configure bootloader:
         - install lvm and intel-ucode
         - run bootctl install
-        - configure loader.conf and arch entry (check [/boot/loader/entries/arch.conf](dot_config/boot/loader/entries/arch.conf)] and add necessary hooks
+        - configure loader.conf and arch entry ([check entry example](../dot_config/boot/loader/entries/arch.conf)] and add necessary hooks
     - set zsh as default shell for root chsh -s /bin/zsh
     - create new user 
     ```
@@ -41,12 +41,11 @@
     - login with created account
     - Connect to wifi 
     - Setup env variables, packages, dotfiles:
-      - `dot_config/packages/arch_pkglist.txt` includes pacman packages
-      - `dot_config/packages/arch_foreign_pkglist.txt` includes aur packages
+      - [arch_pgklist](../packages/arch_pkglist.txt) includes pacman packages
+      - [arch_foreign_pkglist](../packages/arch_foreign_pkglist.txt) includes aur packages
         - You can run clone script for aur packages
         - Follow warnings during package installs
       - Install dotfiles from this repo with chezmoi
     - Delete root password and lock root `passwd -dl root`
     - Reboot
-    - Finalize by running `create_symlinks_and_folders.sh` script
-    - All good
+    - Finalize by running [create_symlinks_and_folders -script](create_symlinks_and_folders.sh)
