@@ -27,7 +27,7 @@
     - Configure bootloader:
         - install lvm and intel-ucode
         - run bootctl install
-        - configure loader.conf and arch entry (check [/boot/loader/entries/arch.conf](https://github.com/otahontas/dotfiles/blob/master/boot/loader/entries/arch.conf)] and add necessary hooks
+        - configure loader.conf and arch entry (check [/boot/loader/entries/arch.conf](dot_config/boot/loader/entries/arch.conf)] and add necessary hooks
     - set zsh as default shell for root chsh -s /bin/zsh
     - create new user 
     ```
@@ -37,14 +37,16 @@
 
     ```
     - exit, umount -R /mnt and reboot
-- After install stuff
+- Post-install stuff:
     - login with created account
     - Connect to wifi 
     - Setup env variables, packages, dotfiles:
-      - `dot_config/packages/pkglist.txt` includes pacman packages
-      - `dot_config/packages/foreign_pkglist.txt` includes aur packages
+      - `dot_config/packages/arch_pkglist.txt` includes pacman packages
+      - `dot_config/packages/arch_foreign_pkglist.txt` includes aur packages
         - You can run clone script for aur packages
-      - Check dot_config/installation_scripts for possibly needed 
-      - Check this repo for dotfiles
+        - Follow warnings during package installs
+      - Install dotfiles from this repo with chezmoi
     - Delete root password and lock root `passwd -dl root`
+    - Reboot
+    - Finalize by running `create_symlinks_and_folders.sh` script
     - All good

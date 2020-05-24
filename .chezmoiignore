@@ -1,0 +1,10 @@
+# Chezmoi doesn't copy these to home folder when `chezmoi apply` is ran
+
+# Ignore readme
+README.md
+
+# Ignore my guide for arch installation 
+arch_install/
+
+# Ignore aur package backup lists (these are written directly by pacman hooks)
+packages/

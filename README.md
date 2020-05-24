@@ -27,5 +27,5 @@ Configuration for Arch Linux, zsh, sway, kitty, nvim and more. Managed with [che
     - Fonts are [FiraCode](https://github.com/tonsky/FiraCode) for coding and terminal, [Meslo Nerd Font](https://github.com/romkatv/powerlevel10k#recommended-meslo-nerd-font-patched-for-powerlevel10k) for added bunch of Glyphs and ttf-dejavu as base-level fonts.
 
 ## Installation
-- For whole Arch OS (+optionally Win 10 dual-boot) installation guide, check out [ARCH_INSTALL.md](https://github.com/otahontas/dotfiles/blob/master/ARCH_INSTALL.md)
-- You don't probably wan't to install these files directly, but take a look and copy what you like. If you however want to install these, [chezmoi](https://www.chezmoi.io/docs/how-to/#use-completely-separate-config-files-on-different-machines) can be used for that.
+- For whole Arch OS (+optionally Win 10 dual-boot) installation guide, check out [installation_guide.md](arch_install/installation_guide.md)
+- You probably don't want to install these files directly to your system, but take a look and copy what you like. If you however want to install these, [chezmoi](https://www.chezmoi.io/docs/how-to/#use-completely-separate-config-files-on-different-machines) can be used for installation process.
