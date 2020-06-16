@@ -10,6 +10,7 @@ base
 biber
 bison
 bluez-utils
+bpython
 brightnessctl
 browserpass
 check
@@ -35,7 +36,6 @@ git
 go
 grim
 highlight
-hub
 imagemagick
 imv
 intel-ucode
@@ -54,7 +54,6 @@ man-db
 man-pages
 marked
 mpv
-mypy
 neovim
 nodejs
 npm
@@ -72,6 +71,7 @@ pulsemixer
 pwgen
 pyenv
 python-isort
+python-poetry
 python-tox
 qt5-wayland
 ranger
