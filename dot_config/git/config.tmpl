@@ -14,10 +14,13 @@
     br = branch
     last = log -1 HEAD
     cm = commit -m
-    cane = commit --amend --no-edit
     cedit = commit --amend
+    cane = commit --amend --no-edit
     hist = log --pretty=format:'%h %aD | %s%d [%an]' --graph --date=short
     root = rev-parse --show-toplevel
+    sshow = stash show -p
+    sdrop = stash drop stash@{0}
+    ssave = stash save -u
 [merge]
     tool = vimdiff
 [mergetool]

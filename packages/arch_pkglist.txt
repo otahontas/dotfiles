@@ -41,6 +41,7 @@ imv
 intel-ucode
 iw
 iwd
+jq
 khal
 khard
 kitty

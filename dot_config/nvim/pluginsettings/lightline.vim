@@ -9,9 +9,11 @@ let g:lightline = {
     \ 'colorscheme' : 'rigel', 
     \ 'active': {
     \   'left': [ [ 'mode', 'paste' ],
-    \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+    \             [ 'gitbranch', 'cocstatus', 'currentfunction', 'readonly', 'filename', 'modified' ] ]
     \ },
     \ 'component_function': {
-    \   'gitbranch': 'gitbranch#name'
+    \   'gitbranch': 'gitbranch#name',
+    \   'cocstatus': 'coc#status',
+    \   'currentfunction': 'CocCurrentFunction'    
     \ },
     \ }

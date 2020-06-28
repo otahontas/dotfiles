@@ -80,3 +80,8 @@ set diffopt+=indent-heuristic,algorithm:patience
 
 " Set neovim to use system clipboard
 set clipboard=unnamedplus
+
+" Always use current neovim instance as preferred text editor
+if has('nvim') && executable('nvr')
+    let $VISUAL="nvr -cc split --remote-wait +'set bufhidden=wipe'"
+endif

@@ -7,6 +7,7 @@ endif
 
 " Load plugins
 call plug#begin('$XDG_DATA_HOME/nvim/plugged')
+Plug '$XDG_DATA_HOME/nvim/plugged/vim-redact-pass/'
 Plug 'Rigellute/rigel'
 Plug 'airblade/vim-gitgutter'
 Plug 'dbeniamine/todo.txt-vim'
@@ -20,11 +21,14 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'scrooloose/nerdtree'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-surround'
-Plug '$XDG_DATA_HOME/nvim/plugged/vim-redact-pass/'
+Plug 'honza/vim-snippets'
+Plug 'alvan/vim-closetag'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
 " Source plugin settings
+runtime pluginsettings/closetag.vim
+runtime pluginsettings/coc.vim
 runtime pluginsettings/fzf.vim
 runtime pluginsettings/goyo.vim
 runtime pluginsettings/lightline.vim

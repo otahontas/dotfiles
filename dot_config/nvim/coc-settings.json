@@ -1,0 +1,3 @@
+{
+  "python.venvFolders": [".cache/pyenv", ".cache/pypoetry"]
+}

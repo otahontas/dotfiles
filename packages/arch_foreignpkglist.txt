@@ -8,9 +8,11 @@ github-cli
 gomuks
 heroku-cli
 kanttiinit-git
+misspell
 neovim-remote
 neovim-symlinks
 nvm
+openshift-source-to-image
 pyenv-virtualenv
 redshift-wlr-gamma-control-git
 rocketchat-client-bin

@@ -3,6 +3,7 @@ let mapleader = "\<Space>"
 let maplocalleader = ","
 
 " Terminal shorcut
+nnoremap <leader>tt :terminal<CR>I
 nnoremap <leader>vt <C-w>v<C-w>l:terminal<CR>I
 nnoremap <leader>st <C-w>s<C-w>j:terminal<CR>I
 tnoremap <ESC> <C-\><C-n>
