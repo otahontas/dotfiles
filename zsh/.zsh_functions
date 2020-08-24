@@ -11,7 +11,7 @@ funcname aur_updates() {
             echo "=== $folder can updated ==="
             echo "=> Reseting head, deleting old files and pulling new files"
             eval "git $dir reset --hard HEAD"
-            eval "git $dir clean -f -d"
+            eval "git $dir clean -xfd"
             eval "git $dir pull"
         fi
     done

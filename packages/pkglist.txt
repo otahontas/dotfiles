@@ -21,10 +21,13 @@ docker
 docker-compose
 duplicity
 etckeeper
+evince
+exa
 exfat-utils
 fakeroot
 fd
 firefox-developer-edition
+flake8
 flex
 fzf
 gcc
@@ -68,7 +71,11 @@ pulseaudio-alsa
 pulseaudio-bluetooth
 pulsemixer
 pwgen
+pyenv
+pylama
+python-isort
 python-pynvim
+python-tox
 qt5-wayland
 ranger
 reflector

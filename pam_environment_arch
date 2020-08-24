@@ -29,6 +29,7 @@ WEECHAT_HOME            DEFAULT=${XDG_CONFIG_HOME}/weechat
 WGETRC                  DEFAULT=${XDG_CONFIG_HOME}/wget/wgetrc
 ZDOTDIR             	DEFAULT=${XDG_CONFIG_HOME}/zsh
 _JAVA_OPTIONS           DEFAULT=-Djava.util.prefs.userRoot=${XDG_CONFIG_HOME}/java
+PYENV_ROOT              DEFAULT=@{HOME}/.pyenv
 
 # Set every possible backend to use wayland
 ECORE_EVAS_ENGINE                   DEFAULT=wayland_egl

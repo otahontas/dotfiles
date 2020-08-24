@@ -51,5 +51,10 @@ source $ZDOTDIR/.gpg.zsh
 # Load setup for launcing zsh with custom parameters
 source $ZDOTDIR/.parameters.zsh
 
+# Load pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
 # Load prompt
 [[ ! -f $ZDOTDIR/.p10k.zsh ]] || source $ZDOTDIR/.p10k.zsh
