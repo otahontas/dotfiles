@@ -1,4 +1,5 @@
 acpi
+alacritty
 alsa-utils
 android-tools
 ansible
@@ -7,6 +8,7 @@ arc-icon-theme
 autoconf
 automake
 base
+bat
 biber
 bison
 bluez-utils
@@ -22,20 +24,24 @@ discord
 docker
 docker-compose
 duplicity
+element-desktop
 etckeeper
 exa
 exfat-utils
 fakeroot
 fd
+firefox
 firefox-developer-edition
 flex
 fzf
 gcc
 gdb
 git
+github-cli
 go
 grim
 highlight
+htop
 imagemagick
 imv
 intel-ucode
@@ -71,6 +77,7 @@ pulseaudio-bluetooth
 pulsemixer
 pwgen
 pyenv
+python-black
 python-isort
 python-poetry
 python-tox
@@ -87,6 +94,7 @@ swayidle
 swaylock
 syncthing
 systemd-resolvconf
+termdown
 texlive-bibtexextra
 texlive-core
 tldr
@@ -106,6 +114,7 @@ xdg-user-dirs
 xdg-utils
 xorg-server-xwayland
 xournalpp
+yarn
 zathura
 zathura-pdf-poppler
 zsh

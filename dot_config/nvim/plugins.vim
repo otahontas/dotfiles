@@ -21,14 +21,11 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'scrooloose/nerdtree'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-commentary'
-Plug 'honza/vim-snippets'
 Plug 'alvan/vim-closetag'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
 " Source plugin settings
 runtime pluginsettings/closetag.vim
-runtime pluginsettings/coc.vim
 runtime pluginsettings/fzf.vim
 runtime pluginsettings/goyo.vim
 runtime pluginsettings/lightline.vim

@@ -16,8 +16,6 @@ DOCKER_CONFIG       	DEFAULT=${XDG_CONFIG_HOME}/docker
 GNUPGHOME           	DEFAULT=${XDG_CONFIG_HOME}/gnupg
 GOPATH              	DEFAULT=${XDG_CACHE_HOME}/go
 LESSHISTFILE        	DEFAULT=${XDG_DATA_HOME}/less_history
-_JAVA_OPTIONS           DEFAULT=-Djava.util.prefs.userRoot=${XDG_CONFIG_HOME}/java
-
 NODE_REPL_HISTORY       DEFAULT=${XDG_DATA_HOME}/node_repl_history
 NOTMUCH_CONFIG          DEFAULT=${XDG_CONFIG_HOME}/notmuch/config
 NPM_CONFIG_USERCONFIG   DEFAULT=${XDG_CONFIG_HOME}/npm/npmrc

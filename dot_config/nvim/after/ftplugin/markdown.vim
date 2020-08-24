@@ -11,7 +11,7 @@ nnoremap <buffer> <localleader>wc :call WordCount()<Return>
 
 " Compile markdown into HTML with marked.js library and open it in firefox
 function! Compile()
-    :!file=$(mktemp); marked % > $file && firefox-developer-edition $file
+    :!file=$(mktemp); marked % > $file && $BROWSER $file
 endfunction
 
 function! WordCount()

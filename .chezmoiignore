@@ -4,7 +4,7 @@
 README.md
 screenshot.png
 
-# Ignore my guide for arch installation 
+# Ignore guide for arch installation 
 arch_install/
 
 # Ignore aur package backup lists (these are written directly by pacman hooks)

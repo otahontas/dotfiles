@@ -41,6 +41,7 @@
     - login with created account
     - Connect to wifi 
     - Setup env variables, packages, dotfiles:
+      - env variables are in [.pam_environment](../dot_pam_environment)
       - [arch_pgklist](../packages/arch_pkglist.txt) includes pacman packages
       - [arch_foreignpkglist](../packages/arch_foreignpkglist.txt) includes aur packages
         - You can run clone script for aur packages

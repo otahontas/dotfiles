@@ -8,9 +8,6 @@ nnoremap <leader>vt <C-w>v<C-w>l:terminal<CR>I
 nnoremap <leader>st <C-w>s<C-w>j:terminal<CR>I
 tnoremap <ESC> <C-\><C-n>
 
-" Make shortcut
-nnoremap <leader>mm :make!<CR>
-
 " Toggle highlighting and hidden chars
 nnoremap <leader>nh :nohlsearch<CR>
 set listchars=nbsp:¬,eol:¶,tab:>-,extends:»,precedes:«,trail:•
