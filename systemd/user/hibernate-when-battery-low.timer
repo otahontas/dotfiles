@@ -1,9 +1,0 @@
-[Unit]
-Description=Run battery level check and hibernate if needed
-
-[Timer]
-OnBootSec=1s
-OnUnitActiveSec=1m
-
-[Install]
-WantedBy=timers.target 

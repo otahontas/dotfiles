@@ -1,6 +1,0 @@
-[Unit]
-Description=Copy bootloader configs to ~/.config
-
-[Service]
-Type=oneshot
-ExecStart="/home/otahontas/.config/systemd/user/scripts/backup-bootloader-settings.sh"

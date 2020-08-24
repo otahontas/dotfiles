@@ -1,4 +1,0 @@
-# Don't mount disk used for backing up Windows-partition
-device_config:
-  - id_label: WinukkaBackup
-    ignore: true
