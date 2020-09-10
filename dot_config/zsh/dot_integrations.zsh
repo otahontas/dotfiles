@@ -18,8 +18,8 @@ fi
 # Set FZF defaults and completions
 export FZF_DEFAULT_OPTS='--height 50% --layout=reverse --color=light'
 export FZF_DEFAULT_COMMAND='fd -H --follow --exclude .git'
-export FZF_ALT_C_COMMAND='fd -H --follow --exclude .git -t d'
-export FZF_CTRL_T_COMMAND='fd -H --follow --exclude .git -t f'
+export FZF_ALT_C_COMMAND='fd -H --follow --exclude .git --exclude $XDG_CACHE_HOME -t d'
+export FZF_CTRL_T_COMMAND='fd -H --follow --exclude .git --exclude $XDG_CACHE_HOME -t f'
 source /usr/share/fzf/completion.zsh
 source /usr/share/fzf/key-bindings.zsh
 
