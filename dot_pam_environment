@@ -10,7 +10,6 @@ XDG_DATA_DIRS       	DEFAULT=/usr/local/share:/usr/share
 XDG_CONFIG_DIRS     	DEFAULT=/etc/xdg
 
 # Set some programs to use XDG Base Directories
-ANDROID_SDK_HOME	    DEFAULT=${XDG_CONFIG_HOME}/android
 CARGO_HOME          	DEFAULT=${XDG_CACHE_HOME}/cargo
 DOCKER_CONFIG       	DEFAULT=${XDG_CONFIG_HOME}/docker
 GNUPGHOME           	DEFAULT=${XDG_CONFIG_HOME}/gnupg
@@ -27,9 +26,6 @@ SQLITE_HISTORY          DEFAULT=${XDG_DATA_HOME}/sqlite_history
 ZDOTDIR             	DEFAULT=${XDG_CONFIG_HOME}/zsh
 
 # Set every possible backend to use wayland
-ECORE_EVAS_ENGINE                   DEFAULT=wayland_egl
-ELM_ENGINE                          DEFAULT=wayland_egl
-MOZ_ENABLE_WAYLAND  	            DEFAULT=1
 QT_QPA_PLATFORM                     DEFAULT=wayland-egl
 QT_WAYLAND_DISABLE_WINDOWDECORATION DEFAULT=1
 SDL_VIDEODRIVER                     DEFAULT=wayland
@@ -38,7 +34,10 @@ _JAVA_AWT_WM_NONREPARENTING         DEFAULT=1
 # Set up visual and editor
 VISUAL              	DEFAULT=nvim
 EDITOR              	DEFAULT=${VISUAL}
-BROWSER                 DEFAULT=firefox-developer-edition
+BROWSER                 DEFAULT=firefox
 
-# Add user-spesific bin-stuff to PATH
-PATH                    DEFAULT=@{HOME}/.local/bin:${PATH}
+# Development stuff
+REACT_APP_BROWSER       DEFAULT=firefox-developer-edition
+
+# Set up path to contain home executables and android stuff
+PATH                    DEFAULT=@{HOME}/.local/bin${PATH}
