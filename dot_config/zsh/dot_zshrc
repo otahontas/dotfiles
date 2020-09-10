@@ -1,7 +1,3 @@
-# Source aliases and custom functions
-source $ZDOTDIR/.zsh_aliases
-source $ZDOTDIR/.zsh_functions
-
 # Create big enough history file, disable duplicates and allow different zsh
 # shells to share history all the time (e.g. don't wait until shell is closed)
 [[ -e $XDG_DATA_HOME/zsh ]] || mkdir $XDG_DATA_HOME/zsh
@@ -41,6 +37,11 @@ source $ZDOTDIR/.integrations.zsh
 
 # Load setup for launcing zsh with custom parameters
 source $ZDOTDIR/.parameters.zsh
+
+# Source aliases and custom functions after everything is loaded
+source $ZDOTDIR/.zsh_aliases
+source $ZDOTDIR/.zsh_functions
+
 
 # Load prompt
 [[ ! -f $ZDOTDIR/.p10k.zsh ]] || source $ZDOTDIR/.p10k.zsh
