@@ -21,15 +21,3 @@
     sshow = stash show -p
     sdrop = stash drop stash@{0}
     ssave = stash save -u
-[merge]
-    tool = vimdiff
-[mergetool]
-    prompt = true
-[mergetool "vimdiff"]
-    cmd = nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
-[diffj]
-    tool = vimdiff
-[difftool]
-    prompt = true
-[difftool "vimdiff"]
-    cmd = nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'

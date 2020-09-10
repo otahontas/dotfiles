@@ -1,2 +1,4 @@
+# Workspace / editor / project related stuff
 tags
 .idea/
+.vim/
