@@ -1,0 +1,4 @@
+# Don't mount disk used for backing up Windows-partition
+device_config:
+  - id_label: {{ .udiskie_ignorelabel }}
+    ignore: true

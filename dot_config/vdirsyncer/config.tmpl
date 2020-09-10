@@ -1,0 +1,41 @@
+[general]
+status_path = "~/.local/share/vdirsyncer/status/"
+
+# This config fetches confidental details from pass, depending on values set by chezmoi.
+# Parsing is needed for caldav and carddav details and is done with an external script. 
+# See script 'parse_pass_details' for usage info. 
+
+[pair calendar]
+a = "calendar_local"
+b = "calendar_remote"
+collections = ["from a", "from b"]
+metadata = ["color"]
+conflict_resolution = ["command", "nvim -d"]
+
+[storage calendar_local]
+type = "filesystem"
+path = "{{ .vdirsyncer_calendar_path }}"
+fileext = ".ics"
+
+[storage calendar_remote]
+type = "caldav"
+url.fetch = ["command", "~/.config/vdirsyncer/parse_pass_details.sh", "{{ .vdirsyncer_server_pass_entry }}", "6"]
+username.fetch = ["command", "~/.config/vdirsyncer/parse_pass_details.sh", "{{ .vdirsyncer_server_pass_entry }}", "5"]
+password.fetch = ["command", "~/.config/vdirsyncer/parse_pass_details.sh", "{{ .vdirsyncer_server_pass_entry }}", "1"]
+
+[pair contacts]
+a = "contacts_local"
+b = "contacts_remote"
+collections = ["from a", "from b"]
+conflict_resolution = ["command", "nvim -d"]
+
+[storage contacts_local]
+type = "filesystem"
+path = "{{ .vdirsyncer_contacts_path }}"
+fileext = ".vcf"
+
+[storage contacts_remote]
+type = "carddav"
+url.fetch = ["command", "~/.config/vdirsyncer/parse_pass_details.sh", "{{ .vdirsyncer_server_pass_entry }}", "7"]
+username.fetch = ["command", "~/.config/vdirsyncer/parse_pass_details.sh", "{{ .vdirsyncer_server_pass_entry }}", "5"]
+password.fetch = ["command", "~/.config/vdirsyncer/parse_pass_details.sh", "{{ .vdirsyncer_server_pass_entry }}", "1"]

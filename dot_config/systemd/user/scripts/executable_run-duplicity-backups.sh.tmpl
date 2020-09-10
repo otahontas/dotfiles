@@ -1,12 +1,12 @@
 #!/bin/sh
-backupdisk=/run/media/otahontas/archis_backup/
+backupdisk={{ .systemd_backupdisk }}
 if [[ -e $backupdisk ]]; then
     notify-send "Backing up /home and /etc" "gpg-agent authentication possibly needed"
     # Pinentry-qt needs DISPLAY env var in order to be able to ask for password
-    key=$(env DISPLAY=":0" pass keys/archis_backup)
+    key=$(env DISPLAY=":0" pass {{ .systemd_backupdisk_key_pass_entry }})
     PASSPHRASE=$key duplicity /etc file://$backupdisk/etc
     etc_backup_exit_status=$?
-    PASSPHRASE=$key duplicity --exclude /home/otahontas/.cache /home/otahontas/ file://$backupdisk/home
+    PASSPHRASE=$key duplicity --exclude {{ .systemd_homefolder }}.cache {{ .systemd_homefolder }} file://$backupdisk/home
     home_backup_exit_status=$?
     if [[ $etc_backup_exit_status -ne 0 || $home_backup_exit_status -ne 0 ]]; then
         notify-send "Error happened while doing backup" "Backing up either /home, /etc or both failed"
