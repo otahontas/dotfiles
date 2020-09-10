@@ -1,14 +1,22 @@
 " Visual
 set number
 set showmatch
-set termguicolors
 set laststatus=2
 set showcmd
 set wildmenu
 set wildoptions=tagfile
-colorscheme rigel
+set t_Co=256
+set cursorline
+colorscheme one
+set background=light
+let g:one_allow_italics = 1
 let &colorcolumn="80,".join(range(120,999),",")
-highlight ColorColumn guibg=#00384D
+if exists('+termguicolors')
+  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
 
 " Text editing
 set autoindent
@@ -18,7 +26,7 @@ set smarttab
 set shiftwidth=4
 set softtabstop=4
 set tabstop=4
-set textwidth=79
+set textwidth=88
 
 " Search
 set ignorecase
@@ -44,7 +52,7 @@ endif
 set backupdir=~/.local/share/nvim/backup//
 let g:netrw_home=$XDG_CACHE_HOME.'/nvim'
 
-" Ignore compiled files
+" Ignore compiled files, git stuff
 set wildignore=*.o,*~,*.pyc
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 
@@ -71,7 +79,8 @@ function! HighlightCursorWord()
     endif
 endfunction
 
-" be with in this virtualenv
+
+" Set up correct python3
 let g:python3_host_prog = '/usr/bin/python3'
 
 " Set some extra diff-heuristics

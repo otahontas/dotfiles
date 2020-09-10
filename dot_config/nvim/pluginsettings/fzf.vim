@@ -5,6 +5,8 @@ nnoremap <leader>ff :Files<CR>
 nnoremap <leader>bb :Buffers<CR>
 nnoremap <leader>hh :History<CR>
 nnoremap <leader>rg :Rg<CR>
+nnoremap <leader>bt :BTags<CR>
+nnoremap <leader>tt :Tags<CR>
 
 " Esc exits fzg
 autocmd  FileType fzf tnoremap <Esc> <C-c>
