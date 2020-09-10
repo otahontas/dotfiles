@@ -11,6 +11,7 @@ bison
 bluez-utils
 brightnessctl
 browserpass
+catimg
 chezmoi
 clang
 ctags
