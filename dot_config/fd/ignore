@@ -1,0 +1,4 @@
+.mozilla/
+.cache/
+.offlineimap/
+.git/
