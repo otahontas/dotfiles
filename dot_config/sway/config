@@ -30,7 +30,8 @@ set $white2 #ffffff
 
 # Input
 focus_follows_mouse no
-input "1739:0:Synaptics_TM3276-022" {
+
+input "type:touchpad" {
     dwt enabled
     tap enabled
     middle_emulation disabled
@@ -38,12 +39,12 @@ input "1739:0:Synaptics_TM3276-022" {
     natural_scroll enabled
 }
 
-input * { 
+input "type:keyboard" { 
     xkb_layout "us(altgr-intl)"
     xkb_options "caps:swapescape"
 }
+
 # Variables for movements and programs
-#
 set $mod Mod4
 set $left h
 set $down j
