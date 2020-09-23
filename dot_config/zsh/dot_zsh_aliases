@@ -25,3 +25,6 @@ alias sysu="systemctl --user"
 alias timer="termdown"
 alias todo="$EDITOR ~/documents/todo/todo.txt"
 alias todone="$EDITOR ~/documents/todo/done.txt"
+
+# XDG Base directory fixes
+alias yarn="yarn --use-yarnrc $XDG_CONFIG_HOME/yarn/config"
