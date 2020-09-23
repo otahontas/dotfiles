@@ -64,6 +64,7 @@ pass
 patch
 perl-file-mimeinfo
 pkgconf
+portaudio
 pulseaudio
 pulseaudio-alsa
 pulseaudio-bluetooth
@@ -76,6 +77,7 @@ ranger
 reflector
 ripgrep
 rsync
+rtmidi
 rustup
 slurp
 sudo

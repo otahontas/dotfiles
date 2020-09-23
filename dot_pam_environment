@@ -24,11 +24,14 @@ PYENV_ROOT              DEFAULT=${XDG_CACHE_HOME}/pyenv
 RUSTUP_HOME         	DEFAULT=${XDG_CACHE_HOME}/rustup
 SQLITE_HISTORY          DEFAULT=${XDG_DATA_HOME}/sqlite_history
 ZDOTDIR             	DEFAULT=${XDG_CONFIG_HOME}/zsh
+GRADLE_USER_HOME        DEFAULT=${XDG_DATA_HOME}/gradle
+_JAVA_OPTIONS           DEFAULT=-Djava.util.prefs.userRoot=${XDG_CONFIG_HOME}/java
+WGETRC                  DEFAULT=${XDG_CONFIG_HOME}/wget/wgetrc
+ANDROID_AVD_HOME        DEFAULT=${XDG_DATA_HOME}/android/avd
+ANDROID_EMULATOR_HOME   DEDAULT=${XDG_DATA_HOME}/android
 
-# Set every possible backend to use wayland
-QT_QPA_PLATFORM                     DEFAULT=wayland-egl
+# Set some X11 / wayland spesific fixes
 QT_WAYLAND_DISABLE_WINDOWDECORATION DEFAULT=1
-SDL_VIDEODRIVER                     DEFAULT=wayland
 _JAVA_AWT_WM_NONREPARENTING         DEFAULT=1
 
 # Set up visual and editor
@@ -39,5 +42,5 @@ BROWSER                 DEFAULT=firefox
 # Development stuff
 REACT_APP_BROWSER       DEFAULT=firefox-developer-edition
 
-# Set up path to contain home executables and android stuff
+# Set up path to contain local executables
 PATH                    DEFAULT=@{HOME}/.local/bin${PATH}

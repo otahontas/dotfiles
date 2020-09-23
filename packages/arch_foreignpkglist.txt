@@ -1,4 +1,9 @@
 aerc
+android-emulator
+android-google-apis-playstore-x86-64-system-image
+android-platform
+android-sdk-cmdline-tools-latest
+android-sdk-platform-tools
 antibody
 dasht
 expo-cli
@@ -8,11 +13,13 @@ jitsi-meet-desktop-bin
 kanttiinit-git
 neovim-drop-in
 neovim-remote
+nodejs-gatsby-cli
 nvm
 pyenv-virtualenv
 redshift-wlr-gamma-control-git
 routahe
 s
+slack-desktop
 spotify-tui
 spotifyd-full
 vue-cli
