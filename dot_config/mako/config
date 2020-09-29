@@ -1,4 +1,11 @@
 font="MesloLGS NF 9"
-background-color=#f8f8f8
-text-color=#2a2b33
-border-color=#3e953a
+
+## Light theme
+#background-color=#f8f8f8
+#text-color=#2a2b33
+#border-color=#3e953a
+
+## Dark theme
+background-color=#002635
+text-color=#e6e6dc
+border-color=#7fc06e

@@ -2,9 +2,13 @@ provider: duckduckgo
 
 customProviders [
     {
-      name: osm
+      name: osm,
       url: "https://www.openstreetmap.org/search?query=%s"
+    },
+    {
+      name: invidious,
+      url: "https://invidious.snopyta.org/search?q=%s"
     }
 ]
 
-whitelist: [duckduckgo, archwiki, aur, osm, cplusplus, python, github]
+whitelist: [duckduckgo, archwiki, aur, goodreads, imdb, osm, github, invidious, stackoverflow, wikipedia, wolframalpha]
