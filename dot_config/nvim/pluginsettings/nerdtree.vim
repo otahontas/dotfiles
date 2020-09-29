@@ -1,5 +1,5 @@
 " Mappings
-nnoremap <leader>ee :NERDTreeToggle<CR>
+nnoremap <silent><leader>ee :NERDTreeToggle<CR>
 
 " Show hidden files, open NERDTree automatically in certain cases
 let NERDTreeShowHidden=1

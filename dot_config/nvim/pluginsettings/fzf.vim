@@ -1,13 +1,12 @@
 " Quick shortcuts for different fzf-modes
-" Double letter is used, since single letters would cause vim to wait (i.e. if
-" using b, t and bt as shorcuts)
-nnoremap <leader>ff :Files<CR>
-nnoremap <leader>bb :Buffers<CR>
-nnoremap <leader>hh :History<CR>
-nnoremap <leader>rg :Rg<CR>
-nnoremap <leader>bt :BTags<CR>
-nnoremap <leader>tt :Tags<CR>
+nnoremap <silent><leader>ff :Files<CR>
+nnoremap <silent><leader>gf :GFiles?<CR>
+nnoremap <silent><leader>hh :History<CR>
+nnoremap <silent><leader>rg :Rg<CR>
+nnoremap <silent><leader>co :Commands<CR>
+nnoremap <silent><leader>ma :Maps<CR>
+nnoremap <silent><leader>he :Helptags<CR>
 
-" Esc exits fzg
+" Esc exits fzf
 autocmd  FileType fzf tnoremap <Esc> <C-c>
     \| autocmd BufLeave <buffer> tnoremap <Esc> <C-\><C-n>

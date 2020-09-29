@@ -5,21 +5,20 @@ if empty(glob('$XDG_DATA_HOME/nvim/site/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-" Polyglot must be sourced before polyglot is loaded
+" Source settings for needed plugins before plugins themselves are loaded
 runtime pluginsettings/polyglot.vim
 
 " Load plugins
 call plug#begin('$XDG_DATA_HOME/nvim/plugged')
 
 " Visual elements
+Plug 'Rigellute/rigel'
 Plug 'airblade/vim-gitgutter'
 Plug 'itchyny/lightline.vim'
 Plug 'itchyny/vim-gitbranch'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'rakr/vim-one'
-Plug 'ryanoasis/vim-devicons'
-Plug 'scrooloose/nerdtree'
 
 " Language stuff and text helpers
 Plug 'alvan/vim-closetag'
@@ -29,20 +28,29 @@ Plug 'lervag/vimtex'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
+Plug 'tmhedberg/SimpylFold'
 
 " Security and system
 Plug '$XDG_DATA_HOME/nvim/plugged/vim-redact-pass/'
 Plug 'lambdalisue/suda.vim'
 
-" All-around features (git, search, intellisense, linting, testing) 
+" All-around features (git, search, lsp, testing) 
+Plug 'scrooloose/nerdtree'
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-test/vim-test'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
 call plug#end()
 
 " Source other plugin settings
+runtime pluginsettings/LanguageClient-neovim.vim
 runtime pluginsettings/closetag.vim
+runtime pluginsettings/deoplete.vim
 runtime pluginsettings/fzf.vim
 runtime pluginsettings/goyo.vim
 runtime pluginsettings/lightline.vim

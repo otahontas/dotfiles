@@ -7,10 +7,16 @@ set wildmenu
 set wildoptions=tagfile
 set t_Co=256
 set cursorline
-colorscheme one
-set background=light
-let g:one_allow_italics = 1
-let &colorcolumn="80,".join(range(120,999),",")
+let &colorcolumn="88,".join(range(120,999),",")
+
+" Light theme
+" colorscheme one
+" set background=light
+" let g:one_allow_italics = 1
+
+" Dark theme
+colorscheme rigel
+
 if exists('+termguicolors')
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
@@ -33,12 +39,6 @@ set ignorecase
 set smartcase
 set hlsearch
 set incsearch
-
-" Folding
-set foldenable
-set foldlevelstart=5
-set foldmethod=indent
-set foldnestmax=5
 
 " Files and backups
 set autoread
@@ -83,8 +83,7 @@ endfunction
 " Set up correct python3
 let g:python3_host_prog = '/usr/bin/python3'
 
-" Set some extra diff-heuristics
-" https://vimways.org/2018/the-power-of-diff/
+" Set some extra diff-heuristics: https://vimways.org/2018/the-power-of-diff/
 set diffopt+=indent-heuristic,algorithm:patience
 
 " Set neovim to use system clipboard
