@@ -16,7 +16,7 @@ if [[ $#h -gt 0 ]]; then
 fi
 
 # Set FZF defaults and completions
-export FZF_DEFAULT_OPTS='--height 50% --layout=reverse --color=light'
+export FZF_DEFAULT_OPTS='--height 50% --layout=reverse'
 export FZF_DEFAULT_COMMAND='fd -H --follow'
 export FZF_ALT_C_COMMAND='fd -H --follow --type directory'
 export FZF_CTRL_T_COMMAND='fd -H --follow --type file'
@@ -30,23 +30,9 @@ gpg-connect-agent updatestartuptty /bye >/dev/null
 # Load pyenv if not loaded
 [[ $PATH != *"$(pyenv root)/shims"* ]] && eval "$(pyenv init -)"
 
-# Load nvm 
-source /usr/share/nvm/init-nvm.sh
-
 # Avoid nvim nesting
 if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
     if [ -x "$(command -v nvr)" ]; then
         alias nvim=nvr
-    else
-        alias nvim='echo "No nesting!"'
     fi
-fi
-
-# Check if we are running inside SSH session
-if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
-  SESSION_TYPE=remote/ssh
-else
-  case $(ps -o comm= -p $PPID) in
-    sshd|*/sshd) SESSION_TYPE=remote/ssh;
-  esac
 fi

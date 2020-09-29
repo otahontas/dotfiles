@@ -15,16 +15,9 @@ alias ....="cd ../../.."
 
 # Aliases for daily tools
 alias calendar="vdirsyncer sync && khal interactive && vdirsyncer sync"
-alias kssh="kitty +kitten ssh"
 alias mail="offlineimap && aerc && offlineimap"
-alias o="rifle"
-alias open="rifle"
-alias spt-new="pkill spotifyd; spotifyd && spt"
+alias spotify="pkill spotifyd; spotifyd && spt; pkill spotifyd"
 alias sys="systemctl"
 alias sysu="systemctl --user"
-alias timer="termdown"
 alias todo="$EDITOR ~/documents/todo/todo.txt"
 alias todone="$EDITOR ~/documents/todo/done.txt"
-
-# XDG Base directory fixes
-alias yarn="yarn --use-yarnrc $XDG_CONFIG_HOME/yarn/config"

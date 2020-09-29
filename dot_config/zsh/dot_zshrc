@@ -15,20 +15,32 @@ setopt histreduceblanks
 setopt autocd 
 setopt extendedglob
 
-# Set up completions, compinit file folder and corrections
+# Set vi-mode to launch immediately
+export KEYTIMEOUT=1
+
+# Set up completions, avoid executing compinit on every launch
 zstyle ':completion:*' menu select
+zstyle ':completion::complete:*' gain-privileges 1
 zstyle :compinstall filename '$ZDOTDIR/.zshrc'
-autoload -Uz compinit && compinit
-autoload bashcompinit && bashcompinit
+autoload -Uz compinit
+() {
+  if [[ $# -gt 0 ]]; then
+    compinit
+    autoload bashcompinit && bashcompinit
+  else
+    compinit -C
+  fi
+} ${ZDOTDIR:-$HOME}/.zcompdump(N.mh+24)
 setopt correct
 setopt correctall
+setopt COMPLETE_ALIASES
 
 # Load plugins
-source <(antibody init)
-antibody bundle < $ZDOTDIR/.zsh_plugins.txt
+source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-# Set vi-mode to launch immidiately and set up binding for history search
-export KEYTIMEOUT=1
+# Set up binding for history search
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 
@@ -43,4 +55,5 @@ source $ZDOTDIR/.zsh_aliases
 source $ZDOTDIR/.zsh_functions
 
 # Load prompt
-[[ ! -f $ZDOTDIR/.p10k.zsh ]] || source $ZDOTDIR/.p10k.zsh
+autoload -U promptinit; promptinit
+prompt pure

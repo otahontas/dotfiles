@@ -1,5 +1,5 @@
 # Function to check all aur packages for updates. Relies on git.
-funcname aur_updates() {
+function aur_updates() {
     aurpath=$HOME/.aur
     for folder in $aurpath/*
     do
@@ -21,7 +21,7 @@ funcname aur_updates() {
 
 # Function to change wallpaper. Previous wallapaper gets backuped into
 # ~/media/wallpaper_archive, which is created if there is no archive
-funcname change_wallpaper() {
+function change_wallpaper() {
     h=1440
     w=2560
     mkdir -p ~/media/bg_archive
@@ -35,7 +35,7 @@ funcname change_wallpaper() {
 # Function to write daily diary. Follows file naming conventions by 
 # https://f-droid.org/en/packages/org.billthefarmer.diary/ so syncing between
 # arch and android is convinient
-funcname diary() {
+function diary() {
     if [[ ! -d ~/documents/life/diary/$(date +"%Y/%m") ]]; then
         mkdir -p ~/documents/life/diary/$(date +"%Y/%m")
     fi
@@ -44,18 +44,22 @@ funcname diary() {
 }
 
 # Create folder and cd to it
-funcname mcd() {
-    mkdir "$1" && cd "$1"
+function mcd() {
+    mkdir $1 && cd $1
 }
 
-# Wrapper for ranger, automatically changes to last visited directory when
-# quitting
-funcname ranger() {
-    tempfile="$(mktemp -t tmp.XXXXXX)"
-    command ranger --choosedir="$tempfile" "${@:-$(pwd)}"
-    test -f "$tempfile" &&
-    if [ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]; then
-        cd -- "$(cat "$tempfile")"
-    fi
-    rm -f -- "$tempfile"
+# Cd to folder and list content
+function cdl() {
+    cd $1 && ls .
 }
+
+# Open files with xdg-open
+function o() {
+    xdg-open $1 & disown
+}
+
+# Preview text files with color in less, get completions from 'ls'
+function prev() {
+    highlight $1 -O ansi | less -R
+}
+compdef _ls prev
