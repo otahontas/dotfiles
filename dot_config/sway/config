@@ -1,32 +1,12 @@
 # Simple output. Allows Sway to figure out what to do with external monitors
 output "*" bg /home/otahontas/media/background.jpg fill
-font pango:MesloLGS NF 10.5
 gaps {
     outer 5
     inner 5
 }
 default_border pixel 2
-xwayland enable
-
-# Colors from Atom One theme
-set $fg     #2a2b33
-set $bg     #f8f8f8 
-set $black1 #000000
-set $black2 #000000 
-set $red1   #de3d35
-set $red2   #de4d35
-set $green1 #3e953a
-set $green2 #3e953a
-set $yel1   #d2b67b
-set $yel2   #d2b67b
-set $blue1  #2f5af3
-set $blue2  #2f5af3
-set $mag1   #950095
-set $mag2   #a00095
-set $cyan1  #3e953a
-set $cyan2  #3e953a
-set $white1 #ffffff
-set $white2 #ffffff
+xwayland disable
+include ~/.config/sway/Rigel.conf
 
 # Input
 focus_follows_mouse no
@@ -50,11 +30,11 @@ set $left h
 set $down j
 set $up k
 set $right l
-set $term kitty
+set $term alacritty
 
 # Idle settings for locking and sleeping. Set on by default, but can be toggled
 # off and on again with keybindings.
-set $lock swaylock -f
+set $lock swaylock --daemonize
 set $idle \
     swayidle -w \
 	timeout 300 '$lock' \
@@ -68,11 +48,11 @@ bindsym $mod+Shift+i exec pkill swayidle
 # Keybindings for the most common tasks
 bindsym $mod+Return exec $term
 bindsym $mod+Shift+q kill
-bindsym $mod+d exec $term --class=launcher sh -c "compgen -c | sort -u | fzf | xargs -r swaymsg -t command exec"  
-bindsym $mod+Shift+d exec $term --class=opener zsh -is eval "source $ZDOTDIR/cond_settings/exit_after_running.zsh"
+bindsym $mod+d exec $term --class=launcher -e sh -c "compgen -c | sort -u | fzf | xargs -r swaymsg -t command exec"
+bindsym $mod+Shift+d exec $term --class=opener -e zsh -is eval "source $ZDOTDIR/cond_settings/exit_after_running.zsh"
 for_window [app_id="^launcher$|^opener$"] floating enable, resize set width 800 px height 400 px
 bindsym $mod+Shift+c reload
-bindsym $mod+Shift+o exec lock
+bindsym $mod+Shift+o exec $lock
 bindsym $mod+Shift+Ctrl+o exec $lock && systemctl suspend
 bindsym $mod+Shift+p exec grim $HOME/screenshot_$(date -u +"%Y-%m-%d-%H:%M:%S").png
 bindsym $mod+Shift+Ctrl+p exec grim -g "$(slurp)" $HOME/screenshot_$(date -u +"%Y-%m-%d-%H:%M:%S").png
@@ -130,12 +110,11 @@ bindsym XF86MonBrightnessUp exec brightnessctl set +5%
 bar {
     position top
     status_command while ~/.config/sway/status.sh; do sleep 1; done
-    font pango:MesloLGS NF Bold 10.5
 
     colors {
         statusline $fg
         background $bg
-        focused_workspace $black1 $green1 $black1
+        focused_workspace $black1 $green2 $black1
         inactive_workspace $black1 $blue1 $black1
     }
 }
