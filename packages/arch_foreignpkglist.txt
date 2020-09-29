@@ -7,6 +7,8 @@ kanttiinit-git
 neovim-drop-in
 neovim-remote
 nodejs-gatsby-cli
+pyls-black
+pyls-mypy
 routahe
 s
 spotify-tui

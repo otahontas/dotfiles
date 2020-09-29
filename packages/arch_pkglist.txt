@@ -15,7 +15,6 @@ browserpass
 catimg
 ccls
 chezmoi
-ctags
 docker
 docker-compose
 duplicity
@@ -71,6 +70,7 @@ pulseaudio-bluetooth
 pulsemixer
 pwgen
 pyenv
+python-black
 python-language-server
 python-poetry
 reflector

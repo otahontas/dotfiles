@@ -3,6 +3,7 @@ alias diff="diff --color=auto"
 alias grep="grep --color=auto"
 alias info="info --vi-keys"
 alias ls="ls --color=auto"
+alias rm='echo -E "use \"\\rm\", if you really need to rm. Otherwise use \"trash\"."; false'
 
 # Listing commands
 alias la="ls -la"
