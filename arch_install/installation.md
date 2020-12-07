@@ -44,8 +44,8 @@
       - Connect to wifi with `iwctl`
     - Setup env variables, packages, dotfiles:
       - env variables are in [.pam_environment](../dot_pam_environment)
-      - [arch_pgklist](../packages/arch_pkglist.txt) includes pacman packages
-      - [arch_foreignpkglist](../packages/arch_foreignpkglist.txt) includes aur packages
+      - [arch_pgklist](../arch_packages/pkglist.txt) includes pacman packages
+      - [arch_foreignpkglist](../arch_packages/foreignpkglist.txt) includes aur packages
         - You can run clone script for aur packages
         - Follow warnings during package installs
       - Install dotfiles from this repo with chezmoi
