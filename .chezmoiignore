@@ -2,10 +2,13 @@
 
 # Ignore readme
 README.md
-screenshot.png
+screenshot_arch.png
 
-# Ignore guide for arch installation 
+# Ignore guide for mac installation
+mac_install/
+
+# Ignore guide for arch installation
 arch_install/
 
-# Ignore aur package backup lists (these are written directly by pacman hooks)
-packages/
+# Ignore arch package backup lists (these are written directly by pacman hooks)
+arch_packages/

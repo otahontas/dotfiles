@@ -23,11 +23,11 @@
         - congigure mkinitcpio.conf and add encrypt, lvm2 and resume hooks
     - install git and etckeeper. Initialize etckeeper. 
         - Skip etckeeper if you want to use previosly used etckeeper repo.
-    - Install iwd, vim, zsh and sudo.
+    - Install iwd, vim, zsh, sudo, systemd-networkd, systemd-resolvd
     - Configure bootloader:
         - install lvm and intel-ucode
         - run bootctl install
-        - configure loader.conf and arch entry ([check examples](boot)] and add necessary hooks
+        - configure loader.conf and arch entry ([example file here](boot)] and add necessary hooks
     - set zsh as default shell for root chsh -s /bin/zsh
     - create new user 
     ```
@@ -39,7 +39,9 @@
     - exit, umount -R /mnt and reboot
 - Post-install stuff:
     - login with created account
-    - Connect to wifi 
+    - Setup internet:
+      - Setup systemd-networkd and systemd-resolvd
+      - Connect to wifi with `iwctl`
     - Setup env variables, packages, dotfiles:
       - env variables are in [.pam_environment](../dot_pam_environment)
       - [arch_pgklist](../packages/arch_pkglist.txt) includes pacman packages
@@ -49,4 +51,8 @@
       - Install dotfiles from this repo with chezmoi
     - Delete root password and lock root `passwd -dl root`
     - Reboot
-    - Finalize by running [create_symlinks_and_folders -script](create_symlinks_and_folders.sh)
+    - Finalize:
+      - run [create_symlinks_and_folders -script](create_symlinks_and_folders.sh)
+      - create / copy gpg keys
+      - create ssh keys
+      - profit
