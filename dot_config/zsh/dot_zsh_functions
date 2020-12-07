@@ -19,6 +19,18 @@ function aur_updates() {
     echo "Remember to check out git-based builds and manually build them if needed!"
 }
 
+# Function to cleanup all extra downloads in aur dir. Relies on git.
+function aur_cleanup() {
+    aurpath=$HOME/.aur
+    for folder in $aurpath/*
+    do
+        dir="--work-tree=$folder --git-dir=$folder/.git"
+        eval "git $dir reset --hard HEAD"
+        eval "git $dir clean -xfd"
+    done
+    echo "done"
+}
+
 # Function to change wallpaper. Previous wallapaper gets backuped into
 # ~/media/wallpaper_archive, which is created if there is no archive
 function change_wallpaper() {
@@ -49,7 +61,7 @@ function mcd() {
 }
 
 # Cd to folder and list content
-function cdl() {
+function cl() {
     cd $1 && ls .
 }
 
@@ -58,8 +70,46 @@ function o() {
     xdg-open $1 & disown
 }
 
-# Preview text files with color in less, get completions from 'ls'
-function prev() {
-    highlight $1 -O ansi | less -R
+# Wrapper function for nnn file explorer
+function nnn() {
+    # Block nesting of nnn in subshells
+    if [ -n $NNNLVL ] && [ "${NNNLVL:-0}" -ge 1 ]; then
+        echo "nnn is already running"
+        return
+    fi
+
+    # The default behaviour is to cd on quit (nnn checks if NNN_TMPFILE is set)
+    export NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
+
+    # Show hidden files, open textfiles with $VISUAL
+    command nnn -eH "$@"
+
+    if [ -f "$NNN_TMPFILE" ]; then
+        . "$NNN_TMPFILE"
+        # pass aliased rm
+        \rm -f "$NNN_TMPFILE" > /dev/null
+    fi
 }
-compdef _ls prev
+
+# Wrapper function for tmux for showing correct colors
+function tmux() {
+    command env TERM="xterm-256color" tmux "$@"
+}
+
+# Cleanup cache
+function cache_cleanup() {
+    read \?"This will cleanup cache from last 6 months. Are you sure (y/n)? "
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        find ~/.cache/ -depth -type f -atime +182 -delete
+    fi
+}
+
+# Copy comp programming template here
+function copy_comp_template() {
+    if [ $# -eq 0 ]; then
+        echo "Give name for copy dest"
+    else
+        cp ~/code/other/comp_template.cpp $1
+    fi
+}

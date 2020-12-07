@@ -30,9 +30,18 @@ gpg-connect-agent updatestartuptty /bye >/dev/null
 # Load pyenv if not loaded
 [[ $PATH != *"$(pyenv root)/shims"* ]] && eval "$(pyenv init -)"
 
+# Load poetry to path if not loaded
+[[ $PATH != *"$HOME/.poetry/bin"* ]] && export PATH=$HOME/.poetry/bin:$PATH
+
+# Load nvm if not loaded
+[[ -z "$NVM_DIR" ]] && export NVM_DIR=$XDG_CACHE_HOME/nvm
+source /usr/share/nvm/nvm.sh
+source /usr/share/nvm/bash_completion
+
 # Avoid nvim nesting
 if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
     if [ -x "$(command -v nvr)" ]; then
         alias nvim=nvr
     fi
 fi
+

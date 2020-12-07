@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # Create big enough history file, disable duplicates and allow different zsh
 # shells to share history all the time (e.g. don't wait until shell is closed)
 [[ -e $XDG_DATA_HOME/zsh ]] || mkdir $XDG_DATA_HOME/zsh
@@ -35,10 +42,12 @@ setopt correct
 setopt correctall
 setopt COMPLETE_ALIASES
 
+# Disable annoying zsh features
+disable r
+
 # Load plugins
-source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# To update plugins, run antibody bundle < .zsh_plugins.txt > .zsh_plugins.sh
+source $ZDOTDIR/.zsh_plugins.sh
 
 # Set up binding for history search
 bindkey -M vicmd 'k' history-substring-search-up
@@ -54,6 +63,5 @@ source $ZDOTDIR/.parameters.zsh
 source $ZDOTDIR/.zsh_aliases
 source $ZDOTDIR/.zsh_functions
 
-# Load prompt
-autoload -U promptinit; promptinit
-prompt pure
+# To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
+[[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
