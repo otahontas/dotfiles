@@ -40,6 +40,9 @@ set smartcase
 set hlsearch
 set incsearch
 
+" Folding
+set nofoldenable
+
 " Files and backups
 set autoread
 set backup

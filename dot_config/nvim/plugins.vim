@@ -21,41 +21,26 @@ Plug 'junegunn/limelight.vim'
 Plug 'rakr/vim-one'
 
 " Language stuff and text helpers
-Plug 'alvan/vim-closetag'
 Plug 'dbeniamine/todo.txt-vim'
-Plug 'edgedb/edgedb-vim'
 Plug 'lervag/vimtex'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-surround'
-Plug 'tmhedberg/SimpylFold'
 
 " Security and system
 Plug '$XDG_DATA_HOME/nvim/plugged/vim-redact-pass/'
 Plug 'lambdalisue/suda.vim'
 
-" All-around features (git, search, lsp, testing) 
+" All-around features
+Plug 'dense-analysis/ale'
 Plug 'scrooloose/nerdtree'
 Plug 'junegunn/fzf.vim'
-Plug 'tpope/vim-fugitive'
-Plug 'vim-test/vim-test'
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
 call plug#end()
 
 " Source other plugin settings
-runtime pluginsettings/LanguageClient-neovim.vim
-runtime pluginsettings/closetag.vim
-runtime pluginsettings/deoplete.vim
 runtime pluginsettings/fzf.vim
 runtime pluginsettings/goyo.vim
 runtime pluginsettings/lightline.vim
 runtime pluginsettings/nerdtree.vim
 runtime pluginsettings/suda.vim
 runtime pluginsettings/todotxt-vim.vim
-runtime pluginsettings/vim-test.vim
 runtime pluginsettings/vimtex.vim
