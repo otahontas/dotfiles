@@ -1,15 +1,16 @@
-# Simple output. Allows Sway to figure out what to do with external monitors
+# Output
 output "*" bg /home/otahontas/media/background.jpg fill
 gaps {
-    outer 5
-    inner 5
+    outer 3
+    inner 3
 }
 default_border pixel 2
-xwayland disable
+xwayland enable
 include ~/.config/sway/Rigel.conf
 
 # Input
 focus_follows_mouse no
+
 
 input "type:touchpad" {
     dwt enabled

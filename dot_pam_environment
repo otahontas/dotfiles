@@ -14,7 +14,6 @@ CARGO_HOME          	DEFAULT=${XDG_CACHE_HOME}/cargo
 DOCKER_CONFIG       	DEFAULT=${XDG_CONFIG_HOME}/docker
 GNUPGHOME           	DEFAULT=${XDG_CONFIG_HOME}/gnupg
 GOPATH              	DEFAULT=${XDG_CACHE_HOME}/go
-GRADLE_USER_HOME        DEFAULT=${XDG_DATA_HOME}/gradle
 LESSHISTFILE        	DEFAULT=${XDG_DATA_HOME}/less_history
 NODE_REPL_HISTORY       DEFAULT=${XDG_DATA_HOME}/node_repl_history
 NOTMUCH_CONFIG          DEFAULT=${XDG_CONFIG_HOME}/notmuch/config
@@ -24,12 +23,12 @@ PASSWORD_STORE_DIR  	DEFAULT=${XDG_DATA_HOME}/pass
 PYENV_ROOT              DEFAULT=${XDG_CACHE_HOME}/pyenv
 RUSTUP_HOME         	DEFAULT=${XDG_CACHE_HOME}/rustup
 SQLITE_HISTORY          DEFAULT=${XDG_DATA_HOME}/sqlite_history
-STACK_ROOT              DEFAULT=${XDG_DATA_HOME]/stack 
 WGETRC                  DEFAULT=${XDG_CONFIG_HOME}/wget/wgetrc
 ZDOTDIR             	DEFAULT=${XDG_CONFIG_HOME}/zsh
 
 # Set some X11 / wayland spesific fixes
-MOZ_ENABLE_WAYLAND      DEFAULT=1
+MOZ_ENABLE_WAYLAND              DEFAULT=1
+_JAVA_AWT_WM_NONREPARENTING     DEFAULT=1
 
 # Set up visual and editor
 VISUAL              	DEFAULT=nvim

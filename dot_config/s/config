@@ -7,7 +7,7 @@ customProviders [
     },
     {
       name: invidious,
-      url: "https://invidious.snopyta.org/search?q=%s"
+      url: "https://invidiou.site/search?q=%s"
     }
 ]
 

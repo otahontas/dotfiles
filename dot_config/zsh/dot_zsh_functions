@@ -104,12 +104,3 @@ function cache_cleanup() {
         find ~/.cache/ -depth -type f -atime +182 -delete
     fi
 }
-
-# Copy comp programming template here
-function copy_comp_template() {
-    if [ $# -eq 0 ]; then
-        echo "Give name for copy dest"
-    else
-        cp ~/code/other/comp_template.cpp $1
-    fi
-}
