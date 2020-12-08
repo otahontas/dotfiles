@@ -25,6 +25,12 @@ setopt extendedglob
 # Set vi-mode to launch immediately
 export KEYTIMEOUT=1
 
+{{- if eq .chezmoi.os "darwin" }}
+# Add possibly untrusted folders to fpath
+fpath+=$(brew --prefix)/share/zsh/site-functions
+fpath+=~/.poetry/completions
+{{- end }}
+
 # Set up completions, avoid executing compinit on every launch
 zstyle ':completion:*' menu select
 zstyle ':completion::complete:*' gain-privileges 1
@@ -53,15 +59,15 @@ source $ZDOTDIR/.zsh_plugins.sh
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 
-# Load settings for various programs
-source $ZDOTDIR/.integrations.zsh
-
 # Load setup for launcing zsh with custom parameters
 source $ZDOTDIR/.parameters.zsh
 
 # Source aliases and custom functions after everything is loaded
 source $ZDOTDIR/.zsh_aliases
 source $ZDOTDIR/.zsh_functions
+
+# Load settings for various programs
+source $ZDOTDIR/.integrations.zsh
 
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh

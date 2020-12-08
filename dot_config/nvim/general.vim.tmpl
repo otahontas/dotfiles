@@ -82,9 +82,13 @@ function! HighlightCursorWord()
     endif
 endfunction
 
-
-" Set up correct python3
+{{- if eq .chezmoi.os "darwin" }}
+" Use homebrew python
+let g:python3_host_prog = '/usr/local/bin/python3'
+{{- else if eq .chezmoi.os "linux" }}
+" Use system python
 let g:python3_host_prog = '/usr/bin/python3'
+{{- end }}
 
 " Set some extra diff-heuristics: https://vimways.org/2018/the-power-of-diff/
 set diffopt+=indent-heuristic,algorithm:patience

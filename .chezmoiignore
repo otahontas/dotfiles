@@ -12,3 +12,22 @@ arch_install/
 
 # Ignore arch package backup lists (these are written directly by pacman hooks)
 arch_packages/
+
+
+## Machine spesific ignores
+{{ if eq .chezmoi.os "darwin" }}
+.config/fontconfig/
+.config/gammastep/
+.config/gtk-3.0/
+.config/iwd/
+.config/mako/
+.config/pacman-hooks/
+.config/sway/
+.config/swaylock/
+.config/systemd/
+.config/udiskie/
+.config/user-dirs.dirs
+.config/user-dirs.locale
+.config/zathura/
+.config/zsh/.zlogin
+{{ end }}
