@@ -28,9 +28,7 @@ export FZF_CTRL_T_COMMAND='fd -H --follow --type file'
 source /usr/share/fzf/completion.zsh
 source /usr/share/fzf/key-bindings.zsh
 {{- else if eq .chezmoi.os "darwin" }}
-if [[ ! "$PATH" == */usr/local/opt/fzf/bin* ]]; then
-  export PATH="${PATH:+${PATH}:}/usr/local/opt/fzf/bin"
-fi
+[[ "$PATH" != *"/usr/local/opt/fzf/bin"* ]] && export PATH=/usr/local/opt/fzf/bin:$PATH
 [[ $- == *i* ]] && source "/usr/local/opt/fzf/shell/completion.zsh" 2> /dev/null
 source "/usr/local/opt/fzf/shell/key-bindings.zsh"
 bindkey "©" fzf-cd-widget
@@ -42,19 +40,15 @@ gpg-connect-agent updatestartuptty /bye >/dev/null
 
 # Set SSH to use gpg-agent instead of ssh-agent
 unset SSH_AGENT_PID
-if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
-    export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
-fi
+[[ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]] && export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 
 {{- if eq .chezmoi.os "darwin" }}
 # Set some macos Big Sur related compilation flag fixes for pyenv
 export LDFLAGS="-L/usr/local/opt/zlib/lib -L/usr/local/opt/bzip2/lib"
 export CPPFLAGS="-I/usr/local/opt/zlib/include -I/usr/local/opt/bzip2/include"
 export PKG_CONFIG_PATH="/usr/local/opt/zlib/lib/pkgconfig"
-export PATH=/usr/local/opt/bzip2/bin:$PATH
+[[ $PATH != *"/usr/local/opt/bzip2/bin"* ]] && export PATH=/usr/local/opt/bzip2/bin:$PATH
 {{- end }}
-# Load pyenv if not loaded
-[[ $PATH != *"$(pyenv root)/shims"* ]] && eval "$(pyenv init -)"
 
 # Load poetry to path if not loaded
 [[ $PATH != *"$HOME/.poetry/bin"* ]] && export PATH=$HOME/.poetry/bin:$PATH
@@ -76,5 +70,13 @@ if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
     fi
 fi
 
+{{- if eq .chezmoi.os "darwin" }}
+# Load Rust
+source "/Users/otahontas/.cache/cargo/env"
+{{- end }}
+
 # Add custom local bin to PATH
-export PATH=~/.local/bin:$PATH
+[[ $PATH != *"$HOME/.local/bin"* ]] && export PATH=$HOME/.local/bin:$PATH
+
+# Load pyenv if not loaded
+[[ $PATH != *"$(pyenv root)/shims"* ]] && eval "$(pyenv init -)"
