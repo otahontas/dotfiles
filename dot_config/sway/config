@@ -49,8 +49,8 @@ bindsym $mod+Shift+i exec pkill swayidle
 # Keybindings for the most common tasks
 bindsym $mod+Return exec $term
 bindsym $mod+Shift+q kill
-bindsym $mod+d exec $term --class=launcher -e sh -c "compgen -c | sort -u | fzf | xargs -r swaymsg -t command exec"
-bindsym $mod+Shift+d exec $term --class=opener -e zsh -is eval "source $ZDOTDIR/cond_settings/exit_after_running.zsh"
+bindsym $mod+space exec $term --class=launcher -e sh -c "compgen -c | sort -u | fzf | xargs -r swaymsg -t command exec"
+bindsym $mod+Shift+space exec $term --class=opener -e zsh -is eval "source $ZDOTDIR/cond_settings/exit_after_running.zsh"
 for_window [app_id="^launcher$|^opener$"] floating enable, resize set width 800 px height 400 px
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+o exec $lock
@@ -85,8 +85,6 @@ bindsym $mod+Shift+5 move container to workspace 5
 bindsym $mod+s splith
 bindsym $mod+v splitv
 bindsym $mod+f fullscreen
-bindsym $mod+Shift+space floating toggle
-bindsym $mod+space focus mode_toggle
 
 mode "resize" {
     bindsym $left resize shrink width 10px

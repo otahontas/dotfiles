@@ -1,5 +1,9 @@
 # Set gpg to use graphical pinentry
+{{- if eq .chezmoi.os "linux" }}
+pinentry-program /usr/bin/pinentry-gnome3
+{{- else if eq .chezmoi.os "darwin" }}
 pinentry-program /usr/local/bin/pinentry-mac
+{{- end }}
 
 # Set cache for two days
 max-cache-ttl 172800

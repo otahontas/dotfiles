@@ -18,6 +18,7 @@ brightnessctl
 browserpass
 catimg
 chezmoi
+diff-so-fancy
 discord
 docker
 docker-compose
