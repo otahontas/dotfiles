@@ -85,6 +85,9 @@ endfunction
 {{- if eq .chezmoi.os "darwin" }}
 " Use homebrew python
 let g:python3_host_prog = '/usr/local/bin/python3'
+
+" Use homebrew fzf
+set rtp+=/usr/local/opt/fzf
 {{- else if eq .chezmoi.os "linux" }}
 " Use system python
 let g:python3_host_prog = '/usr/bin/python3'

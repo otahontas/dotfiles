@@ -32,3 +32,7 @@ map <leader>x :action $Cut<CR>
 map <leader>y :action EditorDeleteLine<CR>
 map <leader>[ :action EditorCodeBlockStart<CR>
 map <leader>] :action EditorCodeBlockEnd<CR>
+
+" Disable bells
+set visualbell
+set noerrorbells

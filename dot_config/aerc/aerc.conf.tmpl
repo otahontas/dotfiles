@@ -148,9 +148,15 @@ address-book-cmd=khard email --parsable --search-in-source-files --remove-first-
 # You can also match on non-mimetypes, by prefixing with the header to match
 # against (non-case-sensitive) and a comma, e.g. subject,text will match a
 # subject which contains "text". Use header,~regex to match against a regex.
+{{- if eq .chezmoi.os "linux" }}
 subject,~^\[PATCH=awk -f /usr/share/aerc/filters/hldiff
 text/html=/usr/share/aerc/filters/html
 text/*=awk -f /usr/share/aerc/filters/plaintext
+{{- else if eq .chezmoi.os "darwin" }}
+subject,~^\[PATCH=awk -f /usr/local/share/aerc/filters/hldiff
+text/html=/usr/local/share/aerc/filters/html
+text/*=awk -f /usr/local/share/aerc/filters/plaintext
+{{- end }}
 image/*=catimg -w $(tput cols) -
 
 [templates]
