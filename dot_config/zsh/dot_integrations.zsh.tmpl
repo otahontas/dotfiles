@@ -73,6 +73,12 @@ fi
 {{- if eq .chezmoi.os "darwin" }}
 # Load Rust
 source "/Users/otahontas/.cache/cargo/env"
+
+# Load java
+[[ $PATH != *"/opt/openjdk/bin"* ]] && export PATH=/usr/local/opt/openjdk/bin:$PATH
+
+# Load TMC
+source "/Users/otahontas/.tmc-autocomplete.sh"
 {{- end }}
 
 # Add custom local bin to PATH

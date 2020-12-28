@@ -167,7 +167,11 @@ image/*=catimg -w $(tput cols) -
 # list of directories.
 #
 # default: /usr/share/aerc/templates/
+{{- if eq .chezmoi.os "linux" }}
 template-dirs=/usr/share/aerc/templates/
+{{- else if eq .chezmoi.os "darwin" }}
+template-dirs=/usr/local/share/aerc/templates/
+{{- end }}
 
 # The template to be used for quoted replies.
 #
