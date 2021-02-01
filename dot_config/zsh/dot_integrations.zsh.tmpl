@@ -38,10 +38,6 @@ bindkey "©" fzf-cd-widget
 export GPG_TTY=$(tty)
 gpg-connect-agent updatestartuptty /bye >/dev/null
 
-# Set SSH to use gpg-agent instead of ssh-agent
-unset SSH_AGENT_PID
-[[ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]] && export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
-
 {{- if eq .chezmoi.os "darwin" }}
 # Set some macos Big Sur related compilation flag fixes for pyenv
 export LDFLAGS="-L/usr/local/opt/zlib/lib -L/usr/local/opt/bzip2/lib"
@@ -49,9 +45,6 @@ export CPPFLAGS="-I/usr/local/opt/zlib/include -I/usr/local/opt/bzip2/include"
 export PKG_CONFIG_PATH="/usr/local/opt/zlib/lib/pkgconfig"
 [[ $PATH != *"/usr/local/opt/bzip2/bin"* ]] && export PATH=/usr/local/opt/bzip2/bin:$PATH
 {{- end }}
-
-# Load poetry to path if not loaded
-[[ $PATH != *"$HOME/.poetry/bin"* ]] && export PATH=$HOME/.poetry/bin:$PATH
 
 # Load nvm if not loaded and set completions
 [[ -z "$NVM_DIR" ]] && export NVM_DIR=$XDG_CACHE_HOME/nvm
