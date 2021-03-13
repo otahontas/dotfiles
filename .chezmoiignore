@@ -12,8 +12,8 @@ mac_packages/
 arch_install/
 arch_packages/
 
-## Machine spesific ignores
-{{ if eq .chezmoi.os "darwin" }}
+# Machine spesific ignores
+{{ if eq .chezmoi.hostname "mahisbook" }}
 .config/aerc/
 .config/fontconfig/
 .config/gammastep/
