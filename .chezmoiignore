@@ -1,33 +1,41 @@
 # Chezmoi doesn't copy these to home folder when `chezmoi apply` is ran
 
-# Ignore readme
+# Ignore readme & screenshots
 README.md
 screenshot_arch.png
 
-# Ignore guide for mac installation
+# Ignore guide for mac installation and package lists
 mac_install/
+mac_packages/
 
-# Ignore guide for arch installation
+# Ignore guide for arch installation and packages
 arch_install/
-
-# Ignore arch package backup lists (these are written directly by pacman hooks)
 arch_packages/
-
 
 ## Machine spesific ignores
 {{ if eq .chezmoi.os "darwin" }}
+.config/aerc/
 .config/fontconfig/
 .config/gammastep/
+.config/gh/
 .config/gtk-3.0/
 .config/iwd/
+.config/khal/
+.config/khard/
 .config/mako/
+.config/newsboat/
+.config/offlineimap/
 .config/pacman-hooks/
+.config/s/
+.config/spotifyd/
 .config/sway/
 .config/swaylock/
 .config/systemd/
 .config/udiskie/
 .config/user-dirs.dirs
 .config/user-dirs.locale
+.config/vdirsyncer/
+.config/wget/
 .config/zathura/
 .config/zsh/.zlogin
 {{ end }}
