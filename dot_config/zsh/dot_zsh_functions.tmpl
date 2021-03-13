@@ -54,7 +54,7 @@ function cache_cleanup() {
     fi
 }
 
-{{- if eq .chezmoi.os "linux" }}
+{{- if eq .chezmoi.hostname "archis" }}
 # Function to check all aur packages for updates. Relies on git.
 function aur_updates() {
     aurpath=$HOME/.aur
@@ -102,7 +102,7 @@ function change_wallpaper() {
 }
 
 # Open files with xdg-open
-function o() {
+function open() {
     xdg-open $1 & disown
 }
 {{- end }}

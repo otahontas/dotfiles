@@ -1,7 +1,7 @@
 # Set gpg to use graphical pinentry
-{{- if eq .chezmoi.os "linux" }}
+{{- if eq .chezmoi.hostname "archis" }}
 pinentry-program /usr/bin/pinentry-gnome3
-{{- else if eq .chezmoi.os "darwin" }}
+{{- else if eq .chezmoi.hostname "mahisbook" }}
 pinentry-program /usr/local/bin/pinentry-mac
 {{- end }}
 

@@ -1,11 +1,7 @@
 [global]
 username = "{{ .spotify_username }}"
 password_cmd = "pass {{ .spotifyd_pass_entry }} | sed '1q;d'"
-{{- if eq .chezmoi.os "linux" }}
 backend = "pulseaudio"
-{{- else if eq .chezmoi.os "darwin" }}
-backend = "rodio"
-{{- end }}
 device_name = "{{ .chezmoi.hostname }}"
 bitrate = 320
 volume_normalisation = false

@@ -25,10 +25,9 @@ setopt extendedglob
 # Set vi-mode to launch immediately
 export KEYTIMEOUT=1
 
-{{- if eq .chezmoi.os "darwin" }}
-# Add possibly untrusted folders to fpath
+{{- if eq .chezmoi.hostname "mahisbook" }}
+# Add otherwise untrusted brew site-function to fpath
 fpath+=$(brew --prefix)/share/zsh/site-functions
-fpath+=~/.poetry/completions
 {{- end }}
 
 # Set up completions, avoid executing compinit on every launch

@@ -1,3 +1,5 @@
+# TODO: Make this better by not hardcoding
+
 [general]
 accounts = mail 
 pythonfile = ~/.config/offlineimap/pass_get_details.py
@@ -15,8 +17,4 @@ type = IMAP
 remotehost = {{ .offlineimap_mail_remotehost }}
 remotepasseval = get_pass("{{ .offlineimap_mail_remote_pass_entry }}")
 remoteusereval = get_user("{{ .offlineimap_mail_remote_pass_entry }}")
-{{- if eq .chezmoi.os "linux" }}
 sslcacertfile = /etc/ssl/certs/ca-certificates.crt
-{{- else if eq .chezmoi.os "darwin" }}
-sslcacertfile = /usr/local/etc/openssl@1.1/cert.pem
-{{- end }}

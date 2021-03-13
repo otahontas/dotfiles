@@ -1,14 +1,33 @@
 # Config file for non-zsh -settings, such as completions, other program env
 # variables
 
-# Load s completions
-{{- if eq .chezmoi.os "linux" }}
+{{- if eq .chezmoi.hostname "archis" }}
+
+# Add s-search completions
 source /usr/share/bash-completion/completions/s
-{{- else if eq .chezmoi.os "darwin" }}
-source $HOME/.local/share/zsh/s-completion.bash
+
+# Add fzf completions and keybindings
+source /usr/share/fzf/completion.zsh
+source /usr/share/fzf/key-bindings.zsh
+
+# Setup nvm, load nvm script and add completions
+[[ -z "$NVM_DIR" ]] && export NVM_DIR=$XDG_CACHE_HOME/nvm
+source /usr/share/nvm/nvm.sh
+source /usr/share/nvm/bash_completion
+
+# Load pyenv
+[[ $PATH != *"$(pyenv root)/shims"* ]] && eval "$(pyenv init -)"
+
+{{- else if eq .chezmoi.hostname "mahisbook" }}
+
+# Setup fzf, add completions and keybindings
+[[ "$PATH" != *"/usr/local/opt/fzf/bin"* ]] && export PATH=/usr/local/opt/fzf/bin:$PATH
+[[ $- == *i* ]] && source "/usr/local/opt/fzf/shell/completion.zsh" 2> /dev/null
+source "/usr/local/opt/fzf/shell/key-bindings.zsh"
+bindkey "©" fzf-cd-widget
 {{- end }}
 
-# Add SSH completions from ~/.ssh/config
+# Add SSH hostname completions from ~/.ssh/config
 h=()
 if [[ -r ~/.ssh/config ]]; then
   h=($h ${${${(@M)${(f)"$(cat ~/.ssh/config)"}:#Host *}#Host }:#*[*?]*})
@@ -19,42 +38,15 @@ if [[ $#h -gt 0 ]]; then
   zstyle ':completion:*:slogin:*' hosts $h
 fi
 
-# Set FZF defaults, completions and keybindings
+# Setup fzf defaults
 export FZF_DEFAULT_OPTS='--height 50% --layout=reverse'
 export FZF_DEFAULT_COMMAND='fd -H --follow'
 export FZF_ALT_C_COMMAND='fd -H --follow --type directory'
 export FZF_CTRL_T_COMMAND='fd -H --follow --type file'
-{{- if eq .chezmoi.os "linux" }}
-source /usr/share/fzf/completion.zsh
-source /usr/share/fzf/key-bindings.zsh
-{{- else if eq .chezmoi.os "darwin" }}
-[[ "$PATH" != *"/usr/local/opt/fzf/bin"* ]] && export PATH=/usr/local/opt/fzf/bin:$PATH
-[[ $- == *i* ]] && source "/usr/local/opt/fzf/shell/completion.zsh" 2> /dev/null
-source "/usr/local/opt/fzf/shell/key-bindings.zsh"
-bindkey "©" fzf-cd-widget
-{{- end }}
 
-# Set correct tty for GPG
+# Set correct tty for GPG, load agent
 export GPG_TTY=$(tty)
 gpg-connect-agent updatestartuptty /bye >/dev/null
-
-{{- if eq .chezmoi.os "darwin" }}
-# Set some macos Big Sur related compilation flag fixes for pyenv
-export LDFLAGS="-L/usr/local/opt/zlib/lib -L/usr/local/opt/bzip2/lib"
-export CPPFLAGS="-I/usr/local/opt/zlib/include -I/usr/local/opt/bzip2/include"
-export PKG_CONFIG_PATH="/usr/local/opt/zlib/lib/pkgconfig"
-[[ $PATH != *"/usr/local/opt/bzip2/bin"* ]] && export PATH=/usr/local/opt/bzip2/bin:$PATH
-{{- end }}
-
-# Load nvm if not loaded and set completions
-[[ -z "$NVM_DIR" ]] && export NVM_DIR=$XDG_CACHE_HOME/nvm
-{{- if eq .chezmoi.os "linux" }}
-source /usr/share/nvm/nvm.sh
-source /usr/share/nvm/bash_completion
-{{- else if eq .chezmoi.os "darwin" }}
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-{{- end }}
 
 # Avoid nvim nesting
 if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
@@ -63,19 +55,5 @@ if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
     fi
 fi
 
-{{- if eq .chezmoi.os "darwin" }}
-# Load Rust
-source "/Users/otahontas/.cache/cargo/env"
-
-# Load java
-[[ $PATH != *"/opt/openjdk/bin"* ]] && export PATH=/usr/local/opt/openjdk/bin:$PATH
-
-# Load TMC
-source "/Users/otahontas/.tmc-autocomplete.sh"
-{{- end }}
-
 # Add custom local bin to PATH
 [[ $PATH != *"$HOME/.local/bin"* ]] && export PATH=$HOME/.local/bin:$PATH
-
-# Load pyenv if not loaded
-[[ $PATH != *"$(pyenv root)/shims"* ]] && eval "$(pyenv init -)"

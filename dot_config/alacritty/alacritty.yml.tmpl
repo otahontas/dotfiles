@@ -1,7 +1,7 @@
 font:
-{{- if eq .chezmoi.os "linux" }}
+{{- if eq .chezmoi.hostname "archis" }}
   size: 12.5
-{{- else if eq .chezmoi.os "darwin" }}
+{{- else if eq .chezmoi.hostname "mahisbook" }}
   normal:
     family: "MesloLGS NF"
   size: 13
@@ -49,7 +49,7 @@ window:
   padding:
     x: 3
     y: 3
-  {{- if eq .chezmoi.os "darwin" }}
+  {{- if eq .chezmoi.hostname "mahisbook" }}
   decorations: buttonless
   {{- end }}
 

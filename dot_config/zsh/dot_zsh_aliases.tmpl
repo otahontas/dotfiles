@@ -26,5 +26,7 @@ alias sys="systemctl"
 alias sysu="systemctl --user"
 {{- else if eq .chezmoi.os "darwin" }}
 alias trash-empty="trash -e"
-alias o="open"
 {{- end }}
+
+# Docker aliases
+alias dlogs="docker logs --tail 100 --follow"
