@@ -38,4 +38,5 @@ arch_packages/
 .config/wget/
 .config/zathura/
 .config/zsh/.zlogin
+.ideavimrc
 {{ end }}
