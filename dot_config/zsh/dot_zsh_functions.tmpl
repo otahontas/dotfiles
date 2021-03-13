@@ -92,6 +92,15 @@ Guard should be installed to prevent PATH from getting messed up when tmux is la
     fi
 }
 
+# Wrapper function for homebrew to execute commands after install / uninstall
+function brew () {
+    command brew "$@"
+    if [[ $? -eq 0 && ($1 == "install" || $1 == "uninstall") ]]; then
+        brew leaves > $(chezmoi source-path)/mac_packages/formulae.txt
+        brew list --cask > $(chezmoi source-path)/mac_packages/casks.txt
+    fi
+}
+
 {{- else if eq .chezmoi.hostname "archis" }}
 # Function to check all aur packages for updates. Relies on git.
 function aur_updates() {
