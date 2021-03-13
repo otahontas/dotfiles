@@ -29,8 +29,6 @@ export BROWSER=firefox
 # Development stuff
 export REACT_APP_BROWSER=firefox-developer-edition
 
-{{- if eq .chezmoi.os "linux" }}
 # Set some X11 / wayland spesific fixes
 export MOZ_ENABLE_WAYLAND=1
 export _JAVA_AWT_WM_NONREPARENTING=1
-{{- end }}
