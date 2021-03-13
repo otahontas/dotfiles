@@ -14,3 +14,4 @@ if [ -x /usr/libexec/path_helper ]; then
   fi
 fi
 ```
+TODO: this must be changed every time macos updates, make a script or something for this

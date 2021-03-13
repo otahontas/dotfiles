@@ -40,10 +40,6 @@ function nnn() {
     fi
 }
 
-# Wrapper function for tmux for showing correct colors
-function tmux() {
-    command env TERM="xterm-256color" tmux "$@"
-}
 
 # Cleanup cache
 function cache_cleanup() {
@@ -54,7 +50,49 @@ function cache_cleanup() {
     fi
 }
 
-{{- if eq .chezmoi.hostname "archis" }}
+{{ if eq .chezmoi.hostname "mahisbook" }}
+# Wrapper function for tmux for 
+# a) checking that path script doesn't mess up path in /etc/profile
+# b) showing correct colors when launched
+function tmux() {
+    # check for path script fix in /etc/profile
+    if [[ ! $(grep "TMUX" /etc/profile) ]]; then
+        # ugly workaround to keep indents correct
+        new_content="if [ -x /usr/libexec/path_helper ]; then
+  if [ -z "'$TMUX'" ]; then
+    eval \`/usr/libexec/path_helper -s\`
+  fi
+fi"
+        original_without_path_helper=$(sed -e '/path_helper/,+3d' /etc/profile)
+        content_after_patching="$original_without_path_helper\n\n$new_content"
+        
+        echo "/etc/profile doesn't have tmux guard in path_helper function!
+This might have happened because of a system update or a clean install.
+Guard should be installed to prevent PATH from getting messed up when tmux is launched.\n"
+        echo "Will now try to patch path_helper in /etc/profile."
+
+        echo "=== ORIGINAL ==="
+        command cat /etc/profile
+        echo "\n=== NEW ==="
+        echo "$content_after_patching\n"
+
+        if read -q "REPLY?Want to patch /etc/profile (with sudo)? (y/n) ";then 
+            echo ""
+            sudo sh -c "echo '$content_after_patching' > /etc/profile"
+            if [ $? -eq 0 ]; then
+                echo "\nSuccessfully patched, launching tmux!"
+                sleep 2
+                command env TERM="xterm-256color" tmux "$@"
+            else
+               echo "\nPatching failed for some reason"
+            fi
+        fi
+    else 
+        command env TERM="xterm-256color" tmux "$@"
+    fi
+}
+
+{{- else if eq .chezmoi.hostname "archis" }}
 # Function to check all aur packages for updates. Relies on git.
 function aur_updates() {
     aurpath=$HOME/.aur
