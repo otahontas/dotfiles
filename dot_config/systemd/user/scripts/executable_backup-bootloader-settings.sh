@@ -1,5 +1,5 @@
 #!/bin/sh
-dest=$XDG_DATA_HOME/chezmoi/arch_install/boot
+dest=$XDG_DATA_HOME/chezmoi/arch/files/boot
 [[ -e $dest ]] || mkdir -p $dest
 /usr/bin/rsync -a /boot/loader/* $dest
 rm $dest/random-seed
