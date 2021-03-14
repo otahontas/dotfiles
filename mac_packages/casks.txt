@@ -1,0 +1,16 @@
+ableton-live-lite
+alacritty
+alfred
+amethyst
+appcleaner
+caffeine
+daisydisk
+firefox
+focusrite-control
+freetube
+iina
+izotope-product-portal
+native-access
+scroll-reverser
+spotify
+waves-central
