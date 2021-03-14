@@ -2,6 +2,14 @@
 export GPG_TTY=$(tty)
 gpg-connect-agent updatestartuptty /bye >/dev/null
 
+{{ if eq .chezmoi.hostname "mahisbook" }}
+# Add keys to ssh-agent after reboot
+if [[ $(ssh-add -L) == "The agent has no identities." ]]; then
+    current=$(pwd)
+    cd ~/.ssh/keys/ && ssh-add -A >/dev/null && cd $current
+fi
+{{- end }}
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
