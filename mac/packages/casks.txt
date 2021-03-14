@@ -4,7 +4,6 @@ amethyst
 appcleaner
 caffeine
 daisydisk
-discord
 firefox
 focusrite-control
 freetube

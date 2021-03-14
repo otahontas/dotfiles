@@ -96,9 +96,9 @@ Guard should be installed to prevent PATH from getting messed up when tmux is la
 function brew () {
     command brew "$@"
     if [[ $? -eq 0 && ($1 == "install" || $1 == "uninstall" || $1 == "upgrade") ]]; then
-        brew leaves > $(chezmoi source-path)/mac_packages/formulae.txt
-        brew list --cask > $(chezmoi source-path)/mac_packages/casks.txt
-        brew tap | grep -v "homebrew/" > $(chezmoi source-path)/mac_packages/taps.txt
+        brew leaves > $(chezmoi source-path)/mac/packages/formulae.txt
+        brew list --cask > $(chezmoi source-path)/mac/packages/casks.txt
+        brew tap | grep -v "homebrew/" > $(chezmoi source-path)/mac/packages/taps.txt
     fi
 }
 
@@ -106,7 +106,7 @@ function brew () {
 function mas () {
     command mas "$@"
     if [[ $? -eq 0 && ($1 == "install" || $1 == "uninstall" || $1 == "upgrade") ]]; then
-        mas list > $(chezmoi source-path)/mac_packages/mas.txt
+        mas list > $(chezmoi source-path)/mac/packages/mas.txt
     fi
 }
 

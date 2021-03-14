@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 
 # Bootstrap script for setting up a new macos
-# 
-# 1. Run Setup Assistant
-# 2. Run this script with `curl <(https://git.io/JqWsk)`
 
 # TODO: Take a look at this: https://github.com/drduh/macOS-Security-and-Privacy-Guide
 # TODO: Add setting system preferences via commands
