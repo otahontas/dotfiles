@@ -1,15 +1,16 @@
-ableton-live-lite
 alacritty
 alfred
 amethyst
 appcleaner
 caffeine
 daisydisk
+discord
 firefox
 focusrite-control
 freetube
 iina
 izotope-product-portal
+maintenance
 native-access
 scroll-reverser
 spotify

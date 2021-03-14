@@ -61,31 +61,33 @@ if ! command -v chezmoi &> /dev/null && ! test -d ~/.local/share/chezmoi; then
   chezmoi init --apply --verbose https://github.com/otahontas/dotfiles.git
 fi
 
+
 msg "${PURPLE}\n=== Installing packages ==="
 # Install taps, apps and packages. Each step is performed if current state differs from
 # dotfiles backup.
-if ! diff <(brew tap | grep -v "homebrew/") <(cat "$(chezmoi source-path)/mac_packages/taps.txt"); then
+pkg_dir="$(chezmoi source-path)/mac/packages"
+if ! diff <(brew tap | grep -v "homebrew/") <(cat "$pkg_dir/taps.txt"); then
   while read -r tap; do 
     brew tap "$tap"
-  done < "$(chezmoi source-path)/mac_packages/taps.txt"
+  done < "$pkg_dir/taps.txt"
 fi
 
-if ! diff <(brew leaves) <(cat "$(chezmoi source-path)/mac_packages/formulae.txt"); then
+if ! diff <(brew leaves) <(cat "$pkg_dir/formulae.txt"); then
   while read -r formula; do 
     brew install "$formula"
-  done < "$(chezmoi source-path)/mac_packages/formulae.txt"
+  done < "formulae.txt"
 fi
 
-if ! diff <(brew list --cask) <(cat "$(chezmoi source-path)/mac_packages/casks.txt"); then
+if ! diff <(brew list --cask) <(cat "$pkg_dir/casks.txt"); then
   while read -r cask; do 
     brew install --cask "$cask"
-  done < "$(chezmoi source-path)/mac_packages/casks.txt"
+  done < "$pkg_dir/casks.txt"
 fi
 
-if ! diff <(mas list) <(cat "$(chezmoi source-path)/mac_packages/mas.txt"); then
+if ! diff <(mas list) <(cat "$pkg_dir/mas.txt"); then
   while read -r line; do 
     mas install "$(echo "$line" | cut -d' ' -f1)"
-  done < "$(chezmoi source-path)/mac_packages/mas.txt"
+  done < "$pkg_dir/mas.txt"
 fi
 
 # Adding custom files to different places
