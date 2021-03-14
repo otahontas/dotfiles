@@ -16,6 +16,7 @@ otahontas/tap/kanttiinit
 pass
 pwgen
 ripgrep
+shellcheck
 syncthing
 tldr
 tmux
