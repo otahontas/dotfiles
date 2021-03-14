@@ -49,22 +49,22 @@ setup_colors
 
 # === Installation === 
 
+msg "${PURPLE}\n=== Installing package management ==="
 # Install homebrew if not installed
 if ! command -v brew &> /dev/null; then
-  msg "${PURPLE}\n=== Installing homebrew === "
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
+msg "${PURPLE}\n=== Installing dotfiles ==="
 # Install chezmoi and add dotfiles if chezmoi and dotfiles folder aren't present
 if ! command -v chezmoi &> /dev/null && ! test -d ~/.local/share/chezmoi; then
-  msg "${PURPLE}\n=== Installing chezmoi and adding dotfiles === "
   chezmoi init --apply --verbose https://github.com/otahontas/dotfiles.git
 fi
 
+msg "${PURPLE}\n=== Installing packages ==="
 # Install taps, apps and packages. Each step is performed if current state differs from
 # dotfiles backup.
 if ! diff <(brew tap | grep -v "homebrew/") <(cat "$(chezmoi source-path)/mac_packages/taps.txt"); then
-  msg "${PURPLE}\n=== Adding 3rd party homebrew taps ==="
   while read -r tap; do 
     brew tap "$tap"
   done < "$(chezmoi source-path)/mac_packages/taps.txt"
@@ -72,27 +72,27 @@ fi
 
 if ! diff <(brew leaves) <(cat "$(chezmoi source-path)/mac_packages/formulae.txt"); then
   while read -r formula; do 
-    msg "${PURPLE}\n=== Installing homebrew formulas ==="
     brew install "$formula"
   done < "$(chezmoi source-path)/mac_packages/formulae.txt"
 fi
 
 if ! diff <(brew list --cask) <(cat "$(chezmoi source-path)/mac_packages/casks.txt"); then
   while read -r cask; do 
-    msg "${PURPLE}\n=== Installing homebrew casks ==="
     brew install --cask "$cask"
   done < "$(chezmoi source-path)/mac_packages/casks.txt"
 fi
 
 if ! diff <(mas list) <(cat "$(chezmoi source-path)/mac_packages/mas.txt"); then
-  msg "${PURPLE}\n=== Installing mac app store apps ==="
   while read -r line; do 
     mas install "$(echo "$line" | cut -d' ' -f1)"
   done < "$(chezmoi source-path)/mac_packages/mas.txt"
 fi
 
 # Adding custom files to different places
-if ! test -f ~/Library/Keyboard\ Layouts/U.S.\ International\ wo\ dead\ keys.keylayout ;then
-  msg "${PURPLE}\n=== Add custom keyboard layout ==="
-  cp "$script_dir/files/U.S. International wo dead keys.keylayout" ~/Library/Keyboard\ Layouts/
-fi
+msg "${PURPLE}\n=== Moving needed files to correct places ==="
+
+test -f ~/Library/Keyboard\ Layouts/U.S.\ International\ wo\ dead\ keys.keylayout || cp "$script_dir/files/U.S. International wo dead keys.keylayout" ~/Library/Keyboard\ Layouts/
+
+# Create needed folder
+msg "${PURPLE}\n=== Creating folders ==="
+test -d ~/Code || mkdir Code
