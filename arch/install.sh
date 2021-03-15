@@ -164,14 +164,21 @@ mount -o noatime,nodiratime,compress=zstd,subvol=temp      /dev/mapper/luks /mnt
 mount -o noatime,nodiratime,compress=zstd,subvol=swap      /dev/mapper/luks /mnt/swap
 mount -o noatime,nodiratime,compress=zstd,subvol=snapshots /dev/mapper/luks /mnt/.snapshots
 
-msg "${PURPLE}\n=== Installing packages ==="
+msg "${PURPLE}\n=== Installing the first set of packages ==="
 
-pacstrap /mnt base
-pacstrap /mnt base-devel
-pacstrap /mnt btrfs-progs linux linux-firmware intel-ucode terminus-font linux-headers
-pacstrap /mnt sbsigntools efibootmgr binutils edk2-shell fwupd snapper snap-pac
+pacstrap /mnt base base-devel btrfs-progs linux linux-firmware intel-ucode terminus-font linux-headers
 
-msg "${PURPLE}\n=== Generating and adding configuration files ==="
+msg "${PURPLE}\n=== Building aur install tool with nobody, then installing ==="
+
+arch-chroot /mnt mkdir /home/build && chgrp nobody /home/build && \
+  chmod g+ws /home/build && setfacl -m u::rwx,g::rwx /home/build && \
+  setfacl -d --set u::rwx,g::rwx,o::- /home/build && cd /home/build && \
+  git clone https://aur.archlinux.org/paru-bin.git && cd paru-bin && makepkg -s && \
+  pacman -U --noconfirm paru-bin*.pkg.tar.zst && rm -rf /home/build
+
+exit 1
+
+msg "${PURPLE}\n=== Generating and adding the first set of configuration files ==="
 
 cryptsetup luksHeaderBackup "${luks_header_device}" --header-backup-file /tmp/header.img
 luks_header_size="$(stat -c '%s' /tmp/header.img)"
@@ -192,7 +199,7 @@ FILES=()
 HOOKS=(base consolefont udev autodetect modconf block encrypt-dh filesystems keyboard)
 EOF
 arch-chroot /mnt mkinitcpio -p linux
-arch-chroot /mnt git clone https://github.com/maximbaz/arch-secure-boot.git && cd arch-secure-boot && ./arch-secure-boot initial-setup
+
 
 msg "${PURPLE}\n=== Configuring swap file ==="
 
