@@ -14,7 +14,7 @@ cleanup() {
   err=$1
   line=$2
   if [ "$err" -eq 0 ]; then
-    msg "${GREEN}\nInstallation script completed succesfully${NOFORMAT}"
+    msg "${GREEN}\nInstallation script completed succesfully${NOFORMAT}\nYou can now log in and execute post-install -script present in users home folder."
   else
     msg "${RED}\nError happened while running installation script on line $line.${NOFORMAT}"
   fi
@@ -165,9 +165,9 @@ mount -o noatime,nodiratime,compress=zstd,subvol=snapshots /dev/mapper/luks /mnt
 
 msg "${PURPLE}\n=== Installing base packages needed to build and launch system ===${NOFORMAT}"
 
-pacstrap /mnt $(curl $(repo_url/arch/packages/pacman.txt))
+pacstrap /mnt $(curl -sL $(repo_url/arch/packages/pacman.txt))
 
-msg "${PURPLE}\n=== Building needed AUR packages with temporary user, then installing ===${NOFORMAT}"
+msg "${PURPLE}\n=== Building crucial AUR packages with temporary user, then installing ===${NOFORMAT}"
 
 arch-chroot /mnt /bin/bash <<EOF
 useradd -m build && passwd -d build && groupadd -rf wheel && gpasswd -a build wheel
@@ -179,6 +179,11 @@ setfacl -d --set u::rwx,g::rwx,o::- /home/build
 cd /home/build
 
 [[ -d /home/build ]] || exit 1
+
+git clone https://aur.archlinux.org/arch-secure-boot.git && \
+cd arch-secure-boot && \
+sudo -u build makepkg -s --noconfirm --skippgpcheck && \
+pacman -U --noconfirm arch-secure-boot*pkg* && cd ..
 
 git clone https://aur.archlinux.org/mkinitcpio-encrypt-detached-header.git && \
 cd mkinitcpio-encrypt-detached-header && \
@@ -215,6 +220,10 @@ HOOKS=(base consolefont udev autodetect modconf block encrypt-dh filesystems key
 EOF
 arch-chroot /mnt mkinitcpio -p linux
 arch-chroot /mnt arch-secure-boot initial-setup
+# Note: If system doesn't boot up after installing, make sure:
+# a) you have the permissions to write to /sys/firmware/efi/efivars
+# b) the files in efivars folder aren't immutable (confirm with running lsattr)
+# c) you really cleared all the previous keys in bios
 
 msg "${PURPLE}\n=== Configuring swap file ===${NOFORMAT}"
 
@@ -236,3 +245,6 @@ done
 arch-chroot /mnt chsh -s /usr/bin/zsh
 echo "$user:$password" | arch-chroot /mnt chpasswd
 arch-chroot /mnt passwd -dl root
+
+msg "${PURPLE}\n=== Finalizing ===${NOFORMAT}"
+arch-chroot /mnt curl -sL $(repo_url/arch/post-install.sh) -o "/home/$user/post-install.sh"
