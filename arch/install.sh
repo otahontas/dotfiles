@@ -14,7 +14,7 @@ cleanup() {
   err=$1
   line=$2
   if [ "$err" -eq 0 ]; then
-    msg "${GREEN}\nInstallation script completed succesfully${NOFORMAT}\nYou can now log in and execute post-install -script present in users home folder."
+    msg "${GREEN}\nInstallation script completed succesfully${NOFORMAT}\nYou can now reboot, set up secure boot, log in and execute post-install -script present in /home/$user -folder."
   else
     msg "${RED}\nError happened while running installation script on line $line.${NOFORMAT}"
   fi
@@ -234,4 +234,4 @@ echo "$user:$password" | arch-chroot /mnt chpasswd
 arch-chroot /mnt passwd -dl root
 
 msg "${PURPLE}\n=== Finalizing ===${NOFORMAT}"
-arch-chroot /mnt curl -sL $(repo_url/arch/post-install.sh) -o "/home/$user/post-install.sh"
+arch-chroot /mnt curl -sL "$repo_url/arch/post-install.sh" -o "/home/$user/post-install.sh"
