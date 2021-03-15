@@ -166,7 +166,10 @@ mount -o noatime,nodiratime,compress=zstd,subvol=snapshots /dev/mapper/luks /mnt
 
 msg "${PURPLE}\n=== Installing packages ==="
 
-pacstrap /mnt base base-devel linux linux-firmware intel-ucode linux-headers kernel-modules-hook mkinitcpio-encrypt-detached-header btrfs-progs arch-secure-boot terminus-font zsh
+pacstrap /mnt base
+pacstrap /mnt base-devel
+pacstrap /mnt btrfs-progs linux linux-firmware intel-ucode terminus-font linux-headers
+pacstrap /mnt sbsigntools efibootmgr binutils edk2-shell fwupd snapper snap-pac
 
 msg "${PURPLE}\n=== Generating and adding configuration files ==="
 
@@ -189,7 +192,7 @@ FILES=()
 HOOKS=(base consolefont udev autodetect modconf block encrypt-dh filesystems keyboard)
 EOF
 arch-chroot /mnt mkinitcpio -p linux
-arch-chroot /mnt arch-secure-boot initial-setup
+arch-chroot /mnt git clone https://github.com/maximbaz/arch-secure-boot.git && cd arch-secure-boot && ./arch-secure-boot initial-setup
 
 msg "${PURPLE}\n=== Configuring swap file ==="
 

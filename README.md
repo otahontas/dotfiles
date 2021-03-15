@@ -84,3 +84,4 @@ This repo includes my configurations for Arch Linux and macOS.
 - change to Kitty? Supports tabs, true color and images
 - Add setting system preferences via commands to macos script
 - Add restore app settings from backups to macos script
+- Add base-devel packages as base-devel group (not individual packages) to package backup

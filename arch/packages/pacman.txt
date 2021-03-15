@@ -1,3 +1,5 @@
+# base-devel
+
 acpi
 aerc
 alacritty
@@ -6,13 +8,10 @@ android-tools
 ansible
 arc-gtk-theme
 arc-icon-theme
-autoconf
-automake
-base
 bat
 biber
 bind
-bison
+binutils
 bpython
 brightnessctl
 browserpass
@@ -27,13 +26,11 @@ element-desktop
 etckeeper
 exa
 exfat-utils
-fakeroot
 fd
 firefox
-flex
 fzf
 gammastep
-gcc
+gawk
 gcr
 gdb
 git
@@ -57,7 +54,6 @@ linux
 linux-firmware
 lvm2
 lynx
-make
 mako
 man-db
 man-pages
@@ -77,9 +73,6 @@ openssh
 p7zip
 pacman-contrib
 pass
-patch
-pkgconf
-pulseaudio
 pulseaudio-alsa
 pulsemixer
 pwgen
@@ -91,7 +84,6 @@ rsync
 rustup
 seahorse
 slurp
-sudo
 sway
 swayidle
 swaylock
@@ -110,7 +102,6 @@ unzip
 vdirsyncer
 w3m
 wget
-which
 wl-clipboard
 xdg-user-dirs
 xdg-utils
