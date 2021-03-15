@@ -4,7 +4,7 @@
 set -Eeuo pipefail
 trap 'cleanup $? $LINENO' SIGINT SIGTERM ERR EXIT
 BACKTITLE="Arch Linux installation"
-
+repo_url=https://raw.githubusercontent.com/otahontas/dotfiles/main
 hostname=archis
 user=otahontas
 
@@ -165,9 +165,9 @@ mount -o noatime,nodiratime,compress=zstd,subvol=snapshots /dev/mapper/luks /mnt
 
 msg "${PURPLE}\n=== Installing base packages needed to build and launch system ===${NOFORMAT}"
 
-pacstrap /mnt base base-devel btrfs-progs linux linux-firmware intel-ucode terminus-font linux-headers git zsh
+pacstrap /mnt $(curl $(repo_url/arch/packages/pacman.txt))
 
-msg "${PURPLE}\n=== Building needed AUR packages with temporary user, then installing===${NOFORMAT}"
+msg "${PURPLE}\n=== Building needed AUR packages with temporary user, then installing ===${NOFORMAT}"
 
 arch-chroot /mnt /bin/bash <<EOF
 useradd -m build && passwd -d build && groupadd -rf wheel && gpasswd -a build wheel
