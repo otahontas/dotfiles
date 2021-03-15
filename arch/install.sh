@@ -165,7 +165,7 @@ mount -o noatime,nodiratime,compress=zstd,subvol=snapshots /dev/mapper/luks /mnt
 
 msg "${PURPLE}\n=== Installing base packages needed to build and launch system ===${NOFORMAT}"
 
-pacstrap /mnt base base-devel btrfs-progs linux linux-firmware intel-ucode terminus-font linux-headers git
+pacstrap /mnt base base-devel btrfs-progs linux linux-firmware intel-ucode terminus-font linux-headers git zsh
 
 msg "${PURPLE}\n=== Building needed AUR packages with temporary user, then installing===${NOFORMAT}"
 
