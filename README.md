@@ -54,7 +54,7 @@ This repo includes my configurations for Arch Linux and macOS.
 - Run installation:
   - Boot to Arch live usb
   - Connect to wifi with `iwctl`
-  - Run installation script with `bash <(curl -sL https://git.io/JqWsk)`
+  - Run installation script with `bash <(curl -sL https://raw.githubusercontent.com/otahontas/dotfiles/main/arch/install.sh)`
   - Reboot and enable secure boot
   - Profit
 
@@ -66,7 +66,7 @@ This repo includes my configurations for Arch Linux and macOS.
 - Run graphical setup:
   - Clear NVRAM
   - Make your way through Setup Assistant
-- Open terminal and run installation script `bash <(curl -sL https://git.io/JqWsk)`
+- Open terminal and run installation script with `bash <(curl -sL https://raw.githubusercontent.com/otahontas/dotfiles/main/mac/install.sh)`
 
 **just dotfiles**:
 
@@ -82,3 +82,5 @@ This repo includes my configurations for Arch Linux and macOS.
   zsh settings
 - change to Noir theme for unified experience?
 - change to Kitty? Supports tabs, true color and images
+- Add setting system preferences via commands to macos script
+- Add restore app settings from backups to macos script

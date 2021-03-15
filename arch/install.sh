@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-# Bootstrap script for setting up a new arch linux
-
 # === Global settings ===
 set -Eeuo pipefail
 trap 'cleanup $? $LINENO' SIGINT SIGTERM ERR EXIT
@@ -72,32 +70,36 @@ setup_colors
 
 # === Installation === 
 
+hostname=archis
+user=otahontas
+
 msg "${PURPLE}\n=== Checking UEFI boot mode ==="
+
 if [ ! -f /sys/firmware/efi/fw_platform_size ]; then
-  msg "${RED}\n=== Checking UEFI boot mode ==="
+  msg "${RED}\nCannot run if UEFI mode not enabled"
   exit 2
 fi
 
 msg "${PURPLE}\n=== Setting up clock ==="
+
 timedatectl set-ntp true
 hwclock --systohc --utc
 
 
-msg "${PURPLE}\n=== Installing some helper tools ==="
-# Install tools that are used during system installation
+msg "${PURPLE}\n=== Installing some helper tools needed during installation ==="
+
 pacman -Suy --noconfirm --needed git reflector terminus-font dialog wget
 font="ter-716n"
 setfont "$font"
 reflector --latest 30 --sort rate --save /etc/pacman.d/mirrorlist
 
-# Installation defaults
-hostname=archis
-user=otahontas
 password=$(get_password "User" "Enter password") || exit 1
 clear
 : "${password:?"password cannot be empty"}"
 
-# Volume setup
+msg "${PURPLE}\n=== Setting up columes and partitions ==="
+sleep 1
+
 devicelist=$(lsblk -dplnx size -o name,size | grep -Ev "boot|rpmb|loop" | tac | tr '\n' ' ')
 read -r -a devicelist <<< "$devicelist"
 
@@ -107,7 +109,6 @@ clear
 luks_header_device=$(get_choice "Installation" "Select disk to write LUKS header to" "${devicelist[@]}") || exit 1
 clear
 
-msg "${PURPLE}\n=== Setting up partitions ==="
 umount -R /mnt 2> /dev/null || true
 cryptsetup luksClose luks 2> /dev/null || true
 
@@ -126,12 +127,14 @@ else
 fi
 
 msg "${PURPLE}\n=== Formatting partitions ==="
+
 mkfs.vfat -n "EFI" -F32 "${part_boot}"
 echo -n ${password} | cryptsetup luksFormat --type luks2 --pbkdf argon2id --label luks $cryptargs "${part_root}"
 echo -n ${password} | cryptsetup luksOpen $cryptargs "${part_root}" luks
 mkfs.btrfs -L btrfs /dev/mapper/luks
 
 msg "${PURPLE}\n=== Setting up BTRFS subvolumes ==="
+
 mount /dev/mapper/luks /mnt
 btrfs subvolume create /mnt/root
 btrfs subvolume create /mnt/home
@@ -159,13 +162,12 @@ mount -o noatime,nodiratime,compress=zstd,subvol=temp      /dev/mapper/luks /mnt
 mount -o noatime,nodiratime,compress=zstd,subvol=swap      /dev/mapper/luks /mnt/swap
 mount -o noatime,nodiratime,compress=zstd,subvol=snapshots /dev/mapper/luks /mnt/.snapshots
 
-# Install packages and configure the system 
 msg "${PURPLE}\n=== Installing packages ==="
+
 pacstrap /mnt base base-devel linux linux-firmware intel-ucode
 
-msg "${PURPLE}\n=== Installing configs ==="
+msg "${PURPLE}\n=== Generating and adding configuration files ==="
 
-# Finalize fisk encryption setup
 cryptsetup luksHeaderBackup "${luks_header_device}" --header-backup-file /tmp/header.img
 luks_header_size="$(stat -c '%s' /tmp/header.img)"
 rm -f /tmp/header.img
@@ -189,6 +191,7 @@ arch-chroot /mnt mkinitcpio -p linux
 arch-chroot /mnt arch-secure-boot initial-setup
 
 msg "${PURPLE}\n=== Configuring swap file ==="
+
 truncate -s 0 /mnt/swap/swapfile
 chattr +C /mnt/swap/swapfile
 btrfs property set /mnt/swap/swapfile compression none
@@ -198,6 +201,7 @@ mkswap /mnt/swap/swapfile
 echo "/swap/swapfile none swap defaults 0 0" >> /mnt/etc/fstab
 
 msg "${PURPLE}\n=== Creating user ==="
+
 arch-chroot /mnt useradd -m -s /usr/bin/zsh "$user"
 for group in wheel network nzbget video; do
     arch-chroot /mnt groupadd -rf "$group"
