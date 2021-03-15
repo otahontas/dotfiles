@@ -234,4 +234,10 @@ echo "$user:$password" | arch-chroot /mnt chpasswd
 arch-chroot /mnt passwd -dl root
 
 msg "${PURPLE}\n=== Finalizing ===${NOFORMAT}"
-arch-chroot /mnt curl -sL "$repo_url/arch/post-install.sh" -o "/home/$user/post-install.sh"
+arch-chroot /mnt mkdir /mnt/var/lib/iwd/
+cp /var/lib/iwd/*.psk /mnt/var/lib/iwd/
+arch-chroot /mnt <<EOF
+curl -sL "$repo_url/arch/post-install.sh" -o "/home/$user/post-install.sh"
+chown $user:$user /home/$user/post-install.sh
+chmod u+x /home/$user/post-install.sh
+EOF
