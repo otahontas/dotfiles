@@ -35,6 +35,9 @@ die() {
   exit "$code"
 }
 
+export SNAP_PAC_SKIP=y
+BACKTITLE="Arch Linux installation"
+
 get_input() {
     title="$1"
     description="$2"
