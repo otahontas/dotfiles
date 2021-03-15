@@ -170,11 +170,18 @@ pacstrap /mnt base base-devel btrfs-progs linux linux-firmware intel-ucode termi
 
 msg "${PURPLE}\n=== Building aur install tool with nobody, then installing ==="
 
-arch-chroot /mnt mkdir /home/build && chgrp nobody /home/build && \
-  chmod g+ws /home/build && setfacl -m u::rwx,g::rwx /home/build && \
-  setfacl -d --set u::rwx,g::rwx,o::- /home/build && cd /home/build && \
-  git clone https://aur.archlinux.org/paru-bin.git && cd paru-bin && makepkg -s && \
-  pacman -U --noconfirm paru-bin*.pkg.tar.zst && rm -rf /home/build
+arch-chroot /mnt /bin/bash <<EOF
+mkdir /home/build  && \
+chgrp nobody /home/build && \
+chmod g+ws /home/build && \
+setfacl -m u::rwx,g::rwx /home/build && \
+setfacl -d --set u::rwx,g::rwx,o::- /home/build && \
+cd /home/build && \
+git clone https://aur.archlinux.org/paru-bin.gitcd paru-bin && \
+makepkg -s && \
+pacman -U --noconfirm paru-bin*.pkg.tar.zst && \
+rm -rf /home/build
+EOF
 
 exit 1
 
