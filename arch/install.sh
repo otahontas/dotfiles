@@ -139,9 +139,6 @@ msg "${PURPLE}\n=== Setting up BTRFS subvolumes ===${NOFORMAT}"
 mount /dev/mapper/luks /mnt
 btrfs subvolume create /mnt/root
 btrfs subvolume create /mnt/home
-btrfs subvolume create /mnt/pkgs
-btrfs subvolume create /mnt/aurbuild
-btrfs subvolume create /mnt/archbuild
 btrfs subvolume create /mnt/docker
 btrfs subvolume create /mnt/logs
 btrfs subvolume create /mnt/temp
@@ -150,24 +147,24 @@ btrfs subvolume create /mnt/snapshots
 umount /mnt
 
 mount -o noatime,nodiratime,compress=zstd,subvol=root /dev/mapper/luks /mnt
-mkdir -p /mnt/{mnt/btrfs-root,efi,home,var/{cache/pacman,log,tmp,lib/{aurbuild,archbuild,docker}},swap,.snapshots}
+mkdir -p /mnt/{mnt/btrfs-root,efi,home,var/{cache/pacman,log,tmp,lib/docker},swap,.snapshots}
 mount "${part_boot}" /mnt/efi
 mount -o noatime,nodiratime,compress=zstd,subvol=/         /dev/mapper/luks /mnt/mnt/btrfs-root
 mount -o noatime,nodiratime,compress=zstd,subvol=home      /dev/mapper/luks /mnt/home
 mount -o noatime,nodiratime,compress=zstd,subvol=pkgs      /dev/mapper/luks /mnt/var/cache/pacman
-mount -o noatime,nodiratime,compress=zstd,subvol=aurbuild  /dev/mapper/luks /mnt/var/lib/aurbuild
-mount -o noatime,nodiratime,compress=zstd,subvol=archbuild /dev/mapper/luks /mnt/var/lib/archbuild
 mount -o noatime,nodiratime,compress=zstd,subvol=docker    /dev/mapper/luks /mnt/var/lib/docker
 mount -o noatime,nodiratime,compress=zstd,subvol=logs      /dev/mapper/luks /mnt/var/log
 mount -o noatime,nodiratime,compress=zstd,subvol=temp      /dev/mapper/luks /mnt/var/tmp
 mount -o noatime,nodiratime,compress=zstd,subvol=swap      /dev/mapper/luks /mnt/swap
 mount -o noatime,nodiratime,compress=zstd,subvol=snapshots /dev/mapper/luks /mnt/.snapshots
 
-msg "${PURPLE}\n=== Installing base packages needed to build and launch system ===${NOFORMAT}"
+msg "${PURPLE}\n=== Installing all pacman packages from dotfiles list ===${NOFORMAT}"
 
-pacstrap /mnt $(curl -sL $(repo_url/arch/packages/pacman.txt))
+pacstrap /mnt $(curl -sL $repo_url/arch/packages/pacman.txt)
 
-msg "${PURPLE}\n=== Building crucial AUR packages with temporary user, then installing ===${NOFORMAT}"
+msg "${PURPLE}\n=== Building crucial AUR packages with temporary user, then installing with root ===${NOFORMAT}"
+
+aur_prgs="paru-bin mkinitcpio-encrypt-detached-header arch-secure-boot"
 
 arch-chroot /mnt /bin/bash <<EOF
 useradd -m build && passwd -d build && groupadd -rf wheel && gpasswd -a build wheel
@@ -180,20 +177,12 @@ cd /home/build
 
 [[ -d /home/build ]] || exit 1
 
-git clone https://aur.archlinux.org/arch-secure-boot.git && \
-cd arch-secure-boot && \
-sudo -u build makepkg -s --noconfirm --skippgpcheck && \
-pacman -U --noconfirm arch-secure-boot*pkg* && cd ..
-
-git clone https://aur.archlinux.org/mkinitcpio-encrypt-detached-header.git && \
-cd mkinitcpio-encrypt-detached-header && \
-sudo -u build makepkg -src --noconfirm --skippgpcheck && \
-pacman -U --noconfirm mkinitcpio-encrypt-detached-header*pkg* && cd ..
-
-git clone https://aur.archlinux.org/arch-secure-boot.git && \
-cd arch-secure-boot && \
-sudo -u build makepkg -s --noconfirm --skippgpcheck && \
-pacman -U --noconfirm arch-secure-boot*pkg* && cd ..
+for program in $aur_prgs; do
+  git clone https://aur.archlinux.org/'$program'.git && \
+  cd '$program' && \
+  sudo -u build makepkg -s --noconfirm --skippgpcheck && \
+  pacman -U --noconfirm '$program'*pkg* && cd ..
+done
 
 userdel -r build && groupdel wheel && rm -rf /home/build
 EOF
