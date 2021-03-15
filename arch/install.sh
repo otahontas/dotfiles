@@ -168,26 +168,25 @@ msg "${PURPLE}\n=== Installing base packages needed to build and launch system =
 
 pacstrap /mnt base base-devel btrfs-progs linux linux-firmware intel-ucode terminus-font linux-headers git
 
-msg "${PURPLE}\n=== Building needed AUR packages with nobody user, then installing===${NOFORMAT}"
+msg "${PURPLE}\n=== Building needed AUR packages with temporary user, then installing===${NOFORMAT}"
 
 arch-chroot /mnt /bin/bash <<EOF
-mkdir /home/build  && \
-chgrp nobody /home/build && \
-chmod g+ws /home/build && \
+useradd -m build && passwd -d build && groupadd -rf wheel && gpasswd -a build wheel
+echo "%wheel ALL=(ALL) ALL" > /etc/sudoers.d/override
+chgrp build /home/build && chmod g+ws /home/build
 setfacl -m u::rwx,g::rwx /home/build && \
-setfacl -d --set u::rwx,g::rwx,o::- /home/build && \
-cd /home/build && \
+setfacl -d --set u::rwx,g::rwx,o::- /home/build
+cd /home/build
 git clone https://aur.archlinux.org/arch-secure-boot.git && \
 cd arch-secure-boot && \
-sudo -u nobody makepkg -s && \
-pacman -U --noconfirm arch-secure-boot.*.pkg.tar.zst && \
-cd .. && \
+sudo -u build makepkg -s --noconfirm --skippgpcheck && \
+pacman -U --noconfirm arch-secure-boot.*.pkg.tar.zst && \ cd ..
 git clone https://aur.archlinux.org/mkinitcpio-encrypt-detached-header.git && \
 cd mkinitcpio-encrypt-detached-header && \
-sudo -u nobody makepkg -s && \
+sudo -u build makepkg -src --noconfirm --skippgpcheck && \
 pacman -U --noconfirm mkinitcpio-encrypt-detached-header.*.pkg.tar.zst && \
 cd .. && \
-rm -rf /home/build
+userdel -r build && groupdel wheel && rm -rf /home/build
 EOF
 
 exit 1
