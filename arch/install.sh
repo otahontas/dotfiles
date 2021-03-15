@@ -3,6 +3,11 @@
 # === Global settings ===
 set -Eeuo pipefail
 trap 'cleanup $? $LINENO' SIGINT SIGTERM ERR EXIT
+export SNAP_PAC_SKIP=y
+BACKTITLE="Arch Linux installation"
+
+hostname=archis
+user=otahontas
 
 # === Helper functions ===
 cleanup() {
@@ -35,8 +40,6 @@ die() {
   exit "$code"
 }
 
-export SNAP_PAC_SKIP=y
-BACKTITLE="Arch Linux installation"
 
 get_input() {
     title="$1"
@@ -73,9 +76,6 @@ setup_colors
 
 # === Installation === 
 
-hostname=archis
-user=otahontas
-
 msg "${PURPLE}\n=== Checking UEFI boot mode ==="
 
 if [ ! -f /sys/firmware/efi/fw_platform_size ]; then
@@ -94,7 +94,6 @@ msg "${PURPLE}\n=== Installing some helper tools needed during installation ==="
 pacman -Sy --noconfirm --needed git dialog
 font="ter-716n"
 setfont "$font"
-reflector --latest 30 --sort rate --save /etc/pacman.d/mirrorlist
 
 password=$(get_password "User" "Enter password") || exit 1
 clear
