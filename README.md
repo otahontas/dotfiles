@@ -41,7 +41,7 @@ This repo includes my configurations for Arch Linux and macOS.
     for spotify
   - [newsboat](https://newsboat.org/) for RSS
 
-## Installation
+## (Fresh) Installation
 
 **Arch Linux**:
 
@@ -60,10 +60,20 @@ This repo includes my configurations for Arch Linux and macOS.
 
 **macOS**:
 
+- Prepare:
+  - Cleanup any previous install
+  - Set up firware password
 - Run graphical setup:
   - Clear NVRAM
   - Make your way through Setup Assistant
 - Open terminal and run installation script `bash <(curl -sL https://git.io/JqWsk)`
+
+**just dotfiles**:
+
+- Install chezmoi
+- Run `chezmoi init https://github.com/otahontas/dotfiles.git`
+- See what would be changed with `chezmoi diff`
+- If everything is ok, apply with `chezmoi apply`
 
 ## TODO / Known issues
 

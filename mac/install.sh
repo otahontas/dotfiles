@@ -2,7 +2,6 @@
 
 # Bootstrap script for setting up a new macos
 
-# TODO: Take a look at this: https://github.com/drduh/macOS-Security-and-Privacy-Guide
 # TODO: Add setting system preferences via commands
 # TODO: Add restore app settings from backups
 
@@ -46,22 +45,48 @@ setup_colors
 
 # === Installation === 
 
-msg "${PURPLE}\n=== Installing package management ==="
+# Ensure localhost is the one I use
+[[ $(scutil --get ComputerName) == "mahisbook" ]] || sudo scutil --set ComputerName mahisbook
+[[ $(scutil --get LocalHostName) == "mahisbook" ]] || sudo scutil --set LocalHostName mahisbook
+
+# Enable FireVault
+fdesetup status | grep -q "FileVault is On" || sudo fdesetup enable
+
+# Setup firewall
+fw_changed="false"
+if ! /usr/libexec/ApplicationFirewall/socketfilterfw --getglobalstate | grep -q "Firewall is enabled"; then
+  sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate on
+  fw_changed=true
+fi
+if ! /usr/libexec/ApplicationFirewall/socketfilterfw --getloggingmode | grep -q "Log mode is on"; then
+  sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setloggingmode on
+  fw_changed=true
+fi
+if ! /usr/libexec/ApplicationFirewall/socketfilterfw --getstealthmode | grep -q "Stealth mode enabled"; then
+  sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setstealthmode on
+  fw_changed=true
+fi
+[[ "$fw_changed" == "true" ]] && sudo pkill -HUP socketfilterfw && msg "${NOFORMAT}\nFirewall restarted after changes"
+
+# Install command line tools
+[[ $(xcode-select -p 1>/dev/null; echo $?) == "2" ]] &&  xcode-select --install
+
 # Install homebrew if not installed
+msg "${PURPLE}\n=== Installing package management ==="
 if ! command -v brew &> /dev/null; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-msg "${PURPLE}\n=== Installing dotfiles ==="
 # Install chezmoi and add dotfiles if chezmoi and dotfiles folder aren't present
+msg "${PURPLE}\n=== Installing dotfiles ==="
 if ! command -v chezmoi &> /dev/null && ! test -d ~/.local/share/chezmoi; then
   chezmoi init --apply --verbose https://github.com/otahontas/dotfiles.git
 fi
 
 
-msg "${PURPLE}\n=== Installing packages ==="
 # Install taps, apps and packages. Each step is performed if current state differs from
 # dotfiles backup.
+msg "${PURPLE}\n=== Installing packages ==="
 pkg_dir="$(chezmoi source-path)/mac/packages"
 if ! diff <(brew tap | grep -v "homebrew/") <(cat "$pkg_dir/taps.txt"); then
   while read -r tap; do 
@@ -81,7 +106,7 @@ if ! diff <(brew list --cask) <(cat "$pkg_dir/casks.txt"); then
   done < "$pkg_dir/casks.txt"
 fi
 
-if ! diff <(mas list) <(cat "$pkg_dir/mas.txt"); then
+if ! diff <(mas list | sort) <(sort < "$pkg_dir/mas.txt"); then
   while read -r line; do 
     mas install "$(echo "$line" | cut -d' ' -f1)"
   done < "$pkg_dir/mas.txt"
