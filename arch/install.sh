@@ -88,7 +88,7 @@ hwclock --systohc --utc
 
 msg "${PURPLE}\n=== Installing some helper tools needed during installation ==="
 
-pacman -Suy --noconfirm --needed git reflector terminus-font dialog wget
+pacman -Sy --noconfirm --needed git dialog
 font="ter-716n"
 setfont "$font"
 reflector --latest 30 --sort rate --save /etc/pacman.d/mirrorlist
