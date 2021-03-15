@@ -71,6 +71,7 @@ This repo includes my configurations for Arch Linux and macOS.
 **just dotfiles**:
 
 - Install chezmoi
+- Download `example_chezmoi.toml`, add needed variables and move file to `~/.config/chezmoi/chezmoi.toml`
 - Run `chezmoi init https://github.com/otahontas/dotfiles.git`
 - See what would be changed with `chezmoi diff`
 - If everything is ok, apply with `chezmoi apply`
@@ -85,3 +86,5 @@ This repo includes my configurations for Arch Linux and macOS.
 - Add setting system preferences via commands to macos script
 - Add restore app settings from backups to macos script
 - Add base-devel packages as base-devel group (not individual packages) to package backup
+- Add chezmoi.toml initializing to both install scripts
+- Make better templates (split to different files etc.)

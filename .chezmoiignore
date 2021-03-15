@@ -3,11 +3,12 @@
 # Ignore readme & screenshots
 
 # Always ignore meta stuff 
+arch/
+mac/
 README.md
+example_chezmoi.toml
 screenshot_arch.png
 screenshot_mac.png
-mac/
-arch/
 
 # Machine spesific ignores
 {{ if eq .chezmoi.hostname "mahisbook" }}
@@ -36,4 +37,6 @@ arch/
 .config/zathura/
 .config/zsh/.zlogin
 .ideavimrc
+{{ else if eq .chezmoi.hostname "archis" }}
+.config/vdirsyncer/
 {{ end }}
