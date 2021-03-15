@@ -82,15 +82,10 @@ if [ ! -f /sys/firmware/efi/fw_platform_size ]; then
   exit 2
 fi
 
-msg "${PURPLE}\n=== Setting up clock ===${NOFORMAT}"
+msg "${PURPLE}\n=== Setting up clock and terminal font ===${NOFORMAT}"
 
 timedatectl set-ntp true
 hwclock --systohc --utc
-
-
-msg "${PURPLE}\n=== Installing some helper tools needed during installation ===${NOFORMAT}"
-
-pacman -Sy --noconfirm --needed dialog
 font="ter-716n"
 setfont "$font"
 
