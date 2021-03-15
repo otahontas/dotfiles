@@ -166,7 +166,7 @@ mount -o noatime,nodiratime,compress=zstd,subvol=snapshots /dev/mapper/luks /mnt
 
 msg "${PURPLE}\n=== Installing packages ==="
 
-pacstrap /mnt base base-devel linux linux-firmware intel-ucode
+pacstrap /mnt base base-devel linux linux-firmware intel-ucode linux-headers kernel-modules-hook mkinitcpio-encrypt-detached-header btrfs-progs arch-secure-boot terminus-font zsh
 
 msg "${PURPLE}\n=== Generating and adding configuration files ==="
 
@@ -176,7 +176,6 @@ rm -f /tmp/header.img
 
 echo "cryptdevice=PARTLABEL=primary:luks:allow-discards cryptheader=LABEL=luks:0:$luks_header_size root=LABEL=btrfs rw rootflags=subvol=root quiet mem_sleep_default=deep" > /mnt/etc/kernel/cmdline
 
-# Generate configuration files
 echo "FONT=$font" > /mnt/etc/vconsole.conf
 genfstab -L /mnt >> /mnt/etc/fstab
 echo "${hostname}" > /mnt/etc/hostname
