@@ -180,11 +180,11 @@ cd /home/build
 git clone https://aur.archlinux.org/arch-secure-boot.git && \
 cd arch-secure-boot && \
 sudo -u build makepkg -s --noconfirm --skippgpcheck && \
-pacman -U --noconfirm arch-secure-boot.*.pkg.tar.zst && \ cd ..
+pacman -U --noconfirm arch-secure-boot*pkg* && \ cd ..
 git clone https://aur.archlinux.org/mkinitcpio-encrypt-detached-header.git && \
 cd mkinitcpio-encrypt-detached-header && \
 sudo -u build makepkg -src --noconfirm --skippgpcheck && \
-pacman -U --noconfirm mkinitcpio-encrypt-detached-header.*.pkg.tar.zst && \
+pacman -U --noconfirm mkinitcpio-encrypt-detached-header*pkg* && \
 cd .. && \
 userdel -r build && groupdel wheel && rm -rf /home/build
 EOF
