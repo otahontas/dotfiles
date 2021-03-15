@@ -15,9 +15,9 @@ cleanup() {
   err=$1
   line=$2
   if [ "$err" -eq 0 ]; then
-    msg "${GREEN}\nInstallation script completed succesfully"
+    msg "${GREEN}\nInstallation script completed succesfully${NOFORMAT}"
   else
-    msg "${RED}\nError happened while running installation script on line $line."
+    msg "${RED}\nError happened while running installation script on line $line.${NOFORMAT}"
   fi
 }
 
@@ -76,22 +76,22 @@ setup_colors
 
 # === Installation === 
 
-msg "${PURPLE}\n=== Checking UEFI boot mode ==="
+msg "${PURPLE}\n=== Checking UEFI boot mode ===${NOFORMAT}"
 
 if [ ! -f /sys/firmware/efi/fw_platform_size ]; then
   msg "${RED}\nCannot run if UEFI mode not enabled"
   exit 2
 fi
 
-msg "${PURPLE}\n=== Setting up clock ==="
+msg "${PURPLE}\n=== Setting up clock ===${NOFORMAT}"
 
 timedatectl set-ntp true
 hwclock --systohc --utc
 
 
-msg "${PURPLE}\n=== Installing some helper tools needed during installation ==="
+msg "${PURPLE}\n=== Installing some helper tools needed during installation ===${NOFORMAT}"
 
-pacman -Sy --noconfirm --needed git dialog
+pacman -Sy --noconfirm --needed dialog
 font="ter-716n"
 setfont "$font"
 
@@ -99,7 +99,7 @@ password=$(get_password "User" "Enter password") || exit 1
 clear
 : "${password:?"password cannot be empty"}"
 
-msg "${PURPLE}\n=== Setting up columes and partitions ==="
+msg "${PURPLE}\n=== Setting up columes and partitions ===${NOFORMAT}"
 sleep 1
 
 devicelist=$(lsblk -dplnx size -o name,size | grep -Ev "boot|rpmb|loop" | tac | tr '\n' ' ')
@@ -128,14 +128,14 @@ else
     luks_header_device="$part_root"
 fi
 
-msg "${PURPLE}\n=== Formatting partitions ==="
+msg "${PURPLE}\n=== Formatting partitions ===${NOFORMAT}"
 
 mkfs.vfat -n "EFI" -F32 "${part_boot}"
 echo -n ${password} | cryptsetup luksFormat --type luks2 --pbkdf argon2id --label luks $cryptargs "${part_root}"
 echo -n ${password} | cryptsetup luksOpen $cryptargs "${part_root}" luks
 mkfs.btrfs -L btrfs /dev/mapper/luks
 
-msg "${PURPLE}\n=== Setting up BTRFS subvolumes ==="
+msg "${PURPLE}\n=== Setting up BTRFS subvolumes ===${NOFORMAT}"
 
 mount /dev/mapper/luks /mnt
 btrfs subvolume create /mnt/root
@@ -164,11 +164,11 @@ mount -o noatime,nodiratime,compress=zstd,subvol=temp      /dev/mapper/luks /mnt
 mount -o noatime,nodiratime,compress=zstd,subvol=swap      /dev/mapper/luks /mnt/swap
 mount -o noatime,nodiratime,compress=zstd,subvol=snapshots /dev/mapper/luks /mnt/.snapshots
 
-msg "${PURPLE}\n=== Installing the first set of packages ==="
+msg "${PURPLE}\n=== Installing base packages needed to build and launch system ===${NOFORMAT}"
 
 pacstrap /mnt base base-devel btrfs-progs linux linux-firmware intel-ucode terminus-font linux-headers git
 
-msg "${PURPLE}\n=== Building aur install tool with nobody, then installing ==="
+msg "${PURPLE}\n=== Building needed AUR packages with nobody user, then installing===${NOFORMAT}"
 
 arch-chroot /mnt /bin/bash <<EOF
 mkdir /home/build  && \
@@ -177,15 +177,22 @@ chmod g+ws /home/build && \
 setfacl -m u::rwx,g::rwx /home/build && \
 setfacl -d --set u::rwx,g::rwx,o::- /home/build && \
 cd /home/build && \
-git clone https://aur.archlinux.org/paru-bin.gitcd paru-bin && \
-makepkg -s && \
-pacman -U --noconfirm paru-bin*.pkg.tar.zst && \
+git clone https://aur.archlinux.org/arch-secure-boot.git && \
+cd arch-secure-boot && \
+sudo -u nobody makepkg -s && \
+pacman -U --noconfirm arch-secure-boot.*.pkg.tar.zst && \
+cd .. && \
+git clone https://aur.archlinux.org/mkinitcpio-encrypt-detached-header.git && \
+cd mkinitcpio-encrypt-detached-header && \
+sudo -u nobody makepkg -s && \
+pacman -U --noconfirm mkinitcpio-encrypt-detached-header.*.pkg.tar.zst && \
+cd .. && \
 rm -rf /home/build
 EOF
 
 exit 1
 
-msg "${PURPLE}\n=== Generating and adding the first set of configuration files ==="
+msg "${PURPLE}\n=== Generating and adding configuration files and images ===${NOFORMAT}"
 
 cryptsetup luksHeaderBackup "${luks_header_device}" --header-backup-file /tmp/header.img
 luks_header_size="$(stat -c '%s' /tmp/header.img)"
@@ -206,9 +213,9 @@ FILES=()
 HOOKS=(base consolefont udev autodetect modconf block encrypt-dh filesystems keyboard)
 EOF
 arch-chroot /mnt mkinitcpio -p linux
+arch-chroot /mnt arch-secure-boot initial-setup
 
-
-msg "${PURPLE}\n=== Configuring swap file ==="
+msg "${PURPLE}\n=== Configuring swap file ===${NOFORMAT}"
 
 truncate -s 0 /mnt/swap/swapfile
 chattr +C /mnt/swap/swapfile
@@ -218,7 +225,7 @@ chmod 600 /mnt/swap/swapfile
 mkswap /mnt/swap/swapfile
 echo "/swap/swapfile none swap defaults 0 0" >> /mnt/etc/fstab
 
-msg "${PURPLE}\n=== Creating user ==="
+msg "${PURPLE}\n=== Creating user ===${NOFORMAT}"
 
 arch-chroot /mnt useradd -m -s /usr/bin/zsh "$user"
 for group in wheel network nzbget video; do
