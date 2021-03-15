@@ -173,11 +173,13 @@ cd /home/build
 
 [[ -d /home/build ]] || exit 1
 
-for program in $aur_prgs; do
-  git clone https://aur.archlinux.org/'$program'.git && \
-  cd '$program' && \
+programs="$aur_prgs"
+
+for program in \$programs; do
+  git clone https://aur.archlinux.org/\$program.git && \
+  cd \$program && \
   sudo -u build makepkg -s --noconfirm --skippgpcheck && \
-  pacman -U --noconfirm '$program'*pkg* && cd ..
+  pacman -U --noconfirm \$program*pkg* && cd ..
 done
 
 userdel -r build && groupdel wheel && rm -rf /home/build
