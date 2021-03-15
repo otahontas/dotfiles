@@ -3,7 +3,6 @@
 # === Global settings ===
 set -Eeuo pipefail
 trap 'cleanup $? $LINENO' SIGINT SIGTERM ERR EXIT
-export SNAP_PAC_SKIP=y
 BACKTITLE="Arch Linux installation"
 
 hostname=archis
