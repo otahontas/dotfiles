@@ -30,7 +30,6 @@ exfat-utils
 fakeroot
 fd
 firefox
-firefox-developer-edition
 flex
 fzf
 gammastep
