@@ -193,8 +193,6 @@ pacman -U --noconfirm arch-secure-boot*pkg* && cd ..
 userdel -r build && groupdel wheel && rm -rf /home/build
 EOF
 
-exit 1
-
 msg "${PURPLE}\n=== Generating and adding configuration files and images ===${NOFORMAT}"
 
 cryptsetup luksHeaderBackup "${luks_header_device}" --header-backup-file /tmp/header.img
