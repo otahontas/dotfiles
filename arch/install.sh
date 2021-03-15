@@ -166,7 +166,7 @@ mount -o noatime,nodiratime,compress=zstd,subvol=snapshots /dev/mapper/luks /mnt
 
 msg "${PURPLE}\n=== Installing the first set of packages ==="
 
-pacstrap /mnt base base-devel btrfs-progs linux linux-firmware intel-ucode terminus-font linux-headers
+pacstrap /mnt base base-devel btrfs-progs linux linux-firmware intel-ucode terminus-font linux-headers git
 
 msg "${PURPLE}\n=== Building aur install tool with nobody, then installing ==="
 
