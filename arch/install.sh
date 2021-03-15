@@ -139,6 +139,7 @@ msg "${PURPLE}\n=== Setting up BTRFS subvolumes ===${NOFORMAT}"
 mount /dev/mapper/luks /mnt
 btrfs subvolume create /mnt/root
 btrfs subvolume create /mnt/home
+btrfs subvolume create /mnt/pkgs
 btrfs subvolume create /mnt/docker
 btrfs subvolume create /mnt/logs
 btrfs subvolume create /mnt/temp
