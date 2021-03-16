@@ -47,6 +47,7 @@ fpath+=$(brew --prefix)/share/zsh/site-functions
 
 # Set up completions, avoid executing compinit on every launch
 zstyle ':completion:*' menu select
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 zstyle ':completion::complete:*' gain-privileges 1
 zstyle :compinstall filename '$ZDOTDIR/.zshrc'
 autoload -Uz compinit
@@ -60,6 +61,7 @@ autoload -Uz compinit
 } ${ZDOTDIR:-$HOME}/.zcompdump(N.mh+24)
 setopt correct
 setopt correctall
+setopt no_list_ambiguous
 setopt COMPLETE_ALIASES
 
 # Disable annoying zsh features
@@ -79,6 +81,7 @@ source $ZDOTDIR/.parameters.zsh
 # Source aliases and custom functions after everything is loaded
 source $ZDOTDIR/.zsh_aliases
 source $ZDOTDIR/.zsh_functions
+
 
 # Load settings for various programs
 source $ZDOTDIR/.integrations.zsh
