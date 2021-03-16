@@ -6,6 +6,8 @@ caffeine
 daisydisk
 firefox
 focusrite-control
+font-fira-code
+font-meslo-lg-nerd-font
 freetube
 iina
 izotope-product-portal

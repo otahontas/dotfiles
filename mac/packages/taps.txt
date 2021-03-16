@@ -1,2 +1,8 @@
 amar1729/formulae
+homebrew/cask
+homebrew/cask-drivers
+homebrew/cask-fonts
+homebrew/core
+homebrew/services
+homebrew/test-bot
 otahontas/tap

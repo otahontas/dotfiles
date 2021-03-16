@@ -98,7 +98,7 @@ function brew () {
     if [[ $? -eq 0 && ($1 == "install" || $1 == "uninstall" || $1 == "upgrade") ]]; then
         brew leaves > $(chezmoi source-path)/mac/packages/formulae.txt
         brew list --cask > $(chezmoi source-path)/mac/packages/casks.txt
-        brew tap | grep -v "homebrew/" > $(chezmoi source-path)/mac/packages/taps.txt
+        brew tap  > $(chezmoi source-path)/mac/packages/taps.txt
     fi
 }
 

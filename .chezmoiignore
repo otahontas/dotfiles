@@ -36,6 +36,7 @@ screenshot_mac.png
 .config/wget/
 .config/zathura/
 .config/zsh/.zlogin
+.config/fonts
 .ideavimrc
 {{ else if eq .chezmoi.hostname "archis" }}
 .config/vdirsyncer/

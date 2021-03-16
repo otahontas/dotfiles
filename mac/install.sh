@@ -33,13 +33,13 @@ setup_colors
 
 # === Installation === 
 
-msg "${PURPLE}\n=== Setting up networking ==="
+msg "${PURPLE}\n=== Setting up networking ===${NOFORMAT}"
 
 [[ $(scutil --get ComputerName) == "mahisbook" ]] || sudo scutil --set ComputerName mahisbook
 [[ $(scutil --get LocalHostName) == "mahisbook" ]] || sudo scutil --set LocalHostName mahisbook
 
 
-msg "${PURPLE}\n=== Setting up safety stuff ==="
+msg "${PURPLE}\n=== Setting up safety stuff ===${NOFORMAT}"
 
 fdesetup status | grep -q "FileVault is On" || sudo fdesetup enable
 
@@ -59,7 +59,7 @@ fi
 [[ "$fw_changed" == "true" ]] && sudo pkill -HUP socketfilterfw && msg "${NOFORMAT}\nFirewall restarted after changes"
 
 
-msg "${PURPLE}\n=== Installing package management ==="
+msg "${PURPLE}\n=== Installing package management ===${NOFORMAT}"
 
 [[ $(xcode-select -p 1>/dev/null; echo $?) == "2" ]] &&  xcode-select --install
 
@@ -67,16 +67,16 @@ if ! command -v brew &> /dev/null; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-msg "${PURPLE}\n=== Installing dotfiles ==="
+msg "${PURPLE}\n=== Installing dotfiles ===${NOFORMAT}"
 
 if ! command -v chezmoi &> /dev/null && ! test -d ~/.local/share/chezmoi; then
   chezmoi init --apply --verbose https://github.com/otahontas/dotfiles.git
 fi
 
-msg "${PURPLE}\n=== Installing packages ==="
+msg "${PURPLE}\n=== Installing packages ===${NOFORMAT}"
 
 pkg_dir="$(chezmoi source-path)/mac/packages"
-if ! diff <(brew tap | grep -v "homebrew/") <(cat "$pkg_dir/taps.txt"); then
+if ! diff <(brew tap) <(cat "$pkg_dir/taps.txt"); then
   while read -r tap; do 
     brew tap "$tap"
   done < "$pkg_dir/taps.txt"
@@ -100,9 +100,10 @@ if ! diff <(mas list | sort) <(sort < "$pkg_dir/mas.txt"); then
   done < "$pkg_dir/mas.txt"
 fi
 
-msg "${PURPLE}\n=== Moving needed files to correct places ==="
+msg "${PURPLE}\n=== Moving needed files to correct places ===${NOFORMAT}"
 
 test -f ~/Library/Keyboard\ Layouts/U.S.\ International\ wo\ dead\ keys.keylayout || cp "$script_dir/files/U.S. International wo dead keys.keylayout" ~/Library/Keyboard\ Layouts/
+sudo cp "$(chezmoi source-path)"/dot_config/fonts/* ~/Library/Fonts
 
 msg "${PURPLE}\n=== Creating folders ==="
 test -d ~/Code || mkdir Code
