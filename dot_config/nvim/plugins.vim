@@ -27,11 +27,10 @@ Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-commentary'
 
 " Security and system
-Plug '$XDG_DATA_HOME/nvim/plugged/vim-redact-pass/'
+Plug 'https://gitlab.com/craftyguy/vim-redact-pass.git'
 Plug 'lambdalisue/suda.vim'
 
 " All-around features
-Plug 'dense-analysis/ale'
 Plug 'scrooloose/nerdtree'
 Plug 'junegunn/fzf.vim'
 call plug#end()
