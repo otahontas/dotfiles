@@ -2,7 +2,7 @@
   aerc_mail_email = ""
   aerc_mail_outgoing = ""
   aerc_mail_source = ""
-  git_email = "
+  git_email = ""
   khal_calendar_path = ""
   khard_addressbook_path = ""
   newsboat_login = ""

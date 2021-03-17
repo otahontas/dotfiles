@@ -1,16 +1,18 @@
 # Output
-output "*" bg /home/otahontas/media/background.jpg fill
+# output "*" bg /home/otahontas/media/background.jpg fill
 gaps {
     outer 3
     inner 3
 }
 default_border pixel 2
-xwayland enable
+xwayland disable
 include ~/.config/sway/Rigel.conf
 
-# Input
-focus_follows_mouse no
+seat * hide_cursor 10000
 
+# Input
+mouse_warping none
+focus_follows_mouse no
 
 input "type:touchpad" {
     dwt enabled
@@ -31,7 +33,7 @@ set $left h
 set $down j
 set $up k
 set $right l
-set $term alacritty
+set $term kitty
 
 # Idle settings for locking and sleeping. Set on by default, but can be toggled
 # off and on again with keybindings.
@@ -48,7 +50,8 @@ bindsym $mod+Shift+i exec pkill swayidle
 
 # Keybindings for the most common tasks
 bindsym $mod+Return exec $term
-bindsym $mod+Shift+q kill
+bindsym $mod+q kill
+bindsym $mod+d exec wofi
 bindsym $mod+space exec $term --class=launcher -e sh -c "compgen -c | sort -u | fzf | xargs -r swaymsg -t command exec"
 bindsym $mod+Shift+space exec $term --class=opener -e zsh -is eval "source $ZDOTDIR/cond_settings/exit_after_running.zsh"
 for_window [app_id="^launcher$|^opener$"] floating enable, resize set width 800 px height 400 px
@@ -108,14 +111,7 @@ bindsym XF86MonBrightnessUp exec brightnessctl set +5%
 # Status Bar:
 bar {
     position top
-    status_command while ~/.config/sway/status.sh; do sleep 1; done
-
-    colors {
-        statusline $fg
-        background $bg
-        focused_workspace $black1 $green2 $black1
-        inactive_workspace $black1 $blue1 $black1
-    }
+    swaybar_command waybar
 }
 
 include @sysconfdir@/sway/config.d/*
