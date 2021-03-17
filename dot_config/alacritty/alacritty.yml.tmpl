@@ -1,14 +1,12 @@
 font:
-{{- if eq .chezmoi.hostname "archis" }}
-  size: 12.5
-{{- else if eq .chezmoi.hostname "mahisbook" }}
   normal:
     family: "MesloLGS NF"
+{{- if eq .chezmoi.hostname "archis" }}
+  size: 11
+{{- else if eq .chezmoi.hostname "mahisbook" }}
   size: 13
 {{- end }}
 
-
-## Dark theme: Rigel
 colors:
   # Default colors
   primary:
@@ -42,10 +40,6 @@ colors:
     cursor: "0xffcc1b"
 
 window:
-  # Window padding (changes require restart)
-  #
-  # Blank space added around the window in pixels. This padding is scaled
-  # by DPI and the specified value is always added at both opposing sides.
   padding:
     x: 3
     y: 3
@@ -53,6 +47,4 @@ window:
   decorations: buttonless
   {{- end }}
 
-# Window opacity as a floating point number from `0.0` to `1.0`.
-# The value `0.0` is completely transparent and `1.0` is opaque.
 background_opacity: 0.95
