@@ -43,23 +43,31 @@ setup_colors
 
 # === Installation === 
 
+# msg "${PURPLE}\n=== Setting up networking ===${NOFORMAT}"
 
-#!/bin/sh
-echo "// Symlinking fonts folder to XDG_DATA_HOME"
-dest=$XDG_DATA_HOME/fonts
-[[ -e $dest ]] || ln -s $XDG_CONFIG_HOME/fonts $XDG_DATA_HOME/
-echo "Done"
+# sudo systemctl enable --now iwd.service
+# sudo systemctl enable --now systemd-resolved.service
+# sudo ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
+sudo systemctl enable --now docker.service
 
-echo "// Symlinking pacman hooks to /usr/share/libalpm/hooks/"
-destfolder=/usr/share/libalpm/hooks
-for f in $XDG_CONFIG_HOME/pacman-hooks/*.hook; do
-    name=$(echo $f | xargs -n 1 basename)
-    [[ -e $destfolder/$name ]] || sudo ln -s $f $destfolder/
-done
-echo "Done"
+# msg "${PURPLE}\n=== Installing AUR packages ===${NOFORMAT}"
 
-echo "// Creating folders for HOME"
-[[ -e ~/downloads ]] || mkdir ~/downloads
-[[ -e ~/documents ]] || mkdir ~/documents
-[[ -e ~/media ]] || mkdir ~/media
-[[ -e ~/public ]] || mkdir ~/public
+# paru -S --skipreview $(cat $(chezmoi source-path)/arch/packages/aur.txt)
+
+# msg "${PURPLE}\n=== Installing zsh plugins ===${NOFORMAT}" 
+
+# antibody bundle < $ZDOTDIR/.zsh_plugins.txt > $ZDOTDIR/.zsh_plugins.sh 
+
+# !!!! NOT YET DONE
+# - Setup pacman hooks to share
+# - Create needed create folders
+# - docker without sudosudo
+# sudo groupadd docker && sudo usermod -aG docker $USER && newgrp docker
+# tee vielä:
+# setup hooks
+# omat systemctl
+# kirjaa ylös toiveet tulevalle
+# sit jotenkin systeemi kuntoon, kun asennan jotain tms niin jee jee, miten ne menee
+# automaagisesti
+
+# Tähän kans gpg key setup ja sen myötä passwordit
