@@ -5,19 +5,12 @@ set laststatus=2
 set showcmd
 set wildmenu
 set wildoptions=tagfile
-set t_Co=256
 set cursorline
 let &colorcolumn="88,".join(range(120,999),",")
 
 " Dark theme
-colorscheme rigel
-
-if exists('+termguicolors')
-  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-  set termguicolors
-endif
+colorscheme dracula
+set termguicolors
 
 " Text editing
 set autoindent
@@ -66,16 +59,23 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 " Auto highlight words, autosave delay, cursorhold trigger, default: 4000ms
 setl updatetime=300
 
-highlight WordUnderCursor cterm=underline gui=underline
-autocmd CursorHold * call HighlightCursorWord()
-function! HighlightCursorWord()
-    " if hlsearch is active, don't overwrite it!
-    let search = getreg('/')
-    let cword = expand('<cword>')
-    if match(cword, search) == -1
-        exe printf('match WordUnderCursor /\V\<%s\>/', escape(cword, '/\'))
-    endif
-endfunction
+" highlight WordUnderCursor cterm=underline gui=underline
+" autocmd CursorHold * call HighlightCursorWord()
+" function! HighlightCursorWord()
+"     " if hlsearch is active, don't overwrite it!
+"     let search = getreg('/')
+"     let cword = expand('<cword>')
+"     if match(cword, search) == -1
+"         exe printf('match WordUnderCursor /\V\<%s\>/', escape(cword, '/\'))
+"     endif
+" endfunction
+
+" trigger `autoread` when files changes on disk
+set autoread
+autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
+" notification after file change
+autocmd FileChangedShellPost *
+  \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 
 {{- if eq .chezmoi.hostname "mahisbook" }}
 " Use homebrew fzf

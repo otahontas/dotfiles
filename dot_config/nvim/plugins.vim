@@ -12,7 +12,7 @@ runtime pluginsettings/polyglot.vim
 call plug#begin('$XDG_DATA_HOME/nvim/plugged')
 
 " Visual elements
-Plug 'Rigellute/rigel'
+Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'airblade/vim-gitgutter'
 Plug 'itchyny/lightline.vim'
 Plug 'itchyny/vim-gitbranch'
@@ -38,6 +38,7 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'glepnir/lspsaga.nvim'
 Plug 'hrsh7th/nvim-compe'
 Plug 'tzachar/compe-tabnine', { 'do': './install.sh' }
+Plug 'tpope/vim-fugitive'
 call plug#end()
 
 " Source other plugin settings

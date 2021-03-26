@@ -1,22 +1,3 @@
-# $fg     #e6e6dc
-# $bg     #002635
-# $black1 #00384d
-# $black2 #517f8d
-# $red1   #c43061
-# $red2   #ff5a67
-# $green1 #7fc06e
-# $green2 #9cf087
-# $yel1   #f08e48
-# $yel2   #ffcc1b
-# $blue1  #1c8db2
-# $blue2  #7eb2dd
-# $mag1   #c694ff
-# $mag2   #fb94ff
-# $cyan1  #00cccc
-# $cyan2  #00ffff
-# $white1 #77929e
-# $white2 #b7cff9
-
 color=002635
 
 inside-color=77929e
