@@ -1,0 +1,20 @@
+# Add completions and keybindings
+{{- if eq .chezmoi.hostname "mahisbook" }}
+
+[[ "$PATH" != *"/usr/local/opt/fzf/bin"* ]] && export PATH=/usr/local/opt/fzf/bin:$PATH
+[[ $- == *i* ]] && source "/usr/local/opt/fzf/shell/completion.zsh" 2> /dev/null
+source "/usr/local/opt/fzf/shell/key-bindings.zsh"
+
+{{- else }}
+
+source /usr/share/fzf/completion.zsh
+source /usr/share/fzf/key-bindings.zsh
+
+{{- end }}
+bindkey "©" fzf-cd-widget
+
+# Setup defaults
+export FZF_DEFAULT_OPTS='--height 50% --layout=reverse'
+export FZF_DEFAULT_COMMAND='fd -H --follow'
+export FZF_ALT_C_COMMAND='fd -H --follow --type directory'
+export FZF_CTRL_T_COMMAND='fd -H --follow --type file'

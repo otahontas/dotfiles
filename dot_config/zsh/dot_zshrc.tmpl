@@ -2,14 +2,6 @@
 export GPG_TTY=$(tty)
 gpg-connect-agent updatestartuptty /bye >/dev/null
 
-{{ if eq .chezmoi.hostname "mahisbook" }}
-# Add keys to ssh-agent after reboot
-if [[ $(ssh-add -L) == "The agent has no identities." ]]; then
-    current=$(pwd)
-    cd ~/.ssh/keys/ && ssh-add -A >/dev/null && cd $current
-fi
-{{- end }}
-
 # Set SSH to use gpg-agent instead of ssh-agent
 if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
   unset SSH_AGENT_PID   
@@ -25,17 +17,6 @@ fi
 
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
-
-# Set up lang if not correctly set
-if [[ $LANG != "en_US.UTF-8" ]]; then
-  unset LANG
-  source /etc/profile.d/locale.sh
-  export LC_ALL=en_US.UTF-8
-  export LANG=en_US.UTF-8
-  export LANGUAGE=en_US
-  export LC_MONETARY=en_FI.UTF-8
-  export LC_TIME=en_FI.UTF-8
-fi
 
 # Create big enough history file, disable duplicates and allow different zsh
 # shells to share history all the time (e.g. don't wait until shell is closed)
@@ -92,13 +73,14 @@ source $ZDOTDIR/.zsh_plugins.sh
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 
-# Load setup for launcing zsh with custom parameters
-source $ZDOTDIR/.parameters.zsh
-
 # Source aliases and custom functions after everything is loaded
 source $ZDOTDIR/.zsh_aliases
 source $ZDOTDIR/.zsh_functions
 
-
 # Load settings for various programs
-source $ZDOTDIR/.integrations.zsh
+source $ZDOTDIR/integrations/fzf.zsh
+source $ZDOTDIR/integrations/nvim.zsh
+source $ZDOTDIR/integrations/ssh.zsh
+
+# Add custom local bin to PATH
+[[ $PATH != *"$HOME/.local/bin"* ]] && export PATH=$HOME/.local/bin:$PATH

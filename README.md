@@ -81,10 +81,9 @@ This repo includes my configurations for Arch Linux and macOS.
 - TMUX reports exit code 1 when starting on mac. This happens only on start and doesn't
   really affect anything else. Probably something happening with the wrapper script /
   zsh settings
-- change to Kitty? Supports tabs, true color and images
 - Add setting system preferences via commands to macos script
 - Add restore app settings from backups to macos script
-- Add base-devel packages as base-devel group (not individual packages) to package backup
 - Add chezmoi.toml initializing to both install scripts
 - Make better templates (split to different files etc.)
 - Add meslo fonts to my homebrew-cask
+- fix all failing stuff in linux

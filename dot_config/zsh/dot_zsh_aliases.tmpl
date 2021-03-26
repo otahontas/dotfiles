@@ -15,22 +15,19 @@ alias lr="exa -Rl"
 alias ...="cd ../.."
 alias ....="cd ../../.."
 
+{{- if eq .chezmoi.hostname "mahisbook" }}
 # Aliases for daily tools
 alias calendar="vdirsyncer sync && khal interactive && vdirsyncer sync"
 alias mail="offlineimap && aerc && offlineimap"
 alias spotify="pkill spotifyd; spotifyd && spt; pkill spotifyd"
 alias todo="$EDITOR ~/documents/todo/todo.txt"
 alias todone="$EDITOR ~/documents/todo/done.txt"
-{{- if eq .chezmoi.os "linux" }}
+alias trash-empty="trash -e"
+{{- else }}
+# Sys admin aliases
 alias sys="systemctl"
 alias sysu="systemctl --user"
-{{- else if eq .chezmoi.os "darwin" }}
-alias trash-empty="trash -e"
-{{- end }}
 
 # Docker aliases
 alias dlogs="docker logs --tail 100 --follow"
-
-# Oodikone aliases
-alias oodikone="ssh -t oodikone 'sh /login.sh'"
-alias importer="ssh -t importer 'sh /login.sh'"
+{{- end }}

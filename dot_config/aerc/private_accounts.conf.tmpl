@@ -1,9 +1,0 @@
-# Get sensitive information from chezmoi config
-# TODO: make better way to do this, for multiple mail clients
-[Mail]
-source        = {{ .aerc_mail_source }}
-outgoing      = {{ .aerc_mail_outgoing }}
-default       = INBOX
-smtp-starttls = yes
-from          = {{ .aerc_mail_email }}
-copy-to       = Sent

@@ -1,6 +1,8 @@
 antibody
-kanttiinit-git
+arch-secure-boot
+mkinitcpio-encrypt-detached-header
 neovim-drop-in
+neovim-nightly-bin
 neovim-remote
-nvm
-wl-clipboard-x11
+paru-bin
+typescript-language-server-bin

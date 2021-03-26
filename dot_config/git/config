@@ -1,6 +1,6 @@
 [user]
 	  name = Otto Ahoniemi
-	  email = {{ .git_email }}
+	  email = otto@ottoahoniemi.fi
 [push]
     default = matching
 [alias] 

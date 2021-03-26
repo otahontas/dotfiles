@@ -1,7 +1,5 @@
+{{- if eq .chezmoi.hostname "mahisbook" }}
 # Set gpg to use graphical pinentry
-{{- if eq .chezmoi.hostname "archis" }}
-pinentry-program /usr/bin/pinentry-gnome3
-{{- else if eq .chezmoi.hostname "mahisbook" }}
 pinentry-program /usr/local/bin/pinentry-mac
 {{- end }}
 
@@ -11,4 +9,4 @@ default-cache-ttl 172800
 default-cache-ttl-ssh 172800
 max-cache-ttl-ssh 172800
 
-enable-ssh-suppor
+enable-ssh-support

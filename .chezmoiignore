@@ -1,7 +1,5 @@
 # Chezmoi doesn't copy these to home folder when `chezmoi apply` is ran
 
-# Ignore readme & screenshots
-
 # Always ignore meta stuff 
 arch/
 mac/
@@ -10,34 +8,19 @@ example_chezmoi.toml
 screenshot_arch.png
 screenshot_mac.png
 
-# Machine spesific ignores
 {{ if eq .chezmoi.hostname "mahisbook" }}
-.config/aerc/
-.config/fontconfig/
-.config/gammastep/
-.config/gh/
-.config/gtk-3.0/
-.config/iwd/
-.config/khal/
-.config/khard/
-.config/mako/
-.config/newsboat/
-.config/offlineimap/
-.config/pacman-hooks/
-.config/s/
-.config/spotifyd/
-.config/sway/
-.config/swaylock/
-.config/systemd/
-.config/udiskie/
+# Ignore stuff used on servers
+.config/tmux/
 .config/user-dirs.dirs
 .config/user-dirs.locale
-.config/vdirsyncer/
-.config/wget/
-.config/zathura/
-.config/zsh/.zlogin
-.config/fonts
-.ideavimrc
-{{ else if eq .chezmoi.hostname "archis" }}
-.config/vdirsyncer/
+{{ else }}
+# Ignore non-essential stuff
+.config/aerc
+.config/khal
+.config/khard
+.config/kitty
+.config/newsboat
+.config/offlineimap
+.config/spotifyd
+.config/vdirsyncer
 {{ end }}

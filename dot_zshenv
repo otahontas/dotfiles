@@ -3,8 +3,6 @@
 export XDG_CONFIG_HOME=$HOME/.config
 export XDG_CACHE_HOME=$HOME/.cache
 export XDG_DATA_HOME=$HOME/.local/share
-export XDG_DATA_DIRS=/usr/local/share:/usr/share
-export XDG_CONFIG_DIRS=/etc/xdg
 
 # Set some programs to use XDG Base Directories
 export CARGO_HOME=$XDG_CACHE_HOME/cargo
@@ -24,11 +22,10 @@ export ZDOTDIR=$XDG_CONFIG_HOME/zsh
 # Set up visual and editor
 export VISUAL=nvim
 export EDITOR=$VISUAL
-export BROWSER=firefox
 
-# Development stuff
-export REACT_APP_BROWSER=firefox-developer-edition
-
-# Set some X11 / wayland spesific fixes
-export MOZ_ENABLE_WAYLAND=1
-export _JAVA_AWT_WM_NONREPARENTING=1
+# Lang stuff
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LANGUAGE=en_US
+export LC_MONETARY=en_FI.UTF-8
+export LC_TIME=en_FI.UTF-8

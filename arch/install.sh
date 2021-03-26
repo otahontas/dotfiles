@@ -14,7 +14,11 @@ cleanup() {
   err=$1
   line=$2
   if [ "$err" -eq 0 ]; then
-    msg "${GREEN}\nInstallation script completed succesfully${NOFORMAT}\nYou can now reboot, set up secure boot, log in and execute post-install -script present in /home/$user -folder."
+    msg "${GREEN}\nInstallation script completed succesfully${NOFORMAT}"
+    msg "You can now reboot, set up secure boot, log in and do post-install stuff:"
+    msg "- enable and start systemd-networkd & systemd-resolved"
+    msg "- initialize and apply dotfiles "
+    msg "- move etc files to correct places"
   else
     msg "${RED}\nError happened while running installation script on line $line.${NOFORMAT}"
   fi
@@ -154,25 +158,28 @@ mount -o noatime,nodiratime,compress=zstd,subvol=temp      /dev/mapper/luks /mnt
 mount -o noatime,nodiratime,compress=zstd,subvol=swap      /dev/mapper/luks /mnt/swap
 mount -o noatime,nodiratime,compress=zstd,subvol=snapshots /dev/mapper/luks /mnt/.snapshots
 
-msg "${PURPLE}\n=== Installing all pacman packages from dotfiles list ===${NOFORMAT}"
+msg "${PURPLE}\n=== Installing packages ===${NOFORMAT}"
 
-pacstrap /mnt $(curl -sL $repo_url/arch/packages/pacman.txt)
+pacstrap /mnt base base-devel linux linux-firmware $(curl -sL $repo_url/arch/packages/pacman.txt)
 
-msg "${PURPLE}\n=== Building crucial AUR packages with temporary user, then installing with root ===${NOFORMAT}"
+msg "${PURPLE}\n=== Creating user, add groups and sudo rights ===${NOFORMAT}"
 
-aur_prgs="paru-bin mkinitcpio-encrypt-detached-header arch-secure-boot"
+arch-chroot /mnt useradd -m -s /usr/bin/zsh "$user"
+for group in wheel network nzbget video docker; do
+    arch-chroot /mnt groupadd -rf "$group"
+    arch-chroot /mnt gpasswd -a "$user" "$group"
+done
+arch-chroot /mnt chsh -s /usr/bin/zsh
+echo "$user:$password" | arch-chroot /mnt chpasswd
+arch-chroot /mnt passwd -dl root
+arch-chroot /mnt echo "%wheel ALL=(ALL) ALL" > /etc/sudoers.d/override
+
+msg "${PURPLE}\n=== Building needed AUR packages, then installing with root ===${NOFORMAT}"
+
+aur_prgs="$(curl -sL $repo_url/arch/packages/aur.txt)"
 
 arch-chroot /mnt /bin/bash <<EOF
-useradd -m build && passwd -d build && groupadd -rf wheel && gpasswd -a build wheel
-echo "%wheel ALL=(ALL) ALL" > /etc/sudoers.d/override
-
-chgrp build /home/build && chmod g+ws /home/build
-setfacl -m u::rwx,g::rwx /home/build && \
-setfacl -d --set u::rwx,g::rwx,o::- /home/build
-cd /home/build
-
-[[ -d /home/build ]] || exit 1
-
+cd /home/$user
 programs="$aur_prgs"
 
 for program in \$programs; do
@@ -181,8 +188,6 @@ for program in \$programs; do
   sudo -u build makepkg -s --noconfirm --skippgpcheck && \
   pacman -U --noconfirm \$program*pkg* && cd ..
 done
-
-userdel -r build && groupdel wheel && rm -rf /home/build
 EOF
 
 msg "${PURPLE}\n=== Generating and adding configuration files and images ===${NOFORMAT}"
@@ -221,28 +226,3 @@ dd if=/dev/zero of=/mnt/swap/swapfile bs=1M count=4096
 chmod 600 /mnt/swap/swapfile
 mkswap /mnt/swap/swapfile
 echo "/swap/swapfile none swap defaults 0 0" >> /mnt/etc/fstab
-
-msg "${PURPLE}\n=== Creating user ===${NOFORMAT}"
-
-arch-chroot /mnt useradd -m -s /usr/bin/zsh "$user"
-for group in wheel network nzbget video; do
-    arch-chroot /mnt groupadd -rf "$group"
-    arch-chroot /mnt gpasswd -a "$user" "$group"
-done
-arch-chroot /mnt chsh -s /usr/bin/zsh
-echo "$user:$password" | arch-chroot /mnt chpasswd
-arch-chroot /mnt passwd -dl root
-
-msg "${PURPLE}\n=== Setting up dotfiles ===${NOFORMAT}"
-arch-chroot /mnt <<EOF
-chezmoi init https://github.com/otahontas/dotfiles.git
-cp $(chezmoi source-path)/example_chezmoi.toml ~/.config/chezmoi/chezmoi.toml
-chezmoi apply
-EOF
-
-msg "${PURPLE}\n=== Setting up needed files in /etc, /usr and /var ===${NOFORMAT}"
-arch-chroot /mnt mkdir /mnt/var/lib/iwd/
-cp /var/lib/iwd/*.psk /mnt/var/lib/iwd/
-arch-chroot /mnt <<EOF
-cp $(chezmoi source-path)/~/.config/chezmoi/chezmoi.toml
-EOF
