@@ -1,45 +1,39 @@
-# Dotfiles ❤
+# Dotfiles
 
-This repo includes my configurations for Arch Linux and macOS.
+This repo includes my configurations for macOS and arch/ubuntu servers. 
 
-**Arch linux**:
-![example screenshot for arch setup](screenshot_arch.png)
-
-**macOS***
-![example screenshot for macos setup](screenshot_mac.png)
-
-## Stuff included in this repo
+## Highlights
 
 - Common color schemes:
-  - [Rigel](https://github.com/Rigellute/rigel) is the main theme used in sway, neovim,
-    alacritty, slack etc.
-  - [Arc Dark](https://github.com/horst3180/Arc-theme) is used for all GTK based
-    programs
+  - [Edge light](https://github.com/sainnhe/edge) is the main theme, used in various programs. Since the main theme is very bright and light (I know, crazyyyy), many TUIs and CLI tools have been configured to look great with white bg.
 - Installation scripts:
-  - Fully automated installation script for Arch Linux
+  - Automated installation script for Arch Linux homeserver, with self-signed secure boot keys
   - Semi-automated installation script for MacOS (Setup Assistant needs to be run first)
 - Templated dotfiles:
   - [Chezmoi](https://www.chezmoi.io/) for dotfiles management
-  - Sensitive and platform-spesific contents are fetched from chezmoi.toml -file and
-    password store
-- Very fast terminal experince:
-  - [Alacritty](https://github.com/alacritty/alacritty) terminal emulator
-  - [Zsh shell](https://www.zsh.org/) with [antibody plugin manager](https://getantibody.github.io/)
-    , [powerlevel10k theme](https://github.com/romkatv/powerlevel10k) and a bunch of
+- Fast terminal experience:
+  - [Kitty](https://sw.kovidgoyal.net/kitty/) terminal emulator with ligature and modern graphics / true-color support
+  - [Zsh shell](https://www.zsh.org/) with [antibody plugin manager](https://getantibody.github.io/), [powerlevel10k theme](https://github.com/romkatv/powerlevel10k) and a bunch of
     useful plugins
-  - [tmux](https://github.com/tmux/tmux) for terminal multiplexing
+  - [tmux](https://github.com/tmux/tmux) for terminal multiplexing on servers
   - [fzf](https://github.com/junegunn/fzf) (with fd and ripgrep) command-line fuzzy
     finder for searching and opening files by name/content, folders, apps etc.
+  - [GPG](https://gnupg.org/) -subkey based SSH auth
 - Configs for text-based user interfaces (TUIs):
-  - [Neovim](https://neovim.io/) with IDE-style editing experience
+  - [Neovim](https://neovim.io/) with IDE-style editing experience, neovim 0.5 needed, works great in servers too
   - [Aerc](https://aerc-mail.org/) email client with [offlineimap](https://www.offlineimap.org/)
     for syncing
   - [Khal](https://github.com/pimutils/khal) and [Khard](https://github.com/scheibler/khard)
     for handling calendars and contacts, synced to server with [vdirsyncer](https://github.com/pimutils/vdirsyncer)
-  - [pass](https://www.passwordstore.org/) for passwords
-  - [spotify-tui](https://github.com/Rigellute/spotify-tui) and [spotifyd](https://github.com/Spotifyd/spotifyd)
+  - [Pass](https://www.passwordstore.org/) for passwords
+  - [Spotify-tui](https://github.com/Rigellute/spotify-tui) and [spotifyd](https://github.com/Spotifyd/spotifyd)
     for spotify
-  - [newsboat](https://newsboat.org/) for RSS
+  - [Newsboat](https://newsboat.org/) for RSS
+- I do also use following of great GUI-tools on macOS. Configs are not included, but they're worth of mentioning:
+  - [Alfred](https://www.alfredapp.com/) for spotlight replacement
+  - [Amethyst](https://github.com/ianyh/Amethyst) for tiling window management
+  - [Dash](https://kapeli.com/dash) for api docs
+  - [Karabiner-Element](https://karabiner-elements.pqrs.org/) for keyboard customizing
 
 ## (Fresh) Installation
 
@@ -53,10 +47,10 @@ This repo includes my configurations for Arch Linux and macOS.
   - Delete preloaded OEM keys for Secure Boot, allow custom ones
 - Run installation:
   - Boot to Arch live usb
-  - Connect to wifi with `iwctl`
+  - Connect to internet
   - Run installation script with `bash <(curl -sL https://git.io/Jq9ld)`
   - Reboot and enable secure boot
-  - Profit
+  - Finish installation according to installation script
 
 **macOS**:
 
@@ -67,23 +61,3 @@ This repo includes my configurations for Arch Linux and macOS.
   - Clear NVRAM
   - Make your way through Setup Assistant
 - Open terminal and run installation script with `bash <(curl -sL https://git.io/Jq9ln)`
-
-**just dotfiles**:
-
-- Install chezmoi
-- Download `example_chezmoi.toml`, add needed variables and move file to `~/.config/chezmoi/chezmoi.toml`
-- Run `chezmoi init https://github.com/otahontas/dotfiles.git`
-- See what would be changed with `chezmoi diff`
-- If everything is ok, apply with `chezmoi apply`
-
-## TODO / Known issues
-
-- TMUX reports exit code 1 when starting on mac. This happens only on start and doesn't
-  really affect anything else. Probably something happening with the wrapper script /
-  zsh settings
-- Add setting system preferences via commands to macos script
-- Add restore app settings from backups to macos script
-- Add chezmoi.toml initializing to both install scripts
-- Make better templates (split to different files etc.)
-- Add meslo fonts to my homebrew-cask
-- fix all failing stuff in linux
