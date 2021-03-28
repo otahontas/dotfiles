@@ -12,19 +12,19 @@ runtime pluginsettings/polyglot.vim
 call plug#begin('$XDG_DATA_HOME/nvim/plugged')
 
 " Visual elements
-Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'sainnhe/edge'
 Plug 'airblade/vim-gitgutter'
 Plug 'itchyny/lightline.vim'
 Plug 'itchyny/vim-gitbranch'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
-Plug 'rakr/vim-one'
 
 " Language stuff and text helpers
 Plug 'dbeniamine/todo.txt-vim'
 Plug 'lervag/vimtex'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-commentary'
+Plug 'plasticboy/vim-markdown'
 
 " Security and system
 Plug 'https://gitlab.com/craftyguy/vim-redact-pass.git'
@@ -37,8 +37,9 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'neovim/nvim-lspconfig'
 Plug 'glepnir/lspsaga.nvim'
 Plug 'hrsh7th/nvim-compe'
-Plug 'tzachar/compe-tabnine', { 'do': './install.sh' }
+" Plug 'tzachar/compe-tabnine', { 'do': './install.sh' }
 Plug 'tpope/vim-fugitive'
+Plug 'kabouzeid/nvim-lspinstall'
 call plug#end()
 
 " Source other plugin settings
@@ -123,11 +124,11 @@ local on_attach = function(client, bufnr)
   end
 end
 
--- Use a loop to conveniently both setup defined servers 
--- and map buffer local keybindings when the language server attaches
-local servers = { "pyright", "tsserver" }
-for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup { on_attach = on_attach }
+require'lspinstall'.setup() -- important
+
+local servers = require'lspinstall'.installed_servers()
+for _, server in pairs(servers) do
+  require'lspconfig'[server].setup{}
 end
 EOF
 

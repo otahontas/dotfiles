@@ -21,14 +21,12 @@ This repo includes my configurations for macOS and arch/ubuntu servers.
   - [GPG](https://gnupg.org/) -subkey based SSH auth
 - Configs for text-based user interfaces (TUIs):
   - [Neovim](https://neovim.io/) with IDE-style editing experience, neovim 0.5 needed, works great in servers too
-  - [Aerc](https://aerc-mail.org/) email client with [offlineimap](https://www.offlineimap.org/)
-    for syncing
-  - [Khal](https://github.com/pimutils/khal) and [Khard](https://github.com/scheibler/khard)
-    for handling calendars and contacts, synced to server with [vdirsyncer](https://github.com/pimutils/vdirsyncer)
+  - [Aerc](https://aerc-mail.org/) email client
   - [Pass](https://www.passwordstore.org/) for passwords
   - [Spotify-tui](https://github.com/Rigellute/spotify-tui) and [spotifyd](https://github.com/Spotifyd/spotifyd)
     for spotify
   - [Newsboat](https://newsboat.org/) for RSS
+  - [GitUI](https://github.com/extrawurst/gitui) when git stat is not enough
 - I do also use following of great GUI-tools on macOS. Configs are not included, but they're worth of mentioning:
   - [Alfred](https://www.alfredapp.com/) for spotlight replacement
   - [Amethyst](https://github.com/ianyh/Amethyst) for tiling window management

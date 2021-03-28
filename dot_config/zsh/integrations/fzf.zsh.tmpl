@@ -14,7 +14,27 @@ source /usr/share/fzf/key-bindings.zsh
 bindkey "©" fzf-cd-widget
 
 # Setup defaults
-export FZF_DEFAULT_OPTS='--height 50% --layout=reverse'
-export FZF_DEFAULT_COMMAND='fd -H --follow'
-export FZF_ALT_C_COMMAND='fd -H --follow --type directory'
-export FZF_CTRL_T_COMMAND='fd -H --follow --type file'
+export FZF_DEFAULT_OPTS="--height 50% --layout=reverse
+--color=fg:#4b505b,bg:#fafafa,hl:#5079be 
+--color=fg+:#4b505b,bg+:#fafafa,hl+:#3a8b84 
+--color=info:#88909f,prompt:#d05858,pointer:#b05ccc 
+--color=marker:#608e32,spinner:#d05858,header:#3a8b84"
+export FZF_DEFAULT_COMMAND="fd -H --follow"
+export FZF_ALT_C_COMMAND="fd -H --follow --type directory"
+export FZF_ALT_C_OPTS="--preview 'exa -la --color=always {}' --select-1 --exit-0"
+export FZF_CTRL_T_COMMAND="fd -H --follow --type file"
+export FZF_CTRL_T_OPTS="--preview 'bat --style=numbers --color=always --line-range :500 {}' --select-1 --exit-0"
+
+# Setup fzf tab game
+# # disable sort when completing `git checkout`
+zstyle ':completion:*:git-checkout:*' sort false
+# set descriptions format to enable group support
+zstyle ':completion:*:descriptions' format '[%d]'
+# set list-colors to enable filename colorizing
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+# preview directory's content with exa when completing cd
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
+# switch group using `,` and `.`
+zstyle ':fzf-tab:*' switch-group ',' '.'
+# Change detault color
+zstyle ':fzf-tab:*' default-color $'\033[38;5;19m'

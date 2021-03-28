@@ -8,8 +8,9 @@ set wildoptions=tagfile
 set cursorline
 let &colorcolumn="88,".join(range(120,999),",")
 
-" Dark theme
-colorscheme dracula
+" Theme
+set background=light
+colorscheme edge
 set termguicolors
 
 " Text editing
@@ -36,7 +37,7 @@ set autoread
 set backup
 set fileencoding=utf-8
 set history=1000
-set undofile
+" set undofile
 if empty(glob('$XDG_DATA_HOME/nvim/backup/'))
     silent !mkdir -p $XDG_DATA_HOME/nvim/backup
 endif

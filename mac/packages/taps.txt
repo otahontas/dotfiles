@@ -1,3 +1,4 @@
+aaronraimist/tap
 amar1729/formulae
 homebrew/cask
 homebrew/cask-drivers
@@ -6,3 +7,4 @@ homebrew/core
 homebrew/services
 homebrew/test-bot
 otahontas/tap
+rcmdnk/file

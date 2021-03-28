@@ -1,12 +1,13 @@
 [user]
-	  name = Otto Ahoniemi
-	  email = otto@ottoahoniemi.fi
+	name = Otto Ahoniemi
+	email = otto@ottoahoniemi.fi
 [push]
     default = matching
 [alias] 
     ap = add -p
     aa = add -A
     a = add
+    c = clone
     s = status
     d = diff
     dt = difftool
@@ -18,9 +19,9 @@
     cane = commit --amend --no-edit
     hist = log --pretty=format:'%h %aD | %s%d [%an]' --graph --date=short
     root = rev-parse --show-toplevel
-    sshow = stash show -p
-    sdrop = stash drop stash@{0}
-    ssave = stash save -u
+    ss = stash show -p
+    sd = stash drop stash@{0}
+    sa = stash save -u
 [core]
 	pager = diff-so-fancy | less --tabs=4 -RFX
 [color]

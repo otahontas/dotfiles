@@ -4,8 +4,8 @@ gpg-connect-agent updatestartuptty /bye >/dev/null
 
 # Set SSH to use gpg-agent instead of ssh-agent
 if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
-  unset SSH_AGENT_PID   
-  export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+    unset SSH_AGENT_PID
+    export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 fi
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
@@ -61,6 +61,7 @@ setopt correct
 setopt correctall
 setopt no_list_ambiguous
 setopt COMPLETE_ALIASES
+setopt globdots
 
 # Disable annoying zsh features
 disable r
@@ -78,7 +79,10 @@ source $ZDOTDIR/.zsh_aliases
 source $ZDOTDIR/.zsh_functions
 
 # Load settings for various programs
+source $ZDOTDIR/integrations/bat.zsh
+source $ZDOTDIR/integrations/brew.zsh
 source $ZDOTDIR/integrations/fzf.zsh
+source $ZDOTDIR/integrations/nnn.zsh
 source $ZDOTDIR/integrations/nvim.zsh
 source $ZDOTDIR/integrations/ssh.zsh
 

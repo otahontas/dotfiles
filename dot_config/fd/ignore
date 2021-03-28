@@ -1,4 +1,7 @@
-.mozilla/
+# Files/folders to ignore when searching
+# Should be in .gitignore format
 .cache/
-.offlineimap/
 .git/
+.mozilla/
+.offlineimap/
+Library/

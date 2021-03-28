@@ -1,4 +1,3 @@
-alacritty
 alfred
 amethyst
 appcleaner
@@ -11,8 +10,11 @@ font-meslo-lg-nerd-font
 freetube
 iina
 izotope-product-portal
+kitty
 maintenance
 native-access
 scroll-reverser
+seaglass
 spotify
 waves-central
+zoom

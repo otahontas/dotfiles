@@ -1,4 +1,4 @@
-# Workspace / editor / project related stuff
+# Stuff to globally ignore on git
 tags
 .vim/
 .idea/
