@@ -2,3 +2,5 @@
 tags
 .vim/
 .idea/
+.DS_Store
+.localized

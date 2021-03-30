@@ -5,6 +5,8 @@ tap homebrew/core
 brew adns
 brew aerc
 brew antibody
+brew apr
+brew apr-util
 brew autoconf
 brew bat
 brew bdw-gc
@@ -13,6 +15,7 @@ brew catimg
 brew chezmoi
 brew cmake
 brew dante
+brew dasht
 brew dbus
 brew diff-so-fancy
 brew djvulibre
@@ -72,6 +75,7 @@ brew markdownlint-cli
 brew mas
 brew mpdecimal
 brew msgpack
+brew ncdu
 brew ncurses
 brew neovim
 brew nettle
@@ -100,9 +104,11 @@ brew ripgrep
 brew rsync
 brew ruby
 brew shellcheck
+brew socat
 brew spotify-tui
 brew spotifyd
 brew sqlite
+brew subversion
 brew syncthing
 brew talloc
 brew tcl-tk
@@ -112,8 +118,10 @@ brew tree
 brew tree-sitter
 brew unbound
 brew unibilium
+brew utf8proc
 brew vdirsyncer
 brew w3m
+brew wget
 brew xapian
 brew xxhash
 brew xz
@@ -125,18 +133,14 @@ cask focusrite-control
 tap homebrew/cask-fonts
 cask font-fira-code
 cask font-meslo-lg-nerd-font
+cask font-montserrat
 
 tap homebrew/services
 
 tap homebrew/test-bot
 
 tap homebrew/cask
-cask alfred
 cask amethyst
-cask appcleaner
-cask caffeine
-cask daisydisk
-cask dash
 cask discord
 cask element
 cask firefox
@@ -145,12 +149,18 @@ cask google-chrome
 cask iina
 cask insomnia
 cask karabiner-elements
+cask keepingyouawake
 cask kitty
 cask maintenance
+cask monolingual
 cask native-access
 cask osxfuse
 cask scroll-reverser
 cask slack
+cask spotter
+cask stretchly
+cask tunnelblick
+cask turbo-boost-switcher
 cask waves-central
 cask zoom
 
