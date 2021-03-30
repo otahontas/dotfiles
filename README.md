@@ -13,9 +13,8 @@ This repo includes my configurations for macOS and arch/ubuntu servers.
   - [Chezmoi](https://www.chezmoi.io/) for dotfiles management
 - Fast terminal experience:
   - [Kitty](https://sw.kovidgoyal.net/kitty/) terminal emulator with ligature and modern graphics / true-color support
-  - [Zsh shell](https://www.zsh.org/) with [antibody plugin manager](https://getantibody.github.io/), [powerlevel10k theme](https://github.com/romkatv/powerlevel10k) and a bunch of
-    useful plugins
-  - [tmux](https://github.com/tmux/tmux) for terminal multiplexing on servers
+  - [Zsh shell](https://www.zsh.org/) with [antibody plugin manager](https://getantibody.github.io/), [powerlevel10k theme](https://github.com/romkatv/powerlevel10k) and a bunch of useful plugins
+  - [tmux](https://github.com/tmux/tmux) for terminal multiplexing in servers
   - [fzf](https://github.com/junegunn/fzf) (with fd and ripgrep) command-line fuzzy
     finder for searching and opening files by name/content, folders, apps etc.
   - [GPG](https://gnupg.org/) -subkey based SSH auth
@@ -26,12 +25,18 @@ This repo includes my configurations for macOS and arch/ubuntu servers.
   - [Spotify-tui](https://github.com/Rigellute/spotify-tui) and [spotifyd](https://github.com/Spotifyd/spotifyd)
     for spotify
   - [Newsboat](https://newsboat.org/) for RSS
-  - [GitUI](https://github.com/extrawurst/gitui) when git stat is not enough
-- I do also use following of great GUI-tools on macOS. Configs are not included, but they're worth of mentioning:
-  - [Alfred](https://www.alfredapp.com/) for spotlight replacement
+  - [GitUI](https://github.com/extrawurst/gitui) for git when basic `git log` is not enough
+  - [Dasht](https://github.com/sunaku/dasht) for api docs
+- I do also use following of great gui tools on macOS:
   - [Amethyst](https://github.com/ianyh/Amethyst) for tiling window management
-  - [Dash](https://kapeli.com/dash) for api docs
-  - [Karabiner-Element](https://karabiner-elements.pqrs.org/) for keyboard customizing
+  - [Insomnia](https://github.com/Kong/insomnia) api client for rest / graphql stuff
+  - [Iina](https://github.com/iina/iina) video player
+  - [Karabiner-Element](https://karabiner-elements.pqrs.org/) for custom keyboard bindings (such as binding right shift as hyper key) and shortcuts
+  - [KeepingYouAwake](https://github.com/newmarcel/KeepingYouAwake) to keep mac awake when needed
+  - [Spotter](https://github.com/ziulev/spotter) launcher to replace spotlight
+  - [Stretchly](https://github.com/hovancik/stretchly) to remind me to take breaks when working
+  - [Tunnelblick](https://tunnelblick.net/) for VPN
+  - [Turbo Boost Switcher](https://github.com/hovancik/stretchly) to toggle turbo boost on demand
 
 ## (Fresh) Installation
 

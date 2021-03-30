@@ -125,6 +125,7 @@ brew wget
 brew xapian
 brew xxhash
 brew xz
+brew youtube-dl
 brew zstd
 
 tap homebrew/cask-drivers
@@ -144,15 +145,12 @@ cask amethyst
 cask discord
 cask element
 cask firefox
-cask freetube
-cask google-chrome
 cask iina
 cask insomnia
 cask karabiner-elements
 cask keepingyouawake
 cask kitty
 cask maintenance
-cask monolingual
 cask native-access
 cask osxfuse
 cask scroll-reverser

@@ -1,0 +1,17 @@
+[{{ .aerc.personal.name }}]
+source   = {{ .aerc.personal.source }}
+source-cred-cmd = pass {{ .aerc.personal.pass_entry }} | head -n 1
+outgoing = {{ .aerc.personal.outgoing }}
+outgoing-cred-cmd = pass {{ .aerc.personal.pass_entry }} | head -n 1
+default  = INBOX
+copy-to  = Sent
+from     = {{ .aerc.personal.from }}
+
+[{{ .aerc.university.name }}]
+source   = {{ .aerc.university.source }}
+source-cred-cmd = pass {{ .aerc.university.pass_entry }} | head -n 1
+outgoing = {{ .aerc.university.outgoing }}
+outgoing-cred-cmd = pass {{ .aerc.university.pass_entry }} | head -n 1
+default  = INBOX
+copy-to  = Sent
+from     = {{ .aerc.university.from }}

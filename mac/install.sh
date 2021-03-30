@@ -59,13 +59,15 @@ fi
 [[ "$fw_changed" == "true" ]] && sudo pkill -HUP socketfilterfw && msg "${NOFORMAT}\nFirewall restarted after changes"
 
 
-msg "${PURPLE}\n=== Installing package management ===${NOFORMAT}"
+msg "${PURPLE}\n=== Installing package management and necessary files ===${NOFORMAT}"
 
 [[ $(xcode-select -p 1>/dev/null; echo $?) == "2" ]] &&  xcode-select --install
 
 if ! command -v brew &> /dev/null; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
+
+/usr/local/bin/brew install chezmoi rcmdnk/file/brew-file
 
 msg "${PURPLE}\n=== Installing dotfiles ===${NOFORMAT}"
 
@@ -75,30 +77,7 @@ fi
 
 msg "${PURPLE}\n=== Installing packages ===${NOFORMAT}"
 
-pkg_dir="$(chezmoi source-path)/mac/packages"
-if ! diff <(brew tap) <(cat "$pkg_dir/taps.txt"); then
-  while read -r tap; do 
-    brew tap "$tap"
-  done < "$pkg_dir/taps.txt"
-fi
-
-if ! diff <(brew leaves) <(cat "$pkg_dir/formulae.txt"); then
-  while read -r formula; do 
-    brew install "$formula"
-  done < "formulae.txt"
-fi
-
-if ! diff <(brew list --cask) <(cat "$pkg_dir/casks.txt"); then
-  while read -r cask; do 
-    brew install --cask "$cask"
-  done < "$pkg_dir/casks.txt"
-fi
-
-if ! diff <(mas list | sort) <(sort < "$pkg_dir/mas.txt"); then
-  while read -r line; do 
-    mas install "$(echo "$line" | cut -d' ' -f1)"
-  done < "$pkg_dir/mas.txt"
-fi
+env HOMEBREW_BREWFILE="$(chezmoi --source-path)/mac/packages/Brewfile" brew file install
 
 msg "${PURPLE}\n=== Moving needed files to correct places ===${NOFORMAT}"
 

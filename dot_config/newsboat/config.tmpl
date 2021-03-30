@@ -1,0 +1,4 @@
+urls-source "miniflux"
+miniflux-url "{{ .newsboat.url }}"
+miniflux-login "{{ .newsboat.login }}"
+miniflux-passwordeval "pass {{ .newsboat.pass_entry }} | head -n 1"
