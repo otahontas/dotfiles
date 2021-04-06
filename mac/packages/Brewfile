@@ -29,6 +29,7 @@ brew ghostscript
 brew git
 brew gitui
 brew glib
+brew glow
 brew gmime
 brew gmp
 brew gnu-getopt
@@ -127,6 +128,8 @@ brew xxhash
 brew xz
 brew youtube-dl
 brew zstd
+
+tap homebrew/bundle
 
 tap homebrew/cask-drivers
 cask focusrite-control
