@@ -1,86 +1,81 @@
-" Visual
+" Show linenumber
 set number
-set showmatch
-set laststatus=2
-set showcmd
-set wildmenu
-set wildoptions=tagfile
-set cursorline
-let &colorcolumn="88,".join(range(120,999),",")
 
-" Theme
+" Show matching brackets
+set showmatch
+
+" Highlight line where cursor is
+set cursorline
+
+" Color default line break column + all columns from 120 to right
+let &colorcolumn="88,".join(range(120, 999),",")
+
+" Set theme
+set termguicolors
 set background=light
 colorscheme edge
-set termguicolors
 
-" Text editing
-set autoindent
+" Try to autoindent when adding a new line
 set smartindent
+
+" Always expand tabs to spaces
 set expandtab
-set smarttab
+
+" Set basic indent to be 4 spaces
 set shiftwidth=4
 set softtabstop=4
 set tabstop=4
+
+" Make hard line break on 88
 set textwidth=88
 
-" Search
+" Ignore case normally, but override ignoring if search contains upper chars
 set ignorecase
 set smartcase
-set hlsearch
-set incsearch
 
-" Folding
-set nofoldenable
-
-" Files and backups
-set autoread
+" Write backup files
 set backup
-set fileencoding=utf-8
-set history=1000
-" set undofile
+" Set backup dir and create it if necessary
 if empty(glob('$XDG_DATA_HOME/nvim/backup/'))
     silent !mkdir -p $XDG_DATA_HOME/nvim/backup
 endif
 set backupdir=~/.local/share/nvim/backup//
+
+" Always use UTF-8
+set fileencoding=utf-8
+
+" Use persistent undo between sessions
+set undofile
+
+" Save bookmarks and history to cache
 let g:netrw_home=$XDG_CACHE_HOME.'/nvim'
 
-" Ignore compiled files, git stuff
+" Ignore following files when completing
 set wildignore=*.o,*~,*.pyc
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 
-" No annoying sound on errors
+" No annoying sound or visuals on errors
 set noerrorbells
 set novisualbell
-set t_vb=
-set tm=500
+
+" Don't wait so long for mapped seq to be completed
+set timeoutlen=500
+
+" Set lower delay for highlighting words, autosoveing and cursorhold triggers
+set updatetime=300
 
 " Return to last edit position when opening files
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
-" Auto highlight words, autosave delay, cursorhold trigger, default: 4000ms
-setl updatetime=300
-
-" highlight WordUnderCursor cterm=underline gui=underline
-" autocmd CursorHold * call HighlightCursorWord()
-" function! HighlightCursorWord()
-"     " if hlsearch is active, don't overwrite it!
-"     let search = getreg('/')
-"     let cword = expand('<cword>')
-"     if match(cword, search) == -1
-"         exe printf('match WordUnderCursor /\V\<%s\>/', escape(cword, '/\'))
-"     endif
-" endfunction
-
-" trigger `autoread` when files changes on disk
+" Trigger `autoread` when files changes on disk and notify after file change
 set autoread
-autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
-" notification after file change
+autocmd FocusGained, BufEnter, CursorHold, CursorHoldI * if mode() != 'c' | checktime | endif
 autocmd FileChangedShellPost *
   \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 
 {{- if eq .chezmoi.hostname "mahisbook" }}
-" Use homebrew fzf
-set rtp+=/usr/local/opt/fzf
+" Add homebrew fzf to runtimepath
+set runtimepath+=/usr/local/opt/fzf
 {{- end }}
 
 " Use system python
