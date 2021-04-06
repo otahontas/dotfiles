@@ -1,6 +1,6 @@
 [global]
-username = "tediarp"
-password_cmd = "pass life/spotify.com | head -n 1"
+username = "{{ .spotifyd.username }}"
+password_cmd = "pass {{ .spotifyd.pass_entry }} | head -n 1"
 backend = "rodio"
 device_name = "{{ .chezmoi.hostname }}"
 bitrate = 320

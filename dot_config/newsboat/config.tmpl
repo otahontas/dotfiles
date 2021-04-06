@@ -1,4 +1,17 @@
+# RSS Source
 urls-source "miniflux"
 miniflux-url "{{ .newsboat.url }}"
 miniflux-login "{{ .newsboat.login }}"
 miniflux-passwordeval "pass {{ .newsboat.pass_entry }} | head -n 1"
+ 
+# bind keys - vim style
+unbind-key j
+unbind-key k
+unbind-key J
+unbind-key K
+bind-key j down
+bind-key k up
+bind-key l open
+bind-key h quit
+bind-key ^U pageup
+bind-key ^D pagedown

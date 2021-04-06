@@ -1,0 +1,52 @@
+{{- $aerc_mailboxes := toPrettyJson (get .aerc "mailboxes") -}}
+{{- $newsboat_url := get .newsboat "url" -}}
+{{- $newsboat_login := get .newsboat "login" -}}
+{{- $newsboat_pass_entry := get .newsboat "pass_entry" -}}
+{{- $spotifyd_username := get .spotifyd "username" -}}
+{{- $spotifyd_pass_entry := get .spotifyd "pass_entry" -}}
+
+{{- if not $aerc_mailboxes -}}
+{{-   $aerc_mailboxes := toJson list -}}
+{{- end -}}
+
+{{- if not $newsboat_url -}}
+{{-   $newsboat_url := promptString "Miniflux server url" -}}
+{{- end -}}
+
+{{- if not $newsboat_login -}}
+{{-   $newsboat_login := promptString "Miniflux account" -}}
+{{- end -}}
+
+{{- if not $newsboat_pass_entry -}}
+{{-   $newsboat_pass_entry := promptString "Path to miniflux password in pass" -}}
+{{- end -}}
+
+{{- if not $spotifyd_username -}}
+{{-   $spotifyd_username := promptString "Spotify username" -}}
+{{- end -}}
+
+{{- if not $spotifyd_pass_entry -}}
+{{-   $spotifyd_pass_entry := promptString "Path to spotify password in pass" -}}
+{{- end -}}
+
+
+{
+  "data": {
+    "aerc": {
+      "mailboxes": {{ $aerc_mailboxes }}
+    },
+    "newsboat": {
+      "url": {{ $newsboat_url | quote }},
+      "login": {{ $newsboat_login | quote }},
+      "pass_entry": {{ $newsboat_pass_entry | quote }}
+    },
+    "spotifyd": {
+      "username": {{ $spotifyd_username | quote }},
+      "pass_entry": {{ $spotifyd_pass_entry | quote }}
+    }
+  },
+  "diff": {
+    "format": "git",
+    "pager": "diff-so-fancy"
+  }
+}
