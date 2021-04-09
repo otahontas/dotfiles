@@ -3,15 +3,24 @@
 	email = otto@ottoahoniemi.fi
 [push]
     default = matching
+    follow-tags = true
 [alias] 
+    a = add
     ap = add -p
     aa = add -A
-    a = add
     c = clone
     s = status
+    m = merge
+    p = push
+    pf = push --force-with-lease
     d = diff
+    r = reset
+    rh = reset --HARD
+    re = restore
+    res = restore --staged
     dt = difftool
     co = checkout
+    cp = cherry-pick
     br = branch
     last = log -1 HEAD
     cm = commit -m
