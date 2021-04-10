@@ -417,5 +417,7 @@
             "data": "Make a fist and then fan your fingers out and stretch them as far as you can.",
             "enabled": true
         }
-    ]
+    ],
+    "showBreaksAsRegularWindows": false,
+    "appExclusions": []
 }
