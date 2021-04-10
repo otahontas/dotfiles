@@ -1,185 +1,83 @@
-
-# tap repositories and their packages
-
-tap homebrew/core
-brew adns
-brew aerc
-brew antibody
-brew apr
-brew apr-util
-brew autoconf
-brew bat
-brew bdw-gc
-brew c-ares
-brew catimg
-brew chezmoi
-brew cmake
-brew dante
-brew dasht
-brew dbus
-brew diff-so-fancy
-brew djvulibre
-brew exa
-brew fd
-brew fzf
-brew gdbm
-brew gettext
-brew gh
-brew ghostscript
-brew git
-brew gitui
-brew glib
-brew glow
-brew gmime
-brew gmp
-brew gnu-getopt
-brew gnu-sed
-brew gnupg
-brew gnutls
-brew go
-brew gpgme
-brew guile
-brew htop
-brew icu4c
-brew jansson
-brew jemalloc
-brew jpeg
-brew json-c
-brew libassuan
-brew libev
-brew libevent
-brew libffi
-brew libgcrypt
-brew libgpg-error
-brew libidn2
-brew libksba
-brew libolm
-brew libpng
-brew libstfl
-brew libtasn1
-brew libtermkey
-brew libtiff
-brew libtool
-brew libunistring
-brew libusb
-brew libuv
-brew libvterm
-brew libyaml
-brew libzip
-brew lua
-brew luajit-openresty
-brew luarocks
-brew luv
-brew lz4
-brew m4
-brew markdownlint-cli
-brew mas
-brew mpdecimal
-brew msgpack
-brew ncdu
-brew ncurses
-brew neovim
-brew nettle
-brew newsboat
-brew nghttp2
-brew nnn
-brew node
-brew notmuch
-brew npth
-brew openssl@1.1
-brew p11-kit
-brew pandoc
-brew pass
-brew pcre
-brew pcre2
-brew pinentry
-brew pinentry-mac
-brew pkg-config
-brew popt
-brew pwgen
-brew pyenv
-brew python@3.9
-brew qrencode
-brew readline
-brew ripgrep
-brew rsync
-brew ruby
-brew shellcheck
-brew socat
-brew spotify-tui
-brew spotifyd
-brew sqlite
-brew subversion
-brew syncthing
-brew talloc
-brew tcl-tk
-brew tldr
-brew trash
-brew tree
-brew tree-sitter
-brew unbound
-brew unibilium
-brew utf8proc
-brew vdirsyncer
-brew w3m
-brew wget
-brew xapian
-brew xxhash
-brew xz
-brew youtube-dl
-brew zstd
-
-tap homebrew/bundle
-
-tap homebrew/cask-drivers
-cask focusrite-control
-
-tap homebrew/cask-fonts
-cask font-fira-code
-cask font-meslo-lg-nerd-font
-cask font-montserrat
-
-tap homebrew/services
-
-tap homebrew/test-bot
-
-tap homebrew/cask
-cask amethyst
-cask discord
-cask element
-cask firefox
-cask iina
-cask insomnia
-cask karabiner-elements
-cask keepingyouawake
-cask kitty
-cask maintenance
-cask native-access
-cask osxfuse
-cask scroll-reverser
-cask slack
-cask spotter
-cask stretchly
-cask tunnelblick
-cask turbo-boost-switcher
-cask waves-central
-cask zoom
-
-tap aaronraimist/tap
-brew gomuks
-
-tap amar1729/formulae
-brew browserpass
-
-tap otahontas/tap
-brew kanttiinit --HEAD
-cask izotope-product-portal
-
-tap rcmdnk/file
-brew brew-file
-
-# App Store applications
-appstore 634148309 Logic Pro (10.6.1)
-appstore 634159523 MainStage (3.5.1)
-appstore 409201541 Pages (11.0)
-appstore 407963104 Pixelmator (3.9.2)
+tap "amar1729/formulae"
+tap "homebrew/bundle"
+tap "homebrew/cask"
+tap "homebrew/cask-drivers"
+tap "homebrew/cask-fonts"
+tap "homebrew/core"
+tap "homebrew/services"
+tap "homebrew/test-bot"
+tap "otahontas/tap"
+brew "aerc"
+brew "antibody"
+brew "bat"
+brew "catimg"
+brew "chezmoi"
+brew "dante"
+brew "w3m"
+brew "dasht"
+brew "diff-so-fancy"
+brew "exa"
+brew "fd"
+brew "fzf"
+brew "gh"
+brew "git"
+brew "gitui"
+brew "python@3.9"
+brew "glow"
+brew "gnupg"
+brew "htop"
+brew "luarocks"
+brew "markdownlint-cli"
+brew "mas"
+brew "ncdu"
+brew "neovim", args: ["HEAD"]
+brew "newsboat"
+brew "nnn"
+brew "notmuch"
+brew "pandoc"
+brew "pass"
+brew "pinentry-mac"
+brew "pipx"
+brew "pwgen"
+brew "pyenv"
+brew "ripgrep"
+brew "rsync"
+brew "shellcheck"
+brew "spotify-tui"
+brew "spotifyd"
+brew "subversion"
+brew "syncthing", restart_service: true
+brew "tldr"
+brew "trash"
+brew "vdirsyncer"
+brew "youtube-dl"
+brew "amar1729/formulae/browserpass"
+brew "otahontas/tap/kanttiinit", args: ["HEAD"]
+cask "amethyst"
+cask "discord"
+cask "element"
+cask "firefox"
+cask "focusrite-control"
+cask "font-fira-code"
+cask "font-meslo-lg-nerd-font"
+cask "font-montserrat"
+cask "iina"
+cask "insomnia"
+cask "izotope-product-portal"
+cask "karabiner-elements"
+cask "keepingyouawake"
+cask "kitty"
+cask "native-access"
+cask "osxfuse"
+cask "scroll-reverser"
+cask "slack"
+cask "spotter"
+cask "stretchly"
+cask "tunnelblick"
+cask "turbo-boost-switcher"
+cask "waves-central"
+cask "zoom"
+mas "Logic Pro", id: 634148309
+mas "MainStage", id: 634159523
+mas "Pages", id: 409201541
+mas "Pixelmator", id: 407963104
