@@ -1,3 +1,2 @@
 " Spellcheck commits
-
 setlocal spell

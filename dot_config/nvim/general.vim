@@ -15,6 +15,17 @@ set termguicolors
 set background=light
 colorscheme edge
 
+" Set different color for terminal mode cursor
+highlight! link TermCursor Cursor
+highlight! TermCursorNC guibg=blue guifg=white ctermbg=1 ctermfg=15
+
+" Disable numbers on terminal buffer, start on insert automatically
+augroup neovim_terminal
+  autocmd!
+  autocmd TermOpen * startinsert
+  autocmd TermOpen * :set nonumber norelativenumber
+augroup END
+
 " Try to autoindent when adding a new line
 set smartindent
 
@@ -35,6 +46,7 @@ set smartcase
 
 " Write backup files
 set backup
+
 " Set backup dir and create it if necessary
 if empty(glob('$XDG_DATA_HOME/nvim/backup/'))
     silent !mkdir -p $XDG_DATA_HOME/nvim/backup
@@ -43,9 +55,6 @@ set backupdir=~/.local/share/nvim/backup//
 
 " Always use UTF-8
 set fileencoding=utf-8
-
-" Use persistent undo between sessions
-set undofile
 
 " Save bookmarks and history to cache
 let g:netrw_home=$XDG_CACHE_HOME.'/nvim'
@@ -65,24 +74,30 @@ set timeoutlen=500
 set updatetime=300
 
 " Return to last edit position when opening files
-autocmd BufReadPost *
-      \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
-      \ |   exe "normal! g`\""
-      \ | endif
+augroup last_edit_position
+  autocmd!
+  autocmd BufReadPost *
+        \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+        \ |   exe "normal! g`\""
+        \ | endif
+augroup END
 
 " Trigger `autoread` when files changes on disk and notify after file change
 set autoread
-autocmd FocusGained, BufEnter, CursorHold, CursorHoldI * if mode() != 'c' | checktime | endif
-autocmd FileChangedShellPost *
-  \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 
-{{- if eq .chezmoi.hostname "mahisbook" }}
+augroup autoread_trigger
+  autocmd!
+  autocmd FocusGained, BufEnter, CursorHold, CursorHoldI * if mode() != 'c' | checktime | endif
+augroup END
+
+augroup autoread_message
+  autocmd!
+  autocmd FileChangedShellPost *
+    \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
+augroup END
+
 " Add homebrew fzf to runtimepath
 set runtimepath+=/usr/local/opt/fzf
-{{- end }}
-
-" Use system python
-let g:python3_host_prog = '/usr/bin/python3'
 
 " Set some extra diff-heuristics: https://vimways.org/2018/the-power-of-diff/
 set diffopt+=indent-heuristic,algorithm:patience
@@ -90,10 +105,22 @@ set diffopt+=indent-heuristic,algorithm:patience
 " Set neovim to use system clipboard
 set clipboard=unnamedplus
 
-" Always use current neovim instance as preferred text editor
-if has('nvim') && executable('nvr')
+" Use current neovim instance as preferred text editor if possible
+if executable('nvr')
     let $VISUAL="nvr -cc split --remote-wait +'set bufhidden=wipe'"
 endif
 
 " Run chezmoi --apply after editing files in chezmoi directory
-autocmd BufWritePost ~/.local/share/chezmoi/* ! chezmoi apply --source-path %
+augroup chezmoi_auto_apply
+  autocmd!
+  autocmd BufWritePost ~/.local/share/chezmoi/* ! chezmoi apply --source-path %
+augroup END
+
+" Set real filetypes for chezmoi .tmpl files by ignoring .tmpl extension
+" A bit clunky, should really take filename and match against different filetypes,
+" since this misses files like .zshrc
+augroup chezmoi_template_file_setup
+  autocmd!
+  autocmd BufNewFile,BufRead *.tmpl
+    \ let &filetype = expand('%:r:e')
+augroup END

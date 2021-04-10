@@ -3,3 +3,11 @@
 runtime remappings.vim
 runtime plugins.vim
 runtime general.vim
+
+lua <<EOF
+-- Load plugin settings written in lua
+require("pluginsettings/formatter")
+require("pluginsettings/nvim-compe")
+require("pluginsettings/nvim-lspconfig")
+require("pluginsettings/nvim-treesitter")
+EOF

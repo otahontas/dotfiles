@@ -2,9 +2,13 @@
 let mapleader = "\<Space>"
 let maplocalleader = ","
 
-" Terminal shorcut
-nnoremap <silent><leader>vt <C-w>v<C-w>l:terminal<CR>I
-nnoremap <silent><leader>st <C-w>s<C-w>j:terminal<CR>I
+" Open terminal in this, vertical or horisontal split
+nnoremap <silent><leader>ss :terminal<CR>
+nnoremap <silent><leader>vt <C-w>v<C-w>l:terminal<CR>
+nnoremap <silent><leader>st <C-w>s<C-w>j:terminal<CR>
+
+" Move to normal mode in terminal with Ctrl-W followed by ESC
+tnoremap <silent><C-w><Esc> <C-\><C-n>
 
 " Toggle highlighting and hidden chars
 nnoremap <silent><leader>nh :nohlsearch<CR>
@@ -18,6 +22,9 @@ nnoremap <silent><leader>bd :bdelete <CR>
 
 " Fast saving
 nnoremap <leader>ww :w!<cr>
+
+" Save with sudo rights
+nnoremap <leader>ws :w !sudo tee %<cr>
 
 " Change window pwd to current dir and print it
 nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>

@@ -8,24 +8,34 @@ endif
 " Load plugins
 call plug#begin('$XDG_DATA_HOME/nvim/plugged')
 
-Plug 'airblade/vim-gitgutter'
-Plug 'dbeniamine/todo.txt-vim'
+" Safety stuff
 Plug 'https://gitlab.com/craftyguy/vim-redact-pass.git'
-Plug 'itchyny/lightline.vim'
-Plug 'itchyny/vim-gitbranch'
-Plug 'junegunn/fzf.vim'
+
+" Git stuff
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
+
+" Text editing stuff
+Plug 'dbeniamine/todo.txt-vim'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
-Plug 'lambdalisue/suda.vim'
 Plug 'lervag/vimtex'
 Plug 'npxbr/glow.nvim', {'do': ':GlowInstall'}
 Plug 'plasticboy/vim-markdown'
-Plug 'sainnhe/edge'
-Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-fugitive'
 
-" All-around IDE-like stuff
+" Visual stuff
+Plug 'itchyny/lightline.vim'
+Plug 'itchyny/vim-gitbranch'
+Plug 'lukas-reineke/indent-blankline.nvim', { 'branch': 'lua' }
+Plug 'sainnhe/edge'
+
+" All-around IDE-like stuff (older)
+Plug 'scrooloose/nerdtree'
+Plug 'junegunn/fzf.vim'
+
+" All-around IDE-like stuff (only nvim, lua based)
+Plug 'mhartington/formatter.nvim'
 Plug 'glepnir/lspsaga.nvim'
 Plug 'hrsh7th/nvim-compe'
 Plug 'kabouzeid/nvim-lspinstall'
@@ -33,11 +43,6 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'tzachar/compe-tabnine', { 'do': './install.sh' }
 call plug#end()
-
-" Source plugin settings written in lua
-lua require("pluginsettings/nvim-compe")
-lua require("pluginsettings/nvim-treesitter")
-lua require("pluginsettings/nvim-lspconfig")
 
 " Source plugin settings written in vim script
 runtime pluginsettings/fzf.vim
