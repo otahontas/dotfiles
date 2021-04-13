@@ -23,4 +23,7 @@ screenshot_mac.png
 .config/offlineimap
 .config/spotifyd
 .config/vdirsyncer
+.config/karabiner
+.config/zsh/integrations/brew.zsh
+Library
 {{ end }}
