@@ -1,9 +1,7 @@
 " Quick shortcuts for different fzf-modes
 nnoremap <silent><leader>ff :Files<CR>
-nnoremap <silent><leader>gf :GFiles?<CR>
 nnoremap <silent><leader>hh :History<CR>
 nnoremap <silent><leader>rg :Rg<CR>
-nnoremap <silent><leader>co :Commands<CR>
 nnoremap <silent><leader>ma :Maps<CR>
 nnoremap <silent><leader>he :Helptags<CR>
 nnoremap <silent><leader>bb :Buffers<CR>

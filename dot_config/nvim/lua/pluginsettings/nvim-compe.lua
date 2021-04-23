@@ -29,3 +29,6 @@ require"compe".setup {
         vsnip = false
     }
 }
+
+-- TODO:
+-- - auto import

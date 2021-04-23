@@ -8,6 +8,7 @@ local luaformatter = function()
 end
 
 local black = function() return {exe = "black", args = {"-"}, stdin = true} end
+-- TODO: setup to work with isort
 
 local prettier = function()
     return {
