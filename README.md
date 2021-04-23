@@ -64,3 +64,10 @@ This repo includes my configurations for macOS and arch/ubuntu servers.
   - Clear NVRAM
   - Make your way through Setup Assistant
 - Open terminal and run installation script with `bash <(curl -sL https://git.io/Jq9ln)`
+
+## Generic todo:
+- add offlineimap
+- add notmuch
+- add sync for calendar & contacts
+- add khal & khard
+- add khard as addressbook source to aerc

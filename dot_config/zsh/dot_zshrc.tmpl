@@ -79,7 +79,7 @@ source $ZDOTDIR/.zsh_aliases
 source $ZDOTDIR/.zsh_functions
 
 # Load settings for various programs
-{{ if eq .chezmoi.hostname "mahisbook" }}
+{{- if eq .chezmoi.hostname "mahisbook" }}
 source $ZDOTDIR/integrations/brew.zsh
 {{- end }}
 source $ZDOTDIR/integrations/bat.zsh

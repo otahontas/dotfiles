@@ -3,6 +3,7 @@ bat
 brightnessctl
 btrfs-progs
 chezmoi
+cronie
 diff-so-fancy
 docker
 docker-compose
@@ -13,6 +14,8 @@ ffmpeg
 fzf
 git
 github-cli
+gitui
+go
 htop
 imagemagick
 intel-media-driver
@@ -22,12 +25,15 @@ linux-headers
 man-db
 man-pages
 neofetch
+nnn
 nodejs
 npm
 openssh
 pacman-contrib
 prettier
 pwgen
+pyenv
+python-black
 python-poetry
 reflector
 ripgrep
@@ -42,6 +48,7 @@ ufw
 unzip
 vbetool
 wget
+yarn
 youtube-dl
 zip
 zsh

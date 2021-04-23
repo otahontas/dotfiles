@@ -25,14 +25,6 @@ local on_attach = function(client, bufnr)
     buf_set_keymap("n", "<leader>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>",
                    opts)
 
-    -- Set conditional keymaps depending on server_capabilities
-    if client.resolved_capabilities.document_formatting then
-        buf_set_keymap("n", "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-    elseif client.resolved_capabilities.document_range_formatting then
-        buf_set_keymap("n", "<leader>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>",
-                       opts)
-    end
-
     -- Set autocommands conditional on server_capabilities
     if client.resolved_capabilities.document_highlight then
         vim.api.nvim_exec([[
@@ -48,7 +40,7 @@ local on_attach = function(client, bufnr)
     end
 end
 
--- base setup for all 
+-- base setup for all
 local base_config = {on_attach = on_attach}
 
 -- Custom settings for different language servers
@@ -63,6 +55,9 @@ local lua_extra_config = {
     }
 }
 
+-- This should match filetypes of linters set in efm config
+local efm_extra_config = {filetypes = {"markdown", "python", "sh"}}
+
 -- Get all installed servers
 require"lspinstall".setup()
 local servers = require"lspinstall".installed_servers()
@@ -71,5 +66,6 @@ local servers = require"lspinstall".installed_servers()
 for _, server in pairs(servers) do
     local config = base_config
     if server == "lua" then for k, v in pairs(lua_extra_config) do config[k] = v end end
+    if server == "efm" then for k, v in pairs(efm_extra_config) do config[k] = v end end
     require"lspconfig"[server].setup(config)
 end

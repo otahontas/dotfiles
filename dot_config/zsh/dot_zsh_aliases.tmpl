@@ -23,11 +23,15 @@ alias todo="nvim ~/documents/todo/todo.txt"
 alias todone="nvim ~/documents/todo/done.txt"
 alias trash-empty="trash -e"
 alias trash-list="trash -l"
+alias ssh="kitty +kitten ssh"
+alias icat="kitty +kitten icat"
 {{- else }}
 # Sys admin aliases
 alias sys="systemctl"
 alias sysu="systemctl --user"
 
+{{- end }}
+
 # Docker aliases
 alias dlogs="docker logs --tail 100 --follow"
-{{- end }}
+alias docker-compose="docker compose"

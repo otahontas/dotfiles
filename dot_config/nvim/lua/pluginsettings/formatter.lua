@@ -17,6 +17,14 @@ local prettier = function()
     }
 end
 
+local clang_format = function()
+    return {
+        exe = "clang-format",
+        args = {"-style=\"{BasedOnStyle: google, IndentWidth: 4}\""},
+        stdin = true
+    }
+end
+
 -- Setup formatters for different filetypes
 require("formatter").setup({
     logging = false,
@@ -24,7 +32,8 @@ require("formatter").setup({
         lua = {luaformatter},
         python = {black},
         javascript = {prettier},
-        typecript = {prettier}
+        typecript = {prettier},
+        cpp = {clang_format}
     }
 })
 
@@ -32,6 +41,6 @@ require("formatter").setup({
 vim.api.nvim_exec([[
 augroup FormatAutogroup
   autocmd!
-  autocmd BufWritePost *.py,*.lua FormatWrite
+  autocmd BufWritePost *.ts,*.js,*.h*,.cpp,*.py,*.lua FormatWrite
 augroup END
 ]], true)

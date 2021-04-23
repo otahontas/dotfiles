@@ -10,6 +10,11 @@ function brew () {
     command brew ${@}
 
     for command in "${dump_commands[@]}"; do
-        [[ "${command}" == "${main_command}" ]] && brew bundle dump --file="$brewfile_path" --force
+        [[ "${command}" == "${main_commancd}" ]] && brew bundle dump --file="$brewfile_path" --force
     done
 }
+
+# Replace stupid bsd based mac os tools with proper unix versions from brew
+[[ $PATH != *"/usr/local/opt/gnu-time"* ]] && export PATH="/usr/local/opt/gnu-time/libexec/gnubin:$PATH"
+[[ $PATH != *"/usr/local/opt/grep"* ]] && export PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
+[[ $PATH != *"/usr/local/opt/coreutils"* ]] && export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
