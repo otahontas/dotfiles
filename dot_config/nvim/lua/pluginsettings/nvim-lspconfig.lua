@@ -55,6 +55,9 @@ local lua_extra_config = {
     }
 }
 
+-- This should match filetypes of linters set in efm config
+local efm_extra_config = {filetypes = {"markdown", "python", "sh"}}
+
 -- Get all installed servers
 require"lspinstall".setup()
 local servers = require"lspinstall".installed_servers()
@@ -63,5 +66,6 @@ local servers = require"lspinstall".installed_servers()
 for _, server in pairs(servers) do
     local config = base_config
     if server == "lua" then for k, v in pairs(lua_extra_config) do config[k] = v end end
+    if server == "efm" then for k, v in pairs(efm_extra_config) do config[k] = v end end
     require"lspconfig"[server].setup(config)
 end

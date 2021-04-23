@@ -1,7 +1,8 @@
 -- Setup treesitter
 require"nvim-treesitter.configs".setup {
     ensure_installed = "maintained",
-    highlight = {enable = true},
+    -- Highlighting fails on multi-part tex documents, otherwise enable
+    highlight = {enable = true, disable = {"latex"}},
     indent = {enable = true}
 }
 

@@ -23,10 +23,6 @@ Plug 'lervag/vimtex'
 Plug 'npxbr/glow.nvim', {'do': ':GlowInstall'}
 Plug 'plasticboy/vim-markdown'
 Plug 'tpope/vim-commentary'
-Plug 'vim-scripts/Vimchant'
-
-let g:vimchant_spellcheck_lang = 'fi'
-nnoremap <F7> <Plug>VimchantSpellCheckSwitch
 
 " Visual stuff
 Plug 'itchyny/lightline.vim'
