@@ -34,6 +34,7 @@ prettier
 pwgen
 pyenv
 python-black
+python-isort
 python-poetry
 reflector
 ripgrep
