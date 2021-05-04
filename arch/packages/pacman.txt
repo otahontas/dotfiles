@@ -45,6 +45,7 @@ terminus-font
 tldr
 tmux
 trash-cli
+typescript
 ufw
 unzip
 vbetool
