@@ -18,6 +18,8 @@ local prettier = function()
     }
 end
 
+local jq = function() return {exe = "jq", args = {"."}, stdin = true} end
+
 local clang_format = function()
     return {
         exe = "clang-format",
@@ -34,7 +36,8 @@ require("formatter").setup({
         python = {black},
         javascript = {prettier},
         typecript = {prettier},
-        cpp = {clang_format}
+        cpp = {clang_format},
+        json = {jq}
     }
 })
 
@@ -42,6 +45,6 @@ require("formatter").setup({
 vim.api.nvim_exec([[
 augroup FormatAutogroup
   autocmd!
-  autocmd BufWritePost *.ts,*.js,*.h*,.cpp,*.py,*.lua FormatWrite
+  autocmd BufWritePost *.ts,*.js,*jsx,*.h,*.cpp,*.py,*.lua,*.json FormatWrite
 augroup END
 ]], true)
