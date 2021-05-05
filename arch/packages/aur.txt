@@ -10,3 +10,4 @@ neovim-nightly-bin
 neovim-remote
 nvm
 paru-bin
+up

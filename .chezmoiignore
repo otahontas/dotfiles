@@ -26,4 +26,6 @@ screenshot_mac.png
 .config/karabiner
 .config/zsh/integrations/brew.zsh
 Library
+.latexmkrc
+.gdbinit
 {{ end }}
