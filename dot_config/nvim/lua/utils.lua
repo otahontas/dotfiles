@@ -10,4 +10,12 @@ utils.map = function(mode, binding, command)
     vim.api.nvim_set_keymap(mode, binding, command .. suffix, options)
 end
 
+-- Create augroups easily
+utils.create_autogroup = function(name, command)
+    vim.api.nvim_command("augroup " .. name)
+    vim.api.nvim_command("autocmd!")
+    vim.api.nvim_command("autocmd " .. command)
+    vim.api.nvim_command("augroup END")
+end
+
 return utils

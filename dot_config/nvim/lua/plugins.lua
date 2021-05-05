@@ -12,12 +12,8 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 -- Run PackerCompile each time this file is edited
-vim.api.nvim_exec([[
-augroup PackerCompileAutoGroup 
-  autocmd!
-  autocmd BufWritePost plugins.lua PackerCompile
-augroup END
-]], true)
+require("utils").create_autogroup("RunPackerCompileAfterEditingPlugins",
+                                  "BufWritePost *lua/plugins.lua *lua/pluginsettings/* PackerCompile")
 
 -- Load plugins
 local plugins = require("packer").startup(function(use)

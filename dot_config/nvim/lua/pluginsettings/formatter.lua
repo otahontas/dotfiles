@@ -42,9 +42,6 @@ require("formatter").setup({
 })
 
 -- Format on save
-vim.api.nvim_exec([[
-augroup FormatAutogroup
-  autocmd!
-  autocmd BufWritePost *.ts,*.js,*jsx,*.h,*.cpp,*.py,*.lua,*.json FormatWrite
-augroup END
-]], true)
+local extensions = "*.ts,*.js,*jsx,*.h,*.cpp,*.py,*.lua,*.json"
+require("utils").create_autogroup("RunFormatterOnSave",
+                                  "BufWritePost " .. extensions .. " FormatWrite")
