@@ -7,5 +7,5 @@ nnoremap <silent><leader>he :Helptags<CR>
 nnoremap <silent><leader>bb :Buffers<CR>
 
 " Esc exits fzf
-autocmd  FileType fzf tnoremap <Esc> <C-c>
-    \| autocmd BufLeave <buffer> tnoremap <Esc> <C-\><C-n>
+" autocmd  FileType fzf tnoremap <Esc> <C-c>
+"     \| autocmd BufLeave <buffer> tnoremap <Esc> <C-\><C-n>

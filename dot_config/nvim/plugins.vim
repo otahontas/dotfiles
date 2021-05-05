@@ -34,37 +34,11 @@ Plug 'junegunn/fzf.vim'
 " Helping tools
 Plug 'airblade/vim-rooter'
 
-" LUA BASED
-
-" Visual
-Plug 'lukas-reineke/indent-blankline.nvim', { 'branch': 'lua' }
-Plug 'npxbr/glow.nvim', {'do': ':GlowInstall'}
-
-" Text editing
-Plug 'mhartington/formatter.nvim'
-Plug 'b3nj5m1n/kommentary'
-
-" Autocomplete
-Plug 'hrsh7th/nvim-compe'
-Plug 'tzachar/compe-tabnine', { 'do': './install.sh' }
-Plug 'onsails/lspkind-nvim'
-
-" Language server stuff, treesitter and helpers
-Plug 'glepnir/lspsaga.nvim'
-Plug 'kabouzeid/nvim-lspinstall'
-Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-
-" Filetree view
-Plug 'kyazdani42/nvim-web-devicons'
-Plug 'kyazdani42/nvim-tree.lua'
-
 call plug#end()
 
-" Source plugin settings written in vim script
+" Source settings 
 runtime pluginsettings/fzf.vim
 runtime pluginsettings/lightline.vim
-runtime pluginsettings/lspsaga.vim
 runtime pluginsettings/nvim-tree.vim
 runtime pluginsettings/suda.vim
 runtime pluginsettings/todotxt-vim.vim

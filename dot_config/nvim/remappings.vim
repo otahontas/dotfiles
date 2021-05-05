@@ -36,4 +36,10 @@ nnoremap <leader>ww :w!<cr>
 nnoremap <leader>cd :lcd %:p:h<CR>:pwd<CR>
 
 " Reload config
-nnoremap <silent><leader>rc :source $MYVIMRC<CR>
+nnoremap <leader>rc :source $MYVIMRC<CR>
+
+" Open config
+nnoremap <silent><leader>oc :edit $MYVIMRC<CR>
+
+" Toggle numbers
+nnoremap <silent><leader>nt :set invnumber<CR>
