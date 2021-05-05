@@ -65,4 +65,5 @@ runtime pluginsettings/lspsaga.vim
 runtime pluginsettings/nerdtree.vim
 runtime pluginsettings/suda.vim
 runtime pluginsettings/todotxt-vim.vim
+runtime pluginsettings/vim-rooter.vim
 runtime pluginsettings/vimtex.vim
