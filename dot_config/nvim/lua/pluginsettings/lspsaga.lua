@@ -24,7 +24,7 @@ map("v", "<leader>ca", ":<C-U>lua require('lspsaga.codeaction').range_code_actio
 map("n", "gs", "<cmd>lua require('lspsaga.signaturehelp').signature_help()")
 
 -- Diagnostics
-map("n", "<leader>ge", "<cmd>lua require'lspsaga.diagnostic'.show_line_diagnostics()")
+map("n", "<leader>gl", "<cmd>lua require'lspsaga.diagnostic'.show_line_diagnostics()")
 map("n", "[d", "<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()")
 map("n", "]d", "<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()")
 

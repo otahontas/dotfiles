@@ -28,16 +28,12 @@ Plug 'itchyny/lightline.vim'
 Plug 'itchyny/vim-gitbranch'
 Plug 'sainnhe/edge'
 
-" All-around IDE-like stuff (older)
-Plug 'junegunn/fzf.vim'
-
 " Helping tools
 Plug 'airblade/vim-rooter'
 
 call plug#end()
 
 " Source settings 
-runtime pluginsettings/fzf.vim
 runtime pluginsettings/lightline.vim
 runtime pluginsettings/nvim-tree.vim
 runtime pluginsettings/suda.vim

@@ -13,7 +13,7 @@ end
 
 -- Run PackerCompile each time this file is edited
 require("utils").create_autogroup("RunPackerCompileAfterEditingPlugins",
-                                  "BufWritePost *lua/plugins.lua *lua/pluginsettings/* PackerCompile")
+                                  "BufWritePost *lua/plugins.lua,*lua/pluginsettings/* PackerCompile")
 
 -- Load plugins
 local plugins = require("packer").startup(function(use)
@@ -42,11 +42,13 @@ local plugins = require("packer").startup(function(use)
     use {"onsails/lspkind-nvim", config = function() require"lspkind".init() end}
 
     -- Treesitter
+    local treesitter = "nvim-treesitter/nvim-treesitter"
     use {
-        "nvim-treesitter/nvim-treesitter",
+        treesitter,
         run = ":TSUpdate",
         config = [[ require("pluginsettings/nvim-treesitter") ]]
     }
+    use {"p00f/nvim-ts-rainbow", requires = {treesitter}}
 
     -- Language server tools
     local lsp = "neovim/nvim-lspconfig"
@@ -58,10 +60,12 @@ local plugins = require("packer").startup(function(use)
         config = [[ require("pluginsettings/lspsaga") ]]
     }
 
-    -- use {
-    -- 'nvim-telescope/telescope.nvim',
-    -- requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
-    -- }
+    -- Fuzzy finder
+    use {
+        "nvim-telescope/telescope.nvim",
+        requires = {{"nvim-lua/popup.nvim"}, {"nvim-lua/plenary.nvim"}},
+        config = [[ require("pluginsettings/telescope") ]]
+    }
 end)
 
 return plugins

@@ -92,12 +92,8 @@ augroup END
 
 augroup autoread_message
   autocmd!
-  autocmd FileChangedShellPost *
-    \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
+  autocmd FileChangedShellPost * echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 augroup END
-
-" Add homebrew fzf to runtimepath
-set runtimepath+=/usr/local/opt/fzf
 
 " Set some extra diff-heuristics: https://vimways.org/2018/the-power-of-diff/
 set diffopt+=indent-heuristic,algorithm:patience
@@ -121,8 +117,7 @@ augroup END
 " since this misses files like .zshrc
 augroup chezmoi_template_file_setup
   autocmd!
-  autocmd BufNewFile,BufRead *.tmpl
-    \ let &filetype = expand('%:r:e')
+  autocmd BufNewFile,BufRead *.tmpl let &filetype = expand('%:r:e')
 augroup END
 
 " Some problems that should be fixed:
