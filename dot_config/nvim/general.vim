@@ -132,8 +132,6 @@ augroup END
 " - add way to fold stuff in todo-file
 " - add way to highlight all tasks due today
 " - add way to highlight all tasks to be started today
-" - check lspsaga and fix it to work hand-to-hand with lspconfig
 " - replace fzf with telescope
 " - get plugin that shows function/method i'm currently editing
-" - replace nerdtree with lua-based version
 " - replace copypasted after/ftplugin settings with function & function calls

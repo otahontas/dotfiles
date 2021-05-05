@@ -1,12 +1,16 @@
 " Setup Lsp saga keybindings
 lua << EOF
 local saga = require 'lspsaga'
-saga.init_lsp_saga()
+saga.init_lsp_saga({
+--- setup different quit for code actions and rename
+code_action_keys = { quit = '<ESC>' },
+rename_action_keys = { quit = '<ESC>' },
+})
 EOF
 
 " Hovers scrolling (works on signature, docs, code actions etc)
-nnoremap <silent><C-i> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>
-nnoremap <silent><C-b> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>
+nnoremap <silent><C-p> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>
+nnoremap <silent><C-n> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>
 
 " Docs
 nnoremap <silent>K :Lspsaga hover_doc<CR>
