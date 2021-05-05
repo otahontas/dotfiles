@@ -42,6 +42,7 @@ Plug 'kabouzeid/nvim-lspinstall'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'tzachar/compe-tabnine', { 'do': './install.sh' }
+Plug 'onsails/lspkind-nvim'
 call plug#end()
 
 " Source plugin settings written in vim script
