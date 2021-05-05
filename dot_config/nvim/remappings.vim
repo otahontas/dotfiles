@@ -34,3 +34,6 @@ nnoremap <leader>ww :w!<cr>
 
 " Change this windows pwd to current dir and print it
 nnoremap <leader>cd :lcd %:p:h<CR>:pwd<CR>
+
+" Reload config
+nnoremap <silent><leader>rc :source $MYVIMRC<CR>
