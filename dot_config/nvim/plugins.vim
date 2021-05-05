@@ -22,7 +22,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'dbeniamine/todo.txt-vim'
 Plug 'lervag/vimtex'
 Plug 'plasticboy/vim-markdown'
-Plug 'tpope/vim-commentary'
 
 " Visual
 Plug 'itchyny/lightline.vim'
@@ -43,6 +42,7 @@ Plug 'npxbr/glow.nvim', {'do': ':GlowInstall'}
 
 " Text editing
 Plug 'mhartington/formatter.nvim'
+Plug 'b3nj5m1n/kommentary'
 
 " Autocomplete
 Plug 'hrsh7th/nvim-compe'
@@ -68,5 +68,6 @@ runtime pluginsettings/lspsaga.vim
 runtime pluginsettings/nvim-tree.vim
 runtime pluginsettings/suda.vim
 runtime pluginsettings/todotxt-vim.vim
+runtime pluginsettings/vim-fugitive.vim
 runtime pluginsettings/vim-rooter.vim
 runtime pluginsettings/vimtex.vim
