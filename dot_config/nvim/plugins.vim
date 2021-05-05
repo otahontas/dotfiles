@@ -30,7 +30,6 @@ Plug 'itchyny/vim-gitbranch'
 Plug 'sainnhe/edge'
 
 " All-around IDE-like stuff (older)
-Plug 'scrooloose/nerdtree'
 Plug 'junegunn/fzf.vim'
 
 " Helping tools
@@ -56,13 +55,17 @@ Plug 'kabouzeid/nvim-lspinstall'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
+" Filetree view
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'kyazdani42/nvim-tree.lua'
+
 call plug#end()
 
 " Source plugin settings written in vim script
 runtime pluginsettings/fzf.vim
 runtime pluginsettings/lightline.vim
 runtime pluginsettings/lspsaga.vim
-runtime pluginsettings/nerdtree.vim
+runtime pluginsettings/nvim-tree.vim
 runtime pluginsettings/suda.vim
 runtime pluginsettings/todotxt-vim.vim
 runtime pluginsettings/vim-rooter.vim
