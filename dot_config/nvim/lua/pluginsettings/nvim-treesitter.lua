@@ -1,9 +1,10 @@
 -- Setup treesitter
-require"nvim-treesitter.configs".setup {
+require("nvim-treesitter.configs").setup {
     ensure_installed = "maintained",
     -- Highlighting fails on multi-part tex documents, otherwise enable
     highlight = {enable = true, disable = {"latex"}},
-    indent = {enable = true}
+    indent = {enable = true},
+    rainbow = {enable = true}
 }
 
 -- Use treesitter to handle folding

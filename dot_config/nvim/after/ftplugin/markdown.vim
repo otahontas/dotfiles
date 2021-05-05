@@ -13,10 +13,10 @@ map <buffer> j gj
 map <buffer> k gk
 
 " Preview markdown in popup window
-nnoremap <buffer> <localleader>cc :Glow<Return>
+nnoremap <buffer> <localleader>cc :Glow<CR>
 
 " Print word count to statusline
 function! WordCount()
     :! wc %
 endfunction
-nnoremap <buffer> <localleader>wc :call WordCount()<Return>
+nnoremap <buffer> <localleader>wc :call WordCount()<CR>

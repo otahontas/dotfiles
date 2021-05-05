@@ -92,12 +92,8 @@ augroup END
 
 augroup autoread_message
   autocmd!
-  autocmd FileChangedShellPost *
-    \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
+  autocmd FileChangedShellPost * echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 augroup END
-
-" Add homebrew fzf to runtimepath
-set runtimepath+=/usr/local/opt/fzf
 
 " Set some extra diff-heuristics: https://vimways.org/2018/the-power-of-diff/
 set diffopt+=indent-heuristic,algorithm:patience
@@ -121,8 +117,7 @@ augroup END
 " since this misses files like .zshrc
 augroup chezmoi_template_file_setup
   autocmd!
-  autocmd BufNewFile,BufRead *.tmpl
-    \ let &filetype = expand('%:r:e')
+  autocmd BufNewFile,BufRead *.tmpl let &filetype = expand('%:r:e')
 augroup END
 
 " Some problems that should be fixed:
@@ -132,8 +127,6 @@ augroup END
 " - add way to fold stuff in todo-file
 " - add way to highlight all tasks due today
 " - add way to highlight all tasks to be started today
-" - check lspsaga and fix it to work hand-to-hand with lspconfig
 " - replace fzf with telescope
 " - get plugin that shows function/method i'm currently editing
-" - replace nerdtree with lua-based version
 " - replace copypasted after/ftplugin settings with function & function calls

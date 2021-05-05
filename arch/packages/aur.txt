@@ -3,6 +3,7 @@ antibody
 arch-secure-boot
 edgedb-cli
 expo-cli
+glow
 lua-format
 mkinitcpio-encrypt-detached-header
 neovim-drop-in
@@ -10,3 +11,4 @@ neovim-nightly-bin
 neovim-remote
 nvm
 paru-bin
+up

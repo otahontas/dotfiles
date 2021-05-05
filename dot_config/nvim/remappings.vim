@@ -26,11 +26,20 @@ nnoremap <silent><leader>bn :bnext <CR>
 nnoremap <silent><leader>bp :bprev <CR>
 nnoremap <silent><leader>bd :bdelete <CR>
 
+" Tabs
+nnoremap <silent><leader>tn :tabnew <CR>
+
 " Fast saving
 nnoremap <leader>ww :w!<cr>
 
-" Save with sudo rights
-nnoremap <leader>ws :w !sudo tee %<cr>
+" Change this windows pwd to current dir and print it
+nnoremap <leader>cd :lcd %:p:h<CR>:pwd<CR>
 
-" Change window pwd to current dir and print it
-nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
+" Reload config
+nnoremap <leader>rc :source $MYVIMRC<CR>
+
+" Open config
+nnoremap <silent><leader>oc :edit $MYVIMRC<CR>
+
+" Toggle numbers
+nnoremap <silent><leader>nt :set invnumber<CR>

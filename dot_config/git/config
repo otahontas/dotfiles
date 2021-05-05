@@ -6,31 +6,33 @@
     follow-tags = true
 [alias] 
     a = add
-    ap = add -p
     aa = add -A
+    ap = add -p
+    b = blame
+    br = branch
     c = clone
-    s = status
+    cane = commit --amend --no-edit
+    cedit = commit --amend
+    cm = commit -m
+    co = checkout
+    cp = cherry-pick
+    d = diff
+    ds = diff --staged
+    dt = difftool
+    hist = log --pretty=format:'%h %aD | %s%d [%an]' --graph --date=short
+    last = log -1 HEAD
     m = merge
     p = push
     pf = push --force-with-lease
-    d = diff
     r = reset
-    rh = reset --HARD
     re = restore
     res = restore --staged
-    dt = difftool
-    co = checkout
-    cp = cherry-pick
-    br = branch
-    last = log -1 HEAD
-    cm = commit -m
-    cedit = commit --amend
-    cane = commit --amend --no-edit
-    hist = log --pretty=format:'%h %aD | %s%d [%an]' --graph --date=short
+    rh = reset --HARD
     root = rev-parse --show-toplevel
-    ss = stash show -p
-    sd = stash drop stash@{0}
+    s = status
     sa = stash save -u
+    sd = stash drop stash@{0}
+    ss = stash show -p
 [core]
 	pager = diff-so-fancy | less --tabs=4 -RFX
 [color]
