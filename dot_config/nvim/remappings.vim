@@ -32,5 +32,5 @@ nnoremap <leader>ww :w!<cr>
 " Save with sudo rights
 nnoremap <leader>ws :w !sudo tee %<cr>
 
-" Change window pwd to current dir and print it
-nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
+" Change this windows pwd to current dir and print it
+nnoremap <leader>cd :lcd %:p:h<CR>:pwd<CR>
