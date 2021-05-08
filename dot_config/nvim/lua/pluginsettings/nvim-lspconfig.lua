@@ -1,11 +1,14 @@
 local map = require("utils").map
 
 -- Setup keymaps to be enabled for langauge servers
-local on_attach = function(client, bufnr)
+local on_attach = function(client)
     map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()")
     map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()")
     map("n", "<leader>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()")
     map("n", "<leader>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()")
+    map("n", "<leader>wl",
+        "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))")
+    map("n", "<leader>wl", "<cmd>lua vim.lsp.buf.remove_workspace_folder()")
     map("n", "<leader>D", "<cmd>lua vim.lsp.buf.type_definition()")
 
     -- Set autocommands conditional on server_capabilities
