@@ -32,8 +32,8 @@ nnoremap <silent><leader>tn :tabnew <CR>
 " Fast saving
 nnoremap <leader>ww :w!<cr>
 
-" Change this windows pwd to current dir and print it
-nnoremap <leader>cd :lcd %:p:h<CR>:pwd<CR>
+" Change this windows working directory to current dir and print it
+nnoremap <leader>cwd :lcd %:p:h<CR>:pwd<CR>
 
 " Reload config
 nnoremap <leader>rc :source $MYVIMRC<CR>

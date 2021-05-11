@@ -1,7 +1,8 @@
 local map = require("utils").map
 
--- Setup keymaps to be enabled for langauge servers
+-- Stuff to enable on Lsp client attach
 local on_attach = function(client)
+    -- Setup keymaps to be enabled for langauge servers
     map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()")
     map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()")
     map("n", "<leader>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()")
@@ -10,6 +11,9 @@ local on_attach = function(client)
         "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))")
     map("n", "<leader>wl", "<cmd>lua vim.lsp.buf.remove_workspace_folder()")
     map("n", "<leader>D", "<cmd>lua vim.lsp.buf.type_definition()")
+
+    -- Set pwd to clients root dir
+    vim.api.nvim_set_current_dir(client.config.root_dir)
 
     -- Set autocommands conditional on server_capabilities
     if client.resolved_capabilities.document_highlight then
@@ -45,22 +49,22 @@ local lua_extra_config = {
 
 -- Add better filetype matchers
 local filetypes = {
-    bashls = {"sh"},
-    dockerls = {"Dockerfile", "dockerfile"},
+    bash = {"sh"},
+    dockerfile = {"Dockerfile", "dockerfile"},
     efm = {"markdown", "python", "sh"},
-    cssls = {"css", "scss", "less"},
-    pyls = {"python"},
-    jsonls = {"json"},
-    tsserver = {
+    css = {"css", "scss", "less"},
+    python = {"python"},
+    json = {"json"},
+    typescript = {
         "javascript", "javascriptreact", "javascript.jsx", "typescript",
         "typescriptreact", "typescript.tsx"
     },
     html = {"html"},
-    sumneko_lua = {"lua"},
-    texlab = {"tex", "bib"},
-    clangd = {"c", "cpp"},
-    yamlls = {"yaml"},
-    rust_analyzer = {"rust"}
+    lua = {"lua"},
+    latex = {"tex", "bib"},
+    cpp = {"c", "cpp"},
+    yaml = {"yaml"},
+    rust = {"rust"}
 }
 
 -- Get all installed servers
@@ -70,9 +74,7 @@ local servers = require("lspinstall").installed_servers()
 -- Setup each server with keymaps, merge extra settings if needed
 for _, server in pairs(servers) do
     local config = base_config
-    if server == "sumneko_lua" then
-        for k, v in pairs(lua_extra_config) do config[k] = v end
-    end
+    if server == "lua" then for k, v in pairs(lua_extra_config) do config[k] = v end end
     base_config.filetypes = filetypes[server]
     require("lspconfig")[server].setup(config)
 end
