@@ -35,6 +35,9 @@ local plugins = require("packer").startup(function(use)
     }
     use {"b3nj5m1n/kommentary", config = [[ require("pluginsettings/kommentary") ]]}
     use "npxbr/glow.nvim"
+    use "plasticboy/vim-markdown"
+    use "dbeniamine/todo.txt-vim"
+    use "lervag/vimtex"
 
     -- Visual
     use {"lukas-reineke/indent-blankline.nvim", branch = "lua"}
@@ -49,6 +52,10 @@ local plugins = require("packer").startup(function(use)
             require("lualine").setup {options = {theme = "onelight"}}
         end
     }
+
+    -- Git, could be replaced with lua versions
+    use "airblade/vim-gitgutter"
+    use "tpope/vim-fugitive"
 
     -- Autocomplete
     local compe = "hrsh7th/nvim-compe"
@@ -81,6 +88,15 @@ local plugins = require("packer").startup(function(use)
         requires = {{"nvim-lua/popup.nvim"}, {"nvim-lua/plenary.nvim"}},
         config = [[ require("pluginsettings/telescope") ]]
     }
+
+    -- Security stuff
+    use "https://gitlab.com/craftyguy/vim-redact-pass.git"
+    use {
+        "lambdalisue/suda.vim",
+        config = function() vim.cmd("let g:suda_smart_edit = 1") end
+    }
+
+    -- 
 end)
 
 return plugins
