@@ -28,9 +28,6 @@ Plug 'itchyny/lightline.vim'
 Plug 'itchyny/vim-gitbranch'
 Plug 'sainnhe/edge'
 
-" Helping tools
-" Plug 'airblade/vim-rooter'
-
 call plug#end()
 
 " Source settings 
@@ -39,5 +36,4 @@ runtime pluginsettings/nvim-tree.vim
 runtime pluginsettings/suda.vim
 runtime pluginsettings/todotxt-vim.vim
 runtime pluginsettings/vim-fugitive.vim
-" runtime pluginsettings/vim-rooter.vim
 runtime pluginsettings/vimtex.vim
