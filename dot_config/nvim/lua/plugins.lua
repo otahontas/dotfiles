@@ -19,7 +19,7 @@ require("utils").create_autogroup("RunPackerCompileAfterEditingPlugins",
 local plugins = require("packer").startup(function(use)
 
     -- Manage packer itself
-    use {"wbthomason/packer.nvim"}
+    use "wbthomason/packer.nvim"
 
     -- Filetree view and icons
     use {
@@ -40,11 +40,20 @@ local plugins = require("packer").startup(function(use)
     use {"lukas-reineke/indent-blankline.nvim", branch = "lua"}
     use {"kdav5758/TrueZen.nvim", config = [[ require("pluginsettings/truezen") ]]}
 
+    -- Statusline
+    use {
+        "hoob3rt/lualine.nvim",
+        requires = {"kyazdani42/nvim-web-devicons"},
+        config = function()
+            require("lualine").setup {options = {theme = "onelight"}}
+        end
+    }
+
     -- Autocomplete
     local compe = "hrsh7th/nvim-compe"
     use {compe, config = [[ require("pluginsettings/nvim-compe") ]]}
     use {"tzachar/compe-tabnine", run = "./install.sh", requires = {compe}}
-    use {"onsails/lspkind-nvim", config = function() require"lspkind".init() end}
+    use {"onsails/lspkind-nvim", config = function() require("lspkind").init() end}
 
     -- Treesitter
     local treesitter = "nvim-treesitter/nvim-treesitter"

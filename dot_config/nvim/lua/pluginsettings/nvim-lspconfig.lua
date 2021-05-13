@@ -1,8 +1,7 @@
-local map = require("utils").map
-
 -- Stuff to enable on Lsp client attach
 local on_attach = function(client)
     -- Setup keymaps to be enabled for langauge servers
+    local map = require("utils").map
     local base = "<cmd>lua vim.lsp.buf."
     map("n", "gD", base .. "declaration()")
     map("n", "gi", base .. "implementation()")

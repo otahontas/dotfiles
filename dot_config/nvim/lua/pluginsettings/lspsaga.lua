@@ -1,5 +1,3 @@
-local map = require("utils").map
-
 --- setup different keys for action quits
 local custom_keys = {
     code_action_keys = {quit = "<ESC>"},
@@ -9,6 +7,9 @@ local custom_keys = {
 -- Setup saga
 local saga = require("lspsaga")
 saga.init_lsp_saga(custom_keys)
+
+-- Setup keymappings
+local map = require("utils").map
 
 -- Rename popup
 map("n", "<leader>rn", "<cmd>lua require('lspsaga.rename').rename()")

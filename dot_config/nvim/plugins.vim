@@ -24,15 +24,11 @@ Plug 'lervag/vimtex'
 Plug 'plasticboy/vim-markdown'
 
 " Visual
-Plug 'itchyny/lightline.vim'
-Plug 'itchyny/vim-gitbranch'
 Plug 'sainnhe/edge'
 
 call plug#end()
 
 " Source settings 
-runtime pluginsettings/lightline.vim
-runtime pluginsettings/nvim-tree.vim
 runtime pluginsettings/suda.vim
 runtime pluginsettings/todotxt-vim.vim
 runtime pluginsettings/vim-fugitive.vim

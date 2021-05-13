@@ -1,7 +1,5 @@
+-- Setup kommentary
 local config = require("kommentary.config")
-
--- Add extended mappings
-config.use_extended_mappings()
 
 -- Setup some better defaults
 config.configure_language("default", {
