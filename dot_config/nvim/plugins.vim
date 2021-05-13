@@ -23,9 +23,6 @@ Plug 'dbeniamine/todo.txt-vim'
 Plug 'lervag/vimtex'
 Plug 'plasticboy/vim-markdown'
 
-" Visual
-Plug 'sainnhe/edge'
-
 call plug#end()
 
 " Source settings 
