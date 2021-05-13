@@ -34,6 +34,7 @@ local plugins = require("packer").startup(function(use)
 
     -- Visual
     use {"lukas-reineke/indent-blankline.nvim", branch = "lua"}
+    use {"kdav5758/TrueZen.nvim", config = [[ require("pluginsettings/truezen") ]]}
 
     -- Autocomplete
     local compe = "hrsh7th/nvim-compe"

@@ -39,6 +39,7 @@ python-poetry
 reflector
 ripgrep
 rsync
+rust
 shellcheck
 systemd-resolvconf
 terminus-font

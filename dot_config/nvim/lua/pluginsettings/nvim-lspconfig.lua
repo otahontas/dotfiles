@@ -3,17 +3,18 @@ local map = require("utils").map
 -- Stuff to enable on Lsp client attach
 local on_attach = function(client)
     -- Setup keymaps to be enabled for langauge servers
-    map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()")
-    map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()")
-    map("n", "<leader>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()")
-    map("n", "<leader>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()")
+    local base = "<cmd>lua vim.lsp.buf."
+    map("n", "gD", base .. "declaration()")
+    map("n", "gi", base .. "implementation()")
+    map("n", "<leader>wa", base .. "add_workspace_folder()")
+    map("n", "<leader>wr", base .. "remove_workspace_folder()")
     map("n", "<leader>wl",
         "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))")
-    map("n", "<leader>wl", "<cmd>lua vim.lsp.buf.remove_workspace_folder()")
-    map("n", "<leader>D", "<cmd>lua vim.lsp.buf.type_definition()")
+    map("n", "<leader>wl", base .. "remove_workspace_folder()")
+    map("n", "<leader>D", base .. "type_definition()")
 
-    -- Set pwd to clients root dir
-    vim.api.nvim_set_current_dir(client.config.root_dir)
+    -- Set working directory of current window to clients root dir
+    vim.api.nvim_command("lcd " .. client.config.root_dir)
 
     -- Set autocommands conditional on server_capabilities
     if client.resolved_capabilities.document_highlight then
@@ -47,7 +48,7 @@ local lua_extra_config = {
     }
 }
 
--- Add better filetype matchers
+-- Add better filetype matchers for servers
 local filetypes = {
     bash = {"sh"},
     dockerfile = {"Dockerfile", "dockerfile"},

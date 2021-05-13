@@ -9,6 +9,8 @@ mkinitcpio-encrypt-detached-header
 neovim-drop-in
 neovim-nightly-bin
 neovim-remote
+nodejs-markdownlint-cli
 nvm
 paru-bin
+routahe
 up
