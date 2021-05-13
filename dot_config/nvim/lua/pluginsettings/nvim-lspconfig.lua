@@ -43,7 +43,7 @@ local lua_extra_config = {
     }
 }
 
--- Add better filetype matchers
+-- Add better filetype matchers for some servers
 local filetypes = {
     bashls = {"sh"},
     dockerls = {"Dockerfile", "dockerfile"},
@@ -56,11 +56,9 @@ local filetypes = {
         "typescriptreact", "typescript.tsx"
     },
     html = {"html"},
-    sumneko_lua = {"lua"},
     texlab = {"tex", "bib"},
     clangd = {"c", "cpp"},
-    yamlls = {"yaml"},
-    rust_analyzer = {"rust"}
+    yamlls = {"yaml"}
 }
 
 -- Get all installed servers
@@ -70,9 +68,7 @@ local servers = require("lspinstall").installed_servers()
 -- Setup each server with keymaps, merge extra settings if needed
 for _, server in pairs(servers) do
     local config = base_config
-    if server == "sumneko_lua" then
-        for k, v in pairs(lua_extra_config) do config[k] = v end
-    end
+    if server == "lua" then for k, v in pairs(lua_extra_config) do config[k] = v end end
     base_config.filetypes = filetypes[server]
     require("lspconfig")[server].setup(config)
 end
