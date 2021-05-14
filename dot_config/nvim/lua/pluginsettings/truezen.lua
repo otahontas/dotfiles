@@ -8,3 +8,7 @@ local settings = {
     }
 }
 zen.setup(settings)
+
+-- Setup keybinding
+local map = require("utils").map
+map("n", "<leader>tz", ":TZAtaraxis")
