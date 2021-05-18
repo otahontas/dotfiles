@@ -11,10 +11,11 @@ utils.map = function(mode, binding, command)
 end
 
 -- Create augroups easily
-utils.create_autogroup = function(name, command)
+utils.create_autogroup = function(name, commands, opts)
+    opts = opts or ""
     vim.api.nvim_command("augroup " .. name)
-    vim.api.nvim_command("autocmd!")
-    vim.api.nvim_command("autocmd " .. command)
+    vim.api.nvim_command("autocmd! " .. opts)
+    for _, command in pairs(commands) do vim.api.nvim_command("autocmd " .. command) end
     vim.api.nvim_command("augroup END")
 end
 

@@ -15,20 +15,18 @@ local on_attach = function(client)
     -- Set working directory of current window to clients root dir
     vim.api.nvim_command("lcd " .. client.config.root_dir)
 
-    -- Set autocommands conditional on server_capabilities
     if client.resolved_capabilities.document_highlight then
-        vim.api.nvim_exec([[
-        hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
-        hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
-        hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
-        ]], false)
-        vim.api.nvim_exec([[
-        augroup lsp_document_highlight
-          autocmd! * <buffer>
-          autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-          autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-        augroup END
-        ]], false)
+        -- Set background highlighting for references
+        local refopts = {"LspReferenceRead", "LspReferenceText", "LspReferenceWrite"}
+        for _, opt in pairs(refopts) do
+            vim.api.nvim_command("highlight " .. opt ..
+                                     " cterm=bold ctermbg=red guibg=LightYellow")
+        end
+        -- Set up highlighting
+        require("utils").create_autogroup("LspDocumentHightlight", {
+            "CursorHold <buffer> lua vim.lsp.buf.document_highlight()",
+            "CursorMoved <buffer> lua vim.lsp.buf.clear_references()"
+        }, "* <buffer>")
     end
 end
 

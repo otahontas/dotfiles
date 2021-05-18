@@ -1,19 +1,17 @@
 -- Automatically ensure that packer.nvim is installed
-local execute = vim.api.nvim_command
-local fn = vim.fn
+local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 
-local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-
-if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({
+if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+    vim.fn.system({
         "git", "clone", "https://github.com/wbthomason/packer.nvim", install_path
     })
-    execute "packadd packer.nvim"
+    vim.api.nvim_command("packadd packer.nvim")
 end
 
 -- Run PackerCompile each time this file is edited
-require("utils").create_autogroup("RunPackerCompileAfterEditingPlugins",
-                                  "BufWritePost *lua/plugins.lua,*lua/pluginsettings/* PackerCompile")
+require("utils").create_autogroup("RunPackerCompileAfterEditingPlugins", {
+    "BufWritePost *lua/plugins.lua,*lua/pluginsettings/* PackerCompile"
+})
 
 -- Load plugins
 local plugins = require("packer").startup(function(use)
@@ -40,9 +38,11 @@ local plugins = require("packer").startup(function(use)
     use "lervag/vimtex"
 
     -- Visual
+    use "sainnhe/edge"
     use {"lukas-reineke/indent-blankline.nvim", branch = "lua"}
     use {"kdav5758/TrueZen.nvim", config = [[ require("pluginsettings/truezen") ]]}
-    use "sainnhe/edge"
+    use {"edluffy/specs.nvim", config = [[ require("pluginsettings/specs") ]]}
+    -- TODO: not working investigate
 
     -- Statusline
     use {
@@ -50,12 +50,14 @@ local plugins = require("packer").startup(function(use)
         requires = {"kyazdani42/nvim-web-devicons"},
         config = function()
             require("lualine").setup {options = {theme = "onelight"}}
+            -- TODO: setup more visual break between splits
         end
     }
 
     -- Git, could be replaced with lua versions
     use "airblade/vim-gitgutter"
     use "tpope/vim-fugitive"
+    -- TODO: Replace + add git blame virtual texts
 
     -- Autocomplete
     local compe = "hrsh7th/nvim-compe"
@@ -95,8 +97,6 @@ local plugins = require("packer").startup(function(use)
         "lambdalisue/suda.vim",
         config = function() vim.cmd("let g:suda_smart_edit = 1") end
     }
-
-    -- 
 end)
 
 return plugins
