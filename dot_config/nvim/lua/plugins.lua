@@ -40,9 +40,6 @@ local plugins = require("packer").startup(function(use)
     -- Visual
     use "sainnhe/edge"
     use {"lukas-reineke/indent-blankline.nvim", branch = "lua"}
-    use {"kdav5758/TrueZen.nvim", config = [[ require("pluginsettings/truezen") ]]}
-    use {"edluffy/specs.nvim", config = [[ require("pluginsettings/specs") ]]}
-    -- TODO: not working investigate
 
     -- Statusline
     use {
@@ -52,6 +49,13 @@ local plugins = require("packer").startup(function(use)
             require("lualine").setup {options = {theme = "onelight"}}
             -- TODO: setup more visual break between splits
         end
+    }
+
+    -- Git
+    use {
+        "ruifm/gitlinker.nvim",
+        requires = "nvim-lua/plenary.nvim",
+        config = function() require("gitlinker").setup() end
     }
 
     -- Git, could be replaced with lua versions
