@@ -30,12 +30,11 @@ local plugins = require("packer").startup(function(use)
     use {
         "mhartington/formatter.nvim",
         config = [[ require("pluginsettings/formatter") ]]
-    }
+    } -- TODO: replace with formatters working through efm language server?
     use {"b3nj5m1n/kommentary", config = [[ require("pluginsettings/kommentary") ]]}
-    use "npxbr/glow.nvim"
-    use "plasticboy/vim-markdown"
+    use "plasticboy/vim-markdown" -- TODO: is this really needed?
     use "dbeniamine/todo.txt-vim"
-    use "lervag/vimtex"
+    use "lervag/vimtex" -- TODO: can plain lsp used instead?
 
     -- Visual
     use "sainnhe/edge"
@@ -47,7 +46,7 @@ local plugins = require("packer").startup(function(use)
         requires = {"kyazdani42/nvim-web-devicons"},
         config = function()
             require("lualine").setup {options = {theme = "onelight"}}
-            -- TODO: setup more visual break between splits
+            -- TODO: setup more visual break between splits, when statusline not active
         end
     }
 
