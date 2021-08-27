@@ -7,6 +7,7 @@ cronie
 diff-so-fancy
 docker
 docker-compose
+eslint
 exa
 expac
 fd
