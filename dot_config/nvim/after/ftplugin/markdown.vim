@@ -12,6 +12,9 @@ setlocal tabstop=2
 map <buffer> j gj
 map <buffer> k gk
 
+" Preview markdown in popup window
+nnoremap <buffer> <localleader>ll :Glow<CR>
+
 " Print word count to statusline
 function! WordCount()
     :! wc %
