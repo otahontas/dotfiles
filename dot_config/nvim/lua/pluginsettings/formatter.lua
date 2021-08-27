@@ -12,7 +12,7 @@ local black = function() return {exe = "black", args = {"-"}, stdin = true} end
 
 local prettier = function()
     return {
-        exe = "npm prettier",
+        exe = "prettier",
         args = {"--stdin-filepath", vim.api.nvim_buf_get_name(0)},
         stdin = true
     }
@@ -34,8 +34,10 @@ require("formatter").setup({
     filetype = {
         lua = {luaformatter},
         python = {black},
-        javascript = {prettier},
-        typecript = {prettier},
+        -- javascript = {prettier},
+        -- typescript = {prettier},
+        -- javascriptreact = {prettier},
+        -- typescriptreact = {prettier},
         cpp = {clang_format},
         json = {jq}
     }

@@ -39,7 +39,7 @@ local plugins = require("packer").startup(function(use)
 
     -- Visual
     use "sainnhe/edge"
-    use {"lukas-reineke/indent-blankline.nvim", branch = "lua"}
+    use {"lukas-reineke/indent-blankline.nvim"}
     use {"kdav5758/TrueZen.nvim", config = [[ require("pluginsettings/truezen") ]]}
     use {"edluffy/specs.nvim", config = [[ require("pluginsettings/specs") ]]}
     -- TODO: not working investigate

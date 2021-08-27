@@ -120,6 +120,23 @@ augroup chezmoi_template_file_setup
   autocmd BufNewFile,BufRead *.tmpl let &filetype = expand('%:r:e')
 augroup END
 
+function ShowSpaces(...)
+  let @/='\v(\s+$)|( +\ze\t)'
+  let oldhlsearch=&hlsearch
+  if !a:0
+    let &hlsearch=!&hlsearch
+  else
+    let &hlsearch=a:1
+  end
+  return oldhlsearch
+endfunction
+
+function TrimSpaces() range
+  let oldhlsearch=ShowSpaces(1)
+  execute a:firstline.",".a:lastline."substitute ///gec"
+  let &hlsearch=oldhlsearch
+endfunction
+
 " Some problems that should be fixed:
 " - numbers when opening buffer from terminal buffer (since terminal buffer has them
 " hidden)

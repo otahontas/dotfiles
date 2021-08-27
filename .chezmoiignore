@@ -8,9 +8,6 @@ example_chezmoi.toml
 screenshot_arch.png
 screenshot_mac.png
 
-# Ignore externally modified config files
-externally_modified/
-
 {{ if eq .chezmoi.hostname "mahisbook" }}
 # Ignore stuff used on servers
 .config/tmux/
