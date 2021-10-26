@@ -19,10 +19,11 @@ colorscheme edge
 highlight! link TermCursor Cursor
 highlight! TermCursorNC guibg=blue guifg=white ctermbg=1 ctermfg=15
 
-" Start on insert mode automatically on terminal
+" Disable numbers on terminal buffer, start on insert automatically
 augroup neovim_terminal
   autocmd!
   autocmd TermOpen * startinsert
+  autocmd TermOpen * :set nonumber norelativenumber
 augroup END
 
 " Try to autoindent when adding a new line

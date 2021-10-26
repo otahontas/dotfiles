@@ -8,11 +8,11 @@ example_chezmoi.toml
 screenshot_arch.png
 screenshot_mac.png
 
-{{ if eq .chezmoi.hostname "mahisbook" }}
+{{ if eq .chezmoi.os "darwin" }}
 # Ignore stuff used on servers
-.config/tmux/
 .config/user-dirs.dirs
 .config/user-dirs.locale
+.config/sway
 {{ else }}
 # Ignore non-essential stuff
 .config/aerc

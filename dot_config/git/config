@@ -30,6 +30,7 @@
     rh = reset --HARD
     root = rev-parse --show-toplevel
     s = status
+    sl = stash list
     sa = stash save -u
     sd = stash drop stash@{0}
     ss = stash show -p
@@ -50,3 +51,5 @@
         old = "red bold"
         new = "green bold"
         whitespace = "red reverse"
+[init]
+	defaultBranch = main

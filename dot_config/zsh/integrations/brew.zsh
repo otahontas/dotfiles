@@ -10,7 +10,7 @@ function brew () {
     command brew ${@}
 
     for command in "${dump_commands[@]}"; do
-        [[ "${command}" == "${main_commancd}" ]] && brew bundle dump --file="$brewfile_path" --force
+        [[ "${command}" == "${main_command}" ]] && brew bundle dump --file="$brewfile_path" --force
     done
 }
 
