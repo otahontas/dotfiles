@@ -1,0 +1,45 @@
+font:
+  normal:
+    family: "MesloLGS NF"
+{{- if eq .chezmoi.os "darwin" }}
+    size: 13
+{{- else }}
+    size: 11
+{{- end }}
+
+colors:
+  primary:
+    background: "0xfafafa"
+    foreground: "0x4b505b"
+
+  normal:
+    black: "0x4b505b"
+    red: "0xd05858"
+    green: "0x608e32"
+    yellow: "0xbe7e05"
+    blue: "0x5079be"
+    magenta: "0xb05ccc"
+    cyan: "0x3a8b84"
+    white: "0xfafafa"
+
+  bright:
+    black: "0x4b505b"
+    red: "0xd05858"
+    green: "0x608e32"
+    yellow: "0xbe7e05"
+    blue: "0x5079be"
+    magenta: "0xb05ccc"
+    cyan: "0x3a8b84"
+    white: "0xfafafa"
+
+window:
+  padding:
+    x: 3
+    y: 3
+{{- if eq .chezmoi.os "darwin" }}
+  decorations: buttonless
+{{- else }}
+  decorations: none
+{{- end }}
+
+background_opacity: 0.95

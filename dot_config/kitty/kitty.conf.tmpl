@@ -7,7 +7,11 @@ italic_font                 	Fira Code Light
 bold_italic_font            	Fira Code Medium
 font_features			        FiraCode-Retina +zero
 symbol_map U+EA60-U+EBBC codico
+{{- if eq .chezmoi.os "darwin" }}
 font_size                   	13
+{{- else }}
+font_size                   	11
+{{- end }}
 background_opacity          	0.97
 enable_audio_bell           	no
 window_padding_width        	3

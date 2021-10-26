@@ -32,13 +32,13 @@ setopt histfindnodups
 setopt histreduceblanks
 
 # Allow cd'ing without writing cd
-setopt autocd 
+setopt autocd
 setopt extendedglob
 
 # Set vi-mode to launch immediately
 export KEYTIMEOUT=1
 
-{{ if eq .chezmoi.hostname "mahisbook" }}
+{{ if eq .chezmoi.os "darwin" }}
 # Add otherwise untrusted brew site-function to fpath
 fpath+=$(brew --prefix)/share/zsh/site-functions
 {{- end }}
@@ -79,15 +79,15 @@ source $ZDOTDIR/.zsh_aliases
 source $ZDOTDIR/.zsh_functions
 
 # Load settings for various programs
-{{- if eq .chezmoi.hostname "mahisbook" }}
+{{- if eq .chezmoi.os "darwin" }}
 source $ZDOTDIR/integrations/brew.zsh
+source $ZDOTDIR/integrations/pyenv.zsh
 {{- end }}
 source $ZDOTDIR/integrations/bat.zsh
 source $ZDOTDIR/integrations/fzf.zsh
 source $ZDOTDIR/integrations/nnn.zsh
 source $ZDOTDIR/integrations/nvm.zsh
 source $ZDOTDIR/integrations/nvim.zsh
-source $ZDOTDIR/integrations/pyenv.zsh
 source $ZDOTDIR/integrations/ssh.zsh
 
 # Add custom local bin to PATH

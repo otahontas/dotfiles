@@ -18,6 +18,7 @@ input "type:touchpad" {
     middle_emulation disabled
     click_method none
     natural_scroll enabled
+    pointer_accel 0.25
 }
 
 input "type:keyboard" { 

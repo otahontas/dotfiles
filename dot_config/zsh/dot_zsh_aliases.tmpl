@@ -15,7 +15,6 @@ alias lr="exa -Rl"
 alias ...="cd ../.."
 alias ....="cd ../../.."
 
-{{- if eq .chezmoi.hostname "mahisbook" }}
 # Aliases for daily tools
 alias mail="aerc"
 alias spotify="pkill spotifyd; spotifyd && spt; pkill spotifyd"
@@ -26,11 +25,7 @@ alias trash-list="trash -l"
 alias ssh="kitty +kitten ssh"
 alias icat="kitty +kitten icat"
 
-# Docker aliases
-# alias docker-compose="docker compose"
-
-{{- else }}
-# Sys admin aliases
+{{- if eq .chezmoi.os "linux" }}
 alias sys="systemctl"
 alias sysu="systemctl --user"
 {{- end }}

@@ -26,7 +26,7 @@ palette() {
     print -cP $colors
 }
 
-# Print terminal color code formatted 
+# Print terminal color code formatted
 # Usage: printcolor COLOR_CODE
 printcolor() {
     local color="%F{$1}"
@@ -38,8 +38,7 @@ function update_plugins() {
     antibody bundle < $ZDOTDIR/.zsh_plugins.txt > $ZDOTDIR/.zsh_plugins.sh
 }
 
-{{- if eq .chezmoi.hostname "mahisbook" }}
-# Function to write daily diary. Follows file naming conventions by 
+# Function to write daily diary. Follows file naming conventions by
 # https://f-droid.org/en/packages/org.billthefarmer.diary/ so syncing between
 # arch and android is convinient
 function diary() {
@@ -47,6 +46,5 @@ function diary() {
         mkdir -p $HOME/documents/life/diary/$(date +"%Y/%m")
     fi
 
-    $EDITOR $HOME/documents/life/diary/$(date +"%Y/%m/%d").txt    
+    $EDITOR $HOME/documents/life/diary/$(date +"%Y/%m/%d").txt
 }
-{{- end }}

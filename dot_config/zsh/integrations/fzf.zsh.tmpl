@@ -1,23 +1,21 @@
 # Add completions and keybindings
-{{- if eq .chezmoi.hostname "mahisbook" }}
-
+{{- if eq .chezmoi.os "darwin" }}
 [[ "$PATH" != *"/usr/local/opt/fzf/bin"* ]] && export PATH=/usr/local/opt/fzf/bin:$PATH
 [[ $- == *i* ]] && source "/usr/local/opt/fzf/shell/completion.zsh" 2> /dev/null
 source "/usr/local/opt/fzf/shell/key-bindings.zsh"
-
+{{- else if eq .chezmoi.osRelease.id "fedora"  }}
+source /usr/share/fzf/shell/key-bindings.zsh
 {{- else }}
-
 source /usr/share/fzf/completion.zsh
 source /usr/share/fzf/key-bindings.zsh
-
 {{- end }}
 bindkey "©" fzf-cd-widget
 
 # Setup defaults
 export FZF_DEFAULT_OPTS="--height 50% --layout=reverse
---color=fg:#4b505b,bg:#fafafa,hl:#5079be 
---color=fg+:#4b505b,bg+:#fafafa,hl+:#3a8b84 
---color=info:#88909f,prompt:#d05858,pointer:#b05ccc 
+--color=fg:#4b505b,bg:#fafafa,hl:#5079be
+--color=fg+:#4b505b,bg+:#fafafa,hl+:#3a8b84
+--color=info:#88909f,prompt:#d05858,pointer:#b05ccc
 --color=marker:#608e32,spinner:#d05858,header:#3a8b84"
 export FZF_DEFAULT_COMMAND="fd -H --follow"
 export FZF_ALT_C_COMMAND="fd -H --follow --type directory"

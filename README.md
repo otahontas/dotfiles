@@ -1,6 +1,6 @@
 # Dotfiles
 
-This repo includes my configurations for macOS and arch/ubuntu servers. 
+This repo includes my configurations for macOS and various linux setups, such as Arch.
 
 ## Highlights
 
