@@ -120,23 +120,6 @@ augroup chezmoi_template_file_setup
   autocmd BufNewFile,BufRead *.tmpl let &filetype = expand('%:r:e')
 augroup END
 
-function ShowSpaces(...)
-  let @/='\v(\s+$)|( +\ze\t)'
-  let oldhlsearch=&hlsearch
-  if !a:0
-    let &hlsearch=!&hlsearch
-  else
-    let &hlsearch=a:1
-  end
-  return oldhlsearch
-endfunction
-
-function TrimSpaces() range
-  let oldhlsearch=ShowSpaces(1)
-  execute a:firstline.",".a:lastline."substitute ///gec"
-  let &hlsearch=oldhlsearch
-endfunction
-
 " Some problems that should be fixed:
 " - numbers when opening buffer from terminal buffer (since terminal buffer has them
 " hidden)
@@ -144,6 +127,5 @@ endfunction
 " - add way to fold stuff in todo-file
 " - add way to highlight all tasks due today
 " - add way to highlight all tasks to be started today
-" - replace fzf with telescope
-" - get plugin that shows function/method i'm currently editing
 " - replace copypasted after/ftplugin settings with function & function calls
+" - convert whole thing to lua

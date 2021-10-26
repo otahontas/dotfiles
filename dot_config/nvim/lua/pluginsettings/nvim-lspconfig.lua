@@ -31,7 +31,9 @@ local on_attach = function(client)
 end
 
 -- base setup for all
-local base_config = {on_attach = on_attach}
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+local base_config = {on_attach = on_attach, capabilities = capabilities}
 
 -- Custom settings for different language servers
 local lua_extra_config = {

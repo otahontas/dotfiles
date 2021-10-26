@@ -1,74 +1,86 @@
--- Automatically ensure that packer.nvim is installed
-local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-    vim.fn.system({
-        "git", "clone", "https://github.com/wbthomason/packer.nvim", install_path
+local fn = vim.fn
+local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+if fn.empty(fn.glob(install_path)) > 0 then
+    Packer_bootstrap = fn.system({
+        "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim",
+        install_path
     })
-    vim.api.nvim_command("packadd packer.nvim")
 end
 
 -- Run PackerCompile each time this file is edited
 require("utils").create_autogroup("RunPackerCompileAfterEditingPlugins", {
-    "BufWritePost *lua/plugins.lua,*lua/pluginsettings/* PackerCompile"
+    "BufWritePost *lua/plugins.lua,*lua/pluginsettings/* source <afile> | PackerCompile"
 })
 
 -- Load plugins
 local plugins = require("packer").startup(function(use)
-
-    -- Manage packer itself
-    use "wbthomason/packer.nvim"
-
-    -- Filetree view and icons
+    use {"nvim-lua/plenary.nvim"}
+    use {
+        "mhartington/formatter.nvim",
+        config = [[ require("pluginsettings/formatter") ]]
+    } -- TODO: replace formatter with efm language server?
+    use {"b3nj5m1n/kommentary", config = [[ require("pluginsettings/kommentary") ]]}
+    use {"wbthomason/packer.nvim"}
     use {
         "kyazdani42/nvim-tree.lua",
         requires = {"kyazdani42/nvim-web-devicons"},
         config = [[ require("pluginsettings/nvim-tree") ]]
     }
-
-    -- Text editing
-    use {
-        "mhartington/formatter.nvim",
-        config = [[ require("pluginsettings/formatter") ]]
-    } -- TODO: replace with formatters working through efm language server?
-    use {"b3nj5m1n/kommentary", config = [[ require("pluginsettings/kommentary") ]]}
     use "plasticboy/vim-markdown" -- TODO: is this really needed?
     use "dbeniamine/todo.txt-vim"
     use "lervag/vimtex" -- TODO: can plain lsp used instead?
-
-    -- Visual
+    use {
+        "windwp/nvim-autopairs",
+        config = function() require("nvim-autopairs").setup {} end
+    }
+    use {"hail2u/vim-css3-syntax"}
+    use {"styled-components/vim-styled-components"}
     use "sainnhe/edge"
-    use {"lukas-reineke/indent-blankline.nvim"}
-
-    -- Statusline
+    use "lukas-reineke/indent-blankline.nvim"
+    use {
+        "norcalli/nvim-colorizer.lua",
+        config = function()
+            require"colorizer".setup({"*"}, {
+                RGB = true,
+                RRGGBB = true,
+                names = true,
+                RRGGBBAA = true,
+                rgb_fn = true,
+                hsl_fn = true,
+                css = true,
+                css_fn = true
+            })
+        end
+    }
     use {
         "hoob3rt/lualine.nvim",
         requires = {"kyazdani42/nvim-web-devicons"},
         config = function()
             require("lualine").setup {options = {theme = "onelight"}}
-            -- TODO: setup more visual break between splits, when statusline not active
         end
     }
-
-    -- Git
     use {
         "ruifm/gitlinker.nvim",
         requires = "nvim-lua/plenary.nvim",
         config = function() require("gitlinker").setup() end
     }
-
-    -- Git, could be replaced with lua versions
-    use "airblade/vim-gitgutter"
-    use "tpope/vim-fugitive"
-    -- TODO: Replace + add git blame virtual texts
-
-    -- Autocomplete
-    local compe = "hrsh7th/nvim-compe"
-    use {compe, config = [[ require("pluginsettings/nvim-compe") ]]}
-    use {"tzachar/compe-tabnine", run = "./install.sh", requires = {compe}}
-    use {"onsails/lspkind-nvim", config = function() require("lspkind").init() end}
-
-    -- Treesitter
+    use {
+        "lewis6991/gitsigns.nvim",
+        requires = {"nvim-lua/plenary.nvim"},
+        config = function()
+            require("gitsigns").setup({current_line_blame = true})
+        end
+    }
+    use "tpope/vim-fugitive" -- TODO: Replace with more async version
+    local cmp = "hrsh7th/nvim-cmp"
+    use {cmp, config = [[ require("pluginsettings/nvim-cmp") ]]}
+    use {"hrsh7th/cmp-buffer", requires = {cmp}}
+    use {"hrsh7th/cmp-nvim-lsp", requires = {cmp}}
+    use {"petertriho/cmp-git", requires = {{cmp}, {"nvim-lua/plenary.nvim"}}}
+    use {"tzachar/cmp-tabnine", run = "./install.sh", requires = {cmp}}
+    use {"onsails/lspkind-nvim", requires = {cmp}}
+    use {"L3MON4D3/LuaSnip", requires = {cmp}}
+    use {"saadparwaiz1/cmp_luasnip", requires = {cmp}}
     local treesitter = "nvim-treesitter/nvim-treesitter"
     use {
         treesitter,
@@ -76,30 +88,30 @@ local plugins = require("packer").startup(function(use)
         config = [[ require("pluginsettings/nvim-treesitter") ]]
     }
     use {"p00f/nvim-ts-rainbow", requires = {treesitter}}
-
-    -- Language server tools
+    use {"windwp/nvim-ts-autotag", requires = {treesitter}}
     local lsp = "neovim/nvim-lspconfig"
     use {lsp, config = [[ require("pluginsettings/nvim-lspconfig") ]]}
     use {"kabouzeid/nvim-lspinstall", requires = {lsp}}
     use {
-        "glepnir/lspsaga.nvim",
+        "tami5/lspsaga.nvim",
+        branch = "nvim51",
         requires = {lsp},
         config = [[ require("pluginsettings/lspsaga") ]]
     }
-
-    -- Fuzzy finder
     use {
         "nvim-telescope/telescope.nvim",
         requires = {{"nvim-lua/popup.nvim"}, {"nvim-lua/plenary.nvim"}},
         config = [[ require("pluginsettings/telescope") ]]
     }
-
-    -- Security stuff
+    use {"mrjones2014/dash.nvim", run = "make install"}
     use "https://gitlab.com/craftyguy/vim-redact-pass.git"
     use {
         "lambdalisue/suda.vim",
         config = function() vim.cmd("let g:suda_smart_edit = 1") end
     }
+    use {"pwntester/octo.nvim", config = function() require"octo".setup() end}
+
+    if Packer_bootstrap then require("packer").sync() end
 end)
 
 return plugins
