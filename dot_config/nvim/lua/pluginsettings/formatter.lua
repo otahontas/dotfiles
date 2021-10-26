@@ -34,10 +34,11 @@ require("formatter").setup({
     filetype = {
         lua = {luaformatter},
         python = {black},
-        -- javascript = {prettier},
-        -- typescript = {prettier},
-        -- javascriptreact = {prettier},
-        -- typescriptreact = {prettier},
+        javascript = {prettier},
+        typescript = {prettier},
+        javascriptreact = {prettier},
+        typescriptreact = {prettier},
+        yaml = {prettier},
         cpp = {clang_format},
         json = {jq}
     }
