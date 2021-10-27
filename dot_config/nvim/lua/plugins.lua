@@ -1,3 +1,4 @@
+local map = require("utils").map
 local fn = vim.fn
 local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 if fn.empty(fn.glob(install_path)) > 0 then
@@ -110,6 +111,7 @@ local plugins = require("packer").startup(function(use)
         config = function() vim.cmd("let g:suda_smart_edit = 1") end
     }
     use {"pwntester/octo.nvim", config = function() require"octo".setup() end}
+    map("n", "<leader>oo", ":Octo ")
 
     if Packer_bootstrap then require("packer").sync() end
 end)

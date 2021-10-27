@@ -3,6 +3,9 @@ local map = require("utils").map
 -- Shortcuts for different modes
 local base = "<cmd>lua require('telescope.builtin')."
 
+--- Open generic
+map("n", "<leader>tt", base .. "builtin()")
+
 -- Neovim internals
 map("n", "<leader>bb", base .. "buffers()")
 map("n", "<leader>hh", base .. "command_history()")
