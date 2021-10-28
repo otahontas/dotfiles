@@ -37,6 +37,7 @@ local plugins = require("packer").startup(function(use)
     use {"hail2u/vim-css3-syntax"}
     use {"styled-components/vim-styled-components"}
     use "sainnhe/edge"
+    use "dstein64/nvim-scrollview"
     use "lukas-reineke/indent-blankline.nvim"
     use {
         "norcalli/nvim-colorizer.lua",
