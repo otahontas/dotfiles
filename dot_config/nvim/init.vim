@@ -7,8 +7,3 @@ lua <<EOF
 -- Load lua-based configurations files
 require("plugins")
 EOF
-
-" Source some vim plugin settings 
-runtime pluginsettings/todotxt-vim.vim
-runtime pluginsettings/vim-fugitive.vim
-runtime pluginsettings/vimtex.vim

@@ -48,3 +48,16 @@ function diary() {
 
     $EDITOR $HOME/documents/life/diary/$(date +"%Y/%m/%d").txt
 }
+
+# Start python data science notebook for quick prototyping
+function jupyterlab() {
+    docker run --name jupyterlab -d --rm -p 10000:8888 -e JUPYTER_ENABLE_LAB=yes \
+    -v ~/Code/studying/jupyterlab:/home/jovyan jupyter/datascience-notebook
+    # wait for container to start, then grab url
+    sleep 15
+    local suffix=$(docker logs jupyterlab 2>&1 | grep "http://127.0.0.1:8888/" \
+    | head -n 1 | awk -F 'http://127.0.0.1:8888/' '{print $2 }')
+    local url="http://localhost:10000/$suffix"
+    echo "opening url $url"
+    open "$url"
+}

@@ -1,5 +1,12 @@
-" Show linenumber
-set number
+" Show correct line as absolute and other as relative
+set number relativenumber
+
+" Toggle between relative and absolute numbers on different mode changes
+augroup number_toggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
+  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
+augroup END
 
 " Show matching brackets
 set showmatch

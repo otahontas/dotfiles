@@ -28,7 +28,10 @@ local plugins = require("packer").startup(function(use)
         config = [[ require("pluginsettings/nvim-tree") ]]
     }
     use "plasticboy/vim-markdown" -- TODO: is this really needed?
-    use "dbeniamine/todo.txt-vim"
+    use {
+        "dbeniamine/todo.txt-vim",
+        config = function() vim.cmd("let g:Todo_txt_prefix_creation_date=1") end
+    }
     use "lervag/vimtex" -- TODO: can plain lsp used instead?
     use {
         "windwp/nvim-autopairs",
@@ -73,7 +76,13 @@ local plugins = require("packer").startup(function(use)
             require("gitsigns").setup({current_line_blame = true})
         end
     }
-    use "tpope/vim-fugitive" -- TODO: Replace with more async version
+    use {
+        "tpope/vim-fugitive",
+        config = function()
+            vim.api.nvim_set_keymap("n", "<leader>G", ":Git ",
+                                    {noremap = true, silent = false})
+        end
+    }
     local cmp = "hrsh7th/nvim-cmp"
     use {cmp, config = [[ require("pluginsettings/nvim-cmp") ]]}
     use {"hrsh7th/cmp-buffer", requires = {cmp}}
