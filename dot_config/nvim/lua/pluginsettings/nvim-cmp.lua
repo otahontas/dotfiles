@@ -2,10 +2,16 @@
 vim.o.completeopt = "menu,menuone,noselect"
 local cmp = require "cmp"
 
+local snip = require("luasnip")
+local snippet_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/friendly-snippets"
+print(snippet_path)
+
+require("luasnip/loaders/from_vscode").load({paths = {snippet_path}})
+
 local lspkind = require("lspkind")
 -- Setup compe
 local settings = {
-    snippet = {expand = function(args) require("luasnip").lsp_expand(args.body) end},
+    snippet = {expand = function(args) snip.lsp_expand(args.body) end},
     mapping = {
         ["<C-d>"] = cmp.mapping.scroll_docs(-4),
         ["<C-f>"] = cmp.mapping.scroll_docs(4),

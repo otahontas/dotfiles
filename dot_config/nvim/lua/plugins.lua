@@ -1,8 +1,7 @@
 local map = require("utils").map
-local fn = vim.fn
-local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-if fn.empty(fn.glob(install_path)) > 0 then
-    Packer_bootstrap = fn.system({
+local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+    Packer_bootstrap = vim.fn.system({
         "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim",
         install_path
     })
@@ -120,6 +119,7 @@ local plugins = require("packer").startup(function(use)
         "lambdalisue/suda.vim",
         config = function() vim.cmd("let g:suda_smart_edit = 1") end
     }
+    use "rafamadriz/friendly-snippets"
     use {"pwntester/octo.nvim", config = function() require"octo".setup() end}
     map("n", "<leader>oo", ":Octo ")
 
