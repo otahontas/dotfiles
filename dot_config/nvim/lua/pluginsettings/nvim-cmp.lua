@@ -4,7 +4,6 @@ local cmp = require "cmp"
 
 local snip = require("luasnip")
 local snippet_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/friendly-snippets"
-print(snippet_path)
 
 require("luasnip/loaders/from_vscode").load({paths = {snippet_path}})
 

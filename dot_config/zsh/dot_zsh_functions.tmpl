@@ -61,3 +61,24 @@ function jupyterlab() {
     echo "opening url $url"
     open "$url"
 }
+
+function chtsh() {
+    local languages=$(echo "javascript go" | tr ' ' '\n')
+    local utils=$(echo "awk find sed" | tr ' ' '\n')
+    local selected=$(printf "$languages\n$utils" | fzf)
+    if [[ -z $selected ]]; then
+        exit 0
+    fi
+
+    read "query?Enter query: "
+
+    echo "SELECTED $selected"
+    echo "QUERY $query"
+
+    if grep -qs "$selected" "$languages"; then
+        query=$(echo $query | tr ' ' '+')
+        curl "cht.sh/$selected/$query"
+    else
+        curl "cht.sh/$selected~$query"
+    fi
+}
