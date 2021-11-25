@@ -17,10 +17,13 @@ map("n", "<leader>ff", base .. "find_files()")
 map("n", "<leader>rg", base .. "live_grep()")
 
 -- LSP Pickers
+map("n", "ca", base .. "lsp_code_actions()")
+map("v", "ca", base .. "lsp_range_code_actions()")
 map("n", "gd", base .. "lsp_definitions()")
 map("n", "gr", base .. "lsp_references()")
 map("n", "ge", base .. "lsp_document_diagnostics()")
-map("n", "<leader>ws", base .. "lsp_workspace_symbols()")
+map("n", "we", base .. "lsp_workspace_diagnostics()")
+map("n", "ds", base .. "lsp_document_symbols()")
 
 require("telescope").setup({
     extensions = {

@@ -17,10 +17,6 @@ map("n", "<leader>rn", "<cmd>lua require('lspsaga.rename').rename()")
 -- Setup hover docs
 map("n", "K", "<cmd>lua require('lspsaga.hover').render_hover_doc()")
 
--- Code actions list
-map("n", "<leader>ca", "<cmd>lua require('lspsaga.codeaction').code_action()")
-map("v", "<leader>ca", ":<C-U>lua require('lspsaga.codeaction').range_code_action()")
-
 -- Signature help
 map("n", "gs", "<cmd>lua require('lspsaga.signaturehelp').signature_help()")
 
