@@ -67,14 +67,13 @@ local filetypes = {
     rust = {"rust"}
 }
 
--- Get all installed servers
-require("lspinstall").setup()
-local servers = require("lspinstall").installed_servers()
-
--- Setup each server with keymaps, merge extra settings if needed
-for _, server in pairs(servers) do
+-- Server settings
+local lsp_installer = require("nvim-lsp-installer")
+lsp_installer.on_server_ready(function(server)
     local config = base_config
-    if server == "lua" then for k, v in pairs(lua_extra_config) do config[k] = v end end
+    if server.name == "sumneko_lua" then
+        for k, v in pairs(lua_extra_config) do config[k] = v end
+    end
     base_config.filetypes = filetypes[server]
-    require("lspconfig")[server].setup(config)
-end
+    server:setup(config)
+end)

@@ -101,10 +101,9 @@ local plugins = require("packer").startup(function(use)
     use {"windwp/nvim-ts-autotag", requires = {treesitter}}
     local lsp = "neovim/nvim-lspconfig"
     use {lsp, config = [[ require("pluginsettings/nvim-lspconfig") ]]}
-    use {"kabouzeid/nvim-lspinstall", requires = {lsp}}
+    use {"williamboman/nvim-lsp-installer", requires = {lsp}}
     use {
         "tami5/lspsaga.nvim",
-        branch = "nvim51",
         requires = {lsp},
         config = [[ require("pluginsettings/lspsaga") ]]
     }
@@ -122,6 +121,8 @@ local plugins = require("packer").startup(function(use)
     use "rafamadriz/friendly-snippets"
     use {"pwntester/octo.nvim", config = function() require"octo".setup() end}
     map("n", "<leader>oo", ":Octo ")
+
+    use {"github/copilot.vim"}
 
     if Packer_bootstrap then require("packer").sync() end
 end)
