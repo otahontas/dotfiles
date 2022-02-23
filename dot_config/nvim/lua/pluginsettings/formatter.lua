@@ -46,5 +46,4 @@ require("formatter").setup({
 
 -- Format on save
 local extensions = "*.ts,*.tsx,*.js,*jsx,*.h,*.cpp,*.py,*.lua,*.json"
-require("utils").create_autogroup("RunFormatterOnSave",
-                                  {"BufWritePost " .. extensions .. " FormatWrite"})
+require("utils").create_autogroup("RunFormatterOnSave", {"BufWritePost " .. extensions .. " FormatWrite"})

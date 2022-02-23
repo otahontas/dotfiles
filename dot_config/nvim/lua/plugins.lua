@@ -124,6 +124,8 @@ local plugins = require("packer").startup(function(use)
 
     use {"github/copilot.vim"}
 
+    use {"lukas-reineke/virt-column.nvim", config = function () require("virt-column").setup() end}
+
     if Packer_bootstrap then require("packer").sync() end
 end)
 
