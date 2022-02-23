@@ -5,6 +5,6 @@ local: false
 # mouse support (TUI-mode only)
 mouse: false
 # use pager to display markdown
-pager: false
+pager: true
 # word-wrap at width
 width: 88

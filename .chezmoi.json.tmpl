@@ -1,41 +1,16 @@
-{{- if (eq .chezmoi.os "darwin") -}} 
-
-{{-   $aerc_mailboxes := toPrettyJson (get .aerc "mailboxes") -}}
-{{-   $newsboat_url := get .newsboat "url" -}}
-{{-   $newsboat_login := get .newsboat "login" -}}
-{{-   $newsboat_pass_entry := get .newsboat "pass_entry" -}}
-{{-   $spotifyd_username := get .spotifyd "username" -}}
-{{-   $spotifyd_pass_entry := get .spotifyd "pass_entry" -}}
-
-{{-   if not $aerc_mailboxes -}}
-{{-     $aerc_mailboxes := toJson list -}}
-{{-   end -}}
-
-{{-   if not $newsboat_url -}}
-{{-     $newsboat_url := promptString "Miniflux server url" -}}
-{{-   end -}}
-
-{{-   if not $newsboat_login -}}
-{{-     $newsboat_login := promptString "Miniflux account" -}}
-{{-   end -}}
-
-{{-   if not $newsboat_pass_entry -}}
-{{-     $newsboat_pass_entry := promptString "Path to miniflux password in pass" -}}
-{{-   end -}}
-
-{{-   if not $spotifyd_username -}}
-{{-     $spotifyd_username := promptString "Spotify username" -}}
-{{-   end -}}
-
-{{-   if not $spotifyd_pass_entry -}}
-{{-     $spotifyd_pass_entry := promptString "Path to spotify password in pass" -}}
-{{-   end -}}
-
+{{-  $aerc_mailboxes := default (get .aerc "mailboxes") ("[]") | fromJson -}}
+{{-  $newsboat_url := default (get .newsboat "url") (promptString "Miniflux server url") -}}
+{{-  $newsboat_login := default (get .newsboat "login") (promptString "Miniflux account") -}}
+{{-  $newsboat_pass_entry := default (get .newsboat "pass_entry") (promptString "Path to miniflux password in pass") -}}
+{{-  $spotifyd_username := default (get .newsboat "username") (promptString "Spotify account") -}}
+{{-  $spotifyd_pass_entry := default (get .newsboat "pass_entry") (promptString "Path to spotify password in pass") -}}
+{{-  $computerName := output "scutil" "--get" "ComputerName" | trim -}}
 {
   "data": {
     "aerc": {
-      "mailboxes": {{ $aerc_mailboxes }}
+      "mailboxes": {{ $aerc_mailboxes | toPrettyJson }}
     },
+    "computer": {{ $computerName | quote }},
     "newsboat": {
       "url": {{ $newsboat_url | quote }},
       "login": {{ $newsboat_login | quote }},
@@ -51,14 +26,3 @@
     "pager": "diff-so-fancy"
   }
 }
-
-{{- else -}}
-
-{
-  "diff": {
-    "format": "git",
-    "pager": "diff-so-fancy"
-  }
-}
-
-{{- end -}}

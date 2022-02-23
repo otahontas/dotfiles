@@ -1,9 +1,0 @@
-[Trigger]
-Operation = Install
-Operation = Remove
-Type = Package
-Target = *
-
-[Action]
-When = PostTransaction
-Exec = /bin/sh -c "comm -23 <(pacman -Qqen | sort) <(pacman -Qqg base-devel | sort) | comm -23 - <(expac -l '\n' '%E' base | sort) | comm -23 - <(echo 'base'; echo 'linux'; echo 'linux-firmware') > /home/otahontas/.local/share/chezmoi/arch/packages/pacman.txt; pacman -Qqem > /home/otahontas/.local/share/chezmoi/arch/packages/aur.txt"

@@ -38,9 +38,7 @@ function update_plugins() {
     antibody bundle < $ZDOTDIR/.zsh_plugins.txt > $ZDOTDIR/.zsh_plugins.sh
 }
 
-# Function to write daily diary. Follows file naming conventions by
-# https://f-droid.org/en/packages/org.billthefarmer.diary/ so syncing between
-# arch and android is convinient
+# Function to write daily diary.
 function diary() {
     if [[ ! -d $HOME/documents/life/diary/$(date +"%Y/%m") ]]; then
         mkdir -p $HOME/documents/life/diary/$(date +"%Y/%m")
@@ -96,4 +94,3 @@ function listening() {
 function myip() {
     ifconfig | grep "inet " | grep -Fv 127.0.0.1 | awk '{print $2}'
 }
-

@@ -1,11 +1,7 @@
 font:
   normal:
     family: "FiraCode Nerd Font Mono"
-{{- if eq .chezmoi.os "darwin" }}
   size: 14
-{{- else }}
-  size: 11
-{{- end }}
 
 colors:
   primary:
@@ -37,8 +33,4 @@ window:
   padding:
     x: 3
     y: 3
-{{- if eq .chezmoi.os "darwin" }}
   decorations: buttonless
-{{- else }}
-  decorations: none
-{{- end }}

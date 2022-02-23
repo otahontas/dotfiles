@@ -1,14 +1,7 @@
 # Add completions and keybindings
-{{- if eq .chezmoi.os "darwin" }}
 [[ "$PATH" != *"/usr/local/opt/fzf/bin"* ]] && export PATH=/usr/local/opt/fzf/bin:$PATH
 [[ $- == *i* ]] && source "/usr/local/opt/fzf/shell/completion.zsh" 2> /dev/null
 source "/usr/local/opt/fzf/shell/key-bindings.zsh"
-{{- else if eq .chezmoi.osRelease.id "fedora"  }}
-source /usr/share/fzf/shell/key-bindings.zsh
-{{- else }}
-source /usr/share/fzf/completion.zsh
-source /usr/share/fzf/key-bindings.zsh
-{{- end }}
 bindkey "©" fzf-cd-widget
 
 # Setup defaults

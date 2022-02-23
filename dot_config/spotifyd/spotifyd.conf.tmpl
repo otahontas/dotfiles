@@ -1,10 +1,8 @@
 [global]
 username = "{{ .spotifyd.username }}"
 password_cmd = "pass {{ .spotifyd.pass_entry }} | head -n 1"
-{{- if eq .chezmoi.os "darwin" }}
 backend = "portaudio"
 volume_controller = "softvol"
-{{- end }}
-device_name = "{{ .chezmoi.hostname }}"
+device_name = "{{ .computer }}"
 bitrate = 320
 volume_normalisation = false

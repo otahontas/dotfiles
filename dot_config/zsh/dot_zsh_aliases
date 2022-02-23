@@ -22,8 +22,3 @@ alias todo="nvim ~/documents/todo/todo.txt"
 alias todone="nvim ~/documents/todo/done.txt"
 alias trash-empty="trash -e"
 alias trash-list="trash -l"
-
-{{- if eq .chezmoi.os "linux" }}
-alias sys="systemctl"
-alias sysu="systemctl --user"
-{{- end }}

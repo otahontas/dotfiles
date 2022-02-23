@@ -1,3 +1,4 @@
+# Add mailbox configs to chezmoi config file in $XDG_CONFIG_HOME/chezmoi
 {{- range .aerc.mailboxes -}}
 [{{ .name }}]
 source = {{ .source }}

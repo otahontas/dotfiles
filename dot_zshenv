@@ -12,7 +12,6 @@ export LESSHISTFILE=$XDG_DATA_HOME/less_history
 export NODE_REPL_HISTORY=$XDG_DATA_HOME/node_repl_history
 export NOTMUCH_CONFIG=$XDG_CONFIG_HOME/notmuch/config
 export NPM_CONFIG_USERCONFIG=$XDG_CONFIG_HOME/npm/npmrc
-export NVM_DIR=$XDG_CACHE_HOME/nvm
 export PYENV_ROOT=$XDG_CACHE_HOME/pyenv
 export RUSTUP_HOME=$XDG_CACHE_HOME/rustup
 export SQLITE_HISTORY=$XDG_DATA_HOME/sqlite_history
