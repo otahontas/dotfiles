@@ -31,12 +31,12 @@ msg() {
 
 setup_colors
 
-# === Installation === 
+# === Installation ===
 
 msg "${PURPLE}\n=== Setting up networking ===${NOFORMAT}"
 
-[[ $(scutil --get ComputerName) == "mahisbook" ]] || sudo scutil --set ComputerName mahisbook
-[[ $(scutil --get LocalHostName) == "mahisbook" ]] || sudo scutil --set LocalHostName mahisbook
+[[ $(scutil --get ComputerName) == "MacBook" ]] || sudo scutil --set ComputerName MacBook
+[[ $(scutil --get LocalHostName) == "MacBook" ]] || sudo scutil --set LocalHostName MacBook
 
 
 msg "${PURPLE}\n=== Setting up safety stuff ===${NOFORMAT}"
@@ -67,22 +67,22 @@ if ! command -v brew &> /dev/null; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-/usr/local/bin/brew install chezmoi rcmdnk/file/brew-file
+# /usr/local/bin/brew install chezmoi rcmdnk/file/brew-file
 
-msg "${PURPLE}\n=== Installing dotfiles ===${NOFORMAT}"
+# msg "${PURPLE}\n=== Installing dotfiles ===${NOFORMAT}"
+#
+# if ! command -v chezmoi &> /dev/null && ! test -d ~/.local/share/chezmoi; then
+#   chezmoi init --apply --verbose https://github.com/otahontas/dotfiles.git
+# fi
 
-if ! command -v chezmoi &> /dev/null && ! test -d ~/.local/share/chezmoi; then
-  chezmoi init --apply --verbose https://github.com/otahontas/dotfiles.git
-fi
-
-msg "${PURPLE}\n=== Installing packages ===${NOFORMAT}"
-
-env HOMEBREW_BREWFILE="$(chezmoi --source-path)/mac/packages/Brewfile" brew file install
+# msg "${PURPLE}\n=== Installing packages ===${NOFORMAT}"
+#
+# env HOMEBREW_BREWFILE="$(chezmoi --source-path)/mac/packages/Brewfile" brew file install
 
 msg "${PURPLE}\n=== Moving needed files to correct places ===${NOFORMAT}"
 
 test -f ~/Library/Keyboard\ Layouts/U.S.\ International\ wo\ dead\ keys.keylayout || cp "$script_dir/files/U.S. International wo dead keys.keylayout" ~/Library/Keyboard\ Layouts/
-sudo cp "$(chezmoi source-path)"/dot_config/fonts/* ~/Library/Fonts
+# sudo cp "$(chezmoi source-path)"/dot_config/fonts/* ~/Library/Fonts
 
 msg "${PURPLE}\n=== Creating folders ==="
 test -d ~/Code || mkdir Code

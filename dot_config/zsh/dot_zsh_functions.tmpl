@@ -82,3 +82,18 @@ function chtsh() {
         curl "cht.sh/$selected~$query"
     fi
 }
+
+function listening() {
+    if [ $# -eq 0 ]; then
+        sudo lsof -iTCP -sTCP:LISTEN -n -P
+    elif [ $# -eq 1 ]; then
+        sudo lsof -iTCP -sTCP:LISTEN -n -P | grep -i --color $1
+    else
+        echo "Usage: listening [pattern]"
+    fi
+}
+
+function myip() {
+    ifconfig | grep "inet " | grep -Fv 127.0.0.1 | awk '{print $2}'
+}
+
