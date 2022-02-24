@@ -1,3 +1,6 @@
 # Chezmoi doesn't copy these to home folder when `chezmoi apply` is ran
 mac/
 README.md
+
+# tmp ignore nvim old stuff
+.config/nvim/old
