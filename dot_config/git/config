@@ -46,6 +46,7 @@
     dad = "!curl https://icanhazdadjoke.com/"
 [core]
 	pager = diff-so-fancy | less --tabs=4 -RFX
+	ignorecase = false
 [color]
     ui = true
     [diff-highlight]
