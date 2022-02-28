@@ -61,11 +61,11 @@ vim.g.maplocalleader = ","
 -- Set up different line number settings for different modes
 create_autogroup("DisableNumberInTerminal", {
   "TermOpen * startinsert",
-  "TermOpen * :set nonumber norelativenumber",
+  "TermOpen * setlocal nonumber norelativenumber",
 })
 create_autogroup("ChangeNumberModeOnWritingModeChange", {
-  "BufEnter,FocusGained,InsertLeave,WinEnter * if &number && mode() != 'i' | set relativenumber | endif",
-  "BufLeave,FocusLost,InsertEnter,WinLeave   * if &number | set norelativenumber | endif",
+  "BufEnter,FocusGained,InsertLeave,WinEnter * if &number && mode() != 'i' | setlocal relativenumber | endif",
+  "BufLeave,FocusLost,InsertEnter,WinLeave   * if &number | setlocal norelativenumber | endif",
 })
 
 -- Setup listeners for autoread events
