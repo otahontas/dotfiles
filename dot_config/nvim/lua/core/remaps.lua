@@ -1,3 +1,6 @@
+local utils = require("utils")
+local map = utils.map
+
 -- Toggle hidden chars
 map("n", "<leader>sc", ":set invlist")
 
@@ -6,7 +9,7 @@ map("n", "<leader>ss", ":terminal")
 map("n", "<leader>vt", "<C-w>v<C-w>l:terminal")
 map("n", "<leader>st", "<C-w>s<C-w>j:terminal")
 
--- Toggle highlighting 
+-- Toggle highlighting
 map("n", "<leader>nh", ":nohlsearch")
 
 -- Buffer movement
@@ -17,13 +20,13 @@ map("n", "<leader>bd", ":bdelete")
 -- Tabs
 map("n", "<leader>tn", ":tabnew")
 
--- Fast saving 
+-- Fast saving
 map("n", "<leader>ww", ":w!", { silent = false })
 
 -- Change this windows working directory to current dir and print it
-map("n", "<leader>cwd", ":lcd %:p:h<CR>:pwd", { silent = false})
+map("n", "<leader>cwd", ":lcd %:p:h<CR>:pwd", { silent = false })
 
 -- Move to normal mode in terminal with Ctrl-W followed by ESC
 map("t", "<C-w><Esc>", "<C-\\><C-n>", { suffix = "" })
-map("t", "<C-w>k", "<C-\\><C-n><C-w>k", { suffix = ""})
-map("t", "<C-w>l", "<C-\\><C-n><C-w>l", { suffix = ""})
+map("t", "<C-w>k", "<C-\\><C-n><C-w>k", { suffix = "" })
+map("t", "<C-w>l", "<C-\\><C-n><C-w>l", { suffix = "" })

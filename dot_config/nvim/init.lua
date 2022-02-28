@@ -5,10 +5,3 @@ end
 require("core")
 require("integrations")
 require("plugins")
-
--- TODO:
--- old plugins.lua -> new plugins
--- formatter --> ls_null
--- tslint, eslint, prettier local config kuntoon 
--- faster telescope
--- faster resolving for lsp
