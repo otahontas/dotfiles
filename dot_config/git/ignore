@@ -1,5 +1,6 @@
 # Stuff to globally ignore on git
 tags
+.vimrc.lua
 .vim/
 .idea/
 .DS_Store
