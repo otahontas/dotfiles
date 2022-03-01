@@ -19,12 +19,9 @@ map("n", "<leader>rg", base .. "live_grep()")
 
 -- LSP Pickers
 map("n", "ca", base .. "lsp_code_actions()")
-map("v", "ca", base .. "lsp_range_code_actions()")
 map("n", "gd", base .. "lsp_definitions()")
 map("n", "gr", base .. "lsp_references()")
-map("n", "ge", base .. "lsp_document_diagnostics()")
-map("n", "we", base .. "lsp_workspace_diagnostics()")
-map("n", "ds", base .. "lsp_document_symbols()")
+map("v", "ca", base .. "lsp_range_code_actions()")
 
 local packageName = "nvim-telescope/telescope.nvim"
 
@@ -36,10 +33,11 @@ local requires = {
 
 local config = function()
   local telescope = require("telescope")
+  telescope.load_extension("fzf")
   local options = {
     defaults = {
       file_ignore_patterns = {
-        ".git/",
+        ".git",
         "node_modules",
       },
       vimgrep_arguments = {
@@ -56,6 +54,12 @@ local config = function()
       },
     },
     extensions = {
+      fzf = {
+        fuzzy = true,
+        override_generic_sorter = false,
+        override_file_sorter = true,
+        case_mode = "smart_case",
+      },
       dash = {
         file_type_keywords = {
           javascript = { "javascript", "nodejs" },
@@ -67,7 +71,6 @@ local config = function()
     },
   }
   telescope.setup(options)
-  telescope.load_extension("fzf")
 end
 
 return {

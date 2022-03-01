@@ -10,16 +10,18 @@ local requires = {
 local config = function()
   local cmp = require("cmp")
   local lspkind = require("lspkind")
+
   local sources = {
     { name = "buffer" },
     { name = "nvim_lsp" },
   }
-  local settings = {
+  local options = {
     sources = cmp.config.sources(sources),
     formatting = { format = lspkind.cmp_format({ mode = "symbol", maxwidth = 50 }) },
   }
   vim.o.completeopt = "menu,menuone,noselect"
-  cmp.setup(settings)
+  cmp.setup(options)
+
   local cmp_autopairs = require("nvim-autopairs.completion.cmp")
   cmp.event:on(
     "confirm_done",

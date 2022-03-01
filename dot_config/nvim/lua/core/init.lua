@@ -5,6 +5,8 @@ local create_autogroup = utils.create_autogroup
 local options = {
   -- Enable better colors
   termguicolors = true,
+  -- Show sign column always,
+  signcolumn = "yes",
   -- Show matching brackets
   showmatch = true,
   -- Highlight line where cursor is
