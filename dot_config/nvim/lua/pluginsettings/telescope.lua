@@ -39,6 +39,9 @@ local config = function()
       file_ignore_patterns = {
         ".git",
         "node_modules",
+        "yarn.lock",
+        "package-lock.json",
+        "opensource.html",
       },
       vimgrep_arguments = {
         "rg",

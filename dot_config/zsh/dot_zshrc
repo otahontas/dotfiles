@@ -8,6 +8,9 @@ if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
     export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 fi
 
+# Fnm might print a warning, so initialize it before p10k
+source $ZDOTDIR/integrations/fnm.zsh
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -84,7 +87,6 @@ source $ZDOTDIR/integrations/nnn.zsh
 source $ZDOTDIR/integrations/nvim.zsh
 source $ZDOTDIR/integrations/pyenv.zsh
 source $ZDOTDIR/integrations/ssh.zsh
-source $ZDOTDIR/integrations/volta.zsh
 
 # Add custom local bin to PATH
 [[ $PATH != *"$HOME/.local/bin"* ]] && export PATH=$HOME/.local/bin:$PATH
