@@ -16,13 +16,23 @@ local config = function()
   local settings = {
     disable_netrw = true,
     auto_close = true,
-    open_on_tab = true,
-    open_on_setup = true,
+    open_on_tab = false,
+    open_on_setup = false,
+    update_cwd = true,
     update_focused_file = { enable = true },
+    diagnostics = {
+      enable = true,
+      show_on_dirs = true,
+    },
     git = {
       ignore = false,
     },
-    view = { auto_resize = true },
+    view = {
+      width = 50,
+      auto_resize = true,
+      side = "right",
+      hide_root_folder = true,
+    },
   }
 
   require("nvim-tree").setup(settings)

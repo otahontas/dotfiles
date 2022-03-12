@@ -6,7 +6,7 @@ local requires = {
   "RRethy/nvim-treesitter-endwise",
 }
 
-local run = "TSUpdate"
+local run = ":TSUpdate"
 
 local config = function()
   local options = {
