@@ -59,7 +59,7 @@ fi
 [[ "$fw_changed" == "true" ]] && sudo pkill -HUP socketfilterfw && msg "${NOFORMAT}\nFirewall restarted after changes"
 
 
-msg "${PURPLE}\n=== Installing package management and necessary files ===${NOFORMAT}"
+msg "${PURPLE}\n=== Installing package management and chezmoi ===${NOFORMAT}"
 
 [[ $(xcode-select -p 1>/dev/null; echo $?) == "2" ]] &&  xcode-select --install
 
@@ -67,22 +67,41 @@ if ! command -v brew &> /dev/null; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-# /usr/local/bin/brew install chezmoi rcmdnk/file/brew-file
+/usr/local/bin/brew install chezmoi rcmdnk/file/brew-file
 
-# msg "${PURPLE}\n=== Installing dotfiles ===${NOFORMAT}"
-#
-# if ! command -v chezmoi &> /dev/null && ! test -d ~/.local/share/chezmoi; then
-#   chezmoi init --apply --verbose https://github.com/otahontas/dotfiles.git
-# fi
+msg "${PURPLE}\n=== Installing dotfiles ===${NOFORMAT}"
 
-# msg "${PURPLE}\n=== Installing packages ===${NOFORMAT}"
-#
-# env HOMEBREW_BREWFILE="$(chezmoi --source-path)/mac/packages/Brewfile" brew file install
+if ! command -v chezmoi &> /dev/null && ! test -d ~/.local/share/chezmoi; then
+  chezmoi init --apply --verbose https://github.com/otahontas/dotfiles.git
+fi
+
+msg "${PURPLE}\n=== Installing packages ===${NOFORMAT}"
+
+env HOMEBREW_BREWFILE="$(chezmoi --source-path)/mac/packages/Brewfile" brew file install
 
 msg "${PURPLE}\n=== Moving needed files to correct places ===${NOFORMAT}"
 
 test -f ~/Library/Keyboard\ Layouts/U.S.\ International\ wo\ dead\ keys.keylayout || cp "$script_dir/files/U.S. International wo dead keys.keylayout" ~/Library/Keyboard\ Layouts/
-# sudo cp "$(chezmoi source-path)"/dot_config/fonts/* ~/Library/Fonts
 
-msg "${PURPLE}\n=== Creating folders ==="
+
+msg "${PURPLE}\n=== Add some cool tweaks ===${NOFORMAT}"
+defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
+defaults write -g WebKitDeveloperExtras -bool YES
+
+msg "${PURPLE}\n=== Creating folders ===${NOFORMAT}"
 test -d ~/Code || mkdir Code
+
+msg "${PURPLE}\n=== Setup some better finder options ===${NOFORMAT}"
+defaults write com.apple.finder QuitMenuItem -bool true
+defaults write com.apple.finder AppleShowAllFiles -boolean true;
+defaults write com.apple.screencapture location ~
+
+msg "${GREEN}\nOkay, quitting Finder ${NOFORMAT}"
+killall Finder
+osascript -e 'quit app "Finder"'
+
+msg "${PURPLE}\n=== Disable Desktop ===${NOFORMAT}"
+defaults write com.apple.finder CreateDesktop false
+\rm -rf ~/Desktop
+sudo chflags -h schg ~/Desktop
+msg "${GREEN}Done disabling, remember to remove desktop from Finder sidebar${NOFORMAT}"
