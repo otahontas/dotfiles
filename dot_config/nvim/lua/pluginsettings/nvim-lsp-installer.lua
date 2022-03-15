@@ -10,12 +10,71 @@ local config = function()
   local lspconfig = require("lspconfig")
 
   local servers = {
-    "tsserver",
+    "cssls",
+    "dockerls",
+    "graphql",
+    "html",
+    "jsonls",
     "sumneko_lua",
+    "tailwindcss",
+    "tsserver",
+    "yamlls",
   }
 
-  local base_config = {
-    on_attach = function(client, bufnr)
+  local create_capabilities_for_langservers_extracted_from_vscode = function()
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
+    capabilities.textDocument.completion.completionItem.snippetSupport = true
+    return capabilities
+  end
+
+  local server_spesific_opts = {
+    cssls = {
+      capabilities = create_capabilities_for_langservers_extracted_from_vscode(),
+    },
+    html = {
+      capabilities = create_capabilities_for_langservers_extracted_from_vscode(),
+      on_attach = function(client)
+        client.resolved_capabilities.document_formatting = true
+        client.resolved_capabilities.document_range_formatting = true
+      end,
+    },
+    jsonls = {
+      capabilities = create_capabilities_for_langservers_extracted_from_vscode(),
+      on_attach = function(client)
+        client.resolved_capabilities.document_formatting = true
+        client.resolved_capabilities.document_range_formatting = true
+      end,
+    },
+    sumneko_lua = {
+      override_opts = {
+        root_dir = lspconfig.util.root_pattern("stylua.toml")
+          or lspconfig.util.find_git_ancestor(),
+        settings = {
+          Lua = {
+            diagnostics = {
+              globals = { "vim" },
+            },
+            workspace = {
+              library = {
+                [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+                [vim.fn.expand("$VIMRUNTIME/lua/**/*.lua")] = true,
+              },
+              maxPreload = 10000,
+            },
+          },
+        },
+      },
+    },
+  }
+
+  local create_cabalities = function(server_spesific_capabilities)
+    local capabilities = server_spesific_capabilities
+      or vim.lsp.protocol.make_client_capabilities()
+    return require("cmp_nvim_lsp").update_capabilities(capabilities)
+  end
+
+  local create_on_attach = function(server_spesific_on_attach)
+    return function(client, bufnr)
       local mode = "n"
       local opts = { noremap = true, silent = true }
       local mappings = {
@@ -59,44 +118,16 @@ local config = function()
         vim.api.nvim_buf_set_keymap(bufnr, mode, key, command, opts)
       end
 
-      if client and client.config and client.config.root_dir then
-        vim.api.nvim_set_current_dir(client.config.root_dir)
-      end
-
       client.resolved_capabilities.document_formatting = false
       client.resolved_capabilities.document_range_formatting = false
 
       require("illuminate").on_attach(client)
-    end,
-  }
 
-  local extra_configs = {
-    tsserver = {
-      root_dir = lspconfig.util.root_pattern("package.json")
-        or lspconfig.util.find_git_ancestor(),
-    },
-    sumneko_lua = {
-      root_dir = lspconfig.util.root_pattern("stylua.toml")
-        or lspconfig.util.find_git_ancestor(),
-      settings = {
-        Lua = {
-          diagnostics = {
-            globals = { "vim" },
-          },
-          workspace = {
-            library = {
-              [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-              [vim.fn.expand("$VIMRUNTIME/lua/**/*.lua")] = true,
-            },
-            maxPreload = 10000,
-          },
-          telemetry = {
-            enable = false,
-          },
-        },
-      },
-    },
-  }
+      if server_spesific_on_attach then
+        server_spesific_on_attach(client, bufnr)
+      end
+    end
+  end
 
   for _, name in pairs(servers) do
     local server_is_found, server = lsp_installer.get_server(name)
@@ -108,14 +139,14 @@ local config = function()
 
   local setup_server = function(server)
     local opts = server:get_default_options()
-    local nvim_cmp_settings = {
-      capabilities = require("cmp_nvim_lsp").update_capabilities(
-        vim.lsp.protocol.make_client_capabilities()
-      ),
-    }
-    opts = vim.tbl_deep_extend("force", opts, nvim_cmp_settings)
-    opts = vim.tbl_deep_extend("force", opts, base_config)
-    opts = vim.tbl_deep_extend("force", opts, extra_configs[server.name])
+    local extra_opts = server_spesific_opts[server.name] or {}
+
+    -- Combine possible capablities and on_attach with base opts. Override any other
+    -- opts from server spesific config
+    opts.capabilities = create_cabalities(extra_opts.capabilities)
+    opts.on_attach = create_on_attach(extra_opts.on_attach)
+    opts = vim.tbl_extend("force", opts, extra_opts.override_opts or {})
+
     server:setup(opts)
   end
 
