@@ -12,6 +12,7 @@ local requires = { "kyazdani42/nvim-web-devicons" }
 
 local config = function()
   vim.g.nvim_tree_highlight_opened_files = 1
+  vim.g.nvim_tree_respect_buf_cwd = 1
 
   local settings = {
     disable_netrw = true,
@@ -19,7 +20,7 @@ local config = function()
     open_on_tab = false,
     open_on_setup = false,
     update_cwd = true,
-    update_focused_file = { enable = true },
+    update_focused_file = { enable = true, update_cwd = true },
     diagnostics = {
       enable = true,
       show_on_dirs = true,
