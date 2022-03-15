@@ -56,6 +56,11 @@ local config = function()
         "--trim",
       },
     },
+    pickers = {
+      find_files = {
+        find_command = { "fd", "--type", "f", "--strip-cwd-prefix", "--hidden" },
+      },
+    },
     extensions = {
       fzf = {
         fuzzy = true,
