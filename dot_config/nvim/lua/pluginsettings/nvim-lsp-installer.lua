@@ -3,6 +3,7 @@ local packageName = "williamboman/nvim-lsp-installer"
 local requires = {
   "neovim/nvim-lspconfig",
   "RRethy/vim-illuminate",
+  "b0o/SchemaStore.nvim",
 }
 
 local config = function()
@@ -44,6 +45,13 @@ local config = function()
         client.resolved_capabilities.document_formatting = true
         client.resolved_capabilities.document_range_formatting = true
       end,
+      override_opts = {
+        settings = {
+          json = {
+            schemas = require("schemastore").json.schemas(),
+          },
+        },
+      },
     },
     sumneko_lua = {
       override_opts = {
