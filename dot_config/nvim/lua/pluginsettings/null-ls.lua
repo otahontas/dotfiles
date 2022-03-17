@@ -50,6 +50,7 @@ local config = function()
         cwd = eslint_cwd,
         condition = eslint_condition,
       }),
+      null_ls.builtins.diagnostics.golangci_lint,
       null_ls.builtins.diagnostics.hadolint,
       null_ls.builtins.diagnostics.markdownlint,
       null_ls.builtins.diagnostics.shellcheck.with({
@@ -61,6 +62,7 @@ local config = function()
         cwd = eslint_cwd,
         condition = eslint_condition,
       }),
+      null_ls.builtins.formatting.gofmt,
       null_ls.builtins.formatting.markdownlint,
       null_ls.builtins.formatting.pg_format,
       null_ls.builtins.formatting.prettierd.with({

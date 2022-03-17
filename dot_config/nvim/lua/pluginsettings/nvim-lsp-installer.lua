@@ -13,6 +13,7 @@ local config = function()
   local servers = {
     "cssls",
     "dockerls",
+    "gopls",
     "graphql",
     "html",
     "jsonls",
