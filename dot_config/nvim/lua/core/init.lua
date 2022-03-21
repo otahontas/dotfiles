@@ -62,7 +62,6 @@ vim.g.maplocalleader = ","
 
 -- Set up different line number settings for different modes
 create_autogroup("DisableNumberInTerminal", {
-  "TermOpen * startinsert",
   "TermOpen * setlocal nonumber norelativenumber",
 })
 create_autogroup("ChangeNumberModeOnWritingModeChange", {

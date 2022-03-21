@@ -32,7 +32,6 @@ local config = function()
       width = 50,
       auto_resize = true,
       side = "right",
-      hide_root_folder = true,
     },
   }
 
