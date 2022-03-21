@@ -94,3 +94,7 @@ function listening() {
 function myip() {
     ifconfig | grep "inet " | grep -Fv 127.0.0.1 | awk '{print $2}'
 }
+
+function cd_icloud {
+    cd ~/Library/Mobile\ Documents/com~apple~CloudDocs/
+}
