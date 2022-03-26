@@ -105,3 +105,7 @@ defaults write com.apple.finder CreateDesktop false
 \rm -rf ~/Desktop
 sudo chflags -h schg ~/Desktop
 msg "${GREEN}Done disabling, remember to remove desktop from Finder sidebar${NOFORMAT}"
+
+msg "${PURPLE}\n=== Disable Spotlight ===${NOFORMAT}"
+sudo mdutil -a -i off
+msg "${GREEN}Done disabling, remember to disable spotlight settings in system preferences${NOFORMAT}"
