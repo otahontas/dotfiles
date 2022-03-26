@@ -42,6 +42,9 @@
     sl = stash list
     ss = stash show -p
     undo = "reset --soft HEAD^"
+    hide = "git update-index --skip-worktree"
+    unhide = "git update-index --no-skip-worktree"
+    hidden = "!git ls-files -v . | grep '^S'"
 [core]
 	pager = diff-so-fancy | less --tabs=4 -RFX
 	ignorecase = false
