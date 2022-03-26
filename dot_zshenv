@@ -1,4 +1,4 @@
-# Note: This file is always sourced. 
+# Note: This file is always sourced.
 # Set XDG Base Directories
 export XDG_CONFIG_HOME=$HOME/.config
 export XDG_CACHE_HOME=$HOME/.cache
@@ -17,6 +17,11 @@ export RUSTUP_HOME=$XDG_CACHE_HOME/rustup
 export SQLITE_HISTORY=$XDG_DATA_HOME/sqlite_history
 export WGETRC=$XDG_CONFIG_HOME/wget/wgetrc
 export ZDOTDIR=$XDG_CONFIG_HOME/zsh
+
+# Set env vars for some folder for easier access
+export CLOUDDIR=~/Library/Mobile\ Documents/com\~apple\~CloudDocs
+export TODODIR=$CLOUDDIR/todo
+export DIARYDIR=$CLOUDDIR/diary
 
 # Set up visual and editor
 export VISUAL=nvim

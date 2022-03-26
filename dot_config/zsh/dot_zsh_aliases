@@ -18,8 +18,7 @@ alias ....="cd ../../.."
 # Aliases for daily tools
 alias mail="aerc"
 alias spotify="pkill spotifyd; spotifyd && spt; pkill spotifyd"
-alias todo="nvim ~/documents/todo/todo.txt" # Fix path (env var?)
-alias todone="nvim ~/documents/todo/done.txt" # Fix path (env var?)
+alias todo="nvim '$TODODIR/todo.txt'"
+alias todone="nvim '$TODODIR/done.txt'"
 alias trash-empty="trash -e"
 alias trash-list="trash -l"
-alias g="git"

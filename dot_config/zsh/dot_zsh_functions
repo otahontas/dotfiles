@@ -10,7 +10,7 @@ function cl() {
 
 # Cleanup cache
 function cache_cleanup() {
-    read \?"This will cleanup cache from last 6 months. Are you sure (y/n)? "
+    read \?"This will cleanup cache older than 6 months. Are you sure (y/n)? "
     echo
     if [[ $REPLY =~ ^[Yy]$ ]]; then
         find ~/.cache/ -depth -type f -atime +182 -delete
@@ -34,51 +34,18 @@ printcolor() {
 }
 
 # Update zsh plugins
-function update_plugins() {
-    antibody bundle < $ZDOTDIR/.zsh_plugins.txt > $ZDOTDIR/.zsh_plugins.sh
+function update_zsh_plugins() {
+    antibody bundle < $ZDOTDIR/.zsh_plugins.txt > $ZDOTDIR/.zsh_plugins.sh && \
+    antibody update
 }
 
 # Function to write daily diary.
 function diary() {
-    if [[ ! -d $HOME/documents/life/diary/$(date +"%Y/%m") ]]; then
-        mkdir -p $HOME/documents/life/diary/$(date +"%Y/%m")
+    if [[ ! -d $DIARYDIR/$(date +"%Y/%m") ]]; then
+        mkdir -p $DIARYDIR/$(date +"%Y/%m")
     fi
 
-    $EDITOR $HOME/documents/life/diary/$(date +"%Y/%m/%d").txt
-}
-
-# Start python data science notebook for quick prototyping
-function jupyterlab() {
-    docker run --name jupyterlab -d --rm -p 10000:8888 -e JUPYTER_ENABLE_LAB=yes \
-    -v ~/Code/studying/jupyterlab:/home/jovyan jupyter/datascience-notebook
-    # wait for container to start, then grab url
-    sleep 15
-    local suffix=$(docker logs jupyterlab 2>&1 | grep "http://127.0.0.1:8888/" \
-    | head -n 1 | awk -F 'http://127.0.0.1:8888/' '{print $2 }')
-    local url="http://localhost:10000/$suffix"
-    echo "opening url $url"
-    open "$url"
-}
-
-function chtsh() {
-    local languages=$(echo "javascript go" | tr ' ' '\n')
-    local utils=$(echo "awk find sed" | tr ' ' '\n')
-    local selected=$(printf "$languages\n$utils" | fzf)
-    if [[ -z $selected ]]; then
-        exit 0
-    fi
-
-    read "query?Enter query: "
-
-    echo "SELECTED $selected"
-    echo "QUERY $query"
-
-    if grep -qs "$selected" "$languages"; then
-        query=$(echo $query | tr ' ' '+')
-        curl "cht.sh/$selected/$query"
-    else
-        curl "cht.sh/$selected~$query"
-    fi
+    $EDITOR $DIARYDIR/$(date +"%Y/%m/%d").txt
 }
 
 function listening() {
@@ -93,8 +60,4 @@ function listening() {
 
 function myip() {
     ifconfig | grep "inet " | grep -Fv 127.0.0.1 | awk '{print $2}'
-}
-
-function cd_icloud {
-    cd ~/Library/Mobile\ Documents/com~apple~CloudDocs/
 }

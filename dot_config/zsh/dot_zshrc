@@ -25,7 +25,7 @@ fi
 # shells to share history all the time (e.g. don't wait until shell is closed)
 [[ -e $XDG_DATA_HOME/zsh ]] || mkdir $XDG_DATA_HOME/zsh
 HISTFILE=$XDG_DATA_HOME/zsh/histfile
-HISTSIZE=2500
+HISTSIZE=5000
 SAVEHIST=$HISTSIZE
 setopt sharehistory
 setopt incappendhistory
@@ -61,10 +61,10 @@ autoload -Uz compinit
 setopt correct
 setopt correctall
 setopt no_list_ambiguous
-setopt COMPLETE_ALIASES
+setopt complete_aliases
 setopt globdots
 
-# Disable annoying zsh features: replaying last command, starting array indexing from 1
+# Disable command to replay last command
 disable r
 
 # Load plugins
