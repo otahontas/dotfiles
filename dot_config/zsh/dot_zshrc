@@ -85,6 +85,7 @@ source $ZDOTDIR/integrations/brew.zsh
 source $ZDOTDIR/integrations/fzf.zsh
 source $ZDOTDIR/integrations/go.zsh
 source $ZDOTDIR/integrations/google-cloud-sdk.zsh
+source $ZDOTDIR/integrations/lazydocker.zsh
 source $ZDOTDIR/integrations/nnn.zsh
 source $ZDOTDIR/integrations/nvim.zsh
 source $ZDOTDIR/integrations/pdm.zsh
