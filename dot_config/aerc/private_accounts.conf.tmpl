@@ -1,4 +1,16 @@
-# Add mailbox configs to chezmoi config file in $XDG_CONFIG_HOME/chezmoi
+# Add mailbox configs to chezmoi config file in $XDG_CONFIG_HOME/chezmoi with following
+# structure:
+# "aerc": {
+#   "mailboxes": [
+#     {
+#       "name": <name of mailbox>,
+#       "source": <imap address, see aerc man page>,
+#       "pass_entry": <command to get password>,
+#       "outgoing": <smtp address, see aerc man page>,
+#       "from": "Name <email>"
+#     }
+#   ]
+# }
 {{ range .aerc.mailboxes }}
 [{{ .name }}]
 source = {{ .source }}
@@ -8,5 +20,4 @@ outgoing-cred-cmd = pass {{ .pass_entry }} | head -n 1
 default = INBOX
 copy-to = Sent
 from = {{ .from }}
-
 {{ end }}
