@@ -2,3 +2,4 @@
 mac/
 README.md
 .gitignore
+.config/nvim/README.md

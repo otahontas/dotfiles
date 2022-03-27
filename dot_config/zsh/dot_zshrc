@@ -87,6 +87,7 @@ source $ZDOTDIR/integrations/go.zsh
 source $ZDOTDIR/integrations/google-cloud-sdk.zsh
 source $ZDOTDIR/integrations/nnn.zsh
 source $ZDOTDIR/integrations/nvim.zsh
+source $ZDOTDIR/integrations/pdm.zsh
 source $ZDOTDIR/integrations/pyenv.zsh
 source $ZDOTDIR/integrations/ssh.zsh
 

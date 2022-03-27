@@ -1,5 +1,5 @@
 # Add mailbox configs to chezmoi config file in $XDG_CONFIG_HOME/chezmoi
-{{- range .aerc.mailboxes -}}
+{{ range .aerc.mailboxes }}
 [{{ .name }}]
 source = {{ .source }}
 source-cred-cmd = pass {{ .pass_entry }} | head -n 1
