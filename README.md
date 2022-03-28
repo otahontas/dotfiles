@@ -16,7 +16,7 @@ Feel free to sniff around.
 
 ## Generic todo
 
-- move from kitty to wezterm
+- port edge-light theme to wezterm
 - neovim betterments
 - add offlineimap & notmuch & some offline-cabable smtp stuff for aerc
 - add khal & khard & some way for syncing (vdirsyncer?)
