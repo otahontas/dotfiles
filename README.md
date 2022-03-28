@@ -16,10 +16,10 @@ Feel free to sniff around.
 
 ## Generic todo
 
-- add offlineimap
-- add notmuch
-- add sync for calendar & contacts
-- add khal & khard
+- move from kitty to wezterm
+- neovim betterments
+- add offlineimap & notmuch & some offline-cabable smtp stuff for aerc
+- add khal & khard & some way for syncing (vdirsyncer?)
 - add khard as addressbook source to aerc
-- add confs for gui programs
+- add confs for all possible gui programs
 - convert install script to "no-script" / add more prompts, don't just install everything
