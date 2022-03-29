@@ -17,6 +17,8 @@ Feel free to sniff around.
 ## Generic todo
 
 - port edge-light theme to wezterm
+- wezterm ääkköset toimimaan
+- global basic packages pyenv & fnm ja install skribulat naihin
 - neovim betterments
 - add offlineimap & notmuch & some offline-cabable smtp stuff for aerc
 - add khal & khard & some way for syncing (vdirsyncer?)

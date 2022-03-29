@@ -101,6 +101,7 @@ brew "otahontas/tap/kanttiinit", args: ["HEAD"]
 brew "rhysd/actionlint/actionlint"
 brew "superfly/tap/flyctl"
 cask "1password"
+cask "1password-cli"
 cask "amethyst"
 cask "appcleaner"
 cask "basictex"
