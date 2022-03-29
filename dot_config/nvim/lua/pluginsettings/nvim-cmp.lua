@@ -37,11 +37,12 @@ local config = function()
 
   cmp.setup(options)
 
-  -- Add snippets for react files
+  -- Add some snippets for other filetypes as well
   vim.cmd([[
     let g:vsnip_filetypes = {}
     let g:vsnip_filetypes.javascriptreact = ['javascript']
-    let g:vsnip_filetypes.typescriptreact = ['typescript']
+    let g:vsnip_filetypes.typescript = ['javascript']
+    let g:vsnip_filetypes.typescriptreact = ['javascript', 'typescript']
   ]])
 
   -- Use buffer source for `/`

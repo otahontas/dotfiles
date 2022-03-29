@@ -17,9 +17,19 @@ Feel free to sniff around.
 ## Generic todo
 
 - port edge-light theme to wezterm
-- wezterm ääkköset toimimaan
-- global basic packages pyenv & fnm ja install skribulat naihin
-- neovim betterments
+- for some reason scandics aren't working with wezterm, fix
+- add global basic packages pyenv & fnm + update scripts for these
+- neovim betterments:
+  - some git thingys, better PR review process etc., check for files that are going to be committed
+  - put all keybindings and autocommands through legendary.nvim
+  - add some better typescript things with nvim-lsp-ts-utils
+  - add better refactoring with refactoring.nvim
+  - sync both above with null-ls
+  - add treesitter configs for always working jumps inside functions
+  - add workspace errors
+  - debugging tools
+  - database tools
+  - todo.txt
 - add offlineimap & notmuch & some offline-cabable smtp stuff for aerc
 - add khal & khard & some way for syncing (vdirsyncer?)
 - add khard as addressbook source to aerc

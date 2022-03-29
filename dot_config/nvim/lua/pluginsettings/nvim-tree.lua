@@ -16,7 +16,6 @@ local config = function()
 
   local settings = {
     disable_netrw = true,
-    auto_close = true,
     open_on_tab = false,
     open_on_setup = false,
     update_cwd = true,
