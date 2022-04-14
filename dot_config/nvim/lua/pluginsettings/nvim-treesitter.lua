@@ -10,10 +10,11 @@ local run = ":TSUpdate"
 
 local config = function()
   local options = {
-    ensure_installed = "maintained",
+    ensure_installed = "all",
     -- Highlighting fails on multi-part tex documents, otherwise enable
     highlight = { enable = true, disable = { "latex" } },
-    indent = { enable = true },
+    -- Indenting is weird for go
+    indent = { enable = true, disable = { "go" } },
     rainbow = { enable = true, extended_mode = true },
     autotag = { enable = true },
     endwise = { enable = true },

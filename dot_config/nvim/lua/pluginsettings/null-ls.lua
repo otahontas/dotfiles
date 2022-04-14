@@ -8,18 +8,10 @@ local requires = {
 local config = function()
   local null_ls = require("null-ls")
 
-  local prettier_files = {
-    ".prettierrc*",
-    "package.json",
-  }
-
-  local prettier_condition = function(utils)
-    return utils.has_file(prettier_files) or utils.root_has_file(prettier_files)
-  end
-
-  local prettier_cwd = function(params)
-    local utils = require("null-ls.utils")
-    return utils.root_pattern(prettier_files)(params.bufname)
+  local actionlint_condition = function()
+    local api = vim.api
+    local path = api.nvim_buf_get_name(api.nvim_get_current_buf())
+    return path:match("github/workflows/") ~= nil
   end
 
   local eslint_files = {
@@ -36,8 +28,22 @@ local config = function()
     return utils.root_pattern(eslint_files)(params.bufname)
   end
 
+  local prettier_files = {
+    ".prettierrc*",
+    "package.json",
+  }
+
+  local prettier_condition = function(utils)
+    return utils.has_file(prettier_files) or utils.root_has_file(prettier_files)
+  end
+
+  local prettier_cwd = function(params)
+    local utils = require("null-ls.utils")
+    return utils.root_pattern(prettier_files)(params.bufname)
+  end
+
   local options = {
-    debug = true,
+    debug = false,
     sources = {
       null_ls.builtins.code_actions.eslint_d.with({
         cwd = eslint_cwd,
@@ -45,7 +51,9 @@ local config = function()
       }),
       null_ls.builtins.code_actions.gitsigns,
       null_ls.builtins.code_actions.shellcheck,
-      null_ls.builtins.diagnostics.actionlint,
+      null_ls.builtins.diagnostics.actionlint.with({
+        condition = actionlint_condition,
+      }),
       null_ls.builtins.diagnostics.eslint_d.with({
         cwd = eslint_cwd,
         condition = eslint_condition,
@@ -56,6 +64,7 @@ local config = function()
       null_ls.builtins.diagnostics.shellcheck.with({
         diagnostics_format = "#{m} [#{s}] [#{c}]",
       }),
+      null_ls.builtins.diagnostics.sqlfluff,
       null_ls.builtins.diagnostics.zsh,
       null_ls.builtins.formatting.black,
       null_ls.builtins.formatting.eslint_d.with({
@@ -64,7 +73,6 @@ local config = function()
       }),
       null_ls.builtins.formatting.gofmt,
       null_ls.builtins.formatting.markdownlint,
-      null_ls.builtins.formatting.pg_format,
       null_ls.builtins.formatting.prettierd.with({
         env = {
           PRETTIERD_DEFAULT_CONFIG = vim.fn.expand("~/.config/prettierrc.json"),
@@ -72,6 +80,7 @@ local config = function()
         cwd = prettier_cwd,
         condition = prettier_condition,
       }),
+      null_ls.builtins.formatting.sqlfluff,
       null_ls.builtins.formatting.stylua,
       null_ls.builtins.formatting.trim_whitespace,
     },

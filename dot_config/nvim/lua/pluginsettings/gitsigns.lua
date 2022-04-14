@@ -15,7 +15,7 @@ local config = function()
     map("n", "[c", "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", { expr = true })
 
     -- Actions
-    map({ "n", "v" }, "<leadersh", ":Gitsigns stage_hunk<CR>")
+    map({ "n", "v" }, "<leader>sh", ":Gitsigns stage_hunk<CR>")
     map({ "n", "v" }, "<leader>rh", ":Gitsigns reset_hunk<CR>")
   end
   local options = {
