@@ -71,22 +71,22 @@ local keys = {
     action = wezterm.action({ CloseCurrentPane = { confirm = true } }),
   },
   {
-    key = "H",
+    key = "h",
     mods = "LEADER | SHIFT",
     action = wezterm.action({ AdjustPaneSize = { "Left", 5 } }),
   },
   {
-    key = "J",
+    key = "j",
     mods = "LEADER | SHIFT",
     action = wezterm.action({ AdjustPaneSize = { "Down", 5 } }),
   },
   {
-    key = "K",
+    key = "k",
     mods = "LEADER | SHIFT",
     action = wezterm.action({ AdjustPaneSize = { "Up", 5 } }),
   },
   {
-    key = "L",
+    key = "l",
     mods = "LEADER | SHIFT",
     action = wezterm.action({ AdjustPaneSize = {
       "Right",
@@ -94,22 +94,22 @@ local keys = {
     } }),
   },
   {
-    key = "H",
+    key = "h",
     mods = "LEADER",
     action = wezterm.action({ ActivatePaneDirection = "Left" }),
   },
   {
-    key = "J",
+    key = "j",
     mods = "LEADER",
     action = wezterm.action({ ActivatePaneDirection = "Down" }),
   },
   {
-    key = "K",
+    key = "k",
     mods = "LEADER",
     action = wezterm.action({ ActivatePaneDirection = "Up" }),
   },
   {
-    key = "L",
+    key = "l",
     mods = "LEADER",
     action = wezterm.action({ ActivatePaneDirection = "Right" }),
   },
