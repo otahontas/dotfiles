@@ -101,12 +101,12 @@ local keys = {
   {
     key = "J",
     mods = "LEADER",
-    action = wezterm.action({ ActivatePaneDirection = "Up" }),
+    action = wezterm.action({ ActivatePaneDirection = "Down" }),
   },
   {
     key = "K",
     mods = "LEADER",
-    action = wezterm.action({ ActivatePaneDirection = "Down" }),
+    action = wezterm.action({ ActivatePaneDirection = "Up" }),
   },
   {
     key = "L",

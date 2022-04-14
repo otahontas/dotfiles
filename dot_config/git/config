@@ -35,6 +35,8 @@
     rc = "rebase --continue"
     re = restore
     res = restore --staged
+    rp= restore -p
+    rsp = restore --staged -p
     ri = "rebase -i"
     root = rev-parse --show-toplevel
     s = status
@@ -42,8 +44,8 @@
     sl = stash list
     ss = stash show -p
     undo = "reset --soft HEAD^"
-    hide = "git update-index --skip-worktree"
-    unhide = "git update-index --no-skip-worktree"
+    hide = "update-index --skip-worktree"
+    unhide = "update-index --no-skip-worktree"
     hidden = "!git ls-files -v . | grep '^S'"
 [core]
 	pager = diff-so-fancy | less --tabs=4 -RFX

@@ -16,6 +16,7 @@ Feel free to sniff around.
 
 ## Generic todo
 
+- change hyper to karabiner + add karabiner config to chezmoi
 - port edge-light theme to wezterm
 - for some reason scandics aren't working with wezterm, fix
 - add global basic packages pyenv & fnm + update scripts for these
@@ -30,6 +31,7 @@ Feel free to sniff around.
   - debugging tools
   - database tools
   - todo.txt
+  - <https://github.com/monaqa/dial.nvim>
 - add offlineimap & notmuch & some offline-cabable smtp stuff for aerc
 - add khal & khard & some way for syncing (vdirsyncer?)
 - add khard as addressbook source to aerc

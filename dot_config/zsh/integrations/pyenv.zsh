@@ -7,7 +7,15 @@ eval "$(pyenv init --path)"
 # Load pyev
 eval "$(pyenv init -)"
 
+# Add command to update (install if not already there) common global python packages
+function update_global_python_packages {
+    pip install --upgrade pip networkx jupyter numpy scipy matplotlib pandas sympy pynvim
+}
+
+# Add command to update global pyenv
+
 # Add script to update pyenv + install some packages I use globally
+# TODO: make this better
 function update_global_python() {
     version_to_install=$1
     if [ -z "$version_to_install" ]; then
@@ -23,6 +31,5 @@ function update_global_python() {
         pyenv global $version_to_install
         pyenv uninstall $current_version
     fi
-    pip install --upgrade pip
-    pip install networkx jupyter numpy scipy matplotlib pandas sympy pynvim
+    update_global_python_packages
 }
