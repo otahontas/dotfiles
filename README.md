@@ -30,7 +30,6 @@ Feel free to sniff around.
   - add workspace errors
   - debugging tools
   - database tools
-  - todo.txt
   - <https://github.com/monaqa/dial.nvim>
 - add offlineimap & notmuch & some offline-cabable smtp stuff for aerc
 - add khal & khard & some way for syncing (vdirsyncer?)

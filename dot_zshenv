@@ -20,7 +20,6 @@ export ZDOTDIR=$XDG_CONFIG_HOME/zsh
 
 # Set env vars for some folder for easier access
 export CLOUDDIR=~/Library/Mobile\ Documents/com\~apple\~CloudDocs
-export TODODIR=$CLOUDDIR/todo
 export DIARYDIR=$CLOUDDIR/diary
 
 # Set up visual and editor
