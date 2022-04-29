@@ -29,7 +29,6 @@ local config = function()
     },
     view = {
       width = 50,
-      auto_resize = true,
       side = "right",
     },
   }

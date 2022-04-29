@@ -31,6 +31,7 @@ Feel free to sniff around.
   - debugging tools
   - database tools
   - <https://github.com/monaqa/dial.nvim>
+  - pinnaa plugareiden versiot
 - add offlineimap & notmuch & some offline-cabable smtp stuff for aerc
 - add khal & khard & some way for syncing (vdirsyncer?)
 - add khard as addressbook source to aerc

@@ -71,7 +71,7 @@ brew "markdownlint-cli"
 brew "mas"
 brew "mypy"
 brew "ncdu"
-brew "neovim", args: ["HEAD"]
+brew "neovim"
 brew "newsboat"
 brew "nnn"
 brew "notmuch"
