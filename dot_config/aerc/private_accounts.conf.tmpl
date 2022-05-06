@@ -5,7 +5,7 @@
 #     {
 #       "name": <name of mailbox>,
 #       "source": <imap address, see aerc man page>,
-#       "pass_entry": <command to get password>,
+#       "password_name": <name of password in 1password>,
 #       "outgoing": <smtp address, see aerc man page>,
 #       "from": "Name <email>"
 #     }
@@ -14,9 +14,9 @@
 {{ range .aerc.mailboxes }}
 [{{ .name }}]
 source = {{ .source }}
-source-cred-cmd = pass {{ .pass_entry }} | head -n 1
+source-cred-cmd = op item get "{{ .password_name }}" --fields label=password --format json | jq -r '.value'
 outgoing = {{ .outgoing }}
-outgoing-cred-cmd = pass {{ .pass_entry }} | head -n 1
+outgoing-cred-cmd = op item get "{{ .password_name }}" --fields label=password --format json | jq -r '.value'
 default = INBOX
 copy-to = Sent
 from = {{ .from }}

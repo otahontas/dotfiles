@@ -1,9 +1,9 @@
 # RSS Source
 urls-source "miniflux"
-miniflux-url "{{ .newsboat.url }}"
-miniflux-login "{{ .newsboat.login }}"
-miniflux-passwordeval "pass {{ .newsboat.pass_entry }} | head -n 1"
- 
+miniflux-url "{{ .newsboat.miniflux_url }}"
+miniflux-login "{{ .newsboat.miniflux_login }}"
+miniflux-passwordeval "op item get Miniflux --fields label=password --format json | jq -r '.value'"
+
 # bind keys - vim style
 unbind-key j
 unbind-key k

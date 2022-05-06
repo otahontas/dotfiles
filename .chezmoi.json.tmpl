@@ -1,9 +1,7 @@
 {{-  $aerc_mailboxes := default (get .aerc "mailboxes") ("[]") | fromJson -}}
-{{-  $newsboat_url := default (get .newsboat "url") (promptString "Miniflux server url") -}}
-{{-  $newsboat_login := default (get .newsboat "login") (promptString "Miniflux account") -}}
-{{-  $newsboat_pass_entry := default (get .newsboat "pass_entry") (promptString "Path to miniflux password in pass") -}}
+{{-  $newsboat_miniflux_url := default (get .newsboat "miniflux_url") (promptString "Miniflux server url") -}}
+{{-  $newsboat_miniflux_login := default (get .newsboat "miniflux_login") (promptString "Miniflux account") -}}
 {{-  $spotifyd_username := default (get .newsboat "username") (promptString "Spotify account") -}}
-{{-  $spotifyd_pass_entry := default (get .newsboat "pass_entry") (promptString "Path to spotify password in pass") -}}
 {{-  $computerName := output "scutil" "--get" "ComputerName" | trim -}}
 {
   "data": {
@@ -12,13 +10,11 @@
     },
     "computer": {{ $computerName | quote }},
     "newsboat": {
-      "url": {{ $newsboat_url | quote }},
-      "login": {{ $newsboat_login | quote }},
-      "pass_entry": {{ $newsboat_pass_entry | quote }}
+      "miniflux_url": {{ $newsboat_miniflux_url | quote }},
+      "miniflux_login": {{ $newsboat_miniflux_login | quote }}
     },
     "spotifyd": {
-      "username": {{ $spotifyd_username | quote }},
-      "pass_entry": {{ $spotifyd_pass_entry | quote }}
+      "username": {{ $spotifyd_username | quote }}
     }
   },
   "diff": {

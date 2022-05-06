@@ -1,6 +1,6 @@
 [global]
 username = "{{ .spotifyd.username }}"
-password_cmd = "pass {{ .spotifyd.pass_entry }} | head -n 1"
+password_cmd = "op item get Spotify --fields label=password --format json | jq -r '.value'"
 backend = "portaudio"
 volume_controller = "softvol"
 device_name = "{{ .computer }}"
