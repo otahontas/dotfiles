@@ -80,7 +80,6 @@ brew "pdm"
 brew "pinentry-mac"
 brew "poetry"
 brew "portaudio"
-brew "postgresql"
 brew "pwgen"
 brew "pyenv"
 brew "r"
@@ -95,8 +94,6 @@ brew "tldr"
 brew "trash"
 brew "up"
 brew "w3m"
-brew "watch"
-brew "watchman"
 brew "wget"
 brew "youtube-dl"
 brew "edgedb/tap/edgedb-cli"
@@ -132,14 +129,12 @@ cask "obsidian"
 cask "remarkable"
 cask "scroll-reverser"
 cask "skim"
-cask "tableplus"
 cask "turbo-boost-switcher"
-cask "viscosity"
 cask "waves-central"
 cask "wezterm"
 mas "Home Assistant", id: 1099568401
 mas "iMovie", id: 408981434
 mas "Logic Pro", id: 634148309
 mas "MainStage", id: 634159523
+mas "Paprika Recipe Manager 3", id: 1303222628
 mas "Pixelmator", id: 407963104
-mas "SwiftoDo Desktop", id: 1143641091
