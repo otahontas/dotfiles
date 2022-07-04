@@ -11,10 +11,7 @@ local packageName = "kyazdani42/nvim-tree.lua"
 local requires = { "kyazdani42/nvim-web-devicons" }
 
 local config = function()
-  vim.g.nvim_tree_highlight_opened_files = 1
-  vim.g.nvim_tree_respect_buf_cwd = 1
-
-  local settings = {
+  require("nvim-tree").setup({
     disable_netrw = true,
     open_on_tab = false,
     open_on_setup = false,
@@ -31,14 +28,16 @@ local config = function()
       width = 50,
       side = "right",
     },
-  }
-
-  require("nvim-tree").setup(settings)
+    respect_buf_cwd = true,
+    renderer = {
+      highlight_opened_files = "icon",
+    },
+  })
 end
 
 return {
   packageName,
   requires = requires,
   config = config,
-  commit = "19dcacf06e26ca8cf2f160768044cc11db4e66fb",
+  commit = "28c4bb01f64a4f806c66781375b47767225ec94c",
 }
