@@ -9,19 +9,18 @@ map("n", "<leader>tt", base .. "builtin()")
 
 -- Neovim internals
 map("n", "<leader>bb", base .. "buffers()")
-map("n", "<leader>hh", base .. "command_history()")
-map("n", "<leader>ma", base .. "keymaps()")
+map("n", "<leader>ch", base .. "command_history()")
+map("n", "<leader>km", base .. "keymaps()")
 map("n", "<leader>rr", base .. "registers()")
 
 -- Files
 map("n", "<leader>ff", base .. "find_files()")
+map("n", "<leader>of", base .. "old_files()")
 map("n", "<leader>rg", base .. "live_grep()")
 
 -- LSP Pickers
-map("n", "ca", base .. "lsp_code_actions()")
-map("n", "gd", base .. "lsp_definitions()")
-map("n", "gr", base .. "lsp_references()")
-map("v", "ca", base .. "lsp_range_code_actions()")
+map("n", "<leader>gd", base .. "lsp_definitions()")
+map("n", "<leader>gr", base .. "lsp_references()")
 
 local packageName = "nvim-telescope/telescope.nvim"
 
@@ -37,7 +36,7 @@ local config = function()
   local options = {
     defaults = {
       file_ignore_patterns = {
-        ".git",
+        ".git", -- TODO: Ignore .git directory only with ripgrep, not when looking for files
         "node_modules",
         "yarn.lock",
         "package-lock.json",

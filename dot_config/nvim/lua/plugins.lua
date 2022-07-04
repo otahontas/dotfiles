@@ -19,12 +19,18 @@ local trimLuaExtension = function(filename)
   return filename:gsub("%.lua$", "")
 end
 
+local hasLuaExtension = function(filename)
+  return filename:match("%.lua$") ~= nil
+end
+
 local loadPlugins = function(use)
   use({ "wbthomason/packer.nvim" })
 
   local dir = conf.xdgConfigHome .. "/lua/pluginsettings"
   for _, file in pairs(vim.fn.readdir(dir)) do
-    use(require("pluginsettings" .. "." .. trimLuaExtension(file)))
+    if hasLuaExtension(file) then
+      use(require("pluginsettings" .. "." .. trimLuaExtension(file)))
+    end
   end
 end
 

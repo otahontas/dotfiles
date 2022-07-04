@@ -4,6 +4,7 @@ local requires = {
   "neovim/nvim-lspconfig",
   "RRethy/vim-illuminate",
   "b0o/SchemaStore.nvim",
+  "stevearc/dressing.nvim",
 }
 
 local config = function()
@@ -17,6 +18,10 @@ local config = function()
     "graphql",
     "html",
     "jsonls",
+    "pyright",
+    "rust_analyzer",
+    "sourcery",
+    "taplo",
     "sumneko_lua",
     "tailwindcss",
     "tsserver",
@@ -76,7 +81,7 @@ local config = function()
     },
   }
 
-  local create_cabalities = function(server_spesific_capabilities)
+  local create_capabilities = function(server_spesific_capabilities)
     local capabilities = server_spesific_capabilities
       or vim.lsp.protocol.make_client_capabilities()
     return require("cmp_nvim_lsp").update_capabilities(capabilities)
@@ -87,14 +92,14 @@ local config = function()
       local mode = "n"
       local opts = { noremap = true, silent = true }
       local mappings = {
-        { "K", "<cmd>lua vim.lsp.buf.hover()<CR>" },
-        { "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>" },
+        { "<leader>K", "<cmd>lua vim.lsp.buf.hover()<CR>" },
+        { "<leader>gD", "<cmd>lua vim.lsp.buf.declaration()<CR>" },
         {
-          "gi",
+          "<leader>gi",
           "<cmd>lua vim.lsp.buf.implementation()<CR>",
         },
         {
-          "gs",
+          "<leader>gs",
           "<cmd>lua vim.lsp.buf.signature_help()<CR>",
         },
         {
@@ -112,7 +117,7 @@ local config = function()
           "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>",
         },
         {
-          "<leader>D",
+          "<leader>gt",
           "<cmd>lua vim.lsp.buf.type_definition()<CR>",
         },
         { "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>" },
@@ -120,6 +125,7 @@ local config = function()
         { "<leader>ge", "<cmd>lua vim.diagnostic.setloclist()<CR>" },
         { "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>" },
         { "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>" },
+        { "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>" },
       }
 
       for _, value in pairs(mappings) do
@@ -131,6 +137,10 @@ local config = function()
       client.resolved_capabilities.document_range_formatting = false
 
       require("illuminate").on_attach(client)
+
+      if client.server_capabilities.documentSymbolProvider then
+        require("nvim-navic").attach(client, bufnr)
+      end
 
       if server_spesific_on_attach then
         server_spesific_on_attach(client, bufnr)
@@ -152,7 +162,7 @@ local config = function()
 
     -- Combine possible capablities and on_attach with base opts. Override any other
     -- opts from server spesific config
-    opts.capabilities = create_cabalities(extra_opts.capabilities)
+    opts.capabilities = create_capabilities(extra_opts.capabilities)
     opts.on_attach = create_on_attach(extra_opts.on_attach)
     opts = vim.tbl_extend("force", opts, extra_opts.override_opts or {})
 
@@ -160,6 +170,9 @@ local config = function()
   end
 
   lsp_installer.on_server_ready(setup_server)
+
+  -- setup better ui for lsp actions
+  require("dressing").setup()
 end
 
 return {

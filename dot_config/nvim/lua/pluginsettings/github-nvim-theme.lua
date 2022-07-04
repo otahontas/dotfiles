@@ -3,7 +3,6 @@ local packageName = "projekt0n/github-nvim-theme"
 local config = function()
   require("github-theme").setup({
     theme_style = "light_default",
-    comment_style = "italic",
     dark_sidebar = false,
   })
 end

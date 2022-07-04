@@ -56,7 +56,6 @@ local config = function()
       null_ls.builtins.diagnostics.shellcheck.with({
         diagnostics_format = "#{m} [#{s}] [#{c}]",
       }),
-      null_ls.builtins.diagnostics.sqlfluff,
       null_ls.builtins.diagnostics.zsh,
       null_ls.builtins.formatting.black,
       null_ls.builtins.formatting.eslint_d.with({
@@ -72,7 +71,6 @@ local config = function()
         cwd = prettier_cwd,
         condition = prettier_condition,
       }),
-      null_ls.builtins.formatting.sqlfluff,
       null_ls.builtins.formatting.stylua,
       null_ls.builtins.formatting.trim_whitespace,
     },

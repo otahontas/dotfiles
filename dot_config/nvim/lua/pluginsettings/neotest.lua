@@ -12,25 +12,43 @@ local requires = {
   "nvim-neotest/neotest-python",
 }
 
-map("n", "<leader>un", '<cmd> lua require("neotest").run.run()')
-map("n", "<leader>uo", '<cmd> lua require("neotest").output()')
-map("n", "<leader>us", '<cmd> lua require("neotest").summary()')
+-- mappings
+map("n", "<leader>us", '<cmd> lua require("neotest").summary.toggle()')
+map("n", "<leader>un", '<cmd> lua require("neotest").run.run(vim.fn.expand("%"))')
+map("n", "<leader>uf", '<cmd> lua require("neotest").run.run(()')
+map("n", "<leader>uo", '<cmd> lua require("neotest").output.open()')
+
+-- create commands (follow ultest api)
+vim.cmd([[
+command! Neotest lua require("neotest").run.run(vim.fn.getcwd())
+command! NeotestSummary lua require("neotest").summary.toggle()
+command! NeotestFile lua require("neotest").run.run(vim.fn.expand("%"))
+command! NeotestNearest lua require("neotest").run.run()
+command! NeotestOutput lua require("neotest").output.open()
+]])
 
 local config = function()
   require("neotest").setup({
     adapters = {
-      require("neotest-go"),
-      require("neotest-jest"),
-      require("neotest-python"),
+      require("neotest-python")({
+        args = { "--log-level", "DEBUG" },
+        runner = "pytest",
+      }),
+      require("neotest-jest")({
+        jestCommand = "npm test --",
+      }),
+      require("neotest-go")({
+        experimental = {
+          test_table = true,
+        },
+      }),
     },
   })
 end
-
--- shortcuts
 
 return {
   packageName,
   requires = requires,
   config = config,
-  commit = "a291682041908231808b94fff5921babe7a5aa0f",
+  commit = "654bb7ce61f2f8333d22daaa9d995d87ba47ae54",
 }

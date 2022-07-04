@@ -10,16 +10,18 @@ local requires = {
   "neovim/nvim-lspconfig",
   "onsails/lspkind-nvim",
   "rafamadriz/friendly-snippets",
+  "hrsh7th/cmp-nvim-lsp-signature-help",
+  "hrsh7th/cmp-nvim-lsp-document-symbol",
 }
 
 local config = function()
   local cmp = require("cmp")
-  local lspkind = require("lspkind")
 
   local sources = {
     { name = "buffer" },
     { name = "nvim_lsp" },
     { name = "vsnip" },
+    { name = "nvim_lsp_signature_help" },
   }
   local options = {
     snippet = {
@@ -28,15 +30,19 @@ local config = function()
       end,
     },
     mapping = cmp.mapping.preset.insert({
-      ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-      ["<C-f>"] = cmp.mapping.scroll_docs(4),
+      ["<C-f>"] = cmp.mapping.scroll_docs(-4),
+      ["<C-b>"] = cmp.mapping.scroll_docs(4),
       ["<C-Space>"] = cmp.mapping.complete(),
       ["<C-e>"] = cmp.mapping.abort(),
       ["<CR>"] = cmp.mapping.confirm({ select = true }),
     }),
     sources = cmp.config.sources(sources),
-    formatting = { format = lspkind.cmp_format({ mode = "symbol", maxwidth = 50 }) },
+    formatting = {
+      format = require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 44 }),
+    },
   }
+
+  -- Options for native complete menu
   vim.o.completeopt = "menu,menuone,noselect"
 
   cmp.setup(options)
@@ -49,11 +55,12 @@ local config = function()
     let g:vsnip_filetypes.typescriptreact = ['javascript', 'typescript']
   ]])
 
-  -- Use buffer source for `/`
+  -- Use buffer source for `/` for find and replace
   cmp.setup.cmdline("/", {
     mapping = cmp.mapping.preset.cmdline(),
     sources = {
       { name = "buffer" },
+      { name = "nvim_lsp_document_symbol" },
     },
   })
 
@@ -67,10 +74,10 @@ local config = function()
     }),
   })
 
-  local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+  -- handle autopairs
   cmp.event:on(
     "confirm_done",
-    cmp_autopairs.on_confirm_done({ map_char = { tex = "" } })
+    require("nvim-autopairs.completion.cmp").on_confirm_done()
   )
 end
 

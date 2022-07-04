@@ -13,8 +13,6 @@ local config = function()
   })
 end
 
--- jeeeesssss
-
 return {
   packageName,
   requires = requires,

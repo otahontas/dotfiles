@@ -14,6 +14,9 @@ map("n", "<leader>oo", ":Octo", { suffix = "" })
 
 local config = function()
   require("octo").setup()
+  -- Add treesitter markdown parser to octo buffers
+  require("nvim-treesitter.parsers").get_parser_configs().markdown.filetype_to_parsername =
+    "octo"
 end
 
 return {
