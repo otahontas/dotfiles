@@ -162,9 +162,33 @@ local keys = {
 }
 
 return {
-  color_scheme = "OneHalfLight",
+  colors = {
+    foreground = "#0E1116",
+    background = "#ffffff",
+    ansi = {
+      "#24292f",
+      "#cf222e",
+      "#116329",
+      "#4d2d00",
+      "#0969da",
+      "#8250df",
+      "#1b7c83",
+      "#6e7781",
+    },
+    brights = {
+      "#57606a",
+      "#a40e26",
+      "#1a7f37",
+      "#633c01",
+      "#218bff",
+      "#a475f9",
+      "#3192aa",
+      "#8c959f",
+    },
+    indexed = { [16] = "#d18616", [17] = "#a40e26" },
+  },
   disable_default_key_bindings = true,
-  font = wezterm.font("Fira Code"),
+  font = wezterm.font("JetBrainsMono Nerd Font"),
   font_size = 14,
   hide_tab_bar_if_only_one_tab = true,
   hyperlink_rules = hyperlink_rules,
@@ -173,6 +197,6 @@ return {
   scrollback_lines = 5000,
   tab_bar_at_bottom = true,
   use_fancy_tab_bar = false,
-  window_background_opacity = 0.97,
+  window_background_opacity = 1,
   window_decorations = "RESIZE",
 }

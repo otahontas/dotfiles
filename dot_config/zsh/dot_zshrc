@@ -83,6 +83,7 @@ source $ZDOTDIR/integrations/nvim.zsh
 source $ZDOTDIR/integrations/pdm.zsh
 source $ZDOTDIR/integrations/pyenv.zsh
 source $ZDOTDIR/integrations/ssh.zsh
+source $ZDOTDIR/integrations/volta.zsh
 
 # Add custom local bin to PATH
 [[ $PATH != *"$HOME/.local/bin"* ]] && export PATH=$HOME/.local/bin:$PATH
