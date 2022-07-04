@@ -1,16 +1,3 @@
-# Fnm might print a warning, so initialize it before p10k
-source $ZDOTDIR/integrations/fnm.zsh
-
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-# To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
-[[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
-
 # Create big enough history file, disable duplicates and allow different zsh
 # shells to share history all the time (e.g. don't wait until shell is closed)
 [[ -e $XDG_DATA_HOME/zsh ]] || mkdir $XDG_DATA_HOME/zsh
@@ -73,6 +60,7 @@ source $ZDOTDIR/.zsh_functions
 source $ZDOTDIR/integrations/bat.zsh
 source $ZDOTDIR/integrations/brew.zsh
 source $ZDOTDIR/integrations/cargo.zsh
+source $ZDOTDIR/integrations/fnm.zsh
 source $ZDOTDIR/integrations/fzf.zsh
 source $ZDOTDIR/integrations/go.zsh
 source $ZDOTDIR/integrations/google-cloud-sdk.zsh
@@ -87,3 +75,6 @@ source $ZDOTDIR/integrations/volta.zsh
 
 # Add custom local bin to PATH
 [[ $PATH != *"$HOME/.local/bin"* ]] && export PATH=$HOME/.local/bin:$PATH
+
+# Load starship prompt
+eval "$(starship init zsh)"
