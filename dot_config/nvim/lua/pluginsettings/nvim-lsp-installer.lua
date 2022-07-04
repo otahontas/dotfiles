@@ -162,4 +162,9 @@ local config = function()
   lsp_installer.on_server_ready(setup_server)
 end
 
-return { packageName, requires = requires, config = config }
+return {
+  packageName,
+  requires = requires,
+  config = config,
+  commit = "c13ea61d85e2170af35c06b47bcba143cf2f244b",
+}

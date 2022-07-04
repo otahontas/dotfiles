@@ -8,12 +8,6 @@ local requires = {
 local config = function()
   local null_ls = require("null-ls")
 
-  local actionlint_condition = function()
-    local api = vim.api
-    local path = api.nvim_buf_get_name(api.nvim_get_current_buf())
-    return path:match("github/workflows/") ~= nil
-  end
-
   local eslint_files = {
     ".eslintrc*",
     "package.json",
@@ -51,9 +45,7 @@ local config = function()
       }),
       null_ls.builtins.code_actions.gitsigns,
       null_ls.builtins.code_actions.shellcheck,
-      null_ls.builtins.diagnostics.actionlint.with({
-        condition = actionlint_condition,
-      }),
+      null_ls.builtins.diagnostics.actionlint,
       null_ls.builtins.diagnostics.eslint_d.with({
         cwd = eslint_cwd,
         condition = eslint_condition,
@@ -100,4 +92,9 @@ local config = function()
   null_ls.setup(options)
 end
 
-return { packageName, requires = requires, config = config }
+return {
+  packageName,
+  requires = requires,
+  config = config,
+  commit = "a2b7bf89663c78d58a5494efbb791819a24bb025",
+}

@@ -16,4 +16,9 @@ local config = function()
   require("octo").setup()
 end
 
-return { packageName, requires = requires, config = config }
+return {
+  packageName,
+  requires = requires,
+  config = config,
+  commit = "1f6a770a3b2a463cff474df51dc037ae7a6c2920",
+}

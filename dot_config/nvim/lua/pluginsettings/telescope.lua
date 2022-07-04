@@ -83,7 +83,7 @@ end
 
 return {
   packageName,
-  branch = "nvim-0.6",
   requires = requires,
   config = config,
+  commit = "2b1da47deb17e4fcd72892f8c01aaf23a828f967",
 }

@@ -11,4 +11,9 @@ local config = function()
   })
 end
 
-return { packageName, requires = requires, config = config }
+return {
+  packageName,
+  requires = requires,
+  config = config,
+  commit = "5113cdb32f9d9588a2b56de6d1df6e33b06a554a",
+}

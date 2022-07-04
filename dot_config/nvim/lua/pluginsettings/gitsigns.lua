@@ -25,4 +25,9 @@ local config = function()
   require("gitsigns").setup(options)
 end
 
-return { packageName, requires = requires, config = config }
+return {
+  packageName,
+  requires = requires,
+  config = config,
+  commit = "4883988cf8b623f63cc8c7d3f11b18b7e81f06ff",
+}

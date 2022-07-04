@@ -36,4 +36,9 @@ local config = function()
   require("nvim-tree").setup(settings)
 end
 
-return { packageName, requires = requires, config = config }
+return {
+  packageName,
+  requires = requires,
+  config = config,
+  commit = "19dcacf06e26ca8cf2f160768044cc11db4e66fb",
+}

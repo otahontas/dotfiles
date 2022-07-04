@@ -29,4 +29,10 @@ local config = function()
   vim.o.foldlevelstart = 20
 end
 
-return { packageName, requires = requires, run = run, config = config }
+return {
+  packageName,
+  requires = requires,
+  run = run,
+  config = config,
+  commit = "f75e27c2170ef4cc83cc9fa10a82c84ec82f5021",
+}
