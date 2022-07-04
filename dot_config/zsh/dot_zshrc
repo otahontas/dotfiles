@@ -72,6 +72,7 @@ source $ZDOTDIR/.zsh_functions
 # Load settings for various programs
 source $ZDOTDIR/integrations/bat.zsh
 source $ZDOTDIR/integrations/brew.zsh
+source $ZDOTDIR/integrations/cargo.zsh
 source $ZDOTDIR/integrations/fzf.zsh
 source $ZDOTDIR/integrations/go.zsh
 source $ZDOTDIR/integrations/google-cloud-sdk.zsh
