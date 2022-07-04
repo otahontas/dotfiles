@@ -17,10 +17,12 @@ Feel free to sniff around.
 ## Generic todo
 
 - change hyper to karabiner + add karabiner config to chezmoi
+- change from alacritty to something more configurable + something that saves stuff
 - port edge-light theme to wezterm
 - for some reason scandics aren't working with wezterm, fix
 - add global basic packages pyenv & fnm + update scripts for these
 - neovim betterments:
+  - telescope code actions --> nvim select
   - some git thingys, better PR review process etc., check for files that are going to be committed
   - put all keybindings and autocommands through legendary.nvim
   - add some better typescript things with nvim-lsp-ts-utils
@@ -37,3 +39,6 @@ Feel free to sniff around.
 - add khard as addressbook source to aerc
 - add confs for all possible gui programs
 - convert install script to "no-script" / add more prompts, don't just install everything
+  --> script better way to start mac from scratch
+- change from antibody to something else
+- set up more command line thingyssss: aerc for work, calendars for work etc
