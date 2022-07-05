@@ -19,8 +19,8 @@ map("n", "<leader>of", base .. "old_files()")
 map("n", "<leader>rg", base .. "live_grep()")
 
 -- LSP Pickers
-map("n", "<leader>gd", base .. "lsp_definitions()")
-map("n", "<leader>gr", base .. "lsp_references()")
+map("n", "gd", base .. "lsp_definitions()")
+map("n", "gr", base .. "lsp_references()")
 
 local packageName = "nvim-telescope/telescope.nvim"
 
@@ -36,7 +36,7 @@ local config = function()
   local options = {
     defaults = {
       file_ignore_patterns = {
-        ".git", -- TODO: Ignore .git directory only with ripgrep, not when looking for files
+        ".git",
         "node_modules",
         "yarn.lock",
         "package-lock.json",

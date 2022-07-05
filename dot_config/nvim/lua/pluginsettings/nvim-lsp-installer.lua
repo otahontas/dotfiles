@@ -93,7 +93,7 @@ local config = function()
       local opts = { noremap = true, silent = true }
       local mappings = {
         { "K", "<cmd>lua vim.lsp.buf.hover()<CR>" },
-        { "<leader>gD", "<cmd>lua vim.lsp.buf.declaration()<CR>" },
+        { "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>" },
         {
           "<leader>gi",
           "<cmd>lua vim.lsp.buf.implementation()<CR>",
@@ -117,15 +117,16 @@ local config = function()
           "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>",
         },
         {
-          "<leader>gt",
+          "<leader>D",
           "<cmd>lua vim.lsp.buf.type_definition()<CR>",
         },
-        { "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>" },
+        { "<neader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>" },
         { "<leader>gl", "<cmd>lua vim.diagnostic.open_float()<CR>" },
         { "<leader>ge", "<cmd>lua vim.diagnostic.setloclist()<CR>" },
         { "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>" },
         { "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>" },
         { "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>" },
+        { "<leader>aa", "<cmd>AerialToggle!<CR>" },
       }
 
       for _, value in pairs(mappings) do
@@ -136,9 +137,11 @@ local config = function()
       client.resolved_capabilities.document_formatting = false
       client.resolved_capabilities.document_range_formatting = false
 
+      -- Toggle on some lsp based plugins on attach
       require("illuminate").on_attach(client)
 
       if client.server_capabilities.documentSymbolProvider then
+        require("aerial").on_attach(client, bufnr)
         require("nvim-navic").attach(client, bufnr)
       end
 

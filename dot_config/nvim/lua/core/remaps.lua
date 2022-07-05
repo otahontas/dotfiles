@@ -30,3 +30,7 @@ map("n", "<leader>cwd", ":lcd %:p:h<CR>:pwd", { silent = false })
 map("t", "<C-w><Esc>", "<C-\\><C-n>", { suffix = "" })
 map("t", "<C-w>k", "<C-\\><C-n><C-w>k", { suffix = "" })
 map("t", "<C-w>l", "<C-\\><C-n><C-w>l", { suffix = "" })
+
+-- Move in quickfixlist
+map("n", "<leader>cn", ":cnext")
+map("n", "<leader>cp", ":cprev")

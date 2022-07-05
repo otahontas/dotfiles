@@ -10,7 +10,7 @@ local requires = {
 }
 
 --- Open generic
-map("n", "<leader>oo", ":Octo", { suffix = "" })
+map("n", "<leader>O", ":Octo ", { silent = false, suffix = "" })
 
 local config = function()
   require("octo").setup()
