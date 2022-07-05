@@ -92,7 +92,7 @@ local config = function()
       local mode = "n"
       local opts = { noremap = true, silent = true }
       local mappings = {
-        { "<leader>K", "<cmd>lua vim.lsp.buf.hover()<CR>" },
+        { "K", "<cmd>lua vim.lsp.buf.hover()<CR>" },
         { "<leader>gD", "<cmd>lua vim.lsp.buf.declaration()<CR>" },
         {
           "<leader>gi",
