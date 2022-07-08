@@ -57,6 +57,7 @@ source $ZDOTDIR/.zsh_aliases
 source $ZDOTDIR/.zsh_functions
 
 # Load settings for various programs
+source $ZDOTDIR/integrations/aws.zsh
 source $ZDOTDIR/integrations/bat.zsh
 source $ZDOTDIR/integrations/brew.zsh
 source $ZDOTDIR/integrations/cargo.zsh
