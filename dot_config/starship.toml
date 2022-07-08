@@ -1,1 +1,4 @@
 add_newline = false
+
+[aws]
+force_display = true

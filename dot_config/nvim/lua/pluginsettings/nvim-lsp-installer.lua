@@ -120,7 +120,7 @@ local config = function()
           "<leader>D",
           "<cmd>lua vim.lsp.buf.type_definition()<CR>",
         },
-        { "<neader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>" },
+        { "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>" },
         { "<leader>gl", "<cmd>lua vim.diagnostic.open_float()<CR>" },
         { "<leader>ge", "<cmd>lua vim.diagnostic.setloclist()<CR>" },
         { "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>" },
