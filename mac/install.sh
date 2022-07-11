@@ -1,111 +1,74 @@
 #!/usr/bin/env bash
 
-# === Global settings ===
-set -Eeuo pipefail
-trap 'cleanup $? $LINENO' SIGINT SIGTERM ERR EXIT
-script_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd -P)
+# === 1. Settings ===
 
-# === Helper functions ===
-cleanup() {
-  trap - SIGINT SIGTERM ERR EXIT
-  err=$1
-  line=$2
-  if [ "$err" -eq 0 ]; then
-    msg "${GREEN}\nInstallation script completed succesfully"
-  else
-    msg "${RED}\nError happened while running installation script on line $line.${NOFORMAT}\nAfter you've fixed the error, you can safely re-run the script. It will skip parts that have been already performed."
-  fi
-}
+# Dock
+defaults write com.apple.dock "tilesize" -int "15"
+defaults write com.apple.dock "autohide" -bool "true"
 
-setup_colors() {
-  if [[ -t 2 ]] && [[ -z "${NO_COLOR-}" ]] && [[ "${TERM-}" != "dumb" ]]; then
-    NOFORMAT='\033[0m' RED='\033[0;31m' GREEN='\033[0;32m' PURPLE='\033[0;35m'
-  else
-    NOFORMAT='' RED='' GREEN='' PURPLE=''
-  fi
-}
+# Screenshots
+defaults write com.apple.screencapture location ~
 
-msg() {
-  echo >&2 -e "${1-}"
-}
+# Finder
+# TODO: read flags before setting
+test -d ~/Desktop && sudo rm -rf ~/Desktop
+sudo chflags -h schg ~/Desktop
+defaults write com.apple.finder "QuitMenuItem" -bool true
+defaults write com.apple.finder "AppleShowAllFiles" -boolean true;
+defaults write com.apple.finder "CreateDesktop" false
 
-setup_colors
+# Mission control
+defaults write com.apple.dock "mru-spaces" -bool "false"
 
-# === Installation ===
+# Restart dock & finder
+killall Dock
+killall Finder
+osascript -e 'quit app "Finder"'
 
-msg "${PURPLE}\n=== Setting up networking ===${NOFORMAT}"
-
+# Networking
 [[ $(scutil --get ComputerName) == "MacBook" ]] || sudo scutil --set ComputerName MacBook
 [[ $(scutil --get LocalHostName) == "MacBook" ]] || sudo scutil --set LocalHostName MacBook
-
-
-msg "${PURPLE}\n=== Setting up safety stuff ===${NOFORMAT}"
-
-fdesetup status | grep -q "FileVault is On" || sudo fdesetup enable
-
-fw_changed="false"
+firewall_changed="false"
 if ! /usr/libexec/ApplicationFirewall/socketfilterfw --getglobalstate | grep -q "Firewall is enabled"; then
   sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate on
-  fw_changed=true
+  firewall_changed=true
 fi
 if ! /usr/libexec/ApplicationFirewall/socketfilterfw --getloggingmode | grep -q "Log mode is on"; then
   sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setloggingmode on
-  fw_changed=true
+  firewall_changed=true
 fi
 if ! /usr/libexec/ApplicationFirewall/socketfilterfw --getstealthmode | grep -q "Stealth mode enabled"; then
   sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setstealthmode on
-  fw_changed=true
+  firewall_changed=true
 fi
-[[ "$fw_changed" == "true" ]] && sudo pkill -HUP socketfilterfw && msg "${NOFORMAT}\nFirewall restarted after changes"
+[[ "$firewall_changed" == "true" ]] && sudo pkill -HUP socketfilterfw
 
+# Safety
+fdesetup status | grep -q "FileVault is On" || sudo fdesetup enable
 
-msg "${PURPLE}\n=== Installing package management and chezmoi ===${NOFORMAT}"
+# Dev stuff
+defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
+defaults write -g WebKitDeveloperExtras -bool YES
+test -d ~/Code || mkdir Code
 
+# Keyboard stuff
+test -f ~/Library/Keyboard\ Layouts/U.S.\ International\ wo\ dead\ keys.keylayout || curl https://raw.githubusercontent.com/otahontas/dotfiles/main/mac/files/U.S.%20International%20wo%20dead%20keys.keylayout --output ~/Library/Keyboard\ Layouts/U.S.\ International\ wo\ dead\ keys.keylayout
+
+# == 2. Install packages ===
+
+# xcode & brew
 [[ $(xcode-select -p 1>/dev/null; echo $?) == "2" ]] &&  xcode-select --install
-
 if ! command -v brew &> /dev/null; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-/usr/local/bin/brew install chezmoi rcmdnk/file/brew-file
+# TODO:fi
+# Install packages
+# Write a list of stuff that I toggle, but aren't togglable without the GUI (i.e.
+# finalize manual
+# stuff)
 
-msg "${PURPLE}\n=== Installing dotfiles ===${NOFORMAT}"
-
-if ! command -v chezmoi &> /dev/null && ! test -d ~/.local/share/chezmoi; then
-  chezmoi init --apply --verbose https://github.com/otahontas/dotfiles.git
-fi
-
-msg "${PURPLE}\n=== Installing packages ===${NOFORMAT}"
-
-env HOMEBREW_BREWFILE="$(chezmoi --source-path)/mac/packages/Brewfile" brew file install
-
-msg "${PURPLE}\n=== Moving needed files to correct places ===${NOFORMAT}"
-
-test -f ~/Library/Keyboard\ Layouts/U.S.\ International\ wo\ dead\ keys.keylayout || cp "$script_dir/files/U.S. International wo dead keys.keylayout" ~/Library/Keyboard\ Layouts/
-
-
-msg "${PURPLE}\n=== Add some cool tweaks ===${NOFORMAT}"
-defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
-defaults write -g WebKitDeveloperExtras -bool YES
-
-msg "${PURPLE}\n=== Creating folders ===${NOFORMAT}"
-test -d ~/Code || mkdir Code
-
-msg "${PURPLE}\n=== Setup some better finder options ===${NOFORMAT}"
-defaults write com.apple.finder QuitMenuItem -bool true
-defaults write com.apple.finder AppleShowAllFiles -boolean true;
-defaults write com.apple.screencapture location ~
-
-msg "${GREEN}\nOkay, quitting Finder ${NOFORMAT}"
-killall Finder
-osascript -e 'quit app "Finder"'
-
-msg "${PURPLE}\n=== Disable Desktop ===${NOFORMAT}"
-defaults write com.apple.finder CreateDesktop false
-\rm -rf ~/Desktop
-sudo chflags -h schg ~/Desktop
-msg "${GREEN}Done disabling, remember to remove desktop from Finder sidebar${NOFORMAT}"
-
-msg "${PURPLE}\n=== Disable Spotlight ===${NOFORMAT}"
-sudo mdutil -a -i off
-msg "${GREEN}Done disabling, remember to disable spotlight settings in system preferences${NOFORMAT}"
+# === n. Manual stuff ===
+echo ""
+echo "=== Stuff to do manually ==="
+echo "- Change the keyboard layout to U.S. International wo dead keys"
