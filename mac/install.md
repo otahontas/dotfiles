@@ -1,8 +1,10 @@
 # Macos install
 
-Notes from 2022
+Notes from 2022 Mojave install
 
-## Installation
+## Wizard
+
+Set up region, languages, input source, dictation, wifi, Apple ID, icloud keychain sync, screen time, no analytics, no siri, firevault, touch id, no pay, light theme
 
 ## System settings
 
@@ -38,10 +40,14 @@ Go through settings
   - Sound effect: Alert volume off, all options off
 - Keyboard:
   - Modifier keys: Swap command & option, caps lock to esc
+  - Shortcuts:
+    - Copy picture of selected area to clipboard: hyper-P
+    - Spotlight: Shift-Cmd-Space
+    - Turn everything else off
   - Input sources: Select U.S int no dead keys, don’t show stuff in menu bar
 - Sharing:
   - Turn everything off
-  - Set Computer Name to “MacBook”
+  - Change computer Name to not have my name
 - Time machine:
   - Turn on
 - Battery
@@ -75,7 +81,7 @@ osascript -e 'quit app "Finder"'
 
 ## Packages
 
-Install xcode, brew, rosetta:
+Install xcode, brew, rosetta (if needed):
 
 ```sh
 [[ $(xcode-select -p 1>/dev/null; echo $?) == "2" ]] &&  xcode-select --install
@@ -85,8 +91,10 @@ fi
 sudo softwareupdate --install-rosetta
 ```
 
-Install packages:
+Install needed packages by using [Brewfile from packages folder](https://github.com/otahontas/dotfiles/tree/main/mac/packages) as a base:
 
 ```sh
-curl https://raw.githubusercontent.com/otahontas/dotfiles/main/mac/packages/Brewfile | brew bundle --file=-
+vim Brewfile
+# copypaste & edit
+brew bundle --file=Brewfile
 ```

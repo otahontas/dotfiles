@@ -18,5 +18,3 @@ alias ....="cd ../../.."
 # Aliases for daily tools
 alias mail="aerc"
 alias spotify="pkill spotifyd; spotifyd && spt; pkill spotifyd"
-alias trash-empty="trash -e"
-alias trash-list="trash -l"

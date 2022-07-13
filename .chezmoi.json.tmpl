@@ -1,17 +1,9 @@
 {{-  $aerc_mailboxes := default (get .aerc "mailboxes") ("[]") | fromJson -}}
-{{-  $newsboat_miniflux_url := default (get .newsboat "miniflux_url") (promptString "Miniflux server url") -}}
-{{-  $newsboat_miniflux_login := default (get .newsboat "miniflux_login") (promptString "Miniflux account") -}}
 {{-  $spotifyd_username := default (get .newsboat "username") (promptString "Spotify account") -}}
-{{-  $computerName := output "scutil" "--get" "ComputerName" | trim -}}
 {
   "data": {
     "aerc": {
       "mailboxes": {{ $aerc_mailboxes | toPrettyJson }}
-    },
-    "computer": {{ $computerName | quote }},
-    "newsboat": {
-      "miniflux_url": {{ $newsboat_miniflux_url | quote }},
-      "miniflux_login": {{ $newsboat_miniflux_login | quote }}
     },
     "spotifyd": {
       "username": {{ $spotifyd_username | quote }}
