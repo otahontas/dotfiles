@@ -58,7 +58,6 @@ brew "w3m"
 cask "1password-beta"
 cask "1password-cli-beta"
 cask "appcleaner"
-cask "browserosaurus"
 cask "dash"
 cask "discord"
 cask "docker"
@@ -68,10 +67,7 @@ cask "google-chrome"
 cask "google-cloud-sdk"
 cask "gpg-suite"
 cask "hyperkey"
-cask "insomnia"
-cask "keepingyouawake"
 cask "keycastr"
-cask "macdown"
 cask "microsoft-auto-update"
 cask "microsoft-office"
 cask "mysqlworkbench"
@@ -82,7 +78,6 @@ cask "postman"
 cask "spotify"
 cask "tableplus"
 cask "thingsmacsandboxhelper"
-cask "visual-studio-code"
 cask "wezterm"
 mas "1Password for Safari", id: 1569813296
 mas "AdGuard for Safari", id: 1440147259
@@ -91,6 +86,7 @@ mas "Paprika Recipe Manager 3", id: 1303222628
 mas "Slack", id: 803453959
 mas "Telegram", id: 747648890
 mas "Things", id: 904280696
+mas "Velja", id: 1607635845
 mas "Video Speed Controller", id: 1588368612
 mas "Vimari", id: 1480933944
 mas "WhatsApp", id: 1147396723
