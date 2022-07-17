@@ -69,6 +69,7 @@ source $ZDOTDIR/integrations/gpg.zsh
 source $ZDOTDIR/integrations/nnn.zsh
 source $ZDOTDIR/integrations/nvim.zsh
 source $ZDOTDIR/integrations/pdm.zsh
+source $ZDOTDIR/integrations/pipx.zsh
 source $ZDOTDIR/integrations/pyenv.zsh
 source $ZDOTDIR/integrations/ssh.zsh
 source $ZDOTDIR/integrations/volta.zsh
