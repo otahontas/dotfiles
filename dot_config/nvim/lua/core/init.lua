@@ -42,6 +42,8 @@ local options = {
   updatetime = 300,
   -- Read changes from outside world
   autoread = true,
+  -- Use global statusline
+  laststatus = 3,
   -- Set up hidden chars to show on toggle
   listchars = {
     nbsp = "¬",
