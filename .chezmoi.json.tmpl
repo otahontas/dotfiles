@@ -1,12 +1,14 @@
 {{-  $aerc_mailboxes := default (get .aerc "mailboxes") ("[]") | fromJson -}}
-{{-  $spotifyd_username := default (get .newsboat "username") (promptString "Spotify account") -}}
+{{-  $spotifyd_username := default (get .spotifyd "username") (output "op" "item" "get" "Spotify" "--fields" "label=username" | trim) -}}
+{{-  $spotifyd_computer_name := output "scutil" "--get" "ComputerName" | trim -}}
 {
   "data": {
     "aerc": {
       "mailboxes": {{ $aerc_mailboxes | toPrettyJson }}
     },
     "spotifyd": {
-      "username": {{ $spotifyd_username | quote }}
+      "username": {{ $spotifyd_username | quote }},
+      "computer_name": {{ $spotifyd_computer_name | quote }}
     }
   },
   "diff": {

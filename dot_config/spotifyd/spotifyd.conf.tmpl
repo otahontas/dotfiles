@@ -3,6 +3,6 @@ username = "{{ .spotifyd.username }}"
 password_cmd = "op item get Spotify --fields label=password --format json | jq -r '.value'"
 backend = "portaudio"
 volume_controller = "softvol"
-device_name = "{{ .chezmoi.hostname }}"
+device_name = "{{ .spotifyd.computer_name}}"
 bitrate = 320
 volume_normalisation = false

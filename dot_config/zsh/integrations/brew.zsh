@@ -5,7 +5,7 @@
 function brew () {
     local dump_commands=("install" "uninstall" "tap" "untap" "upgrade")
     local main_command="${1}"
-    local brewfile_path="$(chezmoi source-path)/mac/packages/Brewfile-$(scutil --get LocalHostName)"
+    local brewfile_path="$(chezmoi source-path)/mac/packages/Brewfile-$(scutil --get ComputerName)"
 
     command brew ${@}
 
