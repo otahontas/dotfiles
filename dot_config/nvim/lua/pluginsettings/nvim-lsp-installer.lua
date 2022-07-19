@@ -59,6 +59,23 @@ local config = function()
         },
       },
     },
+    rust_analyzer = {
+      settings = {
+        ["rust-analyzer"] = {
+          checkOnSave = {
+            allFeatures = true,
+            overrideCommand = {
+              "cargo",
+              "clippy",
+              "--workspace",
+              "--message-format=json",
+              "--all-targets",
+              "--all-features",
+            },
+          },
+        },
+      },
+    },
     sumneko_lua = {
       override_opts = {
         root_dir = lspconfig.util.root_pattern("stylua.toml")

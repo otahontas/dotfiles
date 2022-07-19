@@ -73,6 +73,7 @@ local config = function()
       }),
       null_ls.builtins.formatting.stylua,
       null_ls.builtins.formatting.trim_whitespace,
+      null_ls.builtins.formatting.rustfmt,
     },
     on_attach = function(client)
       vim.cmd([[
@@ -94,5 +95,5 @@ return {
   packageName,
   requires = requires,
   config = config,
-  commit = "a2b7bf89663c78d58a5494efbb791819a24bb025",
+  commit = "3651217135b465acb671d404c2534d5c8762af86",
 }
