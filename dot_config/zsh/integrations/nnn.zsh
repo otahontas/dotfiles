@@ -22,4 +22,4 @@ function nnn () {
 # OPTS: Show hidden files, use EDITOR and VISUAL for text files
 export NNN_OPTS="eEH"
 # Use trash instead of delete
-export NNN_TRASH="2"
+export NNN_TRASH="1"
