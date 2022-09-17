@@ -47,10 +47,6 @@ local config = function()
     },
     jsonls = {
       capabilities = create_capabilities_for_langservers_extracted_from_vscode(),
-      on_attach = function(client)
-        client.resolved_capabilities.document_formatting = true
-        client.resolved_capabilities.document_range_formatting = true
-      end,
       override_opts = {
         settings = {
           json = {

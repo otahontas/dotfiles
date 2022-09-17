@@ -7,6 +7,7 @@ export XDG_DATA_HOME=$HOME/.local/share
 # Set some programs to use XDG Base Directories
 export CARGO_HOME=$XDG_CACHE_HOME/cargo
 export DOCKER_CONFIG=$XDG_CONFIG_HOME/docker
+export DOCKER_HOST="unix://${HOME}/.colima/default/docker.sock"
 export GOPATH=$XDG_CACHE_HOME/go
 export LESSHISTFILE=$XDG_DATA_HOME/less_history
 export NODE_REPL_HISTORY=$XDG_DATA_HOME/node_repl_history
