@@ -58,6 +58,9 @@ for option, value in pairs(options) do
   vim.opt[option] = value
 end
 
+-- Allow loading filetype settings with filetype.lua
+vim.g.do_filetype_lua = 1
+
 -- Set up leader and localleader keys
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
