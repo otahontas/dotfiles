@@ -2,12 +2,11 @@ local packageName = "github/copilot.vim"
 
 local run = ":Copilot setup"
 
--- use node v16 from fnm
-vim.g.copilot_node_command =
-  "~/Library/Application Support/fnm/node-versions/v16.15.1/installation/bin/node"
+-- NOTE: ensure this is available in path
+vim.g.copilot_node_command = "node16"
 
 return {
   packageName,
   run = run,
-  commit = "c2e75a3a7519c126c6fdb35984976df9ae13f564",
+  commit = "1bfbaf5b027ee4d3d3dbc828c8bfaef2c45d132d",
 }
