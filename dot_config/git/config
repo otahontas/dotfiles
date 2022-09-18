@@ -51,7 +51,7 @@
 	pager = diff-so-fancy | less --tabs=4 -RFX
 	ignorecase = false
 [color]
-    ui = true
+    ui = auto
     [diff-highlight]
         oldNormal = "red bold"
         oldHighlight = "red bold 52"
