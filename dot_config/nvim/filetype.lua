@@ -1,10 +1,11 @@
 vim.filetype.add({
   extension = {
-    conf = "dosini",
-    hook = "dosini",
-    rc = "dosini",
+    conf = "conf",
+    hook = "conf",
+    rc = "conf",
   },
   filename = {
-    config = "dosini",
+    config = "conf",
+    ignore = "conf",
   },
 })
