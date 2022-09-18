@@ -29,7 +29,13 @@ local loadPlugins = function(use)
   local dir = conf.xdgConfigHome .. "/lua/pluginsettings"
   for _, file in pairs(vim.fn.readdir(dir)) do
     if hasLuaExtension(file) then
-      use(require("pluginsettings" .. "." .. trimLuaExtension(file)))
+      local name = trimLuaExtension(file)
+      local plugin_loaded, plugin = pcall(require, "pluginsettings." .. name)
+      if plugin_loaded then
+        use(plugin)
+      else
+        error("Error loading plugin " .. name, 1)
+      end
     end
   end
 end
