@@ -1,5 +1,3 @@
-# Stuff to globally ignore on git
-tags
+# Mac stuff
 .DS_Store
 .localized
-.null-ls-root

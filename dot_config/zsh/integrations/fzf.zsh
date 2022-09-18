@@ -10,10 +10,11 @@ export FZF_DEFAULT_OPTS="--height 50% --layout=reverse
 --color=fg+:#4b505b,bg+:#fafafa,hl+:#3a8b84
 --color=info:#88909f,prompt:#d05858,pointer:#b05ccc
 --color=marker:#608e32,spinner:#d05858,header:#3a8b84"
-export FZF_DEFAULT_COMMAND="fd -H --follow"
-export FZF_ALT_C_COMMAND="fd -H --follow --type directory"
+# Always show hidden, follow symlinks, and use preview window
+export FZF_DEFAULT_COMMAND="fd --hidden --follow --strip-cwd-prefix"
+export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type directory"
 export FZF_ALT_C_OPTS="--preview 'exa -la --color=always {}' --select-1 --exit-0"
-export FZF_CTRL_T_COMMAND="fd -H --follow --type file"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND --type file"
 export FZF_CTRL_T_OPTS="--preview 'bat --style=numbers --color=always --line-range :500 {}' --select-1 --exit-0"
 
 # Setup fzf tab game

@@ -32,32 +32,30 @@ local requires = {
 
 local config = function()
   local telescope = require("telescope")
+
   telescope.load_extension("fzf")
+
   local options = {
     defaults = {
-      file_ignore_patterns = {
-        ".git",
-        "node_modules",
-        "yarn.lock",
-        "package-lock.json",
-        "opensource.html",
-      },
       vimgrep_arguments = {
         "rg",
-        "--ignore",
-        "--hidden",
+        -- from: https://github.com/nvim-telescope/telescope.nvim/blob/c92f86386f8446e4deaa79941baabaf825683be9/lua/telescope/config.lua#L631
         "--color=never",
         "--no-heading",
         "--with-filename",
         "--line-number",
         "--column",
         "--smart-case",
+        -- extra additions
+        "--follow",
+        "--hidden",
         "--trim",
       },
     },
     pickers = {
       find_files = {
-        find_command = { "fd", "--type", "f", "--strip-cwd-prefix", "--hidden" },
+        -- match with fzf default
+        find_command = { "fd", "--type", "file", "--strip-cwd-prefix", "--hidden" },
       },
     },
     extensions = {
@@ -84,5 +82,5 @@ return {
   packageName,
   requires = requires,
   config = config,
-  commit = "2b1da47deb17e4fcd72892f8c01aaf23a828f967",
+  commit = "30e2dc5232d0dd63709ef8b44a5d6184005e8602",
 }

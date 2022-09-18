@@ -15,9 +15,16 @@ site-packages/
 .local/share/nvim/lsp_servers/
 .local/share/nvim/site/pack/packer
 
+# Skip some noisy files
+opensource.html
+yarn.lock
+package-lock.json
+*.js.map
+
 # Partially allow git folder
-# needs to have *, otherwise it will ignore the whole folder. Rg is handled differently
-.git/*
-!.git/hooks/
-!.git/config
-!.git/description
+# full path needs to match when using globs with slashes --> **/ prefix is needed
+**/.git/*
+# allow some subfolders and files
+!**/.git/hooks/
+!**/.git/config
+!**/.git/description
