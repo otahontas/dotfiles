@@ -11,5 +11,4 @@ end
 return {
   packageName,
   config = config,
-  commit = "ecced899435c6bcdd81becb5efc6d5751d0dc4c8",
 }

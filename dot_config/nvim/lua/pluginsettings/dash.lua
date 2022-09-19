@@ -12,5 +12,4 @@ return {
   packageName,
   run = run,
   config = config,
-  commit = "f7402d1d96b126f8c678bd1d1d0102213c148eac",
 }

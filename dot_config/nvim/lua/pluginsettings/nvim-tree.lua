@@ -13,8 +13,6 @@ local requires = { "kyazdani42/nvim-web-devicons" }
 local config = function()
   require("nvim-tree").setup({
     disable_netrw = true,
-    sync_root_with_cwd = true,
-    update_focused_file = { enable = true, update_cwd = true },
     diagnostics = {
       enable = true,
       show_on_dirs = true,
@@ -26,7 +24,6 @@ local config = function()
       width = 50,
       side = "right",
     },
-    respect_buf_cwd = true,
     renderer = {
       highlight_opened_files = "icon",
     },
@@ -37,5 +34,4 @@ return {
   packageName,
   requires = requires,
   config = config,
-  commit = "28c4bb01f64a4f806c66781375b47767225ec94c",
 }

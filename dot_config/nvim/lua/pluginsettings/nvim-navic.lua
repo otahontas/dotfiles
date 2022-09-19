@@ -7,6 +7,7 @@ local requires = {
 local config = function()
   local navic = require("nvim-navic")
 
+  -- TODO: move this to winbar when 0.8 is released
   require("lualine").setup({
     sections = {
       lualine_c = {
@@ -20,5 +21,4 @@ return {
   packageName,
   requires = requires,
   config = config,
-  commit = "250d89085a69688157864201b533ee0581eb6a83",
 }

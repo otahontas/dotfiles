@@ -9,13 +9,12 @@ local requires = {
   "antoinemadec/FixCursorHold.nvim",
   "nvim-neotest/neotest-go",
   "haydenmeade/neotest-jest",
-  "nvim-neotest/neotest-python",
 }
 
--- mappings
+-- mappings ()
 map("n", "<leader>us", '<cmd> lua require("neotest").summary.toggle()')
-map("n", "<leader>un", '<cmd> lua require("neotest").run.run(vim.fn.expand("%"))')
-map("n", "<leader>uf", '<cmd> lua require("neotest").run.run(()')
+map("n", "<leader>un", '<cmd> lua require("neotest").run.run()')
+map("n", "<leader>uf", '<cmd> lua require("neotest").run.run(vim.fn.expand("%"))')
 map("n", "<leader>uo", '<cmd> lua require("neotest").output.open()')
 
 -- create commands (follow ultest api)
@@ -30,12 +29,8 @@ command! NeotestOutput lua require("neotest").output.open()
 local config = function()
   require("neotest").setup({
     adapters = {
-      require("neotest-python")({
-        args = { "--log-level", "DEBUG" },
-        runner = "pytest",
-      }),
       require("neotest-jest")({
-        jestCommand = "npm test --",
+        jestCommand = "npm test --", --TODO: Fix, not working
       }),
       require("neotest-go")({
         experimental = {
@@ -50,5 +45,4 @@ return {
   packageName,
   requires = requires,
   config = config,
-  commit = "654bb7ce61f2f8333d22daaa9d995d87ba47ae54",
 }

@@ -2,6 +2,7 @@
 [[ $PATH != *"/usr/local/sbin"* ]] && export PATH=/usr/local/sbin:$PATH
 
 # Wrapper for brew to execute brewfile dumping on certain brew commands
+# TODO: fix some possibly erronous stuff (shellcheck this)
 function brew () {
     local dump_commands=("install" "uninstall" "tap" "untap" "upgrade")
     local main_command="${1}"

@@ -1,15 +1,18 @@
 local packageName = "williamboman/nvim-lsp-installer"
 
+-- TODO: replace with mason
+
 local requires = {
   "neovim/nvim-lspconfig",
   "RRethy/vim-illuminate",
   "b0o/SchemaStore.nvim",
   "stevearc/dressing.nvim",
+  "folke/lua-dev.nvim",
 }
 
 local config = function()
+  require("lua-dev").setup({})
   local lsp_installer = require("nvim-lsp-installer")
-  local lspconfig = require("lspconfig")
 
   local servers = {
     "cssls",
@@ -26,6 +29,7 @@ local config = function()
     "tailwindcss",
     "tsserver",
     "yamlls",
+    -- todo: deno only with deno files
   }
 
   local create_capabilities_for_langservers_extracted_from_vscode = function()
@@ -40,10 +44,6 @@ local config = function()
     },
     html = {
       capabilities = create_capabilities_for_langservers_extracted_from_vscode(),
-      on_attach = function(client)
-        client.resolved_capabilities.document_formatting = true
-        client.resolved_capabilities.document_range_formatting = true
-      end,
     },
     jsonls = {
       capabilities = create_capabilities_for_langservers_extracted_from_vscode(),
@@ -74,19 +74,10 @@ local config = function()
     },
     sumneko_lua = {
       override_opts = {
-        root_dir = lspconfig.util.root_pattern("stylua.toml")
-          or lspconfig.util.find_git_ancestor(),
         settings = {
           Lua = {
-            diagnostics = {
-              globals = { "vim" },
-            },
-            workspace = {
-              library = {
-                [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-                [vim.fn.expand("$VIMRUNTIME/lua/**/*.lua")] = true,
-              },
-              maxPreload = 10000,
+            completion = {
+              callSnippet = "Replace",
             },
           },
         },
@@ -100,7 +91,7 @@ local config = function()
     return require("cmp_nvim_lsp").update_capabilities(capabilities)
   end
 
-  local create_on_attach = function(server_spesific_on_attach)
+  local create_on_attach = function()
     return function(client, bufnr)
       local mode = "n"
       local opts = { noremap = true, silent = true }
@@ -135,17 +126,29 @@ local config = function()
         },
         { "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>" },
         { "<leader>gl", "<cmd>lua vim.diagnostic.open_float()<CR>" },
-        { "<leader>ge", "<cmd>lua vim.diagnostic.setloclist()<CR>" },
+        { "<leader>ge", "<cmd>lua vim.diagnostic.setloclist()<CR>" }, -- TODO: not working with shellcheck?
         { "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>" },
         { "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>" },
         { "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>" },
-        { "<leader>aa", "<cmd>AerialToggle!<CR>" },
       }
 
       for _, value in pairs(mappings) do
         local key, command = unpack(value)
         vim.api.nvim_buf_set_keymap(bufnr, mode, key, command, opts)
       end
+
+      -- and set range code actions separately
+      vim.api.nvim_buf_set_keymap(
+        bufnr,
+        "v",
+        "<leader>ca",
+        "<cmd>'<,'>lua vim.lsp.buf.range_code_action()<CR>",
+        {
+          noremap = true,
+          silent = true,
+          expr = false,
+        }
+      )
 
       client.resolved_capabilities.document_formatting = false
       client.resolved_capabilities.document_range_formatting = false
@@ -154,12 +157,7 @@ local config = function()
       require("illuminate").on_attach(client)
 
       if client.server_capabilities.documentSymbolProvider then
-        require("aerial").on_attach(client, bufnr)
         require("nvim-navic").attach(client, bufnr)
-      end
-
-      if server_spesific_on_attach then
-        server_spesific_on_attach(client, bufnr)
       end
     end
   end
@@ -179,7 +177,7 @@ local config = function()
     -- Combine possible capablities and on_attach with base opts. Override any other
     -- opts from server spesific config
     opts.capabilities = create_capabilities(extra_opts.capabilities)
-    opts.on_attach = create_on_attach(extra_opts.on_attach)
+    opts.on_attach = create_on_attach()
     opts = vim.tbl_extend("force", opts, extra_opts.override_opts or {})
 
     server:setup(opts)

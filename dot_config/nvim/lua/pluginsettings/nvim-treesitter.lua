@@ -12,11 +12,50 @@ local run = ":TSUpdate"
 
 local config = function()
   local options = {
-    ensure_installed = "all",
+    ensure_installed = {
+      "bash",
+      "bibtex",
+      "c",
+      "comment",
+      "cpp",
+      "css",
+      "dockerfile",
+      "gitattributes",
+      "gitignore",
+      "go",
+      "gomod",
+      "graphql",
+      "haskell",
+      "help",
+      "html",
+      "http",
+      "javascript",
+      "jsdoc",
+      "json",
+      "latex",
+      "lua",
+      "make",
+      "markdown",
+      "markdown_inline",
+      "python",
+      "regex",
+      "rst",
+      "rust",
+      "sql",
+      "todotxt",
+      "toml",
+      "typescript",
+      "vim",
+      "yaml",
+    },
+    -- Install parsers listed in ensure_installed synchronousl
+    sync_install = false,
+    -- Automatically install missing parsers when entering buffer
+    auto_install = true,
     -- Highlighting fails on multi-part tex documents, otherwise enable
     highlight = { enable = true, disable = { "latex" } },
-    -- Indenting is weird for go
-    indent = { enable = true, disable = { "go" } },
+    -- Indenting is weird for yaml
+    indent = { enable = true, disable = { "yaml" } },
     rainbow = { enable = true, extended_mode = true },
     autotag = { enable = true },
     endwise = { enable = true },
@@ -81,5 +120,4 @@ return {
   requires = requires,
   run = run,
   config = config,
-  commit = "f75e27c2170ef4cc83cc9fa10a82c84ec82f5021",
 }

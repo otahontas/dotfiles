@@ -10,5 +10,4 @@ return {
   packageName,
   requires = requires,
   config = config,
-  commit = "782e98dd1f8f2c97186b13b5c59a472b585a4504",
 }

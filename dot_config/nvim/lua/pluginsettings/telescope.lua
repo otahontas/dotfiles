@@ -12,6 +12,7 @@ map("n", "<leader>bb", base .. "buffers()")
 map("n", "<leader>ch", base .. "command_history()")
 map("n", "<leader>km", base .. "keymaps()")
 map("n", "<leader>rr", base .. "registers()")
+map("n", "<leader>cc", base .. "commands()")
 
 -- Files
 map("n", "<leader>ff", base .. "find_files()")
@@ -39,7 +40,8 @@ local config = function()
     defaults = {
       vimgrep_arguments = {
         "rg",
-        -- from: https://github.com/nvim-telescope/telescope.nvim/blob/c92f86386f8446e4deaa79941baabaf825683be9/lua/telescope/config.lua#L631
+        -- settings from:
+        -- https://github.com/nvim-telescope/telescope.nvim/blob/c92f86386f8446e4deaa79941baabaf825683be9/lua/telescope/config.lua#L631
         "--color=never",
         "--no-heading",
         "--with-filename",
@@ -82,5 +84,4 @@ return {
   packageName,
   requires = requires,
   config = config,
-  commit = "30e2dc5232d0dd63709ef8b44a5d6184005e8602",
 }

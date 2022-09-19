@@ -1,4 +1,6 @@
 # Fix for https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/aws/aws.plugin.zsh
+#
+# TODO: add support for acp
 
 # Wrapper for asp that sets correct region
 function asp_with_regions() {

@@ -8,83 +8,57 @@ local requires = {
 local config = function()
   local null_ls = require("null-ls")
 
-  local eslint_files = {
-    ".eslintrc*",
-    "package.json",
-  }
-
-  local eslint_condition = function(utils)
-    return utils.has_file(eslint_files) or utils.root_has_file(eslint_files)
-  end
-
-  local eslint_cwd = function(params)
-    local utils = require("null-ls.utils")
-    return utils.root_pattern(eslint_files)(params.bufname)
-  end
-
-  local prettier_files = {
-    ".prettierrc*",
-    "package.json",
-  }
-
-  local prettier_condition = function(utils)
-    return utils.has_file(prettier_files) or utils.root_has_file(prettier_files)
-  end
-
-  local prettier_cwd = function(params)
-    local utils = require("null-ls.utils")
-    return utils.root_pattern(prettier_files)(params.bufname)
-  end
+  local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
   local options = {
     debug = false,
     sources = {
-      null_ls.builtins.code_actions.eslint_d.with({
-        cwd = eslint_cwd,
-        condition = eslint_condition,
-      }),
+      null_ls.builtins.code_actions.eslint_d,
       null_ls.builtins.code_actions.gitsigns,
+      null_ls.builtins.code_actions.refactoring,
       null_ls.builtins.code_actions.shellcheck,
       null_ls.builtins.diagnostics.actionlint,
-      null_ls.builtins.diagnostics.eslint_d.with({
-        cwd = eslint_cwd,
-        condition = eslint_condition,
-      }),
-      null_ls.builtins.diagnostics.golangci_lint,
+      null_ls.builtins.diagnostics.cfn_lint,
+      null_ls.builtins.diagnostics.eslint_d,
+      null_ls.builtins.diagnostics.gitlint,
+      null_ls.builtins.diagnostics.golangci_lint, -- TODO: turn on more useful linters
       null_ls.builtins.diagnostics.hadolint,
+      null_ls.builtins.diagnostics.luacheck,
       null_ls.builtins.diagnostics.markdownlint,
-      null_ls.builtins.diagnostics.shellcheck.with({
-        diagnostics_format = "#{m} [#{s}] [#{c}]",
-      }),
+      null_ls.builtins.diagnostics.misspell,
+      null_ls.builtins.diagnostics.shellcheck,
+      null_ls.builtins.diagnostics.todo_comments,
+      null_ls.builtins.diagnostics.trail_space,
       null_ls.builtins.diagnostics.zsh,
-      null_ls.builtins.formatting.black,
-      null_ls.builtins.formatting.eslint_d.with({
-        cwd = eslint_cwd,
-        condition = eslint_condition,
-      }),
+      null_ls.builtins.formatting.black, -- TODO: add to mason + mason-null-ls
+      null_ls.builtins.formatting.eslint_d,
       null_ls.builtins.formatting.gofmt,
       null_ls.builtins.formatting.markdownlint,
-      null_ls.builtins.formatting.prettierd.with({
+      null_ls.builtins.formatting.prettierd.with({ -- TODO: fix, why not working?
         env = {
           PRETTIERD_DEFAULT_CONFIG = vim.fn.expand("~/.config/prettierrc.json"),
         },
-        cwd = prettier_cwd,
-        condition = prettier_condition,
       }),
-      null_ls.builtins.formatting.stylua,
+      null_ls.builtins.formatting.shfmt,
+      null_ls.builtins.formatting.stylua, -- TODO: setup vim global for .config/nvim folder
+      null_ls.builtins.formatting.trim_newlines,
       null_ls.builtins.formatting.trim_whitespace,
-      null_ls.builtins.formatting.rustfmt,
     },
-    on_attach = function(client)
-      vim.cmd([[
-        augroup LspFormatting
-            autocmd! * <buffer>
-            autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
-        augroup END
-      ]])
-
+    on_attach = function(client, bufnr)
+      -- Set up autoformatting
       client.resolved_capabilities.document_formatting = true
       client.resolved_capabilities.document_range_formatting = true
+      if client.supports_method("textDocument/formatting") then
+        vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+        vim.api.nvim_create_autocmd("BufWritePre", {
+          group = augroup,
+          buffer = bufnr,
+          callback = function()
+            -- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
+            vim.lsp.buf.formatting_sync()
+          end,
+        })
+      end
     end,
   }
 
@@ -95,5 +69,4 @@ return {
   packageName,
   requires = requires,
   config = config,
-  commit = "3651217135b465acb671d404c2534d5c8762af86",
 }

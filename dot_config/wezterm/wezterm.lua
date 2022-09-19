@@ -2,6 +2,8 @@ local wezterm = require("wezterm")
 local io = require("io")
 local os = require("os")
 
+-- TODO: scandics not working, fix
+
 local hyperlink_rules = {
   -- Linkify things that look like URLs
   -- This is actually the default if you don't specify any hyperlink_rules
@@ -165,6 +167,8 @@ local keys = {
 }
 
 return {
+
+  -- TODO: load colorschema from different file
   colors = {
     foreground = "#0E1116",
     background = "#ffffff",

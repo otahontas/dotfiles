@@ -4,19 +4,28 @@ local requires = "nvim-lua/plenary.nvim"
 
 local config = function()
   local on_attach = function(bufnr)
-    local function map(mode, l, r, opts)
-      opts = opts or {}
-      opts.buffer = bufnr
-      vim.keymap.set(mode, l, r, opts)
-    end
+    local buf_map = require("utils").buf_map
 
     -- Navigation
-    map("n", "]c", "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", { expr = true })
-    map("n", "[c", "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", { expr = true })
+    buf_map(
+      bufnr,
+      "n",
+      "]c",
+      "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'",
+      { expr = true, suffix = "" }
+    )
+
+    buf_map(
+      bufnr,
+      "n",
+      "[c",
+      "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'",
+      { expr = true, suffix = "" }
+    )
 
     -- Actions
-    map({ "n", "v" }, "<leader>sh", ":Gitsigns stage_hunk<CR>")
-    map({ "n", "v" }, "<leader>rh", ":Gitsigns reset_hunk<CR>")
+    buf_map(bufnr, "n", "<leader>sh", ":Gitsigns stage_hunk")
+    buf_map(bufnr, "n", "<leader>rh", ":Gitsigns reset_hunk")
   end
   local options = {
     on_attach = on_attach,
@@ -29,5 +38,4 @@ return {
   packageName,
   requires = requires,
   config = config,
-  commit = "4883988cf8b623f63cc8c7d3f11b18b7e81f06ff",
 }

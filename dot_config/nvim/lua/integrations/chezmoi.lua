@@ -6,7 +6,7 @@ create_autogroup("AutoApplyChezmoi", {
   "BufWritePost ~/.local/share/chezmoi/* ! chezmoi apply --source-path %",
 })
 
--- Try to load better filetype for chezmoi tempalte files
+-- Try to load better filetype for chezmoi template files
 create_autogroup("ChangeChezmoiTemplateFiletypes", {
   "BufNewFile,BufRead ~/local/share/chezmoi/**/*.tmpl let &filetype = expand('%:r:e')",
 })

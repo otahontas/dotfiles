@@ -53,6 +53,8 @@ local options = {
     precedes = "«",
     trail = "•",
   },
+  -- Spellcheck
+  spell = true,
 }
 for option, value in pairs(options) do
   vim.opt[option] = value

@@ -1,7 +1,7 @@
-local packageName = "lambdalisue/suda.vim"
+local packageName = "williamboman/mason.nvim"
 
 local config = function()
-  vim.g.suda_smart_edit = 1
+  require("mason").setup()
 end
 
 return {
