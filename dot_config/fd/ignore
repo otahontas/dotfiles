@@ -4,6 +4,7 @@
 
 # Skip various cache folders
 .cache/*/*
+.colima/
 .npm/
 Library/
 node_modules/
