@@ -34,3 +34,13 @@ map("t", "<C-w>l", "<C-\\><C-n><C-w>l", { suffix = "" })
 -- Move in quickfixlist
 map("n", "<leader>cn", ":cnext")
 map("n", "<leader>cp", ":cprev")
+vim.cmd([[
+function! ToggleQuickFix()
+    if empty(filter(getwininfo(), 'v:val.quickfix'))
+        copen
+    else
+        cclose
+    endif
+endfunction
+nnoremap <silent> <leader>cq :call ToggleQuickFix()<cr>
+]])

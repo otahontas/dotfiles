@@ -4,29 +4,40 @@ local requires = "nvim-lua/plenary.nvim"
 
 local config = function()
   local on_attach = function(bufnr)
-    local buf_map = require("utils").buf_map
+    local gs = package.loaded.gitsigns
+
+    local map = function(mode, l, r, opts)
+      opts = opts or {}
+      opts.buffer = bufnr
+      vim.keymap.set(mode, l, r, opts)
+    end
 
     -- Navigation
-    buf_map(
-      bufnr,
-      "n",
-      "]c",
-      "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'",
-      { expr = true, suffix = "" }
-    )
+    map("n", "]c", function()
+      if vim.wo.diff then
+        return "]c"
+      end
+      vim.schedule(function()
+        gs.next_hunk()
+      end)
+      return "<Ignore>"
+    end, { expr = true })
 
-    buf_map(
-      bufnr,
-      "n",
-      "[c",
-      "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'",
-      { expr = true, suffix = "" }
-    )
-
-    -- Actions
-    buf_map(bufnr, "n", "<leader>sh", ":Gitsigns stage_hunk")
-    buf_map(bufnr, "n", "<leader>rh", ":Gitsigns reset_hunk")
+    map("n", "[c", function()
+      if vim.wo.diff then
+        return "[c"
+      end
+      vim.schedule(function()
+        gs.prev_hunk()
+      end)
+      return "<Ignore>"
+    end, { expr = true })
+    map({ "n", "v" }, "<leader>sh", ":Gitsigns stage_hunk<CR>")
+    map({ "n", "v" }, "<leader>rh", ":Gitsigns reset_hunk<CR>")
+    map("n", "<leader>ph", gs.preview_hunk)
+    map("n", "<leader>bl", gs.toggle_current_line_blame)
   end
+
   local options = {
     on_attach = on_attach,
     current_line_blame = true,

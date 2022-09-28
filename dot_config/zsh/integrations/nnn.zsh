@@ -1,5 +1,5 @@
 # Wrapper for nnn to cd on quit
-#
+
 function nnn () {
     # Block nesting of nnn in subshells
     if [ -n $NNNLVL ] && [ "${NNNLVL:-0}" -ge 1 ]; then
@@ -7,8 +7,8 @@ function nnn () {
         return
     fi
 
-    # NOTE: NNN_TMPFILE is fixed, should not be modified
-    export NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
+    # NNN_TMPFILE is fixed, should not be modified
+    export NNN_TMPFILE="${XDG_CONFIG_HOME}/nnn/.lastd"
 
     command nnn "$@"
 

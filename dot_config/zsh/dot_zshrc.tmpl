@@ -2,7 +2,7 @@
 # shells to share history all the time (e.g. don't wait until shell is closed)
 [[ -e $XDG_DATA_HOME/zsh ]] || mkdir $XDG_DATA_HOME/zsh
 HISTFILE=$XDG_DATA_HOME/zsh/histfile
-HISTSIZE=5000
+HISTSIZE=10000
 SAVEHIST=$HISTSIZE
 setopt sharehistory
 setopt incappendhistory
@@ -17,6 +17,9 @@ setopt extendedglob
 
 # Set vi-mode to launch immediately
 export KEYTIMEOUT=1
+
+# Load brew
+source $ZDOTDIR/integrations/brew.zsh
 
 # Add otherwise untrusted brew site-function to fpath
 fpath+=$(brew --prefix)/share/zsh/site-functions
@@ -34,7 +37,7 @@ autoload -Uz compinit
   else
     compinit -C
   fi
-} ${ZDOTDIR:-$HOME}/.zcompdump(N.mh+24)
+} ${ZDOTDIR}/.zcompdump(N.mh+24)
 setopt correct
 setopt correctall
 setopt no_list_ambiguous
@@ -57,21 +60,10 @@ source $ZDOTDIR/.zsh_aliases
 source $ZDOTDIR/.zsh_functions
 
 # Load settings for various programs
-source $ZDOTDIR/integrations/aws.zsh
-source $ZDOTDIR/integrations/bat.zsh
-source $ZDOTDIR/integrations/brew.zsh
-source $ZDOTDIR/integrations/cargo.zsh
-source $ZDOTDIR/integrations/fnm.zsh
-source $ZDOTDIR/integrations/fzf.zsh
-source $ZDOTDIR/integrations/go.zsh
-source $ZDOTDIR/integrations/google-cloud-sdk.zsh
-source $ZDOTDIR/integrations/gpg.zsh
-source $ZDOTDIR/integrations/nnn.zsh
-source $ZDOTDIR/integrations/nvim.zsh
-source $ZDOTDIR/integrations/pdm.zsh
-source $ZDOTDIR/integrations/pipx.zsh
-source $ZDOTDIR/integrations/pyenv.zsh
-source $ZDOTDIR/integrations/ssh.zsh
+# Add list of integrations to chezmoi config file in $XDG_CONFIG_HOME/chezmoi
+{{ range .zsh.integrations -}}
+source $ZDOTDIR/integrations/{{ . }}.zsh
+{{ end }}
 
 # Add custom local bin to PATH
 [[ $PATH != *"$HOME/.local/bin"* ]] && export PATH=$HOME/.local/bin:$PATH

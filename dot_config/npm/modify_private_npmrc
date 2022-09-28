@@ -1,0 +1,17 @@
+#!/bin/sh
+# Create tempfile
+tempfile="$(mktemp)"
+
+# Remove tempfile after exit
+trap 'rm -rf "${tempfile}"' EXIT
+
+# Write file to tempfile
+cat > "${tempfile}"
+
+# Add cache row if it's not in file
+if ! grep -q "cache" "${tempfile}"; then
+    echo "cache=\${XDG_CACHE_HOME}/npm"
+fi
+
+# Add other parts of the file
+cat "${tempfile}"

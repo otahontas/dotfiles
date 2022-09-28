@@ -1,12 +1,11 @@
-local packageName = "jayp0521/mason-null-ls.nvim"
+local packageName = "williamboman/mason-lspconfig.nvim"
 
 local after = {
-  "null-ls.nvim",
   "mason.nvim",
 }
 
 local config = function()
-  require("mason-null-ls").setup({
+  require("mason-lspconfig").setup({
     automatic_installation = true,
   })
 end

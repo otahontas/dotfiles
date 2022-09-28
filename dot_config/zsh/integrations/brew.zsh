@@ -1,10 +1,13 @@
-# Add brew sbin to path
-[[ $PATH != *"/usr/local/sbin"* ]] && export PATH=/usr/local/sbin:$PATH
+# Add brew to path
+if [[ "$(/usr/bin/uname -m)" == "arm64" ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+else
+    eval "$(/usr/local/bin/brew shellenv)"
+fi
 
 # Wrapper for brew to execute brewfile dumping on certain brew commands
-# TODO: fix some possibly erronous stuff (shellcheck this)
 function brew () {
-    local dump_commands=("install" "uninstall" "tap" "untap" "upgrade")
+    local dump_commands=("install" "uninstall" "tap" "untap" "upgrade" "update")
     local main_command="${1}"
     local brewfile_path="$(chezmoi source-path)/mac/packages/Brewfile-$(scutil --get ComputerName)"
 

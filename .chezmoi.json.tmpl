@@ -1,6 +1,8 @@
 {{-  $aerc_mailboxes := default (get .aerc "mailboxes") ("[]") | fromJson -}}
+{{-  $git_email := default (get .git "email") (promptString "Git email") -}}
 {{-  $spotifyd_username := default (get .spotifyd "username") (output "op" "item" "get" "Spotify" "--fields" "label=username" | trim) -}}
 {{-  $spotifyd_computer_name := output "scutil" "--get" "ComputerName" | trim -}}
+{{-  $zsh_integrations := default (get .zsh "integrations") ("[]") | fromJson -}}
 {
   "data": {
     "aerc": {
@@ -9,6 +11,12 @@
     "spotifyd": {
       "username": {{ $spotifyd_username | quote }},
       "computer_name": {{ $spotifyd_computer_name | quote }}
+    },
+    "git": {
+      "email": {{ $git_email | quote }}
+    },
+    "zsh": {
+      "integrations": {{ $zsh_integrations | toPrettyJson }}
     }
   },
   "diff": {

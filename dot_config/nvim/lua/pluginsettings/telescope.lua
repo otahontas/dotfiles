@@ -13,6 +13,7 @@ map("n", "<leader>ch", base .. "command_history()")
 map("n", "<leader>km", base .. "keymaps()")
 map("n", "<leader>rr", base .. "registers()")
 map("n", "<leader>cc", base .. "commands()")
+map("n", "<leader>ge", base .. "diagnostics()")
 
 -- Files
 map("n", "<leader>ff", base .. "find_files()")

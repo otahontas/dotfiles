@@ -61,3 +61,33 @@ function listening() {
 function myip() {
     ifconfig | grep "inet " | grep -Fv 127.0.0.1 | awk '{print $2}'
 }
+
+function yarns() {
+  if [ ! -f package.json ]; then
+    echo "package.json not found" >&2
+  else
+    local command=$(jq '.scripts | keys[]' package.json -r | tr -d '"' |
+    fzf --reverse \
+      --preview-window=:wrap \
+      --preview "jq '.scripts.\"{}\"' package.json -r | tr -d '\"' | sed 's/^[[:blank:]]*//'")
+
+    if [ -n "$command" ]; then
+      eval "yarn $command"
+    fi
+  fi
+}
+
+function npms() {
+  if [ ! -f package.json ]; then
+    echo "package.json not found" >&2
+  else
+    local command=$(jq '.scripts | keys[]' package.json -r | tr -d '"' |
+    fzf --reverse \
+      --preview-window=:wrap \
+      --preview "jq '.scripts.\"{}\"' package.json -r | tr -d '\"' | sed 's/^[[:blank:]]*//'")
+
+    if [ -n "$command" ]; then
+      eval "npm run $command"
+    fi
+  fi
+}

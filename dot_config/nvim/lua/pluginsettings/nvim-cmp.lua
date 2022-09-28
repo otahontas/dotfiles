@@ -12,6 +12,8 @@ local requires = {
   "rafamadriz/friendly-snippets",
   "hrsh7th/cmp-nvim-lsp-signature-help",
   "hrsh7th/cmp-nvim-lsp-document-symbol",
+  "petertriho/cmp-git",
+  "nvim-lua/plenary.nvim",
 }
 
 local config = function()
@@ -22,6 +24,7 @@ local config = function()
     { name = "nvim_lsp" },
     { name = "vsnip" },
     { name = "nvim_lsp_signature_help" },
+    { name = "git" },
   }
   local options = {
     snippet = {
@@ -79,6 +82,9 @@ local config = function()
     "confirm_done",
     require("nvim-autopairs.completion.cmp").on_confirm_done()
   )
+
+  -- load cmp-git
+  require("cmp_git").setup()
 end
 
 return {

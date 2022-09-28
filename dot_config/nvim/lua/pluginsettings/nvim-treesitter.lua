@@ -6,6 +6,7 @@ local requires = {
   "RRethy/nvim-treesitter-endwise",
   "m-demare/hlargs.nvim",
   "nvim-treesitter/nvim-treesitter-textobjects",
+  "nvim-treesitter/nvim-treesitter-context",
 }
 
 local run = ":TSUpdate"
@@ -113,6 +114,12 @@ local config = function()
 
   -- Highlight arguments with treesitter
   require("hlargs").setup()
+
+  -- Allow treesitter context
+  require("treesitter-context").setup()
+
+  -- add better highlight group (from gh theme)
+  vim.cmd("highlight TreesitterContext guibg=#e1e4e8")
 end
 
 return {

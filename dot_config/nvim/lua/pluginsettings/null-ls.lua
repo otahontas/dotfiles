@@ -23,24 +23,24 @@ local config = function()
       null_ls.builtins.diagnostics.gitlint,
       null_ls.builtins.diagnostics.golangci_lint, -- TODO: turn on more useful linters
       null_ls.builtins.diagnostics.hadolint,
-      null_ls.builtins.diagnostics.luacheck,
+      null_ls.builtins.diagnostics.luacheck, -- TODO: setup vim global for .config/nvim folder
       null_ls.builtins.diagnostics.markdownlint,
       null_ls.builtins.diagnostics.misspell,
       null_ls.builtins.diagnostics.shellcheck,
       null_ls.builtins.diagnostics.todo_comments,
       null_ls.builtins.diagnostics.trail_space,
       null_ls.builtins.diagnostics.zsh,
-      null_ls.builtins.formatting.black, -- TODO: add to mason + mason-null-ls
+      null_ls.builtins.formatting.black, -- TODO: add to mason-null-ls
       null_ls.builtins.formatting.eslint_d,
       null_ls.builtins.formatting.gofmt,
       null_ls.builtins.formatting.markdownlint,
-      null_ls.builtins.formatting.prettierd.with({ -- TODO: fix, why not working?
+      null_ls.builtins.formatting.prettierd.with({
         env = {
           PRETTIERD_DEFAULT_CONFIG = vim.fn.expand("~/.config/prettierrc.json"),
         },
       }),
       null_ls.builtins.formatting.shfmt,
-      null_ls.builtins.formatting.stylua, -- TODO: setup vim global for .config/nvim folder
+      null_ls.builtins.formatting.stylua,
       null_ls.builtins.formatting.trim_newlines,
       null_ls.builtins.formatting.trim_whitespace,
     },
