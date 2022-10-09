@@ -34,11 +34,7 @@ local config = function()
       null_ls.builtins.formatting.eslint_d,
       null_ls.builtins.formatting.gofmt,
       null_ls.builtins.formatting.markdownlint,
-      null_ls.builtins.formatting.prettierd.with({
-        env = {
-          PRETTIERD_DEFAULT_CONFIG = vim.fn.expand("~/.config/prettierrc.json"),
-        },
-      }),
+      null_ls.builtins.formatting.prettierd,
       null_ls.builtins.formatting.shfmt,
       null_ls.builtins.formatting.stylua,
       null_ls.builtins.formatting.trim_newlines,
