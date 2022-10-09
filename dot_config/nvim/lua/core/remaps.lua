@@ -1,39 +1,36 @@
-local utils = require("utils")
-local map = utils.map
-
 -- Toggle hidden chars
-map("n", "<leader>sc", ":set invlist")
+vim.keymap.set("n", "<leader>sc", "<cmd>set invlist<cr>", { silent = true })
 
 -- Open terminal in this, vertical or horisontal split
-map("n", "<leader>ss", ":terminal")
-map("n", "<leader>vt", "<C-w>v<C-w>l:terminal")
-map("n", "<leader>st", "<C-w>s<C-w>j:terminal")
+vim.keymap.set("n", "<leader>ss", "<cmd>terminal<cr>", { silent = true })
+vim.keymap.set("n", "<leader>vt", "<C-w>v<C-w>l<cmd>terminal<cr>", { silent = true })
+vim.keymap.set("n", "<leader>st", "<C-w>s<C-w>j<cmd>terminal<cr>", { silent = true })
 
 -- Toggle highlighting
-map("n", "<leader>nh", ":nohlsearch")
+vim.keymap.set("n", "<leader>nh", "<cmd>nohlsearch<cr>", { silent = true })
 
 -- Buffer movement
-map("n", "<leader>bn", ":bnext")
-map("n", "<leader>bp", ":bprev")
-map("n", "<leader>bd", ":bdelete")
+vim.keymap.set("n", "<leader>bn", "<cmd>bnext<cr>", { silent = true })
+vim.keymap.set("n", "<leader>bp", "<cmd>bprev<cr>", { silent = true })
+vim.keymap.set("n", "<leader>bd", "<cmd>bdelete<cr>", { silent = true })
 
 -- Tabs
-map("n", "<leader>tn", ":tabnew")
+vim.keymap.set("n", "<leader>tn", "<cmd>tabnew<cr>")
 
 -- Fast saving
-map("n", "<leader>ww", ":w!", { silent = false })
+vim.keymap.set("n", "<leader>ww", "<cmd>w!<cr>", { silent = false })
 
 -- Change this windows working directory to current dir and print it
-map("n", "<leader>cwd", ":lcd %:p:h<CR>:pwd", { silent = false })
+vim.keymap.set("n", "<leader>cwd", "<cmd>lcd %:p:h<cr>:pwd<cr>")
 
 -- Move to normal mode in terminal with Ctrl-W followed by ESC
-map("t", "<C-w><Esc>", "<C-\\><C-n>", { suffix = "" })
-map("t", "<C-w>k", "<C-\\><C-n><C-w>k", { suffix = "" })
-map("t", "<C-w>l", "<C-\\><C-n><C-w>l", { suffix = "" })
+vim.keymap.set("t", "<C-w><Esc>", "<C-\\><C-n>", { silent = true })
+vim.keymap.set("t", "<C-w>k", "<C-\\><C-n><C-w>k", { silent = true })
+vim.keymap.set("t", "<C-w>l", "<C-\\><C-n><C-w>l", { silent = true })
 
 -- Move in quickfixlist
-map("n", "<leader>cn", ":cnext")
-map("n", "<leader>cp", ":cprev")
+vim.keymap.set("n", "<leader>cn", "<cmd>:cnext<cr>", { silent = true })
+vim.keymap.set("n", "<leader>cp", "<cmd>:cprev<cr>", { silent = true })
 vim.cmd([[
 function! ToggleQuickFix()
     if empty(filter(getwininfo(), 'v:val.quickfix'))
@@ -42,5 +39,5 @@ function! ToggleQuickFix()
         cclose
     endif
 endfunction
-nnoremap <silent> <leader>cq :call ToggleQuickFix()<cr>
 ]])
+vim.keymap.set("n", "<leader>cq", "<cmd>call ToggleQuickFix()<cr>")

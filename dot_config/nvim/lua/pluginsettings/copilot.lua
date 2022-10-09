@@ -1,11 +1,13 @@
 local packageName = "github/copilot.vim"
 
-local run = ":Copilot setup"
+local config = function()
+  vim.g.copilot_node_command = "node16"
+end
 
--- NOTE: ensure this is available in path
-vim.g.copilot_node_command = "node16"
+local run = ":Copilot setup"
 
 return {
   packageName,
+  config = config,
   run = run,
 }

@@ -1,11 +1,11 @@
 local packageName = "neovim/nvim-lspconfig"
 
 local requires = {
-  "RRethy/vim-illuminate",
   "b0o/SchemaStore.nvim",
-  "stevearc/dressing.nvim",
   "folke/lua-dev.nvim",
   "jose-elias-alvarez/typescript.nvim",
+  "SmiteshP/nvim-navic",
+  "williamboman/mason-lspconfig.nvim",
 }
 
 local after = {
@@ -23,38 +23,22 @@ local config = function()
     "html",
     "jsonls",
     "pyright",
-    "rust_analyzer", -- TODO: better setup with nvim rstools
+    "rust_analyzer",
     "sourcery",
     "sumneko_lua",
     "tailwindcss",
     "taplo",
     "tsserver",
-    "yamlls", -- TODO: kubernetes setup
-  }
-
-  local extra_capabilities_for_vscode_langserver = {
-    textDocument = {
-      completion = {
-        completionItem = {
-          snippetSupport = true,
-        },
-      },
-    },
+    "yamlls",
   }
 
   local server_spesific_opts = {
-    cssls = {
-      extra_capabilities = extra_capabilities_for_vscode_langserver,
-    },
-    html = {
-      extra_capabilities = extra_capabilities_for_vscode_langserver,
-    },
     jsonls = {
-      extra_capabilities = extra_capabilities_for_vscode_langserver,
       override_opts = {
         settings = {
           json = {
             schemas = require("schemastore").json.schemas(),
+            validate = { enable = true },
           },
         },
       },
@@ -64,18 +48,14 @@ local config = function()
         settings = {
           Lua = {
             runtime = {
-              -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
               version = "LuaJIT",
             },
             diagnostics = {
-              -- Get the language server to recognize the `vim` global
               globals = { "vim" },
             },
             workspace = {
-              -- Make the server aware of Neovim runtime files
               library = vim.api.nvim_get_runtime_file("", true),
             },
-            -- Do not send telemetry data containing a randomized but unique identifier
             telemetry = {
               enable = false,
             },
@@ -88,17 +68,8 @@ local config = function()
     },
   }
 
-  local create_capabilities = function(extra_capabilities)
-    local capabilities = vim.tbl_deep_extend(
-      "force",
-      vim.lsp.protocol.make_client_capabilities(),
-      extra_capabilities or {}
-    )
-    return require("cmp_nvim_lsp").update_capabilities(capabilities)
-  end
-
   local on_attach = function(client, bufnr)
-    local bufopts = { noremap = true, silent = true, buffer = bufnr }
+    local bufopts = { silent = true, buffer = bufnr }
     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
     vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
@@ -115,48 +86,34 @@ local config = function()
     vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, bufopts)
     vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, bufopts)
     vim.keymap.set("n", "]d", vim.diagnostic.goto_next, bufopts)
-
-    -- TODO: set range code actions separately
-
-    client.resolved_capabilities.document_formatting = false
-    client.resolved_capabilities.document_range_formatting = false
-
-    -- Toggle on some lsp based plugins on attach
-    require("illuminate").on_attach(client)
-
     if client.server_capabilities.documentSymbolProvider then
       require("nvim-navic").attach(client, bufnr)
     end
   end
-
   local lspconfig = require("lspconfig")
 
-  for _, lsp in ipairs(servers) do
-    local server_opts = server_spesific_opts[lsp] or {}
+  for _, server in ipairs(servers) do
     local opts = vim.tbl_deep_extend("force", {
       on_attach = on_attach,
-      capabilities = create_capabilities(server_opts.extra_capabilities),
-    }, server_opts.override_opts or {})
-    if lsp == "tsserver" then
-      -- extra setup
+      capabilities = vim.lsp.protocol.make_client_capabilities(),
+    }, server_spesific_opts[server] or {})
+
+    if server == "tsserver" then
       require("typescript").setup({
         server = opts,
       })
+    elseif server == "sumneko_lua" then
+      require("lua-dev").setup({})
+      lspconfig[server].setup(opts)
     else
-      lspconfig[lsp].setup(opts)
+      lspconfig[server].setup(opts)
     end
   end
-
-  -- setup dev env
-  require("lua-dev").setup()
-
-  -- setup better ui for lsp actions
-  require("dressing").setup()
 end
 
 return {
   packageName,
   requires = requires,
-  config = config,
   after = after,
+  config = config,
 }

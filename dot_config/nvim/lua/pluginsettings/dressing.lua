@@ -1,7 +1,7 @@
-local packageName = "levouh/tint.nvim"
+local packageName = "stevearc/dressing.nvim"
 
 local config = function()
-  require("tint").setup({})
+  require("dressing").setup()
 end
 
 return {

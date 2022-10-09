@@ -6,43 +6,31 @@ local config = function()
   local on_attach = function(bufnr)
     local gs = package.loaded.gitsigns
 
-    local map = function(mode, l, r, opts)
-      opts = opts or {}
-      opts.buffer = bufnr
-      vim.keymap.set(mode, l, r, opts)
+    local go_to_hunk = function(keybinding, mode)
+      if vim.wo.diff then
+        return keybinding
+      end
+      vim.schedule(function()
+        gs[mode]()
+      end)
+      return "<Ignore>"
     end
 
-    -- Navigation
-    map("n", "]c", function()
-      if vim.wo.diff then
-        return "]c"
-      end
-      vim.schedule(function()
-        gs.next_hunk()
-      end)
-      return "<Ignore>"
-    end, { expr = true })
-
-    map("n", "[c", function()
-      if vim.wo.diff then
-        return "[c"
-      end
-      vim.schedule(function()
-        gs.prev_hunk()
-      end)
-      return "<Ignore>"
-    end, { expr = true })
-    map({ "n", "v" }, "<leader>sh", ":Gitsigns stage_hunk<CR>")
-    map({ "n", "v" }, "<leader>rh", ":Gitsigns reset_hunk<CR>")
-    map("n", "<leader>ph", gs.preview_hunk)
-    map("n", "<leader>bl", gs.toggle_current_line_blame)
+    local opts = { buffer = bufnr }
+    local next_kb = "]c"
+    local prev_kb = "[c"
+    local hunk_opts = vim.tbl_extend("error", opts, { silent = true })
+    vim.keymap.set("n", next_kb, go_to_hunk(next_kb, "next_hunk"), hunk_opts)
+    vim.keymap.set("n", prev_kb, go_to_hunk(prev_kb, "prev_hunk"), hunk_opts)
+    vim.keymap.set({ "n", "v" }, "<leader>sh", "<cmd>Gitsigns stage_hunk<cr>", opts)
+    vim.keymap.set({ "n", "v" }, "<leader>rh", "<cmd>Gitsigns reset_hunk<cr>", opts)
+    vim.keymap.set("n", "<leader>ph", gs.preview_hunk, opts)
+    vim.keymap.set("n", "<leader>bl", gs.toggle_current_line_blame, opts)
   end
 
-  local options = {
+  require("gitsigns").setup({
     on_attach = on_attach,
-    current_line_blame = true,
-  }
-  require("gitsigns").setup(options)
+  })
 end
 
 return {

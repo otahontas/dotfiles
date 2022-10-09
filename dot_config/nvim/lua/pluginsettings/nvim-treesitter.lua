@@ -49,13 +49,9 @@ local config = function()
       "vim",
       "yaml",
     },
-    -- Install parsers listed in ensure_installed synchronousl
     sync_install = false,
-    -- Automatically install missing parsers when entering buffer
     auto_install = true,
-    -- Highlighting fails on multi-part tex documents, otherwise enable
     highlight = { enable = true, disable = { "latex" } },
-    -- Indenting is weird for yaml
     indent = { enable = true, disable = { "yaml" } },
     rainbow = { enable = true, extended_mode = true },
     autotag = { enable = true },
@@ -63,7 +59,6 @@ local config = function()
     textobjects = {
       select = {
         enable = true,
-        -- Automatically jump forward to textobj
         lookahead = true,
         keymaps = {
           ["af"] = "@function.outer",
@@ -83,7 +78,7 @@ local config = function()
       },
       move = {
         enable = true,
-        set_jumps = true, -- whether to set jumps in the jumplist
+        set_jumps = true,
         goto_next_start = {
           ["]m"] = "@function.outer",
           ["]]"] = "@class.outer",
@@ -104,22 +99,12 @@ local config = function()
     },
   }
   require("nvim-treesitter.configs").setup(options)
-
-  -- Use treesitter to handle folding
-  vim.o.foldmethod = "expr"
-  vim.o.foldexpr = "nvim_treesitter#foldexpr()"
-
-  -- Start always with all folds open
-  vim.o.foldlevelstart = 20
-
-  -- Highlight arguments with treesitter
   require("hlargs").setup()
-
-  -- Allow treesitter context
   require("treesitter-context").setup()
 
-  -- add better highlight group (from gh theme)
-  vim.cmd("highlight TreesitterContext guibg=#e1e4e8")
+  vim.o.foldmethod = "expr"
+  vim.o.foldexpr = "nvim_treesitter#foldexpr()"
+  vim.o.foldlevelstart = 20
 end
 
 return {

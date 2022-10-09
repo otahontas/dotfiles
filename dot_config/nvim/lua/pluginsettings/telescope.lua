@@ -1,84 +1,48 @@
-local utils = require("utils")
-local map = utils.map
-
--- Shortcuts for different modes
-local base = "<cmd>lua require('telescope.builtin')."
-
---- Open generic
-map("n", "<leader>tt", base .. "builtin()")
-
--- Neovim internals
-map("n", "<leader>bb", base .. "buffers()")
-map("n", "<leader>ch", base .. "command_history()")
-map("n", "<leader>km", base .. "keymaps()")
-map("n", "<leader>rr", base .. "registers()")
-map("n", "<leader>cc", base .. "commands()")
-map("n", "<leader>ge", base .. "diagnostics()")
-
--- Files
-map("n", "<leader>ff", base .. "find_files()")
-map("n", "<leader>of", base .. "old_files()")
-map("n", "<leader>rg", base .. "live_grep()")
-
--- LSP Pickers
-map("n", "gd", base .. "lsp_definitions()")
-map("n", "gr", base .. "lsp_references()")
-
 local packageName = "nvim-telescope/telescope.nvim"
 
 local requires = {
-  "nvim-lua/popup.nvim",
   "nvim-lua/plenary.nvim",
   { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
 }
 
 local config = function()
   local telescope = require("telescope")
+  local default_config = require("telescope.config")
 
-  telescope.load_extension("fzf")
+  local vimgrep_arguments = { unpack(default_config.values.vimgrep_arguments) }
 
-  local options = {
+  table.insert(vimgrep_arguments, "--follow")
+  table.insert(vimgrep_arguments, "--hidden")
+  table.insert(vimgrep_arguments, "--trim")
+
+  vim.inspect(vimgrep_arguments)
+
+  telescope.setup({
     defaults = {
-      vimgrep_arguments = {
-        "rg",
-        -- settings from:
-        -- https://github.com/nvim-telescope/telescope.nvim/blob/c92f86386f8446e4deaa79941baabaf825683be9/lua/telescope/config.lua#L631
-        "--color=never",
-        "--no-heading",
-        "--with-filename",
-        "--line-number",
-        "--column",
-        "--smart-case",
-        -- extra additions
-        "--follow",
-        "--hidden",
-        "--trim",
-      },
+      vimgrep_arguments = vimgrep_arguments,
     },
     pickers = {
       find_files = {
-        -- match with fzf default
         find_command = { "fd", "--type", "file", "--strip-cwd-prefix", "--hidden" },
       },
     },
-    extensions = {
-      fzf = {
-        fuzzy = true,
-        override_generic_sorter = false,
-        override_file_sorter = true,
-        case_mode = "smart_case",
-      },
-      dash = {
-        file_type_keywords = {
-          javascript = { "javascript", "nodejs" },
-          typescript = { "typescript", "javascript", "nodejs" },
-          typescriptreact = { "typescript", "javascript", "react" },
-          javascriptreact = { "javascript", "react" },
-        },
-      },
-    },
-  }
-  telescope.setup(options)
+  })
+
+  local builtin_pickers = require("telescope.builtin")
+  vim.keymap.set("n", "<leader>tt", builtin_pickers["builtin"])
+  vim.keymap.set("n", "<leader>bb", builtin_pickers["buffers"])
+  vim.keymap.set("n", "<leader>ch", builtin_pickers["command_history"])
+  vim.keymap.set("n", "<leader>km", builtin_pickers["keymaps"])
+  vim.keymap.set("n", "<leader>rr", builtin_pickers["registers"])
+  vim.keymap.set("n", "<leader>cc", builtin_pickers["commands"])
+  vim.keymap.set("n", "<leader>ge", builtin_pickers["diagnostics"])
+  vim.keymap.set("n", "<leader>ff", builtin_pickers["find_files"])
+  vim.keymap.set("n", "<leader>of", builtin_pickers["oldfiles"])
+  vim.keymap.set("n", "<leader>rg", builtin_pickers["live_grep"])
+  vim.keymap.set("n", "gd", builtin_pickers["lsp_definitions"])
+  vim.keymap.set("n", "gr", builtin_pickers["lsp_references"])
+
+  telescope.load_extension("fzf")
 end
 
 return {

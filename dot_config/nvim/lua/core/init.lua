@@ -1,6 +1,10 @@
 local utils = require("utils")
 local create_autogroup = utils.create_autogroup
 
+-- disable netrw at the very start of your init.lua (strongly advised in nvim-tree docs)
+vim.g.loaded = 1
+vim.g.loaded_netrwPlugin = 1
+
 -- Setup options
 local options = {
   -- Enable better colors
@@ -40,10 +44,10 @@ local options = {
   timeoutlen = 500,
   -- Lower the time when swap file is written to the disk
   updatetime = 300,
-  -- Read changes from outside world
-  autoread = true,
   -- Use global statusline
   laststatus = 3,
+  -- Read changes from outside world
+  autoread = true,
   -- Set up hidden chars to show on toggle
   listchars = {
     nbsp = "¬",
@@ -59,9 +63,6 @@ local options = {
 for option, value in pairs(options) do
   vim.opt[option] = value
 end
-
--- Allow loading filetype settings with filetype.lua
-vim.g.do_filetype_lua = 1
 
 -- Set up leader and localleader keys
 vim.g.mapleader = " "
@@ -89,7 +90,7 @@ vim.cmd('let &colorcolumn="88"')
 
 -- Set different color for terminal mode cursor
 vim.cmd("highlight! link TermCursor Cursor")
-vim.cmd("highlight! TermCursorNC guibg=blue guifg=white ctermbg=1 ctermfg=15")
+-- vim.cmd("highlight! TermCursorNC guibg=blue guifg=white ctermbg=1 ctermfg=15")
 
 -- Don't put backups to the same directory as original file
 vim.opt.backupdir:remove({ "." })

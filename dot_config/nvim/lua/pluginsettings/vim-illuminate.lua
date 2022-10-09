@@ -1,7 +1,7 @@
-local packageName = "levouh/tint.nvim"
+local packageName = "RRethy/vim-illuminate"
 
 local config = function()
-  require("tint").setup({})
+  require("illuminate")
 end
 
 return {

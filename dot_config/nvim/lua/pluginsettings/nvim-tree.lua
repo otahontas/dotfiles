@@ -1,14 +1,6 @@
-local utils = require("utils")
-local map = utils.map
-
--- Set up keybindings
-map("n", "<leader>ee", ":NvimTreeToggle")
-map("n", "<leader>er", ":NvimTreeRefresh")
-map("n", "<leader>en", ":NvimTreeFindFile")
-
 local packageName = "kyazdani42/nvim-tree.lua"
 
-local requires = { "kyazdani42/nvim-web-devicons" }
+local requires = { "kyazdani42/nvim-web-devicons", opt = true }
 
 local config = function()
   require("nvim-tree").setup({
@@ -28,6 +20,11 @@ local config = function()
       highlight_opened_files = "icon",
     },
   })
+
+  local keymap_opts = { silent = true }
+  vim.keymap.set("n", "<leader>ee", "<cmd>NvimTreeToggle<CR>", keymap_opts)
+  vim.keymap.set("n", "<leader>er", "<cmd>NvimTreeRefresh<CR>", keymap_opts)
+  vim.keymap.set("n", "<leader>en", "<cmd>NvimTreeFindFile<CR>", keymap_opts)
 end
 
 return {

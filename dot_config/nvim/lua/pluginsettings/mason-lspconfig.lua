@@ -1,5 +1,9 @@
 local packageName = "williamboman/mason-lspconfig.nvim"
 
+local requires = {
+  "williamboman/mason.nvim",
+}
+
 local after = {
   "mason.nvim",
 }
@@ -12,6 +16,7 @@ end
 
 return {
   packageName,
+  requires = requires,
   after = after,
   config = config,
 }

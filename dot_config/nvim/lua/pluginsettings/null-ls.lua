@@ -2,60 +2,93 @@ local packageName = "jose-elias-alvarez/null-ls.nvim"
 
 local requires = {
   "nvim-lua/plenary.nvim",
-  "neovim/nvim-lspconfig",
+  "williamboman/mason.nvim",
+}
+
+local after = {
+  "mason.nvim",
 }
 
 local config = function()
   local null_ls = require("null-ls")
 
+  local lsp_formatting = function(bufnr)
+    vim.lsp.buf.format({
+      filter = function(client)
+        return client.name == "null-ls"
+      end,
+      bufnr = bufnr,
+    })
+  end
+
   local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+
+  local on_attach = function(client, bufnr)
+    if client.supports_method("textDocument/formatting") then
+      vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        group = augroup,
+        buffer = bufnr,
+        callback = function()
+          lsp_formatting(bufnr)
+        end,
+      })
+    end
+  end
+
+  local filetypes_formatted_with_other_formatters = {
+    "css",
+    "go",
+    "graphql",
+    "handlebars",
+    "html",
+    "javascript",
+    "javascriptreact",
+    "json",
+    "jsonc",
+    "less",
+    "lua",
+    "markdown",
+    "markdown.mdx",
+    "python",
+    "scss",
+    "sh",
+    "typescript",
+    "typescriptreact",
+    "vue",
+    "yaml",
+  }
 
   local options = {
     debug = false,
     sources = {
       null_ls.builtins.code_actions.eslint_d,
-      null_ls.builtins.code_actions.gitsigns,
-      null_ls.builtins.code_actions.refactoring,
-      null_ls.builtins.code_actions.shellcheck,
       null_ls.builtins.diagnostics.actionlint,
-      null_ls.builtins.diagnostics.cfn_lint,
       null_ls.builtins.diagnostics.eslint_d,
       null_ls.builtins.diagnostics.gitlint,
-      null_ls.builtins.diagnostics.golangci_lint, -- TODO: turn on more useful linters
+      null_ls.builtins.diagnostics.golangci_lint,
       null_ls.builtins.diagnostics.hadolint,
-      null_ls.builtins.diagnostics.luacheck, -- TODO: setup vim global for .config/nvim folder
+      null_ls.builtins.diagnostics.luacheck,
       null_ls.builtins.diagnostics.markdownlint,
-      null_ls.builtins.diagnostics.misspell,
       null_ls.builtins.diagnostics.shellcheck,
-      null_ls.builtins.diagnostics.todo_comments,
-      null_ls.builtins.diagnostics.trail_space,
       null_ls.builtins.diagnostics.zsh,
-      null_ls.builtins.formatting.black, -- TODO: add to mason-null-ls
+      null_ls.builtins.formatting.black,
       null_ls.builtins.formatting.eslint_d,
       null_ls.builtins.formatting.gofmt,
       null_ls.builtins.formatting.markdownlint,
-      null_ls.builtins.formatting.prettierd,
+      null_ls.builtins.formatting.prettierd.with({
+        disabled_filetypes = { "markdown" },
+      }),
       null_ls.builtins.formatting.shfmt,
       null_ls.builtins.formatting.stylua,
-      null_ls.builtins.formatting.trim_newlines,
-      null_ls.builtins.formatting.trim_whitespace,
+      null_ls.builtins.formatting.trim_newlines.with({
+        disabled_filetypes = filetypes_formatted_with_other_formatters,
+      }),
+      null_ls.builtins.formatting.trim_whitespace.with({
+        disabled_filetypes = filetypes_formatted_with_other_formatters,
+      }),
     },
-    on_attach = function(client, bufnr)
-      -- Set up autoformatting
-      client.resolved_capabilities.document_formatting = true
-      client.resolved_capabilities.document_range_formatting = true
-      if client.supports_method("textDocument/formatting") then
-        vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-        vim.api.nvim_create_autocmd("BufWritePre", {
-          group = augroup,
-          buffer = bufnr,
-          callback = function()
-            -- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
-            vim.lsp.buf.formatting_sync()
-          end,
-        })
-      end
-    end,
+    on_attach = on_attach,
   }
 
   null_ls.setup(options)
@@ -64,5 +97,6 @@ end
 return {
   packageName,
   requires = requires,
+  after = after,
   config = config,
 }
