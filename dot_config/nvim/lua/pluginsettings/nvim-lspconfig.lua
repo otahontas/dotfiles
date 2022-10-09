@@ -6,6 +6,8 @@ local requires = {
   "jose-elias-alvarez/typescript.nvim",
   "SmiteshP/nvim-navic",
   "williamboman/mason-lspconfig.nvim",
+  "ms-jpq/coq_nvim",
+  "ms-jpq/coq.artifacts",
 }
 
 local after = {
@@ -91,12 +93,13 @@ local config = function()
     end
   end
   local lspconfig = require("lspconfig")
+  local coq = require("coq")
 
   for _, server in ipairs(servers) do
-    local opts = vim.tbl_deep_extend("force", {
+    local opts = coq.lsp_ensure_capabilities(vim.tbl_deep_extend("force", {
       on_attach = on_attach,
       capabilities = vim.lsp.protocol.make_client_capabilities(),
-    }, server_spesific_opts[server] or {})
+    }, server_spesific_opts[server] or {}))
 
     if server == "tsserver" then
       require("typescript").setup({
