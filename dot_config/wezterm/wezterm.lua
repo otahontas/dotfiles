@@ -167,33 +167,7 @@ local keys = {
 }
 
 return {
-
-  -- TODO: load colorschema from different file
-  colors = {
-    foreground = "#0E1116",
-    background = "#ffffff",
-    ansi = {
-      "#24292f",
-      "#cf222e",
-      "#116329",
-      "#4d2d00",
-      "#0969da",
-      "#8250df",
-      "#1b7c83",
-      "#6e7781",
-    },
-    brights = {
-      "#57606a",
-      "#a40e26",
-      "#1a7f37",
-      "#633c01",
-      "#218bff",
-      "#a475f9",
-      "#3192aa",
-      "#8c959f",
-    },
-    indexed = { [16] = "#d18616", [17] = "#a40e26" },
-  },
+  color_scheme = "Catppuccin Mocha",
   disable_default_key_bindings = true,
   font = wezterm.font("JetBrainsMono Nerd Font"),
   font_size = 14,

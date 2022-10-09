@@ -5,11 +5,7 @@ source "$(brew --prefix)/opt/fzf/shell/key-bindings.zsh"
 bindkey "©" fzf-cd-widget
 
 # Setup defaults
-export FZF_DEFAULT_OPTS="--height 50% --layout=reverse
---color=fg:#4b505b,bg:#fafafa,hl:#5079be
---color=fg+:#4b505b,bg+:#fafafa,hl+:#3a8b84
---color=info:#88909f,prompt:#d05858,pointer:#b05ccc
---color=marker:#608e32,spinner:#d05858,header:#3a8b84"
+export FZF_DEFAULT_OPTS="--height 50% --layout=reverse"
 # Always show hidden, follow symlinks, and use preview window
 export FZF_DEFAULT_COMMAND="fd --hidden --follow --strip-cwd-prefix"
 export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type directory"
@@ -28,5 +24,3 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
 # switch group using `,` and `.`
 zstyle ':fzf-tab:*' switch-group ',' '.'
-# Change detault color
-zstyle ':fzf-tab:*' default-color $'\033[38;5;19m'
