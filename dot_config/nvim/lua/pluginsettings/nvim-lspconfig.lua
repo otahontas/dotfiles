@@ -93,6 +93,10 @@ local config = function()
     end
   end
   local lspconfig = require("lspconfig")
+
+  vim.g.coq_settings = {
+    auto_start = "shut-up",
+  }
   local coq = require("coq")
 
   for _, server in ipairs(servers) do
