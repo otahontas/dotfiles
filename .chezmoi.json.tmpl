@@ -1,22 +1,21 @@
-{{-  $aerc_mailboxes := default (get .aerc "mailboxes") ("[]") | fromJson -}}
-{{-  $git_email := default (get .git "email") (promptString "Git email") -}}
-{{-  $spotifyd_username := default (get .spotifyd "username") (output "op" "item" "get" "Spotify" "--fields" "label=username" | trim) -}}
-{{-  $spotifyd_computer_name := output "scutil" "--get" "ComputerName" | trim -}}
-{{-  $zsh_integrations := default (get .zsh "integrations") ("[]") | fromJson -}}
 {
   "data": {
     "aerc": {
-      "mailboxes": {{ $aerc_mailboxes | toPrettyJson }}
+      "mailboxes": {{ default list (get .aerc "mailboxes") | toJson }}
     },
     "spotifyd": {
-      "username": {{ $spotifyd_username | quote }},
-      "computer_name": {{ $spotifyd_computer_name | quote }}
+      "username": {{ output "op" "item" "get" "Spotify" "--fields" "label=username"
+                     | trim
+                     | quote
+                  }},
+      "computer_name": {{ output "scutil" "--get" "ComputerName" | trim | quote}}
     },
     "git": {
-      "email": {{ $git_email | quote }}
+      "email": {{ promptStringOnce .git "email" "Git email" | quote }},
+      "signingkey": {{ promptStringOnce .git "signingkey" "Git signing key" | quote }}
     },
     "zsh": {
-      "integrations": {{ $zsh_integrations | toPrettyJson }}
+      "integrations": {{ default list (get .zsh "integrations") | toJson }}
     }
   },
   "diff": {

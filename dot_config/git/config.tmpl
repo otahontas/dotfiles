@@ -1,6 +1,7 @@
 [user]
-	name = Otto Ahoniemi
-	email = {{ .git.email }}
+    name = Otto Ahoniemi
+    email = {{ .git.email }}
+    signingkey = {{ .git.signingkey }}
 [push]
     default = matching
     follow-tags = true
@@ -12,6 +13,10 @@
     keepBackup = true
 [mergetool "vimdiff"]
     cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+[commit]
+    gpgsign = true
+[tag]
+    gpgsign = true
 [alias]
     a = add
     ap = add -p
@@ -48,8 +53,8 @@
     unhide = "update-index --no-skip-worktree"
     hidden = "!git ls-files -v . | grep '^S'"
 [core]
-	pager = diff-so-fancy | less --tabs=4 -RFX
-	ignorecase = false
+    pager = diff-so-fancy | less --tabs=4 -RFX
+    ignorecase = false
 [color]
     ui = true
     [diff-highlight]
@@ -66,4 +71,6 @@
         new = "green bold"
         whitespace = "red reverse"
 [init]
-	defaultBranch = main
+    defaultBranch = main
+[interactive]
+    diffFilter = diff-so-fancy --patch

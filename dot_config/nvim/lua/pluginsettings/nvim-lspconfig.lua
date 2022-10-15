@@ -88,21 +88,33 @@ local config = function()
     vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, bufopts)
     vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, bufopts)
     vim.keymap.set("n", "]d", vim.diagnostic.goto_next, bufopts)
-    if client.server_capabilities.documentSymbolProvider then
-      require("nvim-navic").attach(client, bufnr)
+    if client.name ~= "graphql" then
+      if client.server_capabilities.documentSymbolProvider then
+        require("nvim-navic").attach(client, bufnr)
+      end
     end
   end
   local lspconfig = require("lspconfig")
 
   vim.g.coq_settings = {
     auto_start = "shut-up",
+    clients = {
+      tree_sitter = { enabled = false },
+      tags = { enabled = false },
+      tmux = { enabled = false },
+    },
+    keymap = {
+      recommended = false,
+    },
   }
   local coq = require("coq")
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+  capabilities.textDocument.completion.completionItem.snippetSupport = true
 
   for _, server in ipairs(servers) do
     local opts = coq.lsp_ensure_capabilities(vim.tbl_deep_extend("force", {
       on_attach = on_attach,
-      capabilities = vim.lsp.protocol.make_client_capabilities(),
+      capabilities = capabilities,
     }, server_spesific_opts[server] or {}))
 
     if server == "tsserver" then

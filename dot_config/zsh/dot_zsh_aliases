@@ -18,3 +18,6 @@ alias ....="cd ../../.."
 # Aliases for daily tools
 alias mail="aerc"
 alias spotify="pkill spotifyd; spotifyd && spt; pkill spotifyd"
+
+# Don't autocorrect some commands
+alias cd="nocorrect cd"
