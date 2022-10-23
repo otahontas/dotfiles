@@ -1,3 +1,4 @@
+-- Setup better filetypes (syntax etc) for some files
 vim.filetype.add({
   extension = {
     conf = "conf",

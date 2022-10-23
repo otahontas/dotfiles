@@ -62,9 +62,8 @@ local config = function()
   local options = {
     debug = false,
     sources = {
-      null_ls.builtins.code_actions.eslint_d,
       null_ls.builtins.diagnostics.actionlint,
-      null_ls.builtins.diagnostics.eslint_d,
+      null_ls.builtins.diagnostics.cfn_lint,
       null_ls.builtins.diagnostics.gitlint,
       null_ls.builtins.diagnostics.golangci_lint,
       null_ls.builtins.diagnostics.hadolint,
@@ -73,7 +72,6 @@ local config = function()
       null_ls.builtins.diagnostics.shellcheck,
       null_ls.builtins.diagnostics.zsh,
       null_ls.builtins.formatting.black,
-      null_ls.builtins.formatting.eslint_d,
       null_ls.builtins.formatting.gofmt,
       null_ls.builtins.formatting.markdownlint,
       null_ls.builtins.formatting.prettierd.with({

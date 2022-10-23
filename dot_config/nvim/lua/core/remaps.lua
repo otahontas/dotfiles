@@ -1,4 +1,5 @@
 -- Toggle hidden chars
+-- TODO: convert to lua
 vim.keymap.set("n", "<leader>sc", "<cmd>set invlist<cr>", { silent = true })
 
 -- Open terminal in this, vertical or horisontal split

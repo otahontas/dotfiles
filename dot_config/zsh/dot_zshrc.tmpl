@@ -41,7 +41,6 @@ autoload -Uz compinit
 setopt correct
 setopt correctall
 setopt no_list_ambiguous
-setopt complete_aliases
 setopt globdots
 
 # Disable command to replay last command
@@ -63,10 +62,22 @@ source $ZDOTDIR/.zsh_functions
 # Add list of integrations to chezmoi config file in $XDG_CONFIG_HOME/chezmoi
 {{ range .zsh.integrations -}}
 source $ZDOTDIR/integrations/{{ . }}.zsh
-{{ end }}
+{{ end -}}
 
 # Add custom local bin to PATH
 [[ $PATH != *"$HOME/.local/bin"* ]] && export PATH=$HOME/.local/bin:$PATH
 
 # Load starship prompt
 eval "$(starship init zsh)"
+
+# Load custom local zsh config if present
+autoload -U add-zsh-hook
+load-local-conf() {
+  local filename=".local_zshrc"
+  if [[ -f $filename && -r $filename ]]; then
+    echo "Loading local .zshrc"
+    source $filename
+  fi
+}
+load-local-conf
+add-zsh-hook chpwd load-local-conf

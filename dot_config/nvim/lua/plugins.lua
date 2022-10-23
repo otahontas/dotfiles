@@ -1,10 +1,9 @@
 local conf = require("core.conf")
-local fn = vim.fn
 
 -- Setup packer if not installed
 local installPath = conf.xdgDataHome .. "/site/pack/packer/start/packer.nvim"
-if fn.empty(fn.glob(installPath)) > 0 then
-  fn.system({
+if vim.fn.empty(vim.fn.glob(installPath)) > 0 then
+  vim.fn.system({
     "git",
     "clone",
     "--depth",
@@ -40,4 +39,5 @@ local loadPlugins = function(use)
   end
 end
 
+-- Attach plugin loader and load plugins
 return require("packer").startup(loadPlugins)

@@ -1,11 +1,3 @@
-local utils = require("utils")
-local create_autogroup = utils.create_autogroup
-
--- disable netrw at the very start of your init.lua (strongly advised in nvim-tree docs)
-vim.g.loaded = 1
-vim.g.loaded_netrwPlugin = 1
-
--- Setup options
 local options = {
   -- Enable better colors
   termguicolors = true,
@@ -60,43 +52,36 @@ local options = {
   -- Spellcheck
   spell = true,
 }
+-- Setup options
 for option, value in pairs(options) do
   vim.opt[option] = value
 end
 
+-- Diagnostic ui swag
+vim.diagnostic.config({
+  float = {
+    border = "rounded",
+  },
+})
+
 -- Set up leader and localleader keys
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
-
--- Set up different line number settings for different modes
-create_autogroup("DisableNumberInTerminal", {
-  "TermOpen * setlocal nonumber norelativenumber",
-})
-create_autogroup("ChangeNumberModeOnWritingModeChange", {
-  "BufEnter,FocusGained,InsertLeave,WinEnter * if &number && mode() != 'i' | setlocal relativenumber | endif",
-  "BufLeave,FocusLost,InsertEnter,WinLeave   * if &number | setlocal norelativenumber | endif",
-})
-
--- Setup listeners for autoread events
-create_autogroup("TriggerAutoRead", {
-  "FocusGained, BufEnter, CursorHold, CursorHoldI * if mode() != 'c' | checktime | endif",
-})
-create_autogroup("TriggerAutoReadMessage", {
-  "FileChangedShellPost * echohl WarningMsg | echo 'File changed on disk. Buffer reloaded.' | echohl None",
-})
 
 -- Show line break column
 vim.cmd('let &colorcolumn="88"')
 
 -- Set different color for terminal mode cursor
 vim.cmd("highlight! link TermCursor Cursor")
--- vim.cmd("highlight! TermCursorNC guibg=blue guifg=white ctermbg=1 ctermfg=15")
 
 -- Don't put backups to the same directory as original file
 vim.opt.backupdir:remove({ "." })
 
 -- Set some extra diff-heuristics: https://vimways.org/2018/the-power-of-diff/
 vim.opt.diffopt:append({ "indent-heuristic", "algorithm:patience" })
+
+-- Load autocmds
+require("core.autocmds")
 
 -- Load remaps
 require("core.remaps")

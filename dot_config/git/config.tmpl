@@ -21,6 +21,7 @@
     a = add
     ap = add -p
     br = branch
+    cat-local-ignore = "!cat $(git root)/.git/info/exclude"
     cane = commit --amend --no-edit
     cedit = commit --amend
     cm = commit -m
@@ -48,6 +49,7 @@
     sd = stash drop stash@{0}
     sl = stash list
     ss = stash show -p
+    sw = switch
     undo = "reset --soft HEAD^"
     hide = "update-index --skip-worktree"
     unhide = "update-index --no-skip-worktree"

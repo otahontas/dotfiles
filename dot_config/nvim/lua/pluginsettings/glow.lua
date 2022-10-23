@@ -1,3 +1,9 @@
 local packageName = "ellisonleao/glow.nvim"
 
-return { packageName }
+local config = function()
+  require("glow").setup({
+    border = "rounded",
+  })
+end
+
+return { packageName, config = config }
