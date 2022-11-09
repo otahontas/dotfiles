@@ -81,6 +81,16 @@ local config = function()
       null_ls.builtins.formatting.markdownlint,
       null_ls.builtins.formatting.prettierd.with({
         disabled_filetypes = { "markdown" },
+        condition = function(utils)
+          local hasPackageJson = utils.root_has_file("package.json")
+          if hasPackageJson then
+            -- if in actual js project, run only if prettier config is there
+            return utils.root_has_file(".prettierrc", ".prettierrc.json")
+          end
+
+          -- otherwise run always so single files are formatted
+          return true
+        end,
       }),
       null_ls.builtins.formatting.shfmt,
       null_ls.builtins.formatting.stylua,
@@ -90,6 +100,7 @@ local config = function()
       null_ls.builtins.formatting.trim_whitespace.with({
         disabled_filetypes = filetypes_formatted_with_other_formatters,
       }),
+      null_ls.builtins.formatting.rome,
     },
     on_attach = on_attach,
   }
