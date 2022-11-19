@@ -16,9 +16,10 @@
     "augroup",
     "bufnr",
     "autocmd",
-    "autocmds",
     "ngrok",
-    "tiddy"
+    "tiddy",
+    "middleware",
+    "middlewares"
   ],
   "ignorePaths": ["node_modules/**"],
   "dictionaries": [

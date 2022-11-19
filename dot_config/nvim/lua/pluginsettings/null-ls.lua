@@ -60,7 +60,7 @@ local config = function()
   }
 
   local options = {
-    debug = false,
+    debug = true,
     sources = {
       null_ls.builtins.code_actions.cspell,
       null_ls.builtins.code_actions.gitsigns,
@@ -79,7 +79,7 @@ local config = function()
       null_ls.builtins.formatting.black,
       null_ls.builtins.formatting.gofmt,
       null_ls.builtins.formatting.markdownlint,
-      null_ls.builtins.formatting.prettierd.with({
+      null_ls.builtins.formatting.prettier.with({
         disabled_filetypes = { "markdown" },
         condition = function(utils)
           local hasPackageJson = utils.root_has_file("package.json")
@@ -94,13 +94,13 @@ local config = function()
       }),
       null_ls.builtins.formatting.shfmt,
       null_ls.builtins.formatting.stylua,
+      null_ls.builtins.formatting.rome,
       null_ls.builtins.formatting.trim_newlines.with({
         disabled_filetypes = filetypes_formatted_with_other_formatters,
       }),
       null_ls.builtins.formatting.trim_whitespace.with({
         disabled_filetypes = filetypes_formatted_with_other_formatters,
       }),
-      null_ls.builtins.formatting.rome,
     },
     on_attach = on_attach,
   }

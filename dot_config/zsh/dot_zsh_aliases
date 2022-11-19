@@ -21,6 +21,9 @@ alias spotify="pkill spotifyd; spotifyd && spt; pkill spotifyd"
 
 # Don't autocorrect some commands
 alias cd="nocorrect cd"
+alias cp='nocorrect cp '
+alias mv='nocorrect mv '
+alias mkdir='nocorrect mkdir '
 
 # Short git aliases
 alias gap="git ap"

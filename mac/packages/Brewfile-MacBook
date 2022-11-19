@@ -82,6 +82,7 @@ cask "keycastr"
 cask "lens"
 cask "microsoft-auto-update"
 cask "microsoft-office"
+cask "microsoft-teams"
 cask "neovide"
 cask "netnewswire"
 cask "ngrok"
@@ -89,11 +90,13 @@ cask "notunes"
 cask "obsidian"
 cask "postman"
 cask "remarkable"
+cask "spotify"
 cask "tableplus"
 cask "thingsmacsandboxhelper"
 cask "wezterm"
 mas "1Password for Safari", id: 1569813296
 mas "AdGuard for Safari", id: 1440147259
+mas "Grammarly for Safari", id: 1462114288
 mas "Lungo", id: 1263070803
 mas "OneTab", id: 1540160809
 mas "Paprika Recipe Manager 3", id: 1303222628

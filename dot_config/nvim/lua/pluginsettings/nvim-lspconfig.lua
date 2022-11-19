@@ -26,6 +26,7 @@ local config = function()
     "html",
     "jsonls",
     "pyright",
+    "rome",
     "rust_analyzer",
     "sourcery",
     "sumneko_lua",
@@ -41,7 +42,7 @@ local config = function()
     yaml_schemas[schema.url] = schema.fileMatch
   end, json_schemas)
 
-  local server_spesific_settings = {
+  local server_specific_settings = {
     jsonls = {
       json = {
         schemas = json_schemas,
@@ -184,7 +185,7 @@ local config = function()
     local opts = coq.lsp_ensure_capabilities({
       on_attach = on_attach,
       capabilities = capabilities,
-      settings = server_spesific_settings[server] or {},
+      settings = server_specific_settings[server] or {},
     })
 
     if server == "tsserver" then
