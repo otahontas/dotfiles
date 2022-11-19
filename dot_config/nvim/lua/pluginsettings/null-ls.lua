@@ -82,21 +82,46 @@ local config = function()
       null_ls.builtins.formatting.prettier.with({
         disabled_filetypes = { "markdown" },
         condition = function(utils)
-          local hasPackageJson = utils.root_has_file("package.json")
-          if hasPackageJson then
-            -- if in actual js project, run only if prettier config is there
-            return utils.root_has_file(".prettierrc", ".prettierrc.json")
+          -- check if prettier is configured and/or installed in package.json
+          local null_ls_utils = require("null-ls.utils")
+          local bufname = vim.api.nvim_buf_get_name(0)
+          local root_with_package = null_ls_utils.root_pattern("package.json")(bufname)
+          if root_with_package then
+            local is_windows = vim.fn.has("win32") == 1
+            local path_sep = is_windows and "\\" or "/"
+            for line in io.lines(root_with_package .. path_sep .. "package.json") do
+              if line:find("prettier") then
+                return true
+              end
+            end
           end
 
-          -- otherwise run always so single files are formatted
-          return true
+          -- otherwise check for config file
+          -- https://prettier.io/docs/en/configuration.html
+          local root_files = {
+            ".prettierrc",
+            ".prettierrc.json",
+            ".prettierrc.yml",
+            ".prettierrc.yaml",
+            ".prettierrc.json5",
+            ".prettierrc.js",
+            ".prettierrc.cjs",
+            ".prettierrc.toml",
+            "prettier.config.js",
+            "prettier.config.cjs",
+          }
+          return utils.root_has_file(root_files)
         end,
       }),
       null_ls.builtins.formatting.shfmt.with({
         extra_args = { "-i", "2", "-ci" },
       }),
       null_ls.builtins.formatting.stylua,
-      null_ls.builtins.formatting.rome,
+      null_ls.builtins.formatting.rome.with({
+        condition = function(utils)
+          return utils.root_has_file("rome.json")
+        end,
+      }),
       null_ls.builtins.formatting.trim_newlines.with({
         disabled_filetypes = filetypes_formatted_with_other_formatters,
       }),
