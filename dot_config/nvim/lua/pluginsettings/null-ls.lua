@@ -92,7 +92,9 @@ local config = function()
           return true
         end,
       }),
-      null_ls.builtins.formatting.shfmt,
+      null_ls.builtins.formatting.shfmt.with({
+        extra_args = { "-i", "2", "-ci" },
+      }),
       null_ls.builtins.formatting.stylua,
       null_ls.builtins.formatting.rome,
       null_ls.builtins.formatting.trim_newlines.with({
