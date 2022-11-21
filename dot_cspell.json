@@ -1,27 +1,6 @@
 {
   "version": "0.2",
   "language": "en",
-  "words": [
-    "gitlint",
-    "gitsigns",
-    "gofmt",
-    "golangci",
-    "hadolint",
-    "luacheck",
-    "markdownlint",
-    "nvim",
-    "prettierd",
-    "stylua",
-    "reqwest",
-    "augroup",
-    "bufnr",
-    "autocmd",
-    "ngrok",
-    "tiddy",
-    "middleware",
-    "middlewares"
-  ],
-  "ignorePaths": ["node_modules/**"],
   "dictionaries": [
     "en_US",
     "en-gb",
@@ -40,5 +19,30 @@
     "python",
     "python-common",
     "sql"
+  ],
+  "ignorePaths": ["node_modules/**"],
+  "words": [
+    "gitlint",
+    "gitsigns",
+    "gofmt",
+    "golangci",
+    "hadolint",
+    "luacheck",
+    "markdownlint",
+    "nvim",
+    "prettierd",
+    "stylua",
+    "reqwest",
+    "augroup",
+    "bufnr",
+    "autocmd",
+    "ngrok",
+    "tiddy",
+    "middleware",
+    "middlewares",
+    "bufname",
+    "formik",
+    "xstate",
+    "ibase"
   ]
 }

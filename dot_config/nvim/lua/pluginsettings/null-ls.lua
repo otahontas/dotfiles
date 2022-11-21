@@ -60,7 +60,7 @@ local config = function()
   }
 
   local options = {
-    debug = true,
+    debug = false,
     sources = {
       null_ls.builtins.code_actions.cspell,
       null_ls.builtins.code_actions.gitsigns,
