@@ -62,13 +62,11 @@ local config = function()
   local options = {
     debug = false,
     sources = {
-      null_ls.builtins.code_actions.cspell,
       null_ls.builtins.code_actions.gitsigns,
       null_ls.builtins.code_actions.refactoring,
       null_ls.builtins.code_actions.shellcheck,
       null_ls.builtins.diagnostics.actionlint,
       null_ls.builtins.diagnostics.cfn_lint,
-      null_ls.builtins.diagnostics.cspell,
       null_ls.builtins.diagnostics.gitlint,
       null_ls.builtins.diagnostics.golangci_lint,
       null_ls.builtins.diagnostics.hadolint,
@@ -82,17 +80,18 @@ local config = function()
       null_ls.builtins.formatting.prettier.with({
         disabled_filetypes = { "markdown" },
         condition = function(utils)
-          -- check if prettier is configured and/or installed in package.json
+          -- check if prettier is configured in package.json
           local null_ls_utils = require("null-ls.utils")
           local bufname = vim.api.nvim_buf_get_name(0)
           local root_with_package = null_ls_utils.root_pattern("package.json")(bufname)
           if root_with_package then
             local is_windows = vim.fn.has("win32") == 1
             local path_sep = is_windows and "\\" or "/"
-            for line in io.lines(root_with_package .. path_sep .. "package.json") do
-              if line:find("prettier") then
-                return true
-              end
+            local content =
+              io.open(root_with_package .. path_sep .. "package.json", "r"):read("*all")
+            local json = vim.fn.json_decode(content)
+            if json ~= nil and json["prettier"] then
+              return true
             end
           end
 

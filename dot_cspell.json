@@ -43,6 +43,16 @@
     "bufname",
     "formik",
     "xstate",
-    "ibase"
+    "ibase",
+    "middlewares",
+    "mindler",
+    "mindlercare",
+    "icbt",
+    "icbts",
+    "webdoc",
+    "noformat",
+    "osascript",
+    "trpc"
+
   ]
 }
