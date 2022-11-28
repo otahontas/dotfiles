@@ -91,3 +91,13 @@ function npms() {
     fi
   fi
 }
+
+# short project setup for node projects
+function pnpm-node-init() {
+    pnpm init && \
+    pnpm add --save-dev typescript ts-node @tsconfig/node18-strictest @types/node rome && \
+    echo '{"extends": "@tsconfig/node18-strictest/tsconfig.json"}' | jq > tsconfig.json && \
+    pnpm rome init && \
+    echo "$(cat package.json | jq 'del(.main, .scripts.test)' | jq '.scripts.start="ts-node index.ts"')" > package.json && \
+    touch index.ts
+}

@@ -1,13 +1,24 @@
-local packageName = "github/copilot.vim"
+local packageName = "zbirenbaum/copilot.lua"
+
+local event = "InsertEnter"
 
 local config = function()
-  vim.g.copilot_node_command = "node16"
+  vim.schedule(function()
+    require("copilot").setup({
+      suggestion = {
+        keymap = {
+          accept = "<C-y>",
+          next = "<C-k>",
+          prev = "<C-j>",
+        },
+      },
+      copilot_node_command = "node16",
+    })
+  end)
 end
-
-local run = ":Copilot setup"
 
 return {
   packageName,
+  event = event,
   config = config,
-  run = run,
 }

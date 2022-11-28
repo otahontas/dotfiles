@@ -19,10 +19,8 @@ local config = function()
     "bashls",
     "eslint",
     "cssls",
-    "cssmodules_ls",
     "dockerls",
     "gopls",
-    "graphql",
     "html",
     "jsonls",
     "pyright",
@@ -30,102 +28,103 @@ local config = function()
     "rust_analyzer",
     "sourcery",
     "sumneko_lua",
-    "tailwindcss",
     "taplo",
     "tsserver",
     "yamlls",
   }
 
+  local util = require("lspconfig.util")
   local json_schemas = require("schemastore").json.schemas()
   local yaml_schemas = {}
   vim.tbl_map(function(schema)
     yaml_schemas[schema.url] = schema.fileMatch
   end, json_schemas)
 
-  local server_specific_settings = {
+  local server_specific_opts = {
     jsonls = {
-      json = {
-        schemas = json_schemas,
-        validate = { enable = true },
+      settings = {
+        json = {
+          schemas = json_schemas,
+          validate = { enable = true },
+        },
       },
     },
+    rome = {
+      root_dir = util.root_pattern("rome.json"),
+      single_file_support = false,
+    },
     sumneko_lua = {
-      Lua = {
-        runtime = {
-          version = "LuaJIT",
-        },
-        diagnostics = {
-          globals = { "vim" },
-        },
-        workspace = {
-          library = vim.api.nvim_get_runtime_file("", true),
-        },
-        telemetry = {
-          enable = false,
-        },
-        completion = {
-          callSnippet = "Replace",
+      settings = {
+        Lua = {
+          completion = {
+            callSnippet = "Replace",
+          },
         },
       },
     },
     yamlls = {
-      yaml = {
-        schemas = yaml_schemas,
-        customTags = {
-          "!And scalar",
-          "!And mapping",
-          "!And sequence",
-          "!If scalar",
-          "!If mapping",
-          "!If sequence",
-          "!Not scalar",
-          "!Not mapping",
-          "!Not sequence",
-          "!Equals scalar",
-          "!Equals mapping",
-          "!Equals sequence",
-          "!Or scalar",
-          "!Or mapping",
-          "!Or sequence",
-          "!FindInMap scalar",
-          "!FindInMap mappping",
-          "!FindInMap sequence",
-          "!Base64 scalar",
-          "!Base64 mapping",
-          "!Base64 sequence",
-          "!Cidr scalar",
-          "!Cidr mapping",
-          "!Cidr sequence",
-          "!Ref scalar",
-          "!Ref mapping",
-          "!Ref sequence",
-          "!Sub scalar",
-          "!Sub mapping",
-          "!Sub sequence",
-          "!GetAtt scalar",
-          "!GetAtt mapping",
-          "!GetAtt sequence",
-          "!GetAZs scalar",
-          "!GetAZs mapping",
-          "!GetAZs sequence",
-          "!ImportValue scalar",
-          "!ImportValue mapping",
-          "!ImportValue sequence",
-          "!Select scalar",
-          "!Select mapping",
-          "!Select sequence",
-          "!Split scalar",
-          "!Split mapping",
-          "!Split sequence",
-          "!Join scalar",
-          "!Join mapping",
-          "!Join sequence",
+      settings = {
+        yaml = {
+          schemas = yaml_schemas,
+          customTags = {
+            "!And scalar",
+            "!And mapping",
+            "!And sequence",
+            "!If scalar",
+            "!If mapping",
+            "!If sequence",
+            "!Not scalar",
+            "!Not mapping",
+            "!Not sequence",
+            "!Equals scalar",
+            "!Equals mapping",
+            "!Equals sequence",
+            "!Or scalar",
+            "!Or mapping",
+            "!Or sequence",
+            "!FindInMap scalar",
+            "!FindInMap mappping",
+            "!FindInMap sequence",
+            "!Base64 scalar",
+            "!Base64 mapping",
+            "!Base64 sequence",
+            "!Cidr scalar",
+            "!Cidr mapping",
+            "!Cidr sequence",
+            "!Ref scalar",
+            "!Ref mapping",
+            "!Ref sequence",
+            "!Sub scalar",
+            "!Sub mapping",
+            "!Sub sequence",
+            "!GetAtt scalar",
+            "!GetAtt mapping",
+            "!GetAtt sequence",
+            "!GetAZs scalar",
+            "!GetAZs mapping",
+            "!GetAZs sequence",
+            "!ImportValue scalar",
+            "!ImportValue mapping",
+            "!ImportValue sequence",
+            "!Select scalar",
+            "!Select mapping",
+            "!Select sequence",
+            "!Split scalar",
+            "!Split mapping",
+            "!Split sequence",
+            "!Join scalar",
+            "!Join mapping",
+            "!Join sequence",
+          },
         },
       },
     },
   }
 
+  local setup_format_on_save = require("plugins_shared").setup_format_on_save
   local on_attach = function(client, bufnr)
+    setup_format_on_save(client, bufnr)
+
     local bufopts = { silent = true, buffer = bufnr }
     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
@@ -143,10 +142,8 @@ local config = function()
     vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, bufopts)
     vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, bufopts)
     vim.keymap.set("n", "]d", vim.diagnostic.goto_next, bufopts)
-    if client.name ~= "graphql" then
-      if client.server_capabilities.documentSymbolProvider then
-        require("nvim-navic").attach(client, bufnr)
-      end
+    if client.server_capabilities.documentSymbolProvider then
+      require("nvim-navic").attach(client, bufnr)
     end
     if client.name == "eslint" then
       vim.api.nvim_create_autocmd("BufWritePre", {
@@ -178,15 +175,20 @@ local config = function()
     },
   }
   local coq = require("coq")
-  local capabilities = vim.lsp.protocol.make_client_capabilities()
-  capabilities.textDocument.completion.completionItem.snippetSupport = true
 
   for _, server in ipairs(servers) do
-    local opts = coq.lsp_ensure_capabilities({
-      on_attach = on_attach,
-      capabilities = capabilities,
-      settings = server_specific_settings[server] or {},
-    })
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+    if vim.tbl_contains({ "cssls", "html", "jsonls" }, server) then
+      capabilities.textDocument.completion.completionItem.snippetSupport = true
+    end
+
+    local opts = coq.lsp_ensure_capabilities(
+      vim.tbl_deep_extend("keep", server_specific_opts[server] or {}, {
+        on_attach = on_attach,
+        capabilities = capabilities,
+      })
+    )
 
     if server == "tsserver" then
       require("typescript").setup({
