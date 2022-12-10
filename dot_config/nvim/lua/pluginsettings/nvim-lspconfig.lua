@@ -5,12 +5,21 @@ local requires = {
   "jose-elias-alvarez/typescript.nvim",
   "SmiteshP/nvim-navic",
   "williamboman/mason-lspconfig.nvim",
-  "ms-jpq/coq_nvim",
-  "ms-jpq/coq.artifacts",
   "folke/neodev.nvim",
+  "hrsh7th/nvim-cmp",
+  "L3MON4D3/LuaSnip",
+  "saadparwaiz1/cmp_luasnip",
+  "rafamadriz/friendly-snippets",
+  "hrsh7th/cmp-nvim-lsp",
+  "zbirenbaum/copilot-cmp",
+  "hrsh7th/cmp-nvim-lsp-signature-help",
+  "hrsh7th/cmp-buffer",
+  "hrsh7th/cmp-path",
+  "hrsh7th/cmp-cmdline",
 }
 
 local after = {
+  "copilot.lua",
   "mason-lspconfig.nvim",
 }
 
@@ -163,32 +172,66 @@ local config = function()
   vim.lsp.handlers["textDocument/signatureHelp"] =
     vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
 
-  vim.g.coq_settings = {
-    auto_start = "shut-up",
-    clients = {
-      tree_sitter = { enabled = false },
-      tags = { enabled = false },
-      tmux = { enabled = false },
+  local cmp = require("cmp")
+  require("copilot_cmp").setup()
+
+  cmp.setup({
+    snippet = {
+      expand = function(args)
+        require("luasnip").lsp_expand(args.body)
+      end,
     },
-    keymap = {
-      recommended = false,
+    window = {
+      completion = cmp.config.window.bordered(),
+      documentation = cmp.config.window.bordered(),
     },
-  }
-  local coq = require("coq")
+    mapping = cmp.mapping.preset.insert({
+      ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+      ["<C-f>"] = cmp.mapping.scroll_docs(4),
+      ["<C-Space>"] = cmp.mapping.complete(),
+      ["<C-e>"] = cmp.mapping.abort(),
+      ["<C-y>"] = cmp.mapping.confirm({ select = true }),
+    }),
+    sources = cmp.config.sources({
+      { name = "nvim_lsp_signature_help" },
+      { name = "copilot" },
+      { name = "nvim_lsp" },
+      { name = "luasnip" },
+    }, {
+      { name = "buffer" },
+      { name = "path" },
+    }),
+  })
+
+  cmp.setup.cmdline({ "/", "?" }, {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+      { name = "buffer" },
+    },
+  })
+
+  cmp.setup.cmdline(":", {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+      { name = "path" },
+    }, {
+      { name = "cmdline" },
+    }),
+  })
+
+  require("luasnip.loaders.from_vscode").lazy_load()
 
   for _, server in ipairs(servers) do
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
+    local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
     if vim.tbl_contains({ "cssls", "html", "jsonls" }, server) then
       capabilities.textDocument.completion.completionItem.snippetSupport = true
     end
 
-    local opts = coq.lsp_ensure_capabilities(
-      vim.tbl_deep_extend("keep", server_specific_opts[server] or {}, {
-        on_attach = on_attach,
-        capabilities = capabilities,
-      })
-    )
+    local opts = vim.tbl_deep_extend("keep", server_specific_opts[server] or {}, {
+      on_attach = on_attach,
+      capabilities = capabilities,
+    })
 
     if server == "tsserver" then
       require("typescript").setup({
