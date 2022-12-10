@@ -36,8 +36,13 @@ local config = function()
     vim.keymap.set("n", prev, prev_func, hunk_opts)
     vim.keymap.set({ "n", "v" }, "<leader>sh", "<cmd>Gitsigns stage_hunk<cr>", opts)
     vim.keymap.set({ "n", "v" }, "<leader>rh", "<cmd>Gitsigns reset_hunk<cr>", opts)
+    vim.keymap.set("n", "<leader>hu", gs.undo_stage_hunk)
     vim.keymap.set("n", "<leader>ph", gs.preview_hunk, opts)
     vim.keymap.set("n", "<leader>bl", gs.toggle_current_line_blame, opts)
+    vim.keymap.set("n", "<leader>hd", gs.diffthis)
+    vim.keymap.set("n", "<leader>hD", function()
+      gs.diffthis("~")
+    end)
   end
 
   require("gitsigns").setup({

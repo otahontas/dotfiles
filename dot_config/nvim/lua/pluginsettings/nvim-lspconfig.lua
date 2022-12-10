@@ -27,6 +27,7 @@ local config = function()
   local servers = {
     "bashls",
     "eslint",
+    "clangd",
     "cssls",
     "dockerls",
     "gopls",
@@ -223,6 +224,10 @@ local config = function()
 
   for _, server in ipairs(servers) do
     local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+    if server == "clangd" then
+      capabilities.offsetEncoding = { "utf-16" }
+    end
 
     if vim.tbl_contains({ "cssls", "html", "jsonls" }, server) then
       capabilities.textDocument.completion.completionItem.snippetSupport = true

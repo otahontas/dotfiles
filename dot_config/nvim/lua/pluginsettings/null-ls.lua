@@ -51,10 +51,10 @@ local config = function()
           return utils.root_has_file(".git")
         end,
       }),
-      null_ls.builtins.code_actions.refactoring,
       null_ls.builtins.code_actions.shellcheck,
       null_ls.builtins.diagnostics.actionlint,
       null_ls.builtins.diagnostics.cfn_lint,
+      null_ls.builtins.diagnostics.cpplint,
       null_ls.builtins.diagnostics.gitlint,
       null_ls.builtins.diagnostics.golangci_lint,
       null_ls.builtins.diagnostics.hadolint,
@@ -63,6 +63,7 @@ local config = function()
       null_ls.builtins.diagnostics.shellcheck,
       null_ls.builtins.diagnostics.zsh,
       null_ls.builtins.formatting.black,
+      null_ls.builtins.formatting.clang_format,
       null_ls.builtins.formatting.gofmt,
       null_ls.builtins.formatting.markdownlint,
       null_ls.builtins.formatting.prettier.with({
