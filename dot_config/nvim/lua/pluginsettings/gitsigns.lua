@@ -6,34 +6,25 @@ local config = function()
   local on_attach = function(bufnr)
     local gs = package.loaded.gitsigns
 
-    local hunk = function(keybinding, mode)
+    vim.keymap.set("n", "]c", function()
       if vim.wo.diff then
-        return keybinding
-      end
-      local hunk_func
-      if mode == "next" then
-        hunk_func = gs.next_hunk
-      else
-        hunk_func = gs.prev_hunk
+        return "]c"
       end
       vim.schedule(function()
-        hunk_func()
+        gs.next_hunk()
       end)
       return "<Ignore>"
-    end
-
+    end, { expr = true, buffer = bufnr })
+    vim.keymap.set("n", "[c", function()
+      if vim.wo.diff then
+        return "[c"
+      end
+      vim.schedule(function()
+        gs.prev_hunk()
+      end)
+      return "<Ignore>"
+    end, { expr = true, buffer = bufnr })
     local opts = { buffer = bufnr }
-    local next = "]c"
-    local prev = "[c"
-    local next_func = function()
-      hunk(next, "next")
-    end
-    local prev_func = function()
-      hunk(prev, "prev")
-    end
-    local hunk_opts = vim.tbl_extend("error", opts, { silent = true })
-    vim.keymap.set("n", next, next_func, hunk_opts)
-    vim.keymap.set("n", prev, prev_func, hunk_opts)
     vim.keymap.set({ "n", "v" }, "<leader>sh", "<cmd>Gitsigns stage_hunk<cr>", opts)
     vim.keymap.set({ "n", "v" }, "<leader>rh", "<cmd>Gitsigns reset_hunk<cr>", opts)
     vim.keymap.set("n", "<leader>hu", gs.undo_stage_hunk)
