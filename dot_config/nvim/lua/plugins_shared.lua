@@ -2,11 +2,6 @@ local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 local lsp_formatting = function(bufnr)
   vim.lsp.buf.format({
     filter = function(client)
-      -- print("formatting with client" .. client.name)
-      -- TODO: resolve best client, then cache by buffer
-      -- if client.name == "null-ls" then
-      -- print(vim.inspect(client))
-      -- end
       return client.name == "null-ls"
     end,
     bufnr = bufnr,

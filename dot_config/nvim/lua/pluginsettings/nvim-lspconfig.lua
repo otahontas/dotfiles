@@ -1,21 +1,21 @@
 local packageName = "neovim/nvim-lspconfig"
 
 local requires = {
-  "b0o/SchemaStore.nvim",
-  "jose-elias-alvarez/typescript.nvim",
-  "SmiteshP/nvim-navic",
-  "williamboman/mason-lspconfig.nvim",
-  "folke/neodev.nvim",
-  "hrsh7th/nvim-cmp",
   "L3MON4D3/LuaSnip",
-  "saadparwaiz1/cmp_luasnip",
-  "rafamadriz/friendly-snippets",
-  "hrsh7th/cmp-nvim-lsp",
-  "zbirenbaum/copilot-cmp",
-  "hrsh7th/cmp-nvim-lsp-signature-help",
+  "SmiteshP/nvim-navic",
+  "b0o/SchemaStore.nvim",
+  "folke/neodev.nvim",
   "hrsh7th/cmp-buffer",
-  "hrsh7th/cmp-path",
   "hrsh7th/cmp-cmdline",
+  "hrsh7th/cmp-nvim-lsp",
+  "hrsh7th/cmp-nvim-lsp-signature-help",
+  "hrsh7th/cmp-path",
+  "hrsh7th/nvim-cmp",
+  "jose-elias-alvarez/typescript.nvim",
+  "rafamadriz/friendly-snippets",
+  "saadparwaiz1/cmp_luasnip",
+  "williamboman/mason-lspconfig.nvim",
+  "zbirenbaum/copilot-cmp",
 }
 
 local after = {
@@ -173,6 +173,7 @@ local config = function()
   vim.lsp.handlers["textDocument/signatureHelp"] =
     vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
 
+  -- setup cmp
   local cmp = require("cmp")
   require("copilot_cmp").setup()
 
@@ -187,11 +188,9 @@ local config = function()
       documentation = cmp.config.window.bordered(),
     },
     mapping = cmp.mapping.preset.insert({
-      ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-      ["<C-f>"] = cmp.mapping.scroll_docs(4),
-      ["<C-Space>"] = cmp.mapping.complete(),
-      ["<C-e>"] = cmp.mapping.abort(),
-      ["<C-y>"] = cmp.mapping.confirm({ select = true }),
+      ["<C-b>"] = cmp.mapping.scroll_docs(4),
+      ["<C-f>"] = cmp.mapping.scroll_docs(-4),
+      ["<C-Space>"] = cmp.mapping.complete({}),
     }),
     sources = cmp.config.sources({
       { name = "nvim_lsp_signature_help" },
@@ -220,8 +219,12 @@ local config = function()
     }),
   })
 
+  local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+  cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+
   require("luasnip.loaders.from_vscode").lazy_load()
 
+  -- setup servers
   for _, server in ipairs(servers) do
     local capabilities = require("cmp_nvim_lsp").default_capabilities()
 

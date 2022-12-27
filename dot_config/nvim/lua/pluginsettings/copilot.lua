@@ -6,6 +6,9 @@ local config = function()
   vim.defer_fn(function()
     require("copilot").setup({
       copilot_node_command = "node16",
+      suggestion = {
+        keymap = {},
+      },
     })
   end, 100)
 end

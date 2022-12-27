@@ -1,9 +1,7 @@
 local packageName = "catppuccin/nvim"
 
 local config = function()
-  vim.g.catppuccin_flavour = "mocha"
-  require("catppuccin").setup()
-  vim.api.nvim_command("colorscheme catppuccin")
+  vim.cmd.colorscheme("catppuccin")
 end
 
 return {

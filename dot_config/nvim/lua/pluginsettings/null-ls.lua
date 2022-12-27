@@ -109,6 +109,7 @@ local config = function()
           return utils.root_has_file("rome.json")
         end,
       }),
+      -- Fallback formatters
       null_ls.builtins.formatting.trim_newlines.with({
         disabled_filetypes = filetypes_formatted_with_other_formatters,
       }),
