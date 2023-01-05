@@ -64,6 +64,15 @@ local config = function()
       null_ls.builtins.diagnostics.zsh,
       null_ls.builtins.formatting.black,
       null_ls.builtins.formatting.clang_format,
+      null_ls.builtins.formatting.deno_fmt.with({
+        condition = function(utils)
+          local root_files = {
+            "deno.json",
+            "deno.jsonc",
+          }
+          return utils.root_has_file(root_files)
+        end,
+      }),
       null_ls.builtins.formatting.gofmt,
       null_ls.builtins.formatting.markdownlint,
       null_ls.builtins.formatting.prettier.with({

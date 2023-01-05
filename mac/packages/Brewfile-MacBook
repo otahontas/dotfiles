@@ -20,6 +20,7 @@ brew "docker-compose"
 brew "duti"
 brew "exa"
 brew "fd"
+brew "flyctl"
 brew "fnm"
 brew "fzf"
 brew "gawk"
@@ -34,7 +35,6 @@ brew "go"
 brew "grep"
 brew "imagemagick"
 brew "jq"
-brew "python@3.10"
 brew "kubernetes-cli"
 brew "lua"
 brew "luarocks"
@@ -46,6 +46,7 @@ brew "node"
 brew "openjdk"
 brew "pdm"
 brew "pinentry-mac"
+brew "python@3.10"
 brew "pipx"
 brew "pnpm"
 brew "poetry"
@@ -72,6 +73,7 @@ brew "otahontas/tap/kanttiinit", args: ["HEAD"]
 cask "1password-beta"
 cask "1password-cli-beta"
 cask "appcleaner"
+cask "burp-suite"
 cask "discord"
 cask "element"
 cask "firefox-developer-edition"
@@ -96,6 +98,7 @@ cask "spotify"
 cask "tableplus"
 cask "thingsmacsandboxhelper"
 cask "wezterm"
+cask "wireshark"
 mas "1Password for Safari", id: 1569813296
 mas "AdGuard for Safari", id: 1440147259
 mas "Grammarly for Safari", id: 1462114288
@@ -109,3 +112,4 @@ mas "Velja", id: 1607635845
 mas "Video Speed Controller", id: 1588368612
 mas "Vimari", id: 1480933944
 mas "WhatsApp", id: 1147396723
+mas "WireGuard", id: 1451685025

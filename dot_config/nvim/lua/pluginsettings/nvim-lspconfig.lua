@@ -29,6 +29,7 @@ local config = function()
     "eslint",
     "clangd",
     "cssls",
+    "denols",
     "dockerls",
     "gopls",
     "html",
@@ -51,6 +52,9 @@ local config = function()
   end, json_schemas)
 
   local server_specific_opts = {
+    denols = {
+      root_dir = util.root_pattern("deno.json", "deno.jsonc"),
+    },
     jsonls = {
       settings = {
         json = {
@@ -71,6 +75,9 @@ local config = function()
           },
         },
       },
+    },
+    tsserver = {
+      root_dir = util.root_pattern("package.json"),
     },
     yamlls = {
       settings = {
