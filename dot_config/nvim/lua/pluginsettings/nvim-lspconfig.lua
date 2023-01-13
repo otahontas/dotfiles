@@ -21,6 +21,7 @@ local requires = {
 local after = {
   "copilot.lua",
   "mason-lspconfig.nvim",
+  "twoslash-queries.nvim",
 }
 
 local config = function()
@@ -170,6 +171,10 @@ local config = function()
         end,
         buffer = bufnr,
       })
+    end
+
+    if client.name == "tsserver" then
+      require("twoslash-queries").attach(client, bufnr)
     end
   end
   local lspconfig = require("lspconfig")

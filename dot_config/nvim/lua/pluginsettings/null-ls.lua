@@ -52,6 +52,7 @@ local config = function()
         end,
       }),
       null_ls.builtins.code_actions.shellcheck,
+      null_ls.builtins.code_actions.refactoring,
       null_ls.builtins.diagnostics.actionlint,
       null_ls.builtins.diagnostics.cfn_lint,
       null_ls.builtins.diagnostics.cpplint,
