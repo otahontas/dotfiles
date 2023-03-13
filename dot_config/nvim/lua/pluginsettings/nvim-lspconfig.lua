@@ -39,7 +39,7 @@ local config = function()
     "rome",
     "rust_analyzer",
     "sourcery",
-    "sumneko_lua",
+    "lua_ls",
     "taplo",
     "tsserver",
     "yamlls",
