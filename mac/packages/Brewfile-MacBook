@@ -47,13 +47,13 @@ brew "node"
 brew "openjdk"
 brew "pdm"
 brew "pinentry-mac"
-brew "python@3.10"
 brew "pipx"
 brew "pnpm"
 brew "poetry"
 brew "pre-commit"
 brew "pwgen"
 brew "pyenv"
+brew "python@3.10"
 brew "ripgrep"
 brew "rustup-init"
 brew "spotify-tui"
@@ -75,23 +75,19 @@ brew "otahontas/tap/kanttiinit", args: ["HEAD"]
 cask "1password-beta"
 cask "1password-cli-beta"
 cask "appcleaner"
-cask "burp-suite"
 cask "discord"
 cask "element"
 cask "firefox-developer-edition"
 cask "font-jetbrains-mono-nerd-font"
-cask "godot"
 cask "google-chrome"
 cask "google-cloud-sdk"
 cask "iina"
 cask "keycastr"
-cask "lens"
 cask "macdown"
 cask "microsoft-auto-update"
 cask "microsoft-office"
 cask "microsoft-teams"
 cask "mullvadvpn"
-cask "neovide"
 cask "netnewswire"
 cask "ngrok"
 cask "notunes"
@@ -102,15 +98,16 @@ cask "spotify"
 cask "tableplus"
 cask "thingsmacsandboxhelper"
 cask "transmission"
-cask "virtualbox"
 cask "wezterm"
 cask "wireshark"
 mas "1Password for Safari", id: 1569813296
 mas "AdGuard for Safari", id: 1440147259
 mas "Grammarly for Safari", id: 1462114288
+mas "iMovie", id: 408981434
 mas "Lungo", id: 1263070803
 mas "OneTab", id: 1540160809
 mas "Paprika Recipe Manager 3", id: 1303222628
+mas "Pixelmator", id: 407963104
 mas "Slack", id: 803453959
 mas "Telegram", id: 747648890
 mas "Things", id: 904280696
