@@ -101,3 +101,8 @@ function pnpm-node-init() {
     echo "$(cat package.json | jq 'del(.main, .scripts.test)' | jq '.scripts.start="ts-node index.ts"')" > package.json && \
     touch index.ts
 }
+
+function load_volta() {
+    export VOLTA_HOME="$HOME/.volta"
+    export PATH="$VOLTA_HOME/bin:$PATH"
+}
