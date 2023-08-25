@@ -1,4 +1,3 @@
 # Chezmoi doesn't copy these to home folder when `chezmoi apply` is ran
 mac/
-.gitignore
 .pre-commit-config.yaml

@@ -1,8 +1,5 @@
 {
   "data": {
-    "aerc": {
-      "mailboxes": {{ default list (get .aerc "mailboxes") | toJson }}
-    },
     "spotifyd": {
       "username": {{ output "op" "item" "get" "Spotify" "--fields" "label=username"
                      | trim
