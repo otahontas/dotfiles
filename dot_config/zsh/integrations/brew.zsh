@@ -1,15 +1,11 @@
 # Add brew to path
-if [[ "$(/usr/bin/uname -m)" == "arm64" ]]; then
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-else
-    eval "$(/usr/local/bin/brew shellenv)"
-fi
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # Wrapper for brew to execute brewfile dumping on certain brew commands
 function brew () {
     local dump_commands=("install" "uninstall" "tap" "untap" "upgrade" "update")
     local main_command="${1}"
-    local brewfile_path="$(chezmoi source-path)/mac/packages/Brewfile-$(scutil --get ComputerName)"
+    local brewfile_path="$(chezmoi source-path)/mac/packages/Brewfile"
 
     command brew ${@}
 

@@ -59,10 +59,9 @@ source $ZDOTDIR/.zsh_aliases
 source $ZDOTDIR/.zsh_functions
 
 # Load settings for various programs
-# Add list of integrations to chezmoi config file in $XDG_CONFIG_HOME/chezmoi
-{{ range .zsh.integrations -}}
-source $ZDOTDIR/integrations/{{ . }}.zsh
-{{ end -}}
+for f in $ZDOTDIR/integrations/*.zsh; do
+  source "$f"
+done
 
 # Add custom local bin to PATH
 [[ $PATH != *"$HOME/.local/bin"* ]] && export PATH=$HOME/.local/bin:$PATH
