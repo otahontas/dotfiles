@@ -7,8 +7,8 @@ else
 end
 
 -- Error when running wrong version
-if vim.fn.has("nvim-0.8") == 0 then
-  error("Neovim v0.8+ is needed in order to run!")
+if vim.fn.has("nvim-0.9") == 0 then
+  error("Neovim v0.9+ is needed in order to run!")
 end
 
 -- disable netrw very early (strongly advised in nvim-tree docs)

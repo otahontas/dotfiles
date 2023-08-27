@@ -51,6 +51,8 @@ local options = {
   },
   -- Spellcheck
   spell = true,
+  -- Keep stable split when opening another split above / below
+  splitkeep = "screen",
 }
 -- Setup options
 for option, value in pairs(options) do
