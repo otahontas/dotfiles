@@ -60,6 +60,7 @@ local config = function()
       null_ls.builtins.diagnostics.golangci_lint,
       null_ls.builtins.diagnostics.hadolint,
       null_ls.builtins.diagnostics.luacheck,
+      null_ls.builtins.diagnostics.mlint,
       null_ls.builtins.diagnostics.markdownlint,
       null_ls.builtins.diagnostics.shellcheck,
       null_ls.builtins.diagnostics.zsh,
