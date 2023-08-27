@@ -1,6 +1,3 @@
-[user]
-    name = Otto Ahoniemi
-    email = otto@ottoahoniemi.fi
 [gpg]
   format = ssh
 [gpg "ssh"]
@@ -81,3 +78,14 @@
     defaultBranch = main
 [interactive]
     diffFilter = diff-so-fancy --patch
+
+# Note: following overrides aren't in chezmoi, create them manually and add more if
+# needed
+
+# default user overrides
+[include]
+    path = ~/.config/git/default-user-config.gitconfig
+
+# work overrides
+[includeIf "gitdir:~/code/work/"]
+    path = ~/.config/git/work-user-config.gitconfig
