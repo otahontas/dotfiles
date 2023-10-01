@@ -53,25 +53,26 @@ local options = {
   spell = true,
   -- Keep stable split when opening another split above / below
   splitkeep = "screen",
+  -- persistent undo
+  undofile = true
+
 }
 -- Setup options
 for option, value in pairs(options) do
   vim.opt[option] = value
 end
 
--- Diagnostic ui swag
-vim.diagnostic.config({
-  float = {
-    border = "rounded",
-  },
-})
-
 -- Set up leader and localleader keys
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 
--- Show line break column
-vim.cmd('let &colorcolumn="88"')
+-- Set up netrw
+vim.g.netrw_keepdir = 0 -- avoids some copy bugs
+vim.g.netrw_banner = 0 -- don't show manner
+vim.g.netrw_liststyle = 3 -- use tree
+vim.g.netrw_localcopydircmd = "cp -r" -- recursive copy
+vim.g.netrw_bufsettings = 'noma nomod nu nowrap ro nobl' -- instead of default nonu (=no number), set line numbers
+vim.cmd("highlight! link netrwMarkFile Search") -- highlight marked files 
 
 -- Set different color for terminal mode cursor
 vim.cmd("highlight! link TermCursor Cursor")
@@ -81,9 +82,3 @@ vim.opt.backupdir:remove({ "." })
 
 -- Set some extra diff-heuristics: https://vimways.org/2018/the-power-of-diff/
 vim.opt.diffopt:append({ "indent-heuristic", "algorithm:patience" })
-
--- Load autocmds
-require("core.autocmds")
-
--- Load remaps
-require("core.remaps")

@@ -1,5 +1,4 @@
 -- Toggle hidden chars
--- TODO: convert to lua
 vim.keymap.set("n", "<leader>sc", "<cmd>set invlist<cr>", { silent = true })
 
 -- Open terminal in this, vertical or horisontal split
@@ -16,13 +15,13 @@ vim.keymap.set("n", "<leader>bp", "<cmd>bprev<cr>", { silent = true })
 vim.keymap.set("n", "<leader>bd", "<cmd>bdelete<cr>", { silent = true })
 
 -- Tabs
-vim.keymap.set("n", "<leader>tn", "<cmd>tabnew<cr>")
+vim.keymap.set("n", "<leader>tn", "<cmd>tabnew<cr>", { silent = true})
 
 -- Fast saving
 vim.keymap.set("n", "<leader>ww", "<cmd>w!<cr>", { silent = false })
 
 -- Change this windows working directory to current dir and print it
-vim.keymap.set("n", "<leader>cwd", "<cmd>lcd %:p:h<cr>:pwd<cr>")
+vim.keymap.set("n", "<leader>cwd", "<cmd>lcd %:p:h<cr>:pwd<cr>", { silent = false })
 
 -- Move to normal mode in terminal with Ctrl-W followed by ESC
 vim.keymap.set("t", "<C-w><Esc>", "<C-\\><C-n>", { silent = true })
@@ -41,4 +40,13 @@ function! ToggleQuickFix()
     endif
 endfunction
 ]])
-vim.keymap.set("n", "<leader>cq", "<cmd>call ToggleQuickFix()<cr>")
+vim.keymap.set("n", "<leader>cq", "<cmd>call ToggleQuickFix()<cr>", { silent = true})
+
+-- Netrw
+vim.keymap.set("n", "<leader>ee", ":Explore<cr>", { silent = true})
+vim.keymap.set("n", "<leader>ee", ":Explore %:p:h<cr>", { silent = true})
+vim.keymap.set("n", "<leader>se", ":Sexplore<cr>", { silent = true})
+vim.keymap.set("n", "<leader>ve", ":Vexplore<cr>", { silent = true})
+
+-- show file tree list
+vim.keymap.set("n", "<leader>tr", ":! tree<cr>", { silent = true})

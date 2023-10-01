@@ -1,5 +1,3 @@
--- Setup some useful autocommands
-
 -- Disable line numbers in terminal
 vim.api.nvim_create_autocmd("TermOpen", {
   group = vim.api.nvim_create_augroup("DisableLineNumbersInTerminal", {}),
@@ -50,10 +48,3 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     end
   end,
 })
-
--- Reload buffer on autoread
--- TODO: setup this properly. Currently autoread works, but running checktime / other
--- silent cmd doesn't actually reload buffer content
--- for investigation:
--- https://github.com/rktjmp/fwatch.nvim/
--- https://github.com/neovim/neovim/pull/12593
