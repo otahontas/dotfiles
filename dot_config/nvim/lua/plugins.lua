@@ -8,9 +8,11 @@ local denols_root_pattern = function(fname)
   return require("lspconfig.util").root_pattern("deno.json", "deno.jsonc")(fname)
 end
 
--- Plugins
-return {
-  -- Aesthetics
+-- Plugins array that is returned from this module
+local plugins = {}
+
+-- Plugins by category
+local aesthetics = {
   {
     "catppuccin/nvim",
     name = "catppuccin",
@@ -21,14 +23,16 @@ return {
     end,
     opts = { integrations = { mason = true } },
   },
-  { "levouh/tint.nvim", opts = { tint = -90, saturation = 0.1 } },
   { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
+}
+vim.list_extend(plugins, aesthetics)
+
+local treesitter = {
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     opts = {},
     config = function()
-      -- setup treesitter itself
       require("nvim-treesitter.configs").setup({
         ensure_installed = "all",
         auto_install = true,
@@ -38,7 +42,11 @@ return {
         endwise = { enable = true },
       })
 
-      -- setup treesitter based folding
+      -- Some filetypes aren't recognized by default
+      vim.treesitter.language.register("yaml", "yaml.docker-compose")
+      vim.treesitter.language.register("yaml", "yaml.github-action")
+
+      -- folding
       vim.o.foldmethod = "expr"
       vim.o.foldexpr = "nvim_treesitter#foldexpr()"
       vim.o.foldlevelstart = 20
@@ -58,7 +66,14 @@ return {
     opts = {},
     dependencies = { "nvim-treesitter/nvim-treesitter" },
   },
+}
+vim.list_extend(plugins, treesitter)
 
+-- TODO: modularize to named tables and share stuff between. then return concatenated
+-- table of settings. but keep them here in one file
+
+-- Plugins (not yet modularized)
+local rest = {
   -- Navigating
   {
     "nvim-telescope/telescope.nvim",
@@ -113,12 +128,16 @@ return {
           tags = { enabled = false },
           tmux = { enabled = false },
         },
-        keymap = { recommended = false },
+        keymap = { recommended = false, jump_to_mark = "<c-e>" },
       }
       vim.cmd(":COQnow --shut-up")
+      require("coq_3p")({
+        { src = "copilot", short_name = "COP", accept_key = "<C-f>" },
+      })
     end,
     dependencies = {
       { "ms-jpq/coq.artifacts", branch = "artifacts" },
+      { "ms-jpq/coq.thirdparty", branch = "3p", dependencies = "github/copilot.vim" },
     },
   },
   { "echasnovski/mini.comment", version = "*", opts = {} },
@@ -132,12 +151,6 @@ return {
   },
 
   -- Git
-  {
-    "tpope/vim-fugitive",
-    keys = {
-      { "<leader>G", ":G " },
-    },
-  },
   {
     "ruifm/gitlinker.nvim",
     opts = {},
@@ -159,7 +172,7 @@ return {
   {
     "lewis6991/gitsigns.nvim",
     opts = {
-        on_attach = function(bufnr)
+      on_attach = function(bufnr)
         local gs = package.loaded.gitsigns
 
         vim.keymap.set("n", "]c", function()
@@ -181,25 +194,15 @@ return {
           end)
           return "<Ignore>"
         end, { expr = true, buffer = bufnr })
-      end
+      end,
     },
     dependencies = {
-      "nvim-lua/plenary.nvim"
-    }
+      "nvim-lua/plenary.nvim",
+    },
   },
 
-  -- Installer for third party tools
+  -- Third party tools installer
   { "williamboman/mason.nvim", opts = {} },
-  {
-    "williamboman/mason-lspconfig.nvim",
-    opts = {
-      automatic_installation = true,
-      ensure_installed = {
-        "tsserver", -- mason doesn't automatically pick up tsserver from typescript-tools.nvim plugin
-      },
-    },
-    dependencies = { "williamboman/mason.nvim" },
-  },
 
   -- LSP
   {
@@ -209,7 +212,7 @@ return {
       vim.keymap.set("n", "<space>de", vim.diagnostic.open_float)
       vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
       vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
-      vim.keymap.set("n", "<space>dq", vim.diagnostic.setloclist) -- TODO: quicklist vs locllist?
+      vim.keymap.set("n", "<space>dq", vim.diagnostic.setloclist)
 
       -- Load this when lsp is attached to buffer
       vim.api.nvim_create_autocmd("LspAttach", {
@@ -239,13 +242,50 @@ return {
       local servers = {
         -- without any extra settings
         { "bashls" },
-        { "docker_compose_language_service" },
-        { "dockerls" },
-        { "gopls" },
-        { "pyright" },
         { "sourcery" },
         { "taplo" },
+        { "pyright" },
+        { "metals" },
         -- with some extra settings
+        {
+          "ruff_lsp",
+          {
+            opts = {
+              on_attach = function(client)
+                -- disable settings that should be handled with pyright
+                client.server_capabilities.hoverProvider = false
+              end,
+            },
+          },
+        },
+        {
+          "docker_compose_language_service",
+          opts = {
+            on_attach = function(_, bufnr)
+              vim.api.nvim_create_autocmd("BufWritePre", {
+                group = vim.api.nvim_create_augroup("FormatDockerComposeOnSave", {}),
+                callback = function()
+                  vim.lsp.buf.format()
+                end,
+                buffer = bufnr,
+              })
+            end,
+          },
+        },
+        {
+          "dockerls",
+          opts = {
+            on_attach = function(_, bufnr)
+              vim.api.nvim_create_autocmd("BufWritePre", {
+                group = vim.api.nvim_create_augroup("FormatDockerfileOnSave", {}),
+                callback = function()
+                  vim.lsp.buf.format()
+                end,
+                buffer = bufnr,
+              })
+            end,
+          },
+        },
         {
           "lua_ls",
           opts = {
@@ -262,6 +302,7 @@ return {
           opts = {
             root_dir = denols_root_pattern,
             on_attach = function(client, bufnr)
+              -- load type queries
               require("twoslash-queries").attach(client, bufnr)
             end,
           },
@@ -280,11 +321,17 @@ return {
         {
           "yamlls",
           opts = {
+            filetypes = {
+              -- run server also with custom filetypes
+              "yaml",
+              "yaml.docker-compose",
+              "yaml.github-action",
+            },
             settings = {
               yaml = {
                 schemaStore = {
-                  -- You must disable built-in schemaStore support if you want to use
-                  -- this plugin and its advanced options like `ignore`.
+                  -- built-in yaml ls schemaStore support must be disabled to use
+                  -- schemasstore plugin and its advanced options like `ignore`.
                   enable = false,
                   -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
                   url = "",
@@ -327,13 +374,24 @@ return {
 
     dependencies = {
       "folke/neodev.nvim", -- Neovim development betterments
-      "ms-jpq/coq_nvim", -- ensures setting up lsp autocompletion works
+      "ms-jpq/coq_nvim", -- ensures we can set up lsp sources for autocompletion
       "williamboman/mason-lspconfig.nvim", -- ensures automatic installation works
       "b0o/SchemaStore.nvim", -- schemas for jsonls and yamlls
     },
   },
   {
     "pmizio/typescript-tools.nvim", -- typescript extra tools
+    opts = {
+      on_attach = function(client, bufnr)
+        -- don't load tsserver for deno projects
+        if denols_root_pattern(vim.fn.getcwd()) then
+          client.stop()
+          return
+        end
+        -- load type queries
+        require("twoslash-queries").attach(client, bufnr)
+      end,
+    },
     dependencies = {
       "nvim-lua/plenary.nvim",
       "neovim/nvim-lspconfig",
@@ -344,15 +402,248 @@ return {
         },
       },
     },
+  },
+  {
+    "simrat39/rust-tools.nvim", -- rust extra tools
     opts = {
-      on_attach = function(client, bufnr)
-        -- don't load tsserver for deno projects
-        if denols_root_pattern(vim.fn.getcwd()) then
-          client.stop()
-          return
+      server = {
+        settings = {
+          ["rust-analyzer"] = {
+            check = {
+              command = "clippy",
+            },
+          },
+        },
+        on_attach = function(_, bufnr)
+          vim.keymap.set(
+            "n",
+            "<leader>ha",
+            require("rust-tools").hover_actions.hover_actions,
+            { buffer = bufnr }
+          )
+          vim.schedule(function()
+            require("rust-tools").inlay_hints.set()
+          end)
+        end,
+      },
+    },
+  },
+  {
+    "williamboman/mason-lspconfig.nvim",
+    opts = {
+      automatic_installation = true,
+      ensure_installed = {
+        "tsserver", -- mason doesn't automatically pick up tsserver from typescript-tools.nvim plugin
+      },
+    },
+    dependencies = { "williamboman/mason.nvim" },
+  },
+
+  -- DAP
+  {
+    "mfussenegger/nvim-dap",
+    config = function()
+      local dap = require("dap")
+      -- Adapters
+      dap.adapters["pwa-node"] = { -- js-debug-adapter from vscode
+        type = "server",
+        host = "127.0.0.1",
+        port = "${port}",
+        executable = {
+          command = "js-debug-adapter",
+          args = { "${port}" },
+        },
+      }
+
+      -- Configurations
+      local javascriptOrTypescriptDebugging = {
+        {
+          type = "pwa-node",
+          request = "launch",
+          name = "Launch file",
+          program = "${file}",
+          cwd = "${workspaceFolder}",
+        },
+        {
+          type = "pwa-node",
+          request = "attach",
+          name = "Attach",
+          processId = require("dap.utils").pick_process,
+          cwd = "${workspaceFolder}",
+        },
+      }
+      dap.configurations.typescript = javascriptOrTypescriptDebugging
+      dap.configurations.javascript = javascriptOrTypescriptDebugging
+    end,
+    keys = {
+      { "<leader>tb", ":DapToggleBreakpoint<cr>" },
+    },
+  },
+  {
+    "rcarriga/nvim-dap-ui",
+    config = function()
+      -- Toggle UI
+      require("dapui").setup({})
+      vim.api.nvim_create_user_command(
+        "DapUIToggle",
+        'lua require("dapui").toggle()<cr>',
+        {}
+      )
+    end,
+    dependencies = {
+      "mfussenegger/nvim-dap",
+    },
+  },
+  {
+    "jay-babu/mason-nvim-dap.nvim",
+    opts = {
+      automatic_installation = true,
+      ensure_installed = {
+        "js", -- mason doesn't automatically pick up js-debug-adapter since adapter name is "pwa-node"
+      },
+    },
+    dependencies = { "williamboman/mason.nvim", "mfussenegger/nvim-dap" },
+  },
+
+  -- Formatting & linting
+  {
+    "mhartington/formatter.nvim",
+    config = function()
+      -- setup
+
+      -- same prettier / denofmt setup runs for many different filetypes:
+      local javascriptOrTypescriptFormatting = function()
+        -- trust that lspconfig is loaded so we can check for root patterns
+        -- for current buffer
+        if
+          require("lspconfig.util").root_pattern("deno.json", "deno.jsonc")(
+            vim.api.nvim_buf_get_name(0)
+          )
+        then
+          return require("formatter.filetypes.javascript").denofmt()
+        else
+          return require("formatter.filetypes.javascript").prettier()
         end
-        require("twoslash-queries").attach(client, bufnr)
-      end,
+      end
+
+      require("formatter").setup({
+        filetype = {
+          lua = {
+            require("formatter.filetypes.lua").stylua,
+          },
+          javascript = { javascriptOrTypescriptFormatting },
+          typescript = { javascriptOrTypescriptFormatting },
+          javascriptreact = { javascriptOrTypescriptFormatting },
+          typescriptreact = { javascriptOrTypescriptFormatting },
+          rust = { require("formatter.filetypes.rust").rustfmt },
+          sh = { require("formatter.filetypes.sh").shfmt },
+          python = { require("formatter.filetypes.python").black },
+
+          -- fallback for all filetypes
+          ["*"] = {
+            require("formatter.filetypes.any").remove_trailing_whitespace,
+          },
+        },
+      })
+
+      -- autoformat
+      vim.api.nvim_create_autocmd("BufWritePost", {
+        group = vim.api.nvim_create_augroup("RunFormatting", {}),
+        callback = function()
+          vim.cmd("FormatWrite")
+        end,
+      })
+    end,
+  },
+  {
+    "mfussenegger/nvim-lint",
+    lazy = true,
+    ft = { "dockerfile", "lua", "yaml.github-action" },
+    config = function()
+      -- setup
+      local linters_by_ft = {
+        dockerfile = {
+          "hadolint",
+        },
+        lua = {
+          "luacheck",
+        },
+        ["yaml.github-action"] = {
+          "actionlint",
+        },
+      }
+      require("lint").linters_by_ft = linters_by_ft
+
+      -- Setup semi-lazy linting (not on every keystroke) for given filetypes
+      local linternames = {}
+      for k, _ in pairs(linters_by_ft) do
+        table.insert(linternames, k)
+      end
+      vim.api.nvim_create_autocmd({ "Filetype" }, {
+        pattern = linternames,
+        group = vim.api.nvim_create_augroup("SetupLintingWhenOpeningFiletype", {}),
+        callback = function(opts)
+          -- add autocmd for this buffer
+          vim.api.nvim_create_autocmd(
+            { "InsertEnter", "InsertLeave", "BufWritePost" },
+            {
+              buffer = opts.buf,
+              callback = function()
+                require("lint").try_lint()
+              end,
+            }
+          )
+        end,
+      })
+    end,
+  },
+  {
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    opts = {
+      ensure_installed = {
+        -- formatters
+        "shfmt",
+        "stylua",
+        "prettier",
+        "black",
+        -- linters
+        "shellcheck", -- goes through bash-lsp!
+        "hadolint",
+        "luacheck",
+        "actionlint",
+      },
+    },
+    dependencies = { "williamboman/mason.nvim", "mhartington/formatter.nvim" },
+  },
+
+  -- test runner
+  {
+    "nvim-neotest/neotest",
+    lazy = true,
+    config = function()
+      require("neotest").setup({
+        adapters = {
+          require("neotest-rust"),
+        },
+      })
+    end,
+    keys = {
+      { "<leader>nr", ":Neotest run<cr>" },
+      { "<leader>no", ":Neotest output<cr>" },
+      { "<leader>np", ":Neotest output-panel<cr>" },
+      { "<leader>ns", ":Neotest summary<cr>" },
+      { "[n", ":Neotest jump prev<cr>" },
+      { "]n", ":Neotest jump next<cr>" },
+    },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "antoinemadec/FixCursorHold.nvim",
+      -- plugins
+      "rouge8/neotest-rust",
     },
   },
 }
+
+vim.list_extend(plugins, rest)
+return plugins

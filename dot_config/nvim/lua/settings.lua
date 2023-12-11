@@ -35,7 +35,7 @@ local options = {
   -- Lower the time vim waits for a key code seq to complete
   timeoutlen = 500,
   -- Lower the time when swap file is written to the disk
-  updatetime = 300,
+  updatetime = 30,
   -- Use global statusline
   laststatus = 3,
   -- Read changes from outside world
@@ -54,8 +54,7 @@ local options = {
   -- Keep stable split when opening another split above / below
   splitkeep = "screen",
   -- persistent undo
-  undofile = true
-
+  undofile = true,
 }
 -- Setup options
 for option, value in pairs(options) do
@@ -66,13 +65,11 @@ end
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 
--- Set up netrw
-vim.g.netrw_keepdir = 0 -- avoids some copy bugs
-vim.g.netrw_banner = 0 -- don't show manner
-vim.g.netrw_liststyle = 3 -- use tree
-vim.g.netrw_localcopydircmd = "cp -r" -- recursive copy
-vim.g.netrw_bufsettings = 'noma nomod nu nowrap ro nobl' -- instead of default nonu (=no number), set line numbers
-vim.cmd("highlight! link netrwMarkFile Search") -- highlight marked files 
+-- Disable netrw
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_netrwSettings = 1
+vim.g.loaded_netrwFileHandlers = 1
 
 -- Set different color for terminal mode cursor
 vim.cmd("highlight! link TermCursor Cursor")

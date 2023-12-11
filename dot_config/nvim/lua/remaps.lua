@@ -15,7 +15,7 @@ vim.keymap.set("n", "<leader>bp", "<cmd>bprev<cr>", { silent = true })
 vim.keymap.set("n", "<leader>bd", "<cmd>bdelete<cr>", { silent = true })
 
 -- Tabs
-vim.keymap.set("n", "<leader>tn", "<cmd>tabnew<cr>", { silent = true})
+vim.keymap.set("n", "<leader>tn", "<cmd>tabnew<cr>", { silent = true })
 
 -- Fast saving
 vim.keymap.set("n", "<leader>ww", "<cmd>w!<cr>", { silent = false })
@@ -40,13 +40,27 @@ function! ToggleQuickFix()
     endif
 endfunction
 ]])
-vim.keymap.set("n", "<leader>cq", "<cmd>call ToggleQuickFix()<cr>", { silent = true})
+vim.keymap.set("n", "<leader>cq", "<cmd>call ToggleQuickFix()<cr>", { silent = true })
+
+-- Move in locationlist
+vim.keymap.set("n", "<leader>ln", "<cmd>:lnext<cr>", { silent = true })
+vim.keymap.set("n", "<leader>lp", "<cmd>:lprev<cr>", { silent = true })
+vim.cmd([[
+function! ToggleLocList()
+    if empty(filter(getwininfo(), 'v:val.loclist'))
+        lopen
+    else
+        lclose
+    endif
+endfunction
+]])
+vim.keymap.set("n", "<leader>lq", "<cmd>call ToggleLocList()<cr>", { silent = true })
 
 -- Netrw
-vim.keymap.set("n", "<leader>ee", ":Explore<cr>", { silent = true})
-vim.keymap.set("n", "<leader>ee", ":Explore %:p:h<cr>", { silent = true})
-vim.keymap.set("n", "<leader>se", ":Sexplore<cr>", { silent = true})
-vim.keymap.set("n", "<leader>ve", ":Vexplore<cr>", { silent = true})
+vim.keymap.set("n", "<leader>ee", ":Explore<cr>", { silent = true })
+vim.keymap.set("n", "<leader>ee", ":Explore %:p:h<cr>", { silent = true })
+vim.keymap.set("n", "<leader>se", ":Sexplore<cr>", { silent = true })
+vim.keymap.set("n", "<leader>ve", ":Vexplore<cr>", { silent = true })
 
 -- show file tree list
-vim.keymap.set("n", "<leader>tr", ":! tree<cr>", { silent = true})
+vim.keymap.set("n", "<leader>tr", ":! tree<cr>", { silent = true })

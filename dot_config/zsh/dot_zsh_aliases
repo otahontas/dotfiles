@@ -49,3 +49,6 @@ alias gsw="git sw"
 # weekly stuff
 alias week="date +%U"
 alias dna-week="echo $((50 + $(date +%U)))"
+
+# rust repl
+alias rust-repl="evcxr"

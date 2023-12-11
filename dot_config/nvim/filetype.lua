@@ -5,6 +5,11 @@ vim.filetype.add({
     hook = "conf",
     rc = "conf",
   },
+  pattern = {
+    ["docker%-compose%..*"] = "yaml.docker-compose",
+    [".*/%.github/workflows/.*"] = "yaml.github-action",
+    [".*/%.github/actions/.*"] = "yaml.github-action",
+  },
   filename = {
     config = "conf",
     ignore = "conf",
