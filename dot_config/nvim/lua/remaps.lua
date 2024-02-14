@@ -6,6 +6,20 @@ vim.keymap.set("n", "<leader>ss", "<cmd>terminal<cr>", { silent = true })
 vim.keymap.set("n", "<leader>vt", "<C-w>v<C-w>l<cmd>terminal<cr>", { silent = true })
 vim.keymap.set("n", "<leader>st", "<C-w>s<C-w>j<cmd>terminal<cr>", { silent = true })
 
+-- open nnn in this, vertical or horisontal split
+vim.keymap.set(
+  "n",
+  "<leader>se",
+  "<C-w>v<C-w>l<cmd>terminal<cr>innn<cr>",
+  { silent = true }
+)
+vim.keymap.set(
+  "n",
+  "<leader>ve",
+  "<C-w>s<C-w>j<cmd>terminal<cr>innn<cr>",
+  { silent = true }
+)
+
 -- Toggle highlighting
 vim.keymap.set("n", "<leader>nh", "<cmd>nohlsearch<cr>", { silent = true })
 
@@ -55,12 +69,6 @@ function! ToggleLocList()
 endfunction
 ]])
 vim.keymap.set("n", "<leader>lq", "<cmd>call ToggleLocList()<cr>", { silent = true })
-
--- Netrw
-vim.keymap.set("n", "<leader>ee", ":Explore<cr>", { silent = true })
-vim.keymap.set("n", "<leader>ee", ":Explore %:p:h<cr>", { silent = true })
-vim.keymap.set("n", "<leader>se", ":Sexplore<cr>", { silent = true })
-vim.keymap.set("n", "<leader>ve", ":Vexplore<cr>", { silent = true })
 
 -- show file tree list
 vim.keymap.set("n", "<leader>tr", ":! tree<cr>", { silent = true })

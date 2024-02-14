@@ -33,21 +33,6 @@ printcolor() {
     echo -E ${(qqqq)${(%)color}}
 }
 
-# Update zsh plugins
-function update_zsh_plugins() {
-    antibody bundle < $ZDOTDIR/.zsh_plugins.txt > $ZDOTDIR/.zsh_plugins.sh && \
-    antibody update
-}
-
-# Function to write daily diary.
-function diary() {
-    if [[ ! -d $DIARYDIR/$(date +"%Y/%m") ]]; then
-        mkdir -p $DIARYDIR/$(date +"%Y/%m")
-    fi
-
-    $EDITOR $DIARYDIR/$(date +"%Y/%m/%d").txt
-}
-
 function listening() {
     if [ $# -eq 0 ]; then
         sudo lsof -iTCP -sTCP:LISTEN -n -P
@@ -62,7 +47,9 @@ function myip() {
     ifconfig | grep "inet " | grep -Fv 127.0.0.1 | awk '{print $2}'
 }
 
-function yarns() {
+function run_packagejson_script() {
+  local package_manager="$1"
+
   if [ ! -f package.json ]; then
     echo "package.json not found" >&2
   else
@@ -72,39 +59,21 @@ function yarns() {
       --preview "jq '.scripts.\"{}\"' package.json -r | tr -d '\"' | sed 's/^[[:blank:]]*//'")
 
     if [ -n "$command" ]; then
-      eval "yarn $command"
+      eval "$package_manager run $command"
     fi
   fi
+}
+
+function yarns() {
+  run_packagejson_script "yarn"
 }
 
 function npms() {
-  if [ ! -f package.json ]; then
-    echo "package.json not found" >&2
-  else
-    local command=$(jq '.scripts | keys[]' package.json -r | tr -d '"' |
-    fzf --reverse \
-      --preview-window=:wrap \
-      --preview "jq '.scripts.\"{}\"' package.json -r | tr -d '\"' | sed 's/^[[:blank:]]*//'")
-
-    if [ -n "$command" ]; then
-      eval "npm run $command"
-    fi
-  fi
+  run_packagejson_script "npm"
 }
 
-# short project setup for node projects
-function pnpm-node-init() {
-    pnpm init && \
-    pnpm add --save-dev typescript ts-node @tsconfig/node18-strictest @types/node rome && \
-    echo '{"extends": "@tsconfig/node18-strictest/tsconfig.json"}' | jq > tsconfig.json && \
-    pnpm rome init && \
-    echo "$(cat package.json | jq 'del(.main, .scripts.test)' | jq '.scripts.start="ts-node index.ts"')" > package.json && \
-    touch index.ts
-}
-
-function load_volta() {
-    export VOLTA_HOME="$HOME/.volta"
-    export PATH="$VOLTA_HOME/bin:$PATH"
+function pnpms() {
+  run_packagejson_script "pnpm"
 }
 
 function find_and_prune() {

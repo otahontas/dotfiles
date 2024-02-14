@@ -87,5 +87,5 @@
     path = ~/.config/git/default-user-config.gitconfig
 
 # work overrides
-[includeIf "gitdir:~/code/work/"]
+[includeIf "gitdir:~/Code/work/"]
     path = ~/.config/git/work-user-config.gitconfig

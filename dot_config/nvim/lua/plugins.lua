@@ -115,6 +115,16 @@ local rest = {
   {
     "farmergreg/vim-lastplace",
   },
+  {
+    "willothy/flatten.nvim",
+    lazy = false,
+    priotity = 998,
+    opts = {
+      one_per = {
+        wezterm = true,
+      },
+    },
+  },
 
   -- Editing
   {
@@ -525,6 +535,21 @@ local rest = {
           return require("formatter.filetypes.javascript").prettier()
         end
       end
+      local sqlfluff = function()
+        return {
+          exe = "sqlfluff",
+          args = {
+            "format",
+            "--dialect",
+            "postgres",
+            "--disable-progress-bar",
+            "--nocolor",
+            "-",
+          },
+          stdin = true,
+          ignore_exitcode = true,
+        }
+      end
 
       require("formatter").setup({
         filetype = {
@@ -537,6 +562,7 @@ local rest = {
           typescriptreact = { javascriptOrTypescriptFormatting },
           rust = { require("formatter.filetypes.rust").rustfmt },
           sh = { require("formatter.filetypes.sh").shfmt },
+          sql = { sqlfluff },
           python = { require("formatter.filetypes.python").black },
 
           -- fallback for all filetypes
@@ -558,20 +584,24 @@ local rest = {
   {
     "mfussenegger/nvim-lint",
     lazy = true,
-    ft = { "dockerfile", "lua", "yaml.github-action" },
+    ft = { "dockerfile", "lua", "sql", "yaml.github-action" },
     config = function()
       -- setup
-      local linters_by_ft = {
-        dockerfile = {
-          "hadolint",
-        },
-        lua = {
-          "luacheck",
-        },
-        ["yaml.github-action"] = {
-          "actionlint",
-        },
-      }
+      local linters_by_ft =
+        { -- Note: remember to add filetype to lazy table (above) too
+          dockerfile = {
+            "hadolint",
+          },
+          lua = {
+            "luacheck",
+          },
+          sql = {
+            "sqlfluff",
+          },
+          ["yaml.github-action"] = {
+            "actionlint",
+          },
+        }
       require("lint").linters_by_ft = linters_by_ft
 
       -- Setup semi-lazy linting (not on every keystroke) for given filetypes
@@ -611,6 +641,7 @@ local rest = {
         "hadolint",
         "luacheck",
         "actionlint",
+        "sqlfluff",
       },
     },
     dependencies = { "williamboman/mason.nvim", "mhartington/formatter.nvim" },

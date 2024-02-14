@@ -1,22 +1,20 @@
 # Set some better defaults
 alias grep="grep --color=auto"
 alias info="info --vi-keys"
-alias ls="exa"
+alias ls="eza"
 alias cat="bat"
 alias prev="bat"
 alias rm='echo -E "use \"\\rm\", if you really need to rm. Otherwise use \"trash\"."; false'
+alias youtube-dl="yt-dlp"
 
 # Listing commands
-alias la="exa -la"
-alias ll="exa -l"
-alias lr="exa -Rl"
+alias la="ls -la"
+alias ll="ls -l"
+alias lr="ls -Rl"
 
 # Backtracking
 alias ...="cd ../.."
 alias ....="cd ../../.."
-
-# Aliases for daily tools
-alias spotify="pkill spotifyd; spotifyd && spt; pkill spotifyd"
 
 # Don't autocorrect some commands
 alias cd="nocorrect cd"

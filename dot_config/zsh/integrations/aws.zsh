@@ -42,3 +42,7 @@ functions[original_asp]=$functions[asp]
 functions[asp]=$functions[asp_with_regions]
 functions[original_acp]=$functions[acp]
 functions[acp]=$functions[acp_with_regions]
+
+# Setup proper config for aws
+export AWS_SHARED_CREDENTIALS_FILE="$XDG_CONFIG_HOME"/aws/credentials
+export AWS_CONFIG_FILE="$XDG_CONFIG_HOME"/aws/config

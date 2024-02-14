@@ -1,3 +1,0 @@
-[default]
-output=json
-cli_pager=bat

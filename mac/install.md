@@ -69,6 +69,13 @@ defaults write com.apple.finder "QuitMenuItem" -bool true
 defaults write com.apple.finder "AppleShowAllFiles" -boolean true;
 ```
 
+Don't write .DS_STORE files on network or usb
+
+```
+defaults write com.apple.desktopservices DSDontWriteNetworkStores true
+defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
+```
+
 Remove desktop:
 
 ```bash

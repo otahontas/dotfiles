@@ -47,8 +47,8 @@ setopt globdots
 disable r
 
 # Load plugins
-# To update plugins, run antibody bundle < .zsh_plugins.txt > .zsh_plugins.sh
-source $ZDOTDIR/.zsh_plugins.sh
+source $(brew --prefix)/opt/antidote/share/antidote/antidote.zsh
+antidote load
 
 # Set up binding for history search
 bindkey -M vicmd 'k' history-substring-search-up

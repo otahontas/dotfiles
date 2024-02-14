@@ -10,7 +10,7 @@ function nnn () {
     # NNN_TMPFILE is fixed, should not be modified
     export NNN_TMPFILE="${XDG_CONFIG_HOME}/nnn/.lastd"
 
-    command nnn "$@"
+    TERM=xterm command nnn "$@"
 
     if [ -f "$NNN_TMPFILE" ]; then
             . "$NNN_TMPFILE"
@@ -20,6 +20,8 @@ function nnn () {
 }
 
 # OPTS: Show hidden files, use EDITOR and VISUAL for text files
-export NNN_OPTS="eEH"
+export NNN_OPTS="ceEH"
 # Use trash instead of delete
 export NNN_TRASH="1"
+# Use custom opener
+export NNN_OPENER="${HOME}/.local/bin/open"
