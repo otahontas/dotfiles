@@ -1,65 +1,8 @@
 local wezterm = require("wezterm")
-local io = require("io")
-local os = require("os")
-
--- TODO: scandics not working, fix
-
-local hyperlink_rules = {
-  -- Linkify things that look like URLs
-  -- This is actually the default if you don't specify any hyperlink_rules
-  {
-    regex = "\\b\\w+://(?:[\\w.-]+)\\.[a-z]{2,15}\\S*\\b",
-    format = "$0",
-  },
-
-  -- linkify email addresses
-  {
-    regex = "\\b\\w+@[\\w-]+(\\.[\\w-]+)+\\b",
-    format = "mailto:$0",
-  },
-
-  -- file:// URI
-  {
-    regex = "\\bfile://\\S*\\b",
-    format = "$0",
-  },
-}
-
-wezterm.on("trigger-nvim-with-scrollback", function(window, pane)
-  -- Retrieve the current viewport's text.
-  local scrollback = pane:get_lines_as_text()
-
-  -- Create a temporary file to pass to vim
-  local name = os.tmpname()
-  local f = io.open(name, "w+")
-  if f == nil then
-    return
-  end
-  f:write(scrollback)
-  f:flush()
-  f:close()
-
-  -- Open a new tab running nvim and tell it to open the file
-  window:perform_action(
-    wezterm.action({
-      SpawnCommandInNewTab = {
-        args = { "/usr/local/bin/nvim", name },
-      },
-    }),
-    pane
-  )
-
-  -- wait "enough" time for nvim to read the file before we remove it.
-  -- The window creation and process spawn are asynchronous
-  -- wrt. running this script and are not awaitable, so we just pick
-  -- a number.  We don't strictly need to remove this file, but it
-  -- is nice to avoid cluttering up the temporary file directory
-  -- location.
-  wezterm.sleep_ms(1000)
-  os.remove(name)
-end)
+local act = wezterm.action
 
 local keys = {
+  -- open splits
   {
     key = "v",
     mods = "LEADER",
@@ -75,6 +18,28 @@ local keys = {
     mods = "LEADER",
     action = wezterm.action({ CloseCurrentPane = { confirm = true } }),
   },
+  -- move between splits
+  {
+    key = "h",
+    mods = "LEADER",
+    action = wezterm.action({ ActivatePaneDirection = "Left" }),
+  },
+  {
+    key = "j",
+    mods = "LEADER",
+    action = wezterm.action({ ActivatePaneDirection = "Down" }),
+  },
+  {
+    key = "k",
+    mods = "LEADER",
+    action = wezterm.action({ ActivatePaneDirection = "Up" }),
+  },
+  {
+    key = "l",
+    mods = "LEADER",
+    action = wezterm.action({ ActivatePaneDirection = "Right" }),
+  },
+  -- resize splits with shift
   {
     key = "h",
     mods = "LEADER | SHIFT",
@@ -98,31 +63,13 @@ local keys = {
       5,
     } }),
   },
+  -- open new tab
   {
-    key = "h",
+    key = "c",
     mods = "LEADER",
-    action = wezterm.action({ ActivatePaneDirection = "Left" }),
+    action = wezterm.action({ SpawnTab = "CurrentPaneDomain" }),
   },
-  {
-    key = "j",
-    mods = "LEADER",
-    action = wezterm.action({ ActivatePaneDirection = "Down" }),
-  },
-  {
-    key = "k",
-    mods = "LEADER",
-    action = wezterm.action({ ActivatePaneDirection = "Up" }),
-  },
-  {
-    key = "l",
-    mods = "LEADER",
-    action = wezterm.action({ ActivatePaneDirection = "Right" }),
-  },
-  {
-    key = ".",
-    mods = "LEADER",
-    action = wezterm.action({ EmitEvent = "trigger-nvim-with-scrollback" }),
-  },
+  -- move between tabs
   {
     key = "n",
     mods = "LEADER",
@@ -133,16 +80,13 @@ local keys = {
     mods = "LEADER",
     action = wezterm.action({ ActivateTabRelative = -1 }),
   },
-  {
-    key = "c",
-    mods = "LEADER",
-    action = wezterm.action({ SpawnTab = "CurrentPaneDomain" }),
-  },
+  -- search
   {
     key = "f",
     mods = "LEADER",
     action = wezterm.action({ Search = { CaseSensitiveString = "" } }),
   },
+  -- scroll pages
   {
     key = "u",
     mods = "LEADER",
@@ -153,31 +97,40 @@ local keys = {
     mods = "LEADER",
     action = wezterm.action({ ScrollByPage = 1 }),
   },
-  -- Add basic ctrl + c, ctrl + v from defaults
+  -- add some custom scandics from U.S. international with dead keys layout
   {
-    key = "c",
-    mods = "SUPER",
-    action = wezterm.action({ CopyTo = "Clipboard" }),
+    key = "q",
+    mods = "ALT",
+    action = act.SendKey({
+      key = "ä",
+    }),
   },
   {
-    key = "v",
-    mods = "SUPER",
-    action = wezterm.action({ PasteFrom = "Clipboard" }),
+    key = "p",
+    mods = "ALT",
+    action = act.SendKey({
+      key = "ö",
+    }),
+  },
+  {
+    key = "w",
+    mods = "ALT",
+    action = act.SendKey({
+      key = "å",
+    }),
   },
 }
 
 return {
-  color_scheme = "Catppuccin Mocha",
-  disable_default_key_bindings = true,
+  -- aesthetics
+  color_scheme = "Catppuccin Latte",
   font = wezterm.font("JetBrainsMono Nerd Font"),
-  font_size = 14,
+  font_size = 13,
   hide_tab_bar_if_only_one_tab = true,
-  hyperlink_rules = hyperlink_rules,
-  keys = keys,
-  leader = { key = "a", mods = "CTRL" },
-  scrollback_lines = 5000,
   tab_bar_at_bottom = true,
   use_fancy_tab_bar = false,
-  window_background_opacity = 1,
   window_decorations = "RESIZE",
+  -- logic
+  leader = { key = "a", mods = "CTRL" },
+  keys = keys,
 }

@@ -1,5 +1,4 @@
 # Wrapper for nnn to cd on quit
-
 function nnn () {
     # Block nesting of nnn in subshells
     if [ -n $NNNLVL ] && [ "${NNNLVL:-0}" -ge 1 ]; then

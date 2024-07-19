@@ -8,24 +8,87 @@ local denols_root_pattern = function(fname)
   return require("lspconfig.util").root_pattern("deno.json", "deno.jsonc")(fname)
 end
 
--- Plugins array that is returned from this module
-local plugins = {}
-
--- Plugins by category
 local aesthetics = {
+  -- colorscheme
   {
     "catppuccin/nvim",
     name = "catppuccin",
     lazy = false,
-    priority = 999, -- Make sure colorscheme is loaded before all the other plugins
+    priority = 1000, -- Make sure colorscheme is loaded before all the other plugins
+    opts = {
+      integrations = {
+        -- TODO: check other integrations
+        mason = true,
+        neotest = true,
+      },
+    },
     config = function()
       vim.cmd.colorscheme("catppuccin")
     end,
-    opts = { integrations = { mason = true } },
   },
-  { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
+  -- indent marks
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    main = "ibl",
+    config = function()
+      -- setup multiple indent colors
+      local highlight = {
+        "RainbowRed",
+        "RainbowYellow",
+        "RainbowBlue",
+        "RainbowOrange",
+        "RainbowGreen",
+        "RainbowViolet",
+        "RainbowCyan",
+      }
+      local hooks = require("ibl.hooks")
+      -- create the highlight groups in the highlight setup hook, so they are reset
+      -- every time the colorscheme changes
+      hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+        vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#E06C75" })
+        vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" })
+        vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#61AFEF" })
+        vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" })
+        vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })
+        vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
+        vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
+      end)
+      require("ibl").setup({ indent = { highlight = highlight } })
+    end,
+  },
+  -- lsp context breadcrumps
+  {
+    "utilyre/barbecue.nvim",
+    name = "barbecue",
+    version = "*",
+    dependencies = {
+      "SmiteshP/nvim-navic",
+      "nvim-tree/nvim-web-devicons", -- optional dependency
+    },
+    opts = {
+      theme = "catppuccin-latte",
+    },
+  },
+  -- statusline
+  {
+    "nvim-lualine/lualine.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    opts = {
+      theme = "catppuccin",
+    },
+  },
+  -- better looking diagnostics
+  {
+    "rachartier/tiny-inline-diagnostic.nvim",
+    event = "VeryLazy",
+    config = function()
+      vim.diagnostic.config({
+        virtual_text = false,
+      })
+      require("tiny-inline-diagnostic").setup()
+    end,
+  },
 }
-vim.list_extend(plugins, aesthetics)
 
 local treesitter = {
   {
@@ -63,18 +126,51 @@ local treesitter = {
   },
   {
     "m-demare/hlargs.nvim",
-    opts = {},
+    setup = function()
+      -- disable hlargs if a language server with semantic token capabilities is attached to a buffer
+      vim.api.nvim_create_augroup("LspAttach_hlargs", { clear = true })
+      vim.api.nvim_create_autocmd("LspAttach", {
+        group = "LspAttach_hlargs",
+        callback = function(args)
+          if not (args.data and args.data.client_id) then
+            return
+          end
+
+          local client = vim.lsp.get_client_by_id(args.data.client_id)
+          local caps = client.server_capabilities
+          if caps.semanticTokensProvider and caps.semanticTokensProvider.full then
+            require("hlargs").disable_buf(args.buf)
+          end
+        end,
+      })
+    end,
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+  },
+  {
+    "HiPhish/rainbow-delimiters.nvim",
     dependencies = { "nvim-treesitter/nvim-treesitter" },
   },
 }
-vim.list_extend(plugins, treesitter)
 
--- TODO: modularize to named tables and share stuff between. then return concatenated
--- table of settings. but keep them here in one file
-
--- Plugins (not yet modularized)
-local rest = {
-  -- Navigating
+local navigating = {
+  {
+    "stevearc/oil.nvim",
+    opts = {},
+    keys = {
+      {
+        "<leader>ee",
+        "<cmd>:Oil .<cr>", -- open from working dir
+        { silent = true },
+      },
+      {
+        "<leader>en",
+        "<cmd>:Oil<cr>", -- open from current files dir
+        { silent = true },
+      },
+    },
+    -- Optional dependencies
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+  },
   {
     "nvim-telescope/telescope.nvim",
     config = function()
@@ -118,15 +214,16 @@ local rest = {
   {
     "willothy/flatten.nvim",
     lazy = false,
-    priotity = 998,
+    priotity = 1001,
     opts = {
       one_per = {
         wezterm = true,
       },
     },
   },
+}
 
-  -- Editing
+local editing = {
   {
     "ms-jpq/coq_nvim",
     branch = "coq",
@@ -142,15 +239,15 @@ local rest = {
       }
       vim.cmd(":COQnow --shut-up")
       require("coq_3p")({
-        { src = "copilot", short_name = "COP", accept_key = "<C-f>" },
+        { src = "copilot", short_name = "COP", accept_key = "<C-j>" },
       })
+      vim.g.copilot_no_tab_map = true
     end,
     dependencies = {
       { "ms-jpq/coq.artifacts", branch = "artifacts" },
       { "ms-jpq/coq.thirdparty", branch = "3p", dependencies = "github/copilot.vim" },
     },
   },
-  { "echasnovski/mini.comment", version = "*", opts = {} },
   { "echasnovski/mini.pairs", version = "*", opts = {} },
   { "echasnovski/mini.surround", version = "*", opts = {} },
   {
@@ -159,19 +256,21 @@ local rest = {
       vim.g.suda_smart_edit = 1
     end,
   },
+}
 
-  -- Git
+local git = {
   {
-    "ruifm/gitlinker.nvim",
+    "linrongbin16/gitlinker.nvim",
     opts = {},
     keys = {
       {
+        "<leader>gy",
+        "<cmd>GitLink<cr>",
+        { silent = true },
+      },
+      {
         "<leader>go",
-        function()
-          require("gitlinker").get_repo_url({
-            action_callback = require("gitlinker.actions").open_in_browser,
-          })
-        end,
+        "<cmd>GitLink!<cr>",
         { silent = true },
       },
     },
@@ -210,18 +309,18 @@ local rest = {
       "nvim-lua/plenary.nvim",
     },
   },
+  { "echasnovski/mini-git", version = "*", main = "mini.git", opts = {} },
+}
 
-  -- Third party tools installer
+local tools = {
   { "williamboman/mason.nvim", opts = {} },
+}
 
-  -- LSP
+local lsp = {
   {
     "neovim/nvim-lspconfig",
     config = function()
       -- Global mappings
-      vim.keymap.set("n", "<space>de", vim.diagnostic.open_float)
-      vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
-      vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
       vim.keymap.set("n", "<space>dq", vim.diagnostic.setloclist)
 
       -- Load this when lsp is attached to buffer
@@ -232,7 +331,6 @@ local rest = {
           local opts = { buffer = ev.buf, silent = true }
           vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
           vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-          vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
           vim.keymap.set("n", "<leader>gi", vim.lsp.buf.implementation, opts)
           vim.keymap.set("n", "<leader>gs", vim.lsp.buf.signature_help, opts)
           vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, opts)
@@ -244,7 +342,6 @@ local rest = {
           vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
           vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
           vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, opts)
-          -- formatting?
         end,
       })
 
@@ -256,7 +353,37 @@ local rest = {
         { "taplo" },
         { "pyright" },
         { "metals" },
+        { "svelte" },
+        { "astro" },
         -- with some extra settings
+        {
+          "tailwindcss",
+          {
+            opts = {
+              root_dir = require("lspconfig.util").root_pattern(
+                "tailwind.config.js",
+                "tailwind.config.cjs",
+                "tailwind.config.mjs",
+                "tailwind.config.ts"
+              ),
+            },
+          },
+        },
+        {
+          "clangd",
+          {
+            opts = {
+              cmd = {
+                "clangd",
+                "--offset-encoding=utf-16",
+                "--enable-config",
+              },
+              capabilities = {
+                offsetEncoding = { "utf-16" },
+              },
+            },
+          },
+        },
         {
           "ruff_lsp",
           {
@@ -448,74 +575,9 @@ local rest = {
     },
     dependencies = { "williamboman/mason.nvim" },
   },
+}
 
-  -- DAP
-  {
-    "mfussenegger/nvim-dap",
-    config = function()
-      local dap = require("dap")
-      -- Adapters
-      dap.adapters["pwa-node"] = { -- js-debug-adapter from vscode
-        type = "server",
-        host = "127.0.0.1",
-        port = "${port}",
-        executable = {
-          command = "js-debug-adapter",
-          args = { "${port}" },
-        },
-      }
-
-      -- Configurations
-      local javascriptOrTypescriptDebugging = {
-        {
-          type = "pwa-node",
-          request = "launch",
-          name = "Launch file",
-          program = "${file}",
-          cwd = "${workspaceFolder}",
-        },
-        {
-          type = "pwa-node",
-          request = "attach",
-          name = "Attach",
-          processId = require("dap.utils").pick_process,
-          cwd = "${workspaceFolder}",
-        },
-      }
-      dap.configurations.typescript = javascriptOrTypescriptDebugging
-      dap.configurations.javascript = javascriptOrTypescriptDebugging
-    end,
-    keys = {
-      { "<leader>tb", ":DapToggleBreakpoint<cr>" },
-    },
-  },
-  {
-    "rcarriga/nvim-dap-ui",
-    config = function()
-      -- Toggle UI
-      require("dapui").setup({})
-      vim.api.nvim_create_user_command(
-        "DapUIToggle",
-        'lua require("dapui").toggle()<cr>',
-        {}
-      )
-    end,
-    dependencies = {
-      "mfussenegger/nvim-dap",
-    },
-  },
-  {
-    "jay-babu/mason-nvim-dap.nvim",
-    opts = {
-      automatic_installation = true,
-      ensure_installed = {
-        "js", -- mason doesn't automatically pick up js-debug-adapter since adapter name is "pwa-node"
-      },
-    },
-    dependencies = { "williamboman/mason.nvim", "mfussenegger/nvim-dap" },
-  },
-
-  -- Formatting & linting
+local lintingAndFormatting = {
   {
     "mhartington/formatter.nvim",
     config = function()
@@ -525,14 +587,14 @@ local rest = {
       local javascriptOrTypescriptFormatting = function()
         -- trust that lspconfig is loaded so we can check for root patterns
         -- for current buffer
+        -- check if current buffer is for deno project, if it is, don't use formatting
         if
+          -- TODO: use shared "denols_root_pattern func"
           require("lspconfig.util").root_pattern("deno.json", "deno.jsonc")(
             vim.api.nvim_buf_get_name(0)
           )
         then
           return require("formatter.filetypes.javascript").denofmt()
-        else
-          return require("formatter.filetypes.javascript").prettier()
         end
       end
       local sqlfluff = function()
@@ -563,6 +625,8 @@ local rest = {
           rust = { require("formatter.filetypes.rust").rustfmt },
           sh = { require("formatter.filetypes.sh").shfmt },
           sql = { sqlfluff },
+          cpp = { require("formatter.filetypes.cpp").clangformat },
+          cuda = { require("formatter.filetypes.cpp").clangformat },
           python = { require("formatter.filetypes.python").black },
 
           -- fallback for all filetypes
@@ -636,6 +700,7 @@ local rest = {
         "stylua",
         "prettier",
         "black",
+        "clang-format",
         -- linters
         "shellcheck", -- goes through bash-lsp!
         "hadolint",
@@ -646,35 +711,20 @@ local rest = {
     },
     dependencies = { "williamboman/mason.nvim", "mhartington/formatter.nvim" },
   },
-
-  -- test runner
-  {
-    "nvim-neotest/neotest",
-    lazy = true,
-    config = function()
-      require("neotest").setup({
-        adapters = {
-          require("neotest-rust"),
-        },
-      })
-    end,
-    keys = {
-      { "<leader>nr", ":Neotest run<cr>" },
-      { "<leader>no", ":Neotest output<cr>" },
-      { "<leader>np", ":Neotest output-panel<cr>" },
-      { "<leader>ns", ":Neotest summary<cr>" },
-      { "[n", ":Neotest jump prev<cr>" },
-      { "]n", ":Neotest jump next<cr>" },
-    },
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-treesitter/nvim-treesitter",
-      "antoinemadec/FixCursorHold.nvim",
-      -- plugins
-      "rouge8/neotest-rust",
-    },
-  },
 }
 
-vim.list_extend(plugins, rest)
+-- combine plugins
+local plugins = {}
+for _, pluginGroup in ipairs({
+  aesthetics,
+  treesitter,
+  navigating,
+  editing,
+  git,
+  tools,
+  lsp,
+  lintingAndFormatting,
+}) do
+  table.insert(plugins, pluginGroup)
+end
 return plugins

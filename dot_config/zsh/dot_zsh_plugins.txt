@@ -1,6 +1,7 @@
-zsh-users/zsh-syntax-highlighting
-zsh-users/zsh-autosuggestions
-zsh-users/zsh-completions
-zsh-users/zsh-history-substring-search
 Aloxaf/fzf-tab
+MichaelAquilina/zsh-you-should-use
 ohmyzsh/ohmyzsh path:plugins/aws
+zdharma-continuum/fast-syntax-highlighting kind:defer
+zsh-users/zsh-autosuggestions kind:defer
+zsh-users/zsh-completions
+zsh-users/zsh-history-substring-search kind:defer

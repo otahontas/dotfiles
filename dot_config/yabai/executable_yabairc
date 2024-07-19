@@ -8,13 +8,11 @@ yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 sudo yabai --load-sa
 
 # global settings
-yabai -m config window_topmost off
 yabai -m config window_shadow on
 yabai -m config window_opacity on
 yabai -m config window_opacity_duration 0.25
 yabai -m config active_window_opacity 1.0
 yabai -m config normal_window_opacity 1.0
-yabai -m config window_border off
 yabai -m config insert_feedback_color 0xffd75f5f
 
 # general space settings

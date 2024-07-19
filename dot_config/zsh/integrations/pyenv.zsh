@@ -1,3 +1,4 @@
+# use xdg for pyenv
 export PYENV_ROOT=$XDG_CACHE_HOME/pyenv
 
 # Set pyenv root to path
@@ -6,5 +7,5 @@ export PYENV_ROOT=$XDG_CACHE_HOME/pyenv
 # Load pyenv executable from path
 eval "$(pyenv init --path)"
 
-# Load pyev
+# Load pyenv
 eval "$(pyenv init -)"

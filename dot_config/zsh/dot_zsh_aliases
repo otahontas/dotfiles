@@ -1,11 +1,6 @@
-# Set some better defaults
+# Set some better defaults for default apps
 alias grep="grep --color=auto"
 alias info="info --vi-keys"
-alias ls="eza"
-alias cat="bat"
-alias prev="bat"
-alias rm='echo -E "use \"\\rm\", if you really need to rm. Otherwise use \"trash\"."; false'
-alias youtube-dl="yt-dlp"
 
 # Listing commands
 alias la="ls -la"
@@ -22,31 +17,5 @@ alias cp='nocorrect cp '
 alias mv='nocorrect mv '
 alias mkdir='nocorrect mkdir '
 
-# Short git aliases
-alias gap="git ap"
-alias gbr="git br"
-alias gcm="git cm"
-alias gco="git co"
-alias gcp="git cp"
-alias gd="git d"
-alias gds="git ds"
-alias gpoh="git poh"
-alias gpohf="git pohf"
-alias gra="git ra"
-alias grc="git rc"
-alias gre="git re"
-alias gres="git res"
-alias grp="git rp"
-alias gri="git ri"
-alias gs="git s"
-alias gsd="git sd"
-alias gsl="git sl"
-alias gss="git ss"
-alias gsw="git sw"
-
 # weekly stuff
 alias week="date +%U"
-alias dna-week="echo $((50 + $(date +%U)))"
-
-# rust repl
-alias rust-repl="evcxr"

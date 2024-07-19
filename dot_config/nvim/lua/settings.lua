@@ -1,6 +1,4 @@
 local options = {
-  -- Enable better colors
-  termguicolors = true,
   -- Show sign column always,
   signcolumn = "yes",
   -- Show matching brackets

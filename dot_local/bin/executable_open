@@ -3,6 +3,13 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
+# Check if flag "--skip" was provided
+if [[ "$1" == "--skip" ]]; then
+  shift
+  /usr/bin/open "$@"
+  exit "$?"
+fi
+
 # Check if the file is a text file defined in file list below, and if so,
 # open it in the editor
 text_mime_types=(

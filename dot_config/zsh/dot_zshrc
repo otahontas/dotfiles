@@ -46,9 +46,20 @@ setopt globdots
 # Disable command to replay last command
 disable r
 
-# Load plugins
-source $(brew --prefix)/opt/antidote/share/antidote/antidote.zsh
-antidote load
+# Load plugins (from https://getantidote.github.io/install)
+# Set the root name of the plugins files (.txt and .zsh) antidote will use.
+zsh_plugins=${ZDOTDIR:-~}/.zsh_plugins
+# Ensure the .zsh_plugins.txt file exists so you can add plugins.
+[[ -f ${zsh_plugins}.txt ]] || touch ${zsh_plugins}.txt
+# Lazy-load antidote from its functions directory.
+fpath=($(brew --prefix)/opt/antidote/share/antidote/functions $fpath)
+autoload -Uz antidote
+# Generate a new static file whenever .zsh_plugins.txt is updated.
+if [[ ! ${zsh_plugins}.zsh -nt ${zsh_plugins}.txt ]]; then
+  antidote bundle <${zsh_plugins}.txt >|${zsh_plugins}.zsh
+fi
+# Source static plugins file.
+source ${zsh_plugins}.zsh
 
 # Set up binding for history search
 bindkey -M vicmd 'k' history-substring-search-up

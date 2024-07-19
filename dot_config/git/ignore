@@ -4,5 +4,3 @@
 
 # Local setups
 .local_zshrc
-.nvimrc.lua
-.null-ls-root
