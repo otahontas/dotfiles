@@ -227,9 +227,11 @@ local editing = {
   {
     "ms-jpq/coq_nvim",
     branch = "coq",
+    lazy = false,
     build = ":COQdeps",
-    config = function()
+    init = function()
       vim.g.coq_settings = {
+        auto_start = true,
         clients = {
           tree_sitter = { enabled = false },
           tags = { enabled = false },
@@ -237,15 +239,15 @@ local editing = {
         },
         keymap = { recommended = false, jump_to_mark = "<c-e>" },
       }
-      vim.cmd(":COQnow --shut-up")
-      require("coq_3p")({
-        { src = "copilot", short_name = "COP", accept_key = "<C-j>" },
+      vim.keymap.set("i", "<C-J>", 'copilot#Accept("\\<CR>")', {
+        expr = true,
+        replace_keycodes = false,
       })
       vim.g.copilot_no_tab_map = true
     end,
     dependencies = {
       { "ms-jpq/coq.artifacts", branch = "artifacts" },
-      { "ms-jpq/coq.thirdparty", branch = "3p", dependencies = "github/copilot.vim" },
+      { "github/copilot.vim" },
     },
   },
   { "echasnovski/mini.pairs", version = "*", opts = {} },
@@ -570,7 +572,7 @@ local lsp = {
     opts = {
       automatic_installation = true,
       ensure_installed = {
-        "tsserver", -- mason doesn't automatically pick up tsserver from typescript-tools.nvim plugin
+        "ts_ls", -- mason doesn't automatically pick up tsserver wrapper from typescript-tools.nvim plugin
       },
     },
     dependencies = { "williamboman/mason.nvim" },
@@ -587,16 +589,14 @@ local lintingAndFormatting = {
       local javascriptOrTypescriptFormatting = function()
         -- trust that lspconfig is loaded so we can check for root patterns
         -- for current buffer
-        -- check if current buffer is for deno project, if it is, don't use formatting
-        if
-          -- TODO: use shared "denols_root_pattern func"
-          require("lspconfig.util").root_pattern("deno.json", "deno.jsonc")(
-            vim.api.nvim_buf_get_name(0)
-          )
-        then
+        -- in deno projects use deno formatter, otherwise prettier
+        if denols_root_pattern(vim.api.nvim_buf_get_name(0)) then
           return require("formatter.filetypes.javascript").denofmt()
         end
+        -- otherwise use prettier
+        return require("formatter.filetypes.javascript").prettier()
       end
+
       local sqlfluff = function()
         return {
           exe = "sqlfluff",

@@ -1,8 +1,5 @@
 # Add completions and keybindings
-fzf_path="$(brew --prefix)/opt/fzf/bin"
-[[ "$PATH" != *"$fzf_path"* ]] && export PATH="$fzf_path:$PATH"
-[[ $- == *i* ]] && source "$(brew --prefix)/opt/fzf/shell/completion.zsh" 2> /dev/null
-source "$(brew --prefix)/opt/fzf/shell/key-bindings.zsh"
+source <(fzf --zsh)
 bindkey "©" fzf-cd-widget
 
 # Setup defaults
