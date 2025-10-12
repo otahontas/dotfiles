@@ -1,6 +1,0 @@
-{
-  "diff": {
-    "format": "git",
-    "pager": "delta"
-  }
-}

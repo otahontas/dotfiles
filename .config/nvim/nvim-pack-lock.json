@@ -1,0 +1,34 @@
+{
+  "plugins": {
+    "blink.cmp": {
+      "version": "'v1.7.0'"
+    },
+    "catppucin": {
+      "rev": "af58927"
+    },
+    "copilot-lsp": [],
+    "copilot.lua": {
+      "rev": "92e08cd"
+    },
+    "friendly-snippets": [],
+    "fzf-lua": {
+      "rev": "db3ccff"
+    },
+    "hardtime.nvim": [],
+    "mini.nvim": {
+      "rev": "57c1611"
+    },
+    "nvim-lspconfig": {
+      "rev": "3a274c3"
+    },
+    "nvim-treesitter": {
+      "rev": "763f1e65",
+      "version": "'main'"
+    },
+    "plenary.nvim": [],
+    "unnest.nvim": [],
+    "yazi.nvim": {
+      "rev": "1242f9b"
+    }
+  }
+}

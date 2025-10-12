@@ -1,3 +1,0 @@
-#!/usr/bin/env sh
-# Adds command node16 to path - usable when simple alias/function is not enough
-fnm exec --using=16 node "$@"

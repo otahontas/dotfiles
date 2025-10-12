@@ -1,8 +1,0 @@
-Include /Users/otahontas/.colima/ssh_config
-
-# Import configs
-Include ~/.ssh/keys.conf
-
-# Use 1Password SSH Agent for all hosts
-Host *
-  IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"

@@ -1,6 +1,0 @@
-# Mac stuff
-.DS_Store
-.localized
-
-# Local setups
-.local_zshrc
