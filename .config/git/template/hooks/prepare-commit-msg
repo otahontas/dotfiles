@@ -1,0 +1,21 @@
+#!/bin/sh
+# Global prepare-commit-msg hook - generates commit messages
+
+HOOKS_LIB="$HOME/.config/git/hooks-lib"
+REPO_CONFIG="$(git rev-parse --show-toplevel)/.githooks-config"
+
+# Default config (if no .githooks-config exists)
+HOOK_GPTCOMMIT=1
+
+# Load repo-specific config if exists
+if [ -f "$REPO_CONFIG" ]; then
+    . "$REPO_CONFIG"
+fi
+
+# Source and run enabled hooks (don't echo here, this runs before editor)
+if [ "$HOOK_GPTCOMMIT" = "1" ]; then
+    . "$HOOKS_LIB/gptcommit.sh"
+    run_gptcommit "$1" "$2" "$3"
+fi
+
+exit 0

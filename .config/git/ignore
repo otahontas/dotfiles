@@ -2,3 +2,4 @@
 .localized
 .claude/
 .local_scripts/
+.githooks-config

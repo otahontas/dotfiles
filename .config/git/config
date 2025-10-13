@@ -59,6 +59,7 @@
     hidden = "!git ls-files -v . | grep '^S'"
 [init]
     defaultBranch = main
+	templatedir = /Users/otahontas/.config/git/template
 [interactive]
     diffFilter = delta --color-only
 [diff]
