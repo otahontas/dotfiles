@@ -39,11 +39,6 @@ alias obs="cd '$OBSIDIAN_NOTES'"
 alias todo="nvim '$ICLOUD_DRIVE/todo.txt'"
 alias todo-plan "drive && claude -c"
 
-# === npq ===
-alias npm='npq-hero'
-alias pnpm="NPQ_PKG_MGR=pnpm npq-hero"
-alias yarn="NPQ_PKG_MGR=yarn npq-hero"
-
 # weekly stuff
 alias week="date +%U"
 alias today='date +%F'

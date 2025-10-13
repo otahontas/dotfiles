@@ -69,6 +69,12 @@ source ${zsh_plugins}.zsh
 # === zoxide ===
 eval "$(zoxide init zsh)"
 
+# === bun ===
+[ -s "/Users/otahontas/.bun/_bun" ] && source "/Users/otahontas/.bun/_bun"
+
+# === safe-chain ===
+source ~/.safe-chain/scripts/init-posix.sh # Safe-chain Zsh initialization script
+
 # === Prompt ===
 PS1='%F{blue}%~ %(?.%F{green}.%F{red})%#%f '
 
@@ -77,5 +83,3 @@ if [[ -o interactive ]]; then
     check_update_packages
 fi
 
-# bun completions
-[ -s "/Users/otahontas/.bun/_bun" ] && source "/Users/otahontas/.bun/_bun"
