@@ -47,6 +47,3 @@ alias yarn="NPQ_PKG_MGR=yarn npq-hero"
 # weekly stuff
 alias week="date +%U"
 alias today='date +%F'
-
-# dotfiles
-alias dotfiles='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
