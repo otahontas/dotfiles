@@ -1,3 +1,5 @@
+// Factory CLI Settings
+// This file contains your Factory CLI configuration.
 {
   "model": "gpt-5-codex",
   "reasoningEffort": "none",

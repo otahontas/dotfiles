@@ -80,5 +80,5 @@ PS1='%F{blue}%~ %(?.%F{green}.%F{red})%#%f '
 
 # Run the check when shell starts (but not for non-interactive shells)
 if [[ -o interactive ]]; then
-    check_update_packages
+   check-update-packages 
 fi

@@ -12,23 +12,23 @@
     },
     "friendly-snippets": [],
     "fzf-lua": {
-      "rev": "db3ccff"
+      "rev": "83e4080"
     },
     "hardtime.nvim": [],
     "mini.nvim": {
-      "rev": "57c1611"
+      "rev": "89eecd8"
     },
     "nvim-lspconfig": {
-      "rev": "3a274c3"
+      "rev": "ac98db2"
     },
     "nvim-treesitter": {
-      "rev": "763f1e65",
+      "rev": "0606c7a9",
       "version": "'main'"
     },
     "plenary.nvim": [],
     "unnest.nvim": [],
     "yazi.nvim": {
-      "rev": "1242f9b"
+      "rev": "87b71b7"
     }
   }
 }

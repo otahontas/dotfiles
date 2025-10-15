@@ -42,7 +42,7 @@ zle -N __llm_cmdcomp
 
 # === Node ===
 # Node package manager scripts with fzf for yarn, npm, and pnpm
-function run_packagejson_script() {
+function _run_packagejson_script() {
   local package_manager="$1"
   if [ ! -f package.json ]; then
     echo "package.json not found" >&2
@@ -57,13 +57,13 @@ function run_packagejson_script() {
   fi
 }
 function yarns() {
-  run_packagejson_script "yarn"
+  _run_packagejson_script "yarn"
 }
 function npms() {
-  run_packagejson_script "npm"
+  _run_packagejson_script "npm"
 }
 function pnpms() {
-  run_packagejson_script "pnpm"
+  _run_packagejson_script "pnpm"
 }
 
 # === yazi ===
@@ -86,16 +86,12 @@ function listening() {
     fi
 }
 
-function find_and_prune() {
+function find-and-prune() {
     find . -name $1 -prune | xargs \rm -rf
 }
 
-function reset_launchpad() {
-    sudo find 2>/dev/null /private/var/folders/ -type d -name com.apple.dock.launchpad -exec rm -rf {} +; killall Dock
-}
-
 # Auto-prompt for update_packages script
-check_update_packages() {
+function check-update-packages() {
     local timestamp_file="$XDG_DATA_HOME/update_packages_timestamp"
     local current_time=$(date +%s)
     local last_run=0
@@ -108,7 +104,7 @@ check_update_packages() {
     # Check if 24 hours (86400 seconds) have passed
     local time_diff=$((current_time - last_run))
     if [[ $time_diff -ge 86400 ]]; then
-        echo -n "Run update_packages? It's been $(($time_diff / 3600)) hours since last run. [y/N]: "
+        echo -n "Update packages? It's been $(($time_diff / 3600)) hours since last run. [y/N]: "
         read -r response
 
         case "$response" in
@@ -123,7 +119,7 @@ check_update_packages() {
 }
 
 # create system update function
-update_packages() {
+function update-packages() {
   local LOG_FILE="${XDG_DATA_HOME}/system_update.log"
   local timestamp_file="$XDG_DATA_HOME/update_packages_timestamp"
   # `tee -a` appends to the log file while also printing to standard output.
@@ -205,7 +201,7 @@ function cache_cleanup() {
     fi
 }
 # Print terminal color palette
-palette() {
+function palette() {
     local -a colors
     for i in {000..255}; do
         colors+=("%F{$i}$i%f")
@@ -215,7 +211,7 @@ palette() {
 
 # Print terminal color code formatted
 # Usage: printcolor COLOR_CODE
-printcolor() {
+function printcolor() {
     local color="%F{$1}"
     echo -E ${(qqqq)${(%)color}}
 }
@@ -234,11 +230,11 @@ function myip() {
     ifconfig | grep "inet " | grep -Fv 127.0.0.1 | awk '{print $2}'
 }
 
-function find_and_prune() {
+function find-and-prune() {
     find . -name $1 -prune | xargs \rm -rf
 }
 
-function hard_link_agents_md() {
+function hard-link-agents-md() {
     local source_file="$HOME/.config/agents/AGENTS.md"
     local ai_memory_files=(
         "$HOME/.claude/CLAUDE.md"
