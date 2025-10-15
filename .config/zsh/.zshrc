@@ -82,4 +82,3 @@ PS1='%F{blue}%~ %(?.%F{green}.%F{red})%#%f '
 if [[ -o interactive ]]; then
     check_update_packages
 fi
-

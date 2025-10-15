@@ -237,3 +237,8 @@ function myip() {
 function find_and_prune() {
     find . -name $1 -prune | xargs \rm -rf
 }
+
+function hard_link_agents_md() {
+    mkdir -p ~/.claude && ln ~/.config/agents/AGENTS.md ~/.claude/CLAUDE.md && \
+    mkdir -p ~/.gemini && ln ~/.config/agents/AGENTS.md ~/.gemini/AGENTS.md
+}

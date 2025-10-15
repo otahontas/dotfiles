@@ -1,5 +1,5 @@
 .DS_Store
 .localized
-.claude/
+.claude/*json
 .local_scripts/
 .githooks-config
