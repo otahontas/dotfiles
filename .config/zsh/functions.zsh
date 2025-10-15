@@ -239,6 +239,22 @@ function find_and_prune() {
 }
 
 function hard_link_agents_md() {
-    mkdir -p ~/.claude && ln ~/.config/agents/AGENTS.md ~/.claude/CLAUDE.md && \
-    mkdir -p ~/.gemini && ln ~/.config/agents/AGENTS.md ~/.gemini/AGENTS.md
+    local source_file="$HOME/.config/agents/AGENTS.md"
+    local ai_memory_files=(
+        "$HOME/.claude/CLAUDE.md"
+        "$HOME/.gemini/AGENTS.md"
+        "$HOME/.factory/AGENTS.md"
+    )
+
+    if [[ ! -f "$source_file" ]]; then
+        echo "Source file not found: $source_file" >&2
+        return 1
+    fi
+
+    for memory_file in "${ai_memory_files[@]}"; do
+        local memory_dir="${memory_file%/*}"
+        mkdir -p "$memory_dir"
+        rm -f "$memory_file"
+        ln "$source_file" "$memory_file"
+    done
 }
