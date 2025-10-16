@@ -32,6 +32,7 @@ brew "jq"
 brew "libyaml"
 brew "llm"
 brew "lua"
+brew "neonctl"
 brew "tree-sitter"
 brew "utf8proc", args: ["HEAD"]
 brew "neovim", args: ["HEAD"]
