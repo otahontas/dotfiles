@@ -67,6 +67,10 @@ export LESgHISTFILE="$XDG_DATA_HOME/less_history"
 export NODE_REPL_HISTORY="$XDG_DATA_HOME/node_repl_history"
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
 
+# === Git Hooks ===
+# Disable husky - use own hooks from ~/.config/git/template/hooks
+export HUSKY=0
+
 # === Rust ===
 # Setup correct env vars
 export RUSTUP_HOME="$XDG_CACHE_HOME/rustup"

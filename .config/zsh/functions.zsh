@@ -109,7 +109,7 @@ function check-update-packages() {
 
         case "$response" in
             [yY]|[yY][eE][sS])
-                update_packages
+                update-packages
                 ;;
             *)
                 echo "$current_time" > "$timestamp_file"

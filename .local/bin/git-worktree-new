@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
+# Disable husky - use user's own git hooks
+export HUSKY=0
+
 if [ -z "$1" ]; then
   echo "Usage: git-worktree-new BRANCH_NAME"
   echo ""
