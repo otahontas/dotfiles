@@ -14,16 +14,41 @@ vim.pack.add({
 local treesitter = require("nvim-treesitter")
 local treesitter_packages = {
   "bash",
+  "c",
   "comment", -- TODOs etc
+  "ecma",
   "gitcommit",
   "gitignore",
+  "go",
+  "gomod",
+  "gosum",
   "html",
+  "html_tags",
   "javascript",
   "json",
+  "jsx",
+  "latex",
   "lua",
+  "luadoc",
+  "luap",
+  "markdown",
+  "markdown_inline",
+  "matlab",
+  "python",
+  "query",
+  "sql",
+  "ssh_config",
+  "todotxt",
+  "todotxt",
+  "toml",
   "typescript",
-  "todotxt"
+  "typescript",
+  "typst",
+  "vim",
+  "vimdoc",
+  "yaml"
 }
+
 treesitter.install(treesitter_packages)
 vim.treesitter.language.register("yaml", "yaml.docker-compose")
 vim.treesitter.language.register("yaml", "yaml.github-action")
