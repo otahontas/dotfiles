@@ -19,11 +19,8 @@ local treesitter_packages = {
   "gitignore",
   "html",
   "javascript",
-  "javascript",
   "json",
   "lua",
-  "luadoc",
-  "luap",
   "typescript",
   "todotxt"
 }

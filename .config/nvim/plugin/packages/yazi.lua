@@ -5,7 +5,6 @@ vim.pack.add({
   load = true,
   confirm = false,
 })
-
 require("yazi").setup({
   open_for_directories = true,
 })
