@@ -98,13 +98,31 @@ function check-update-packages() {
 
     # Read last run timestamp if file exists
     if [[ -f "$timestamp_file" ]]; then
-        last_run=$(cat "$timestamp_file" 2>/dev/null || echo 0)
+        local read_result
+        if read_result=$(cat "$timestamp_file" 2>&1); then
+            # Validate it's a number
+            if [[ "$read_result" =~ ^[0-9]+$ ]]; then
+                last_run=$read_result
+            else
+                echo "⚠️  Warning: Invalid timestamp in $timestamp_file (found: '$read_result')" >&2
+                echo "   Run 'update-packages' to reset the timestamp." >&2
+                return 1
+            fi
+        else
+            echo "⚠️  Warning: Failed to read timestamp file: $timestamp_file" >&2
+            echo "   Error: $read_result" >&2
+            return 1
+        fi
     fi
 
     # Check if 24 hours (86400 seconds) have passed
     local time_diff=$((current_time - last_run))
     if [[ $time_diff -ge 86400 ]]; then
-        echo -n "Update packages? It's been $(($time_diff / 3600)) hours since last run. [y/N]: "
+        if [[ $last_run -eq 0 ]]; then
+            echo -n "Update packages? (First run) [y/N]: "
+        else
+            echo -n "Update packages? It's been $(($time_diff / 3600)) hours since last run. [y/N]: "
+        fi
         read -r response
 
         case "$response" in
@@ -115,6 +133,19 @@ function check-update-packages() {
                 echo "$current_time" > "$timestamp_file"
                 ;;
         esac
+    fi
+}
+
+# Check Homebrew bash is in /etc/shells
+function check-homebrew-bash() {
+    local brew_bash="/opt/homebrew/bin/bash"
+
+    # Skip if Homebrew bash doesn't exist
+    [[ ! -x "$brew_bash" ]] && return
+
+    if ! grep -qE "^${brew_bash}/?$" /etc/shells 2>/dev/null; then
+        echo "⚠️  Homebrew bash not in /etc/shells. To add:"
+        echo "   sudo sh -c 'echo $brew_bash >> /etc/shells'"
     fi
 }
 

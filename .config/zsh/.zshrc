@@ -78,7 +78,8 @@ source ~/.safe-chain/scripts/init-posix.sh # Safe-chain Zsh initialization scrip
 # === Prompt ===
 PS1='%F{blue}%~ %(?.%F{green}.%F{red})%#%f '
 
-# Run the check when shell starts (but not for non-interactive shells)
+# Run checks when shell starts (but not for non-interactive shells)
 if [[ -o interactive ]]; then
-   check-update-packages 
+   check-update-packages
+   check-homebrew-bash
 fi
