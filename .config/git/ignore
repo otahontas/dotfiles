@@ -2,5 +2,4 @@
 .localized
 .claude/*json
 .local_scripts/
-.githooks-config
 .worktrees/

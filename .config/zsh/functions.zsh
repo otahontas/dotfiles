@@ -265,7 +265,8 @@ function _git_worktree_create_and_enter() {
         echo "Detected git-crypt encryption"
         git -c filter.git-crypt.smudge=cat -c filter.git-crypt.clean=cat worktree add "$worktree_path" "${git_worktree_args[@]}"
 
-        ln -s "$repo_root/.git/git-crypt" "$repo_root/.git/worktrees/$branch_name/git-crypt"
+        local worktree_basename=$(basename "$worktree_path")
+        ln -s "$repo_root/.git/git-crypt" "$repo_root/.git/worktrees/$worktree_basename/git-crypt"
 
         cd "$worktree_path"
         git co -- . 2>/dev/null || true
@@ -321,9 +322,10 @@ function git-worktree-pr() {
 
     # Get PR branch name from GitHub
     local pr_branch=$(gh pr view "$pr_number" --json headRefName -q .headRefName 2>/dev/null)
-    local branch_name="pr-$pr_number-$pr_branch"
+    local branch_name="$pr_branch"
+    local worktree_dir_name="pr-$pr_number-$pr_branch"
 
-    local worktree_path=$(_git_worktree_get_path "$repo_root" "$branch_name")
+    local worktree_path=$(_git_worktree_get_path "$repo_root" "$worktree_dir_name")
 
     echo "Fetching PR #$pr_number..."
     git fetch origin "pull/$pr_number/head:$branch_name" 2>&1 | grep -v "^From" || true

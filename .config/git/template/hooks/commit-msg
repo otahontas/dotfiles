@@ -2,15 +2,9 @@
 # Global commit-msg hook - validates commit messages
 
 HOOKS_LIB="$HOME/.config/git/hooks-lib"
-REPO_CONFIG="$(git rev-parse --show-toplevel)/.githooks-config"
 
-# Default config (if no .githooks-config exists)
+# Hook flags (edit these in this file to enable/disable)
 HOOK_COMMITLINT=1
-
-# Load repo-specific config if exists
-if [ -f "$REPO_CONFIG" ]; then
-    . "$REPO_CONFIG"
-fi
 
 echo ""
 echo "=== Commit-msg hooks ==="

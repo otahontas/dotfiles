@@ -1,21 +1,11 @@
 #!/bin/sh
-# Global pre-commit hook - loads config and runs enabled modules
+# Global pre-commit hook - runs enabled modules
 
 HOOKS_LIB="$HOME/.config/git/hooks-lib"
-REPO_CONFIG="$(git rev-parse --show-toplevel)/.githooks-config"
 
-# Default config (if no .githooks-config exists)
+# Hook flags (edit these in this file to enable/disable)
 HOOK_GITLEAKS=1
 HOOK_LLM_CHECK=0
-HOOK_TESTS=0
-
-# Load repo-specific config if exists
-if [ -f "$REPO_CONFIG" ]; then
-    echo "📋 Loading repo-specific hook config from .githooks-config"
-    . "$REPO_CONFIG"
-else
-    echo "📋 Using default hook config (no .githooks-config found)"
-fi
 
 echo ""
 echo "=== Pre-commit hooks ==="
@@ -37,13 +27,6 @@ if [ "$HOOK_LLM_CHECK" = "1" ]; then
     if ! run_llm_check; then
         HOOK_FAILED=1
     fi
-    echo ""
-fi
-
-if [ "$HOOK_TESTS" = "1" ]; then
-    echo "🧪 Running tests..."
-    echo "⚠️  Tests hook not yet implemented"
-    echo "   Add test command to .githooks-config or implement tests.sh module"
     echo ""
 fi
 

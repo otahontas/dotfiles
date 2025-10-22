@@ -1,6 +1,6 @@
 # Modular Git Hooks System
 
-A lightweight, shell-based modular git hooks system with per-repo configuration.
+A lightweight, shell-based modular git hooks system.
 
 ## Architecture
 
@@ -23,63 +23,36 @@ A lightweight, shell-based modular git hooks system with per-repo configuration.
 
 1. **Template Setup**: `git config --global init.templatedir ~/.config/git/template`
 2. **New Repos**: `git init` copies hooks from template
-3. **Per-Repo Config**: Each repo can have `.githooks-config` to enable/disable hooks
-4. **Modular Execution**: Template hooks load and run enabled modules from `hooks-lib/`
+3. **Configuration**: Edit flags directly in `.git/hooks/` files
+4. **Modular Execution**: Template hooks run enabled modules from `hooks-lib/`
 
-## Per-Repo Configuration
+## Configuration
 
-Create `.githooks-config` in repo root:
+Edit hook flags directly in each repo's `.git/hooks/` files:
 
+**Pre-commit** (`.git/hooks/pre-commit`):
 ```bash
-# .githooks-config
-# Enable hooks by setting to 1, disable with 0
-
-# Pre-commit hooks
 HOOK_GITLEAKS=1       # Detect secrets (gitleaks)
 HOOK_LLM_CHECK=0      # AI-powered sensitive data check (llm CLI)
-HOOK_TESTS=0          # Run tests (not yet implemented)
+```
 
-# Commit-msg hooks
+**Commit-msg** (`.git/hooks/commit-msg`):
+```bash
 HOOK_COMMITLINT=1     # Validate conventional commits
+```
 
-# Prepare-commit-msg hooks
+**Prepare-commit-msg** (`.git/hooks/prepare-commit-msg`):
+```bash
 HOOK_GPTCOMMIT=1      # AI-generated commit messages
 ```
 
 ## Default Configuration
 
-If no `.githooks-config` exists, defaults are:
-- ✅ `HOOK_GITLEAKS=1` - Always check for secrets
-- ❌ `HOOK_LLM_CHECK=0` - Opt-in (costs API tokens)
-- ❌ `HOOK_TESTS=0` - Opt-in (not yet implemented)
-- ✅ `HOOK_COMMITLINT=1` - Always validate conventional commits
-- ✅ `HOOK_GPTCOMMIT=1` - Always generate commit messages
-
-## Example Configurations
-
-### Dotfiles Repo (paranoid)
-```bash
-HOOK_GITLEAKS=1
-HOOK_LLM_CHECK=1      # Extra check for personal configs
-HOOK_COMMITLINT=1
-HOOK_GPTCOMMIT=0      # Manual commits for dotfiles
-```
-
-### Work Repo
-```bash
-HOOK_GITLEAKS=1
-HOOK_LLM_CHECK=0
-HOOK_TESTS=1          # Run tests before commit
-HOOK_COMMITLINT=1
-HOOK_GPTCOMMIT=1
-```
-
-### Personal Project
-```bash
-HOOK_GITLEAKS=1
-HOOK_COMMITLINT=1
-HOOK_GPTCOMMIT=1
-```
+Template defaults:
+- ✅ `HOOK_GITLEAKS=1` - Check for secrets
+- ❌ `HOOK_LLM_CHECK=0` - AI check (costs API tokens)
+- ✅ `HOOK_COMMITLINT=1` - Validate conventional commits
+- ✅ `HOOK_GPTCOMMIT=1` - Generate commit messages
 
 ## Adding Hooks to Existing Repos
 
@@ -115,7 +88,7 @@ if [ "$HOOK_YOUR_MODULE" = "1" ]; then
 fi
 ```
 
-3. Document default in template hook and README
+3. Add flag to template hook and document in README
 
 ## Dependencies
 
