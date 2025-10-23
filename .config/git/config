@@ -1,21 +1,23 @@
 [gpg]
-  format = ssh
+    format = ssh
 [gpg "ssh"]
-  program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+    program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
 [commit]
-  gpgsign = true
+    gpgsign = true
 [push]
     default = matching
     follow-tags = true
 [pull]
     rebase = true
 [merge]
-    tool = vimdiff
+    tool = nvim_mergetool
     conflictstyle = zdiff3
 [mergetool]
-	keepBackup = false
-[mergetool "vimdiff"]
+	  keepBackup = false
+[mergetool "nvim_mergetool"]
     cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+[difftool "nvim_difftool"]
+    cmd = nvim -c \"DiffTool $LOCAL $REMOTE\" # TODO fix
 [commit]
     gpgsign = true
 [tag]
@@ -59,12 +61,12 @@
     hidden = "!git ls-files -v . | grep '^S'"
 [init]
     defaultBranch = main
-	templatedir = /Users/otahontas/.config/git/template
+	  templatedir = /Users/otahontas/.config/git/template
 [interactive]
     diffFilter = delta --color-only
 [diff]
     colorMoved = default
-	tool = nvim -d
+    tool = nvim_difftool
 
 # default user overrides
 [include]
@@ -78,7 +80,7 @@
     path = ~/.config/git/catppuccin-mocha.gitconfig
 
 [delta]
-	features = catppuccin-mocha
+	  features = catppuccin-mocha
     navigate = true
     side-by-side = true
     hyperlinks = true

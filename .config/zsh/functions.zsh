@@ -197,9 +197,10 @@ function update-packages() {
     else
       echo "  Skipping: volta not found."
     fi
-    echo "\nnvim Updating Neovim plugins..."
+    echo "\nUpdating Neovim plugins and external deps (lsps, formatters, linters, daps)..."
     if command -v nvim &> /dev/null; then
-        nvim +"lua vim.pack.update({}, {force=true})" +qa
+        nvim --headless -c "lua vim.pack.update(nil, {force=true})" -c "qall"
+        nvim --headless -c "MasonUpdate" -c "qall"
     else
       echo "  Skipping: Neovim (nvim) not found."
     fi
@@ -496,4 +497,37 @@ function copy-agent-files() {
     # jq -s '.[0] * {mcpServers: (.[1].mcpServers // {})}' \
     #     "$gemini_settings_file" "$source_mcp_file" > "$gemini_settings_file_merged" \
     #     && mv "$gemini_settings_file_merged" "$gemini_settings_file"
+}
+
+# Combine PDFs from a folder into a single PDF
+function combine-pdfs-in-folder() {
+  local folder="${1:-.}"
+
+  # Remove trailing slash if present
+  folder="${folder%/}"
+
+  # Get basename of folder
+  local basename="${folder:t}"
+
+  # Get all PDF files sorted
+  local pdfs=("${folder}"/*.pdf(N))
+
+  if [[ ${#pdfs} -eq 0 ]]; then
+    echo "No PDF files found in ${folder}"
+    return 1
+  fi
+
+  # Output file
+  local output="${basename}.pdf"
+
+  echo "Combining ${#pdfs} PDFs from ${folder} into ${output}..."
+
+  pdfunite "${pdfs[@]}" "${output}"
+
+  if [[ $? -eq 0 ]]; then
+    echo "Created ${output}"
+  else
+    echo "Failed to create ${output}"
+    return 1
+  fi
 }

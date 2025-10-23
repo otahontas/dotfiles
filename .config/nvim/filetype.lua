@@ -1,11 +1,12 @@
+-- Custom filetype definitions, loaded when filetype is on
 vim.filetype.add({
-  extension = {
-    gitconfig = "gitconfig",
-  },
   pattern = {
+    -- yaml.github-action & yaml.docker-compose needed for proper treesitter, lsp and
+    -- formatter setups
     [".*/%.github/actions/.*"] = "yaml.github-action",
     [".*/%.github/workflows/.*"] = "yaml.github-action",
     ["docker%-compose%..*"] = "yaml.docker-compose",
-    ["todo.txt"] = "todotxt"
+    -- Needed for proper treesitter setup
+    ["todo.txt"] = "todotxt",
   },
 })

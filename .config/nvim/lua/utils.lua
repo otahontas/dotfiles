@@ -1,13 +1,5 @@
 local M = {}
 
----Set indent for filetype
----@param indent number
-M.setIndent = function(indent)
-  for _, option in ipairs({ "shiftwidth", "softtabstop", "tabstop", }) do
-    vim.opt_local[option] = indent
-  end
-end
-
 -- Disable hard wrap and move withing soft wrapped lines with j and k
 ---@param bufnr number the buffer to disable hard wrap for. 0 is the current buffer
 M.disable_hard_wrap_for_buffer = function(bufnr)
@@ -44,6 +36,19 @@ M.get_closest_ancestor_directory_that_has_file = function(filename)
   end
   return vim.fn.getcwd() -- fallback to cwd if file not found
 end
---
+
+-- Adds package with default settings and runs the setup callback
+-- (setup doesn't call package.setup, it's just an arbitrary callback)
+---@param specs any specs that should be installed
+---@param setup? function setup callback that will be triggered after adding the package
+M.add_package = function(specs, setup)
+  vim.pack.add(specs, {
+    load = true,
+    confirm = false,
+  })
+  if setup then
+    setup()
+  end
+end
 
 return M
