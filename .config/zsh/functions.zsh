@@ -199,7 +199,7 @@ function update-packages() {
     fi
     echo "\nUpdating Neovim plugins and external deps (lsps, formatters, linters, daps)..."
     if command -v nvim &> /dev/null; then
-        nvim --headless -c "lua vim.pack.update(nil, {force=true})" -c "qall"
+        nvim --headless -c "lua vim.pack.update({}, {force=true})" -c "qall"
         nvim --headless -c "MasonUpdate" -c "qall"
     else
       echo "  Skipping: Neovim (nvim) not found."

@@ -9,15 +9,6 @@
         "https://mcp.atlassian.com/v1/sse"
       ]
     },
-    "dash-api": {
-      "type": "stdio",
-      "command": "uvx",
-      "args": [
-        "--from",
-        "git+https://github.com/Kapeli/dash-mcp-server.git",
-        "dash-mcp-server"
-      ]
-    },
     "chrome-devtools": {
       "command": "npx",
       "args": [
