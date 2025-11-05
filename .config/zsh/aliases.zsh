@@ -43,3 +43,7 @@ alias todo-plan="cd '$TODO_FOLDER' && claude"
 # weekly stuff
 alias week="date +%U"
 alias today='date +%F'
+
+# claude
+alias c="claude"
+alias cc="claude -c"
