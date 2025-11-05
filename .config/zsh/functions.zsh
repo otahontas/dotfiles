@@ -436,69 +436,6 @@ _git-worktree-pr() {
 }
 compdef _git-worktree-pr git-worktree-pr
 
-function copy-agent-files() {
-    # AGENTS.md / CLAUDE.md
-    local source_memory_file="$HOME/.config/agents/AGENTS.md"
-    local ai_memory_files=(
-        "$HOME/.claude/CLAUDE.md"
-        "$HOME/.gemini/AGENTS.md"
-        "$HOME/.factory/AGENTS.md"
-    )
-    local response
-
-    if [[ ! -f "$source_memory_file" ]]; then
-        echo "Source memory file not found: $source_memory_file" >&2
-        return 1
-    fi
-
-    for memory_file in "${ai_memory_files[@]}"; do
-        local memory_dir="${memory_file%/*}"
-        mkdir -p "$memory_dir"
-        if [[ -f "$memory_file" ]] && ! cmp -s "$source_memory_file" "$memory_file"; then
-            echo -n "Destination $memory_file differs from source. Overwrite? [y/N]: "
-            read -r response
-            if [[ ! "$response" =~ ^([yY]|[yY][eE][sS])$ ]]; then
-                echo "Copy aborted."
-                return 0
-            fi
-        fi
-        cp -f "$source_memory_file" "$memory_file"
-    done
-
-    # mcp.json
-    local source_mcp_file="$HOME/.config/agents/mcp.json"
-
-    if [[ ! -f "$source_mcp_file" ]]; then
-        echo "Source mcp file not found: $source_mcp_file" >&2
-        return 1
-    fi
-
-    # factory (link)
-    local factory_mcp_file="$HOME/.factory/mcp.json"
-    if [[ -f "$factory_mcp_file" ]] && ! cmp -s "$source_mcp_file" "$factory_mcp_file"; then
-        echo -n "Destination $factory_mcp_file differs from source. Overwrite? [y/N]: "
-        read -r response
-        if [[ ! "$response" =~ ^([yY]|[yY][eE][sS])$ ]]; then
-            echo "Copy aborted."
-            return 0
-        fi
-    fi
-    cp -f "$source_mcp_file" "$factory_mcp_file"
-
-    # # gemini (merge)
-    # TODO: gemini + claude
-    # local gemini_dir="$HOME/.gemini"
-    # local gemini_settings_file="$gemini_dir/settings.json"
-    # local gemini_settings_file_merged="$gemini_settings_file.merged"
-    #
-    # mkdir -p "$gemini_dir"
-    # [[ -f "$gemini_settings_file" ]] || echo '{}' > "$gemini_settings_file"
-    #
-    # jq -s '.[0] * {mcpServers: (.[1].mcpServers // {})}' \
-    #     "$gemini_settings_file" "$source_mcp_file" > "$gemini_settings_file_merged" \
-    #     && mv "$gemini_settings_file_merged" "$gemini_settings_file"
-}
-
 # Combine PDFs from a folder into a single PDF
 function combine-pdfs-in-folder() {
   local folder="${1:-.}"
