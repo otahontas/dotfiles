@@ -36,8 +36,9 @@ alias gsw="git sw"
 # === iCloud ===
 alias drive="cd '$ICLOUD_DRIVE'"
 alias obs="cd '$OBSIDIAN_NOTES'"
-alias todo="nvim '$ICLOUD_DRIVE/todo.txt'"
-alias todo-plan "drive && claude -c"
+TODO_FOLDER="$HOME/Documents/todo"
+alias todo="nvim '$TODO_FOLDER/todo.txt'"
+alias todo-plan="cd '$TODO_FOLDER' && claude"
 
 # weekly stuff
 alias week="date +%U"
