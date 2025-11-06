@@ -114,6 +114,40 @@ function update-packages() {
     else
       echo "  Skipping: Neovim (nvim) not found."
     fi
+    echo "\n🤖 Updating Claude Code plugins..."
+    if command -v claude &> /dev/null; then
+        local plugins_file="$HOME/.claude/plugins/installed_plugins.json"
+        if [[ -f "$plugins_file" ]]; then
+            local updated=0
+            local failed=0
+            local total=0
+
+            # Extract plugin identifiers from JSON keys
+            local plugin_ids=$(jq -r '.plugins | keys[]' "$plugins_file" 2>/dev/null)
+
+            if [[ -n "$plugin_ids" ]]; then
+                while IFS= read -r plugin_id; do
+                    ((total++))
+                    echo "  Updating $plugin_id..."
+                    if claude plugin install "$plugin_id" &>/dev/null; then
+                        ((updated++))
+                    else
+                        echo "    ⚠️  Failed to update $plugin_id"
+                        ((failed++))
+                    fi
+                done <<< "$plugin_ids"
+
+                echo "  Summary: $updated/$total plugins updated successfully"
+                [[ $failed -gt 0 ]] && echo "  ⚠️  $failed plugin(s) failed to update"
+            else
+                echo "  No plugins found or failed to parse JSON"
+            fi
+        else
+            echo "  Skipping: plugins file not found at $plugins_file"
+        fi
+    else
+        echo "  Skipping: Claude Code (claude) not found."
+    fi
     echo "======================================================================"
     echo "Finished packages update at: $(date -u +"%Y-%m-%dT%H:%M:%SZ") (UTC)"
     echo "======================================================================"
