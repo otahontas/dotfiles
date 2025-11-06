@@ -51,5 +51,11 @@
 ## Local development scripts:
 - Use `.local_scripts/` for temporary verification scripts that shouldn't be committed
 - Examples: version update checks, one-off validation scripts, personal dev utilities
-- Directory is globally gitignored - scripts can be messy and repo-specific
-- When script proves useful long-term, refactor and move to regular `scripts/` directory
+- Scripts can be messy and repo-specific
+- Never add .local_scripts/ to .gitignore file in project. Always rely on the fact that .local_scripts/ is ignored globally.
+
+## Git worktrees:
+- Always use shell functions: `git-worktree-new`, `git-worktree-pr`, `git-worktree-prune`
+- Never use manual `git worktree add` commands
+- Functions handle git-crypt, HUSKY=0, and .worktrees/ location automatically
+- Don't install dependencies or run tests after creating worktree - I handle setup when needed

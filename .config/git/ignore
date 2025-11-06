@@ -1,5 +1,5 @@
 .DS_Store
 .localized
-.claude/*json
-.local_scripts/
-.worktrees/
+**/.claude/**.json
+**/.local_scripts/**
+**/.worktrees/**

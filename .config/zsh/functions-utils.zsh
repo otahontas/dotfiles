@@ -79,3 +79,11 @@ function combine-pdfs-in-folder() {
     return 1
   fi
 }
+
+function disable-sleep() {
+  sudo pmset -a disablesleep 1
+}
+
+function enable-sleep() {
+  sudo pmset -a disablesleep 0
+}
