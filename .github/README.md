@@ -18,8 +18,6 @@ dotfiles checkout
 dotfiles config --local status.showUntrackedFiles no
 ```
 
-The alias is now permanent (it's in `.zshrc`).
-
 ## Daily use (with git aliases! out of the box!)
 
 ```bash

@@ -47,3 +47,9 @@ alias today='date +%F'
 # claude
 alias c="claude"
 alias cc="claude -c"
+alias colo="claude --allow-dangerously-skip-permissions"
+alias ccolo="claude -c --allow-dangerously-skip-permissions"
+
+# === wezterm ===
+alias imgcat="wezterm imgcat"
+alias ssh="wezterm ssh"

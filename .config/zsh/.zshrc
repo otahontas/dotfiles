@@ -38,9 +38,13 @@ setopt globdots
 } ${ZDOTDIR}/.zcompdump(N.mh+24)
 
 # === Source modular configs ===
-source ${ZDOTDIR}/env.zsh
+source ${ZDOTDIR}/env-base.zsh
+source ${ZDOTDIR}/env-tools.zsh
 source ${ZDOTDIR}/aliases.zsh
-source ${ZDOTDIR}/functions.zsh
+source ${ZDOTDIR}/functions-tools.zsh
+source ${ZDOTDIR}/functions-git.zsh
+source ${ZDOTDIR}/functions-system.zsh
+source ${ZDOTDIR}/functions-utils.zsh
 
 # === fzf ===
 # Add completions and keybindings
