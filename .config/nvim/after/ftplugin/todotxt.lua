@@ -56,38 +56,72 @@ local function highlight_dates()
 end
 
 -- Sort todo.txt by various criteria
-local function tsort (sort_type)
-  if sort_type ~= "due" and sort_type ~= "threshold" then
-    vim.notify("Only 'due' and 'threshold' sort types are supported", vim.log.levels.WARN)
+local function tsort (sort_spec)
+  -- Parse sort specification (e.g., "due,threshold" or just "due")
+  local parts = vim.split(sort_spec, ",", { plain = true })
+  local primary = vim.trim(parts[1])
+  local secondary = parts[2] and vim.trim(parts[2]) or nil
+
+  -- Validate sort types
+  local valid_types = { due = true, threshold = true, project = true, context = true }
+  if not valid_types[primary] then
+    vim.notify("Invalid primary sort type. Use 'due', 'threshold', 'project', or 'context'", vim.log.levels.WARN)
+    return
+  end
+  if secondary and not valid_types[secondary] then
+    vim.notify("Invalid secondary sort type. Use 'due', 'threshold', 'project', or 'context'", vim.log.levels.WARN)
     return
   end
 
   local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
   local indexed_lines = {}
 
-  -- Extract dates based on sort type
-  local pattern = sort_type == "due" and "due:(%d%d%d%d%-%d%d%-%d%d)" or "t:(%d%d%d%d%-%d%d%-%d%d)"
+  -- Get pattern for a sort type
+  local function get_pattern(sort_type)
+    if sort_type == "due" then return "due:(%d%d%d%d%-%d%d%-%d%d)" end
+    if sort_type == "threshold" then return "t:(%d%d%d%d%-%d%d%-%d%d)" end
+    if sort_type == "project" then return "%+(%S+)" end
+    if sort_type == "context" then return "@(%S+)" end
+  end
+
+  local primary_pattern = get_pattern(primary)
+  local secondary_pattern = secondary and get_pattern(secondary) or nil
+
   for _, line in ipairs(lines) do
-    local date = line:match(pattern)
+    local primary_value = line:match(primary_pattern) or ""
+    local secondary_value = secondary_pattern and (line:match(secondary_pattern) or "") or nil
+
     table.insert(indexed_lines, {
       line = line,
-      date = date or "",
+      primary = primary_value,
+      secondary = secondary_value,
     })
   end
 
-  -- Sort: dates first (chronologically), then alphabetically
+  -- Helper to compare values (empty values go last)
+  local function compare_values(a, b)
+    if a == "" and b == "" then return nil end
+    if a == "" then return false end
+    if b == "" then return true end
+    return a < b
+  end
+
+  -- Sort with optional secondary value
   table.sort(indexed_lines, function(a, b)
-    if a.date ~= b.date then
-      if a.date == "" then
-        return false -- no date goes last
-      elseif b.date == "" then
-        return true -- no date goes last
-      else
-        return a.date < b.date -- chronological order
-      end
-    else
-      return a.line < b.line -- alphabetical order
+    -- Primary sort
+    if a.primary ~= b.primary then
+      local result = compare_values(a.primary, b.primary)
+      if result ~= nil then return result end
     end
+
+    -- Secondary sort (if specified)
+    if secondary and a.secondary ~= b.secondary then
+      local result = compare_values(a.secondary, b.secondary)
+      if result ~= nil then return result end
+    end
+
+    -- Tertiary: alphabetical
+    return a.line < b.line
   end)
 
   -- Extract sorted lines
@@ -105,7 +139,16 @@ vim.api.nvim_buf_create_user_command(0, "Sort", function(opts)
 end, {
   nargs = 1,
   complete = function()
-    return { "due", "threshold" }
+    return {
+      "due",
+      "due,threshold",
+      "threshold",
+      "threshold,due",
+      "project",
+      "project,due",
+      "context",
+      "context,due",
+    }
   end,
 })
 
