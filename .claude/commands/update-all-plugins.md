@@ -2,7 +2,7 @@ Update all installed Claude Code plugins to their latest versions.
 
 Follow these steps:
 
-1. Read the installed plugins list from `/Users/otahontas/.claude/plugins/installed_plugins.json`
+1. Read the installed plugins list from `~/.claude/plugins/installed_plugins.json`
 
 2. Extract all plugin identifiers in the format `plugin-name@marketplace-name` from the `plugins` object keys
 

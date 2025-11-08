@@ -55,34 +55,35 @@ local function highlight_dates()
   end
 end
 
--- Sort todo.txt by various criteria, only due date is implemented
+-- Sort todo.txt by various criteria
 local function tsort (sort_type)
-  if sort_type ~= "due" then
-    vim.notify("Only 'due' sort type is supported", vim.log.levels.WARN)
+  if sort_type ~= "due" and sort_type ~= "threshold" then
+    vim.notify("Only 'due' and 'threshold' sort types are supported", vim.log.levels.WARN)
     return
   end
 
   local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
   local indexed_lines = {}
 
-  -- Extract due dates
+  -- Extract dates based on sort type
+  local pattern = sort_type == "due" and "due:(%d%d%d%d%-%d%d%-%d%d)" or "t:(%d%d%d%d%-%d%d%-%d%d)"
   for _, line in ipairs(lines) do
-    local due_date = line:match("due:(%d%d%d%d%-%d%d%-%d%d)")
+    local date = line:match(pattern)
     table.insert(indexed_lines, {
       line = line,
-      due = due_date or "",
+      date = date or "",
     })
   end
 
-  -- Sort: due dates first (chronologically), then alphabetically
+  -- Sort: dates first (chronologically), then alphabetically
   table.sort(indexed_lines, function(a, b)
-    if a.due ~= b.due then
-      if a.due == "" then
-        return false -- no due date goes last
-      elseif b.due == "" then
-        return true -- no due date goes last
+    if a.date ~= b.date then
+      if a.date == "" then
+        return false -- no date goes last
+      elseif b.date == "" then
+        return true -- no date goes last
       else
-        return a.due < b.due -- chronological order
+        return a.date < b.date -- chronological order
       end
     else
       return a.line < b.line -- alphabetical order
@@ -104,7 +105,7 @@ vim.api.nvim_buf_create_user_command(0, "Sort", function(opts)
 end, {
   nargs = 1,
   complete = function()
-    return { "due", }
+    return { "due", "threshold" }
   end,
 })
 
