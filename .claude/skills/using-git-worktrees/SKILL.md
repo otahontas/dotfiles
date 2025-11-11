@@ -23,6 +23,7 @@ Shell functions handle everything automatically:
 - HUSKY=0 (CI mode)
 - .worktrees/ location
 - CD into worktree
+- Requires GitHub CLI `gh` for PR lookups
 
 ## Commands
 
@@ -45,6 +46,7 @@ git-worktree-pr 123
 ```
 
 Fetches PR, creates `.worktrees/pr-123-branch-name`, CDs in.
+If `gh` is not available, this command cannot resolve PR metadata and will fail early.
 
 ### git-worktree-prune BRANCH_NAME
 
@@ -55,6 +57,7 @@ git-worktree-prune feature/auth
 ```
 
 Removes worktree directory and force-deletes branch (-D).
+For PR worktrees, pass the slug printed when the worktree was created (e.g. `pr-123-feature-auth`) so the matching `.worktrees/` directory can be removed and the branch deleted.
 
 ## Quick Reference
 
