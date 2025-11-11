@@ -79,13 +79,13 @@ local function tsort (sort_spec)
   -- Validate sort types
   if not VALID_SORT_TYPES[primary] then
     vim.notify(
-    "Invalid primary sort type. Use 'due', 'threshold', 'project', or 'context'",
+      "Invalid primary sort type. Use 'due', 'threshold', 'project', or 'context'",
       vim.log.levels.WARN)
     return
   end
   if secondary and not VALID_SORT_TYPES[secondary] then
     vim.notify(
-    "Invalid secondary sort type. Use 'due', 'threshold', 'project', or 'context'",
+      "Invalid secondary sort type. Use 'due', 'threshold', 'project', or 'context'",
       vim.log.levels.WARN)
     return
   end
@@ -107,7 +107,7 @@ local function tsort (sort_spec)
   for _, line in ipairs(lines) do
     local primary_value = line:match(primary_pattern) or ""
     local secondary_value = secondary_pattern and (line:match(secondary_pattern) or "") or
-    nil
+      nil
 
     table.insert(indexed_lines, {
       line = line,
