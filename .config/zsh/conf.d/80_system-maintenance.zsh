@@ -1,7 +1,7 @@
-# === System maintenance functions ===
+# System maintenance functions
 
-# Auto-prompt for update_packages script
-function check-update-packages() {
+# Auto-prompt helper (called from 99_startup-checks.zsh)
+function _prompt_update_packages() {
     local timestamp_file="$XDG_DATA_HOME/update_packages_timestamp"
     local current_time=$(date +%s)
     local last_run=0
@@ -46,8 +46,8 @@ function check-update-packages() {
     fi
 }
 
-# Check Homebrew bash is in /etc/shells
-function check-homebrew-bash() {
+# Check Homebrew bash is in /etc/shells (called from 99_startup-checks.zsh)
+function _prompt_homebrew_bash() {
     local brew_bash="/opt/homebrew/bin/bash"
 
     # Skip if Homebrew bash doesn't exist
@@ -87,16 +87,16 @@ function update-packages() {
     echo "\n🐍 Updating volta tools..."
     if command -v volta &> /dev/null; then
         volta list --format plain | while IFS= read -r line; do
-            if [[ $line =~ "^runtime " ]]; then
+            if [[ $line =~ ^runtime ]]; then
                 # Handle runtime (node)
                 echo "Updating node to LTS..."
                 volta install node@lts
-            elif [[ $line =~ "^package-manager " ]]; then
+            elif [[ $line =~ ^package-manager ]]; then
                 # Handle package managers
                 tool=$(echo "$line" | awk '{print $2}' | sed 's/@[^/]*$//')
                 echo "Updating $tool..."
                 volta install "$tool@latest"
-            elif [[ $line =~ "^package " ]]; then
+            elif [[ $line =~ ^package ]]; then
                 # Handle global packages
                 package=$(echo "$line" | awk '{print $2}' | sed 's/@[^/]*$//')
                 [[ -n "$package" ]] || { echo "Error: empty package name from line: $line"; exit 1; }
@@ -160,14 +160,27 @@ function update-packages() {
 
 # Cleanup cache
 function cleanup-cache() {
-    read \?"This will cleanup cache older than 6 months. Are you sure (y/n)? "
-    echo
-    if [[ $REPLY =~ ^[Yy]$ ]]; then
-        find ~/.cache/ -depth -type f -atime +182 -delete
-    fi
+    echo -n "This will cleanup cache older than 6 months. Are you sure? [y/N] "
+    read -r response
+    case "$response" in
+        [yY]|[yY][eE][sS])
+            find ~/.cache/ -depth -type f -atime +182 -delete
+            ;;
+    esac
 }
 
 # Cleanup DS_Store files
 function cleanup-ds-store() {
   fd -IH .DS_Store -x rm -f {}
+}
+
+# Empty macOS Trash using Finder
+function trash-empty() {
+    echo -n "Empty Trash? [y/N] "
+    read -r response
+    case "$response" in
+        [yY]|[yY][eE][sS])
+            osascript -e 'tell app "Finder" to empty'
+            ;;
+    esac
 }

@@ -1,6 +1,9 @@
-# === git-worktree functions ===
+# Git worktree integration with git-crypt support
+
+# === Helper functions (private) ===
 function _git_worktree_init() {
     export HUSKY=0
+    # Note: `git root` is a custom alias defined in git config (alias.root = rev-parse --show-toplevel)
     git root 2>/dev/null || { echo "Error: Not in a git repository" >&2; return 1; }
 }
 
@@ -21,7 +24,6 @@ function _git_worktree_create_and_enter() {
     local repo_root="$1"
     local worktree_path="$2"
     local branch_name="$3"
-    # get remaining
     shift 3
     local git_worktree_args=("$@")
 
@@ -30,7 +32,15 @@ function _git_worktree_create_and_enter() {
         git -c filter.git-crypt.smudge=cat -c filter.git-crypt.clean=cat worktree add "$worktree_path" "${git_worktree_args[@]}"
 
         local worktree_basename=$(basename "$worktree_path")
-        ln -s "$repo_root/.git/git-crypt" "$repo_root/.git/worktrees/$worktree_basename/git-crypt"
+        local git_crypt_target="$repo_root/.git/git-crypt"
+        local git_crypt_link="$repo_root/.git/worktrees/$worktree_basename/git-crypt"
+
+        # Improved: Add error handling for symlink
+        if [[ -d "$git_crypt_target" ]]; then
+            if [[ ! -e "$git_crypt_link" ]]; then
+                ln -s "$git_crypt_target" "$git_crypt_link"
+            fi
+        fi
 
         cd "$worktree_path"
         git co -- . 2>/dev/null || true
@@ -48,7 +58,7 @@ function _git_worktree_verify_status() {
     fi
 }
 
-# Public functions
+# === Public functions ===
 function git-worktree-new() {
     if [ -z "$1" ]; then
         echo "Usage: git-worktree-new BRANCH_NAME"
@@ -144,8 +154,8 @@ function git-worktree-prune() {
     fi
 }
 
-# Completion for git-worktree-prune
-_git-worktree-prune() {
+# === Completions ===
+function _git-worktree-prune() {
     local repo_root=$(git root 2>/dev/null)
     if [ -n "$repo_root" ] && [ -d "$repo_root/.worktrees" ]; then
         local -a branches
@@ -155,8 +165,7 @@ _git-worktree-prune() {
 }
 compdef _git-worktree-prune git-worktree-prune
 
-# Completion for git-worktree-pr
-_git-worktree-pr() {
+function _git-worktree-pr() {
     local -a prs
     local pr_list=$(gh pr list --limit 50 --json number,title --jq '.[] | "\(.number):\(.title)"' 2>/dev/null)
     if [ -n "$pr_list" ]; then
