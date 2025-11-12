@@ -78,6 +78,12 @@ function update-packages() {
     else
       echo "  Skipping: Homebrew (brew) not found."
     fi
+    echo "\n🐙 Updating GitHub CLI extensions..."
+    if command -v gh &> /dev/null; then
+      gh extension upgrade --all
+    else
+      echo "  Skipping: GitHub CLI (gh) not found."
+    fi
     echo "\n💉 Updating antidote plugins..."
     if command -v antidote &> /dev/null; then
       antidote update
