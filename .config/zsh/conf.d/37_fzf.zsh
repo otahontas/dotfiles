@@ -25,4 +25,6 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
 zstyle ':fzf-tab:*' switch-group ',' '.'
 
 # Initialize fzf (keybindings and completions)
-source <(fzf --zsh)
+if command -v fzf >/dev/null 2>&1; then
+  zcache_source "fzf/completion.zsh" -- fzf --zsh
+fi
