@@ -154,6 +154,29 @@ function git-worktree-prune() {
     fi
 }
 
+function git-worktree-cd() {
+    if [ -z "$1" ]; then
+        echo "Usage: git-worktree-cd BRANCH_NAME"
+        echo ""
+        echo "Changes directory into the specified git worktree."
+        return 1
+    fi
+
+    local branch_name="$1"
+    local repo_root=$(_git_worktree_init) || return 1
+    local worktree_path="$repo_root/.worktrees/$branch_name"
+
+    if [ ! -d "$worktree_path" ]; then
+        echo "Error: Could not find worktree for branch '$branch_name'"
+        echo ""
+        echo "Available worktrees:"
+        git worktree list
+        return 1
+    fi
+
+    cd "$worktree_path"
+}
+
 # === Completions ===
 function _git-worktree-prune() {
     local repo_root=$(git root 2>/dev/null)
@@ -164,6 +187,7 @@ function _git-worktree-prune() {
     fi
 }
 compdef _git-worktree-prune git-worktree-prune
+compdef _git-worktree-prune git-worktree-cd
 
 function _git-worktree-pr() {
     local -a prs
@@ -176,3 +200,9 @@ function _git-worktree-pr() {
     fi
 }
 compdef _git-worktree-pr git-worktree-pr
+
+# Aliases
+alias gwnew='git-worktree-new'
+alias gwpr='git-worktree-pr'
+alias gwcd='git-worktree-cd'
+alias gwprune='git-worktree-prune'
