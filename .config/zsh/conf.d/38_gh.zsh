@@ -165,3 +165,31 @@ function gh-run-view() {
     [[ -z $run_id ]] && return 0
     _gh_fzf_populate_buffer "gh run view $run_id"
 }
+
+function gh-pr-copy-url() {
+    if ! command -v gh >/dev/null 2>&1; then
+        echo "Error: gh CLI not found" >&2
+        return 1
+    fi
+
+    if ! command -v pbcopy >/dev/null 2>&1; then
+        echo "Error: Clipboard tool pbcopy not available" >&2
+        return 1
+    fi
+
+    if ! command git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+        echo "Error: Not inside a git repository" >&2
+        return 1
+    fi
+
+    local pr_url
+    pr_url=$(gh pr view --json url --jq .url 2>/dev/null) || true
+
+    if [[ -z $pr_url ]]; then
+        echo "Error: No pull request found for the current branch" >&2
+        return 1
+    fi
+
+    printf '%s' "$pr_url" | pbcopy
+    echo "Copied PR URL to clipboard: $pr_url"
+}
