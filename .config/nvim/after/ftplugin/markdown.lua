@@ -4,6 +4,9 @@ utils.disable_hard_wrap_for_buffer(0)
 -- Spellcheck for markdown files
 vim.opt_local.spell = true
 
+-- Set wrap
+vim.opt_local.wrap = true
+
 -- Markdown-specific surrounding in 'mini.surround'
 vim.b.minisurround_config = {
   custom_surroundings = {

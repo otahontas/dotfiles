@@ -55,6 +55,10 @@
       "src": "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
       "version": "'main'"
     },
+    "octo.nvim": {
+      "rev": "d4e2d99",
+      "src": "https://github.com/pwntester/octo.nvim"
+    },
     "plenary.nvim": {
       "rev": "b9fd522",
       "src": "https://github.com/nvim-lua/plenary.nvim"
