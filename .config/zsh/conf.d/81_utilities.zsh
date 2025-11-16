@@ -104,3 +104,40 @@ function disable-sleep() {
 function enable-sleep() {
     sudo pmset -a disablesleep 0
 }
+
+# Open today's (or the specified) daily note under ~/Documents/notes/daily
+function daily() {
+    local notes_dir="${HOME}/Documents/notes/daily"
+    local date_str
+
+    if [[ -n "$1" ]]; then
+        if [[ "$1" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
+            date_str="$1"
+        else
+            echo "Usage: daily [YYYY-MM-DD]" >&2
+            return 1
+        fi
+    else
+        date_str="$(date +%Y-%m-%d)"
+    fi
+
+    local note_path="${notes_dir}/${date_str}.md"
+    mkdir -p "$notes_dir"
+    [[ -f "$note_path" ]] || : > "$note_path"
+
+    local -a opener
+    if [[ -n "$VISUAL" ]]; then
+        opener=(${=VISUAL})
+    elif [[ -n "$EDITOR" ]]; then
+        opener=(${=EDITOR})
+    elif command -v open >/dev/null 2>&1; then
+        opener=(open)
+    elif command -v xdg-open >/dev/null 2>&1; then
+        opener=(xdg-open)
+    else
+        echo "$note_path"
+        return 0
+    fi
+
+    "${opener[@]}" "$note_path"
+}
