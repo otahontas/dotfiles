@@ -69,6 +69,131 @@ local function highlight_dates ()
   end
 end
 
+-- Tag helpers
+local function find_next_tag_span (line, start_index)
+  local search_start = start_index or 1
+  while true do
+    local tag_start, tag_end = line:find("([%w_%-]+:%S+)", search_start)
+    if not tag_start then return nil end
+
+    local preceding_ok = tag_start == 1
+    if not preceding_ok then
+      local before_char = line:sub(tag_start - 1, tag_start - 1)
+      preceding_ok = before_char:match("%s") ~= nil
+    end
+
+    if preceding_ok then return tag_start, tag_end end
+    search_start = tag_end + 1
+  end
+end
+
+local function insert_token_before (line, index, token)
+  local prefix = line:sub(1, index - 1)
+  local suffix = line:sub(index)
+  local before_gap = (prefix == "" or prefix:match("%s$")) and "" or " "
+  local after_gap = (suffix == "" or suffix:match("^%s")) and "" or " "
+  return prefix .. before_gap .. token .. after_gap .. suffix
+end
+
+local function insert_token_after (line, index, token)
+  local prefix = line:sub(1, index)
+  local suffix = line:sub(index + 1)
+  local before_gap = (prefix == "" or prefix:match("%s$")) and "" or " "
+  local after_gap = (suffix == "" or suffix:match("^%s")) and "" or " "
+  return prefix .. before_gap .. token .. after_gap .. suffix
+end
+
+-- Adjust due date on current line
+local function insert_due_before_first_tag (line, new_date)
+  local due_token = "due:" .. new_date
+  local tag_start = find_next_tag_span(line, 1)
+  if tag_start then return insert_token_before(line, tag_start, due_token) end
+
+  local trailing_gap = (line == "" or line:match("%s$")) and "" or " "
+  return line .. trailing_gap .. due_token
+end
+
+local function insert_threshold_as_second_tag (line, new_date)
+  local threshold_token = "t:" .. new_date
+  local due_start, due_end = line:find("due:%d%d%d%d%-%d%d%-%d%d")
+  if due_start then return insert_token_after(line, due_end, threshold_token) end
+
+  local first_tag_start, first_tag_end = find_next_tag_span(line, 1)
+  if first_tag_start then
+    return insert_token_after(line, first_tag_end, threshold_token)
+  end
+
+  local trailing_gap = (line == "" or line:match("%s$")) and "" or " "
+  return line .. trailing_gap .. threshold_token
+end
+
+local function adjust_due_date (delta)
+  local row = vim.api.nvim_win_get_cursor(0)[1]
+  local line = vim.api.nvim_buf_get_lines(0, row - 1, row, false)[1] or ""
+  local pattern = "due:(%d%d%d%d%-%d%d%-%d%d)"
+  local current_due = line:match(pattern)
+
+  local base_date = current_due or os.date("%Y-%m-%d")
+  local year, month, day = base_date:match("(%d+)%-(%d+)%-(%d+)")
+  if not (year and month and day) then return end
+
+  local timestamp = os.time({
+    year = tonumber(year),
+    month = tonumber(month),
+    day = tonumber(day),
+  })
+  timestamp = timestamp + delta * 24 * 60 * 60
+  local new_date = os.date("%Y-%m-%d", timestamp)
+
+  if current_due then
+    line = line:gsub("due:%d%d%d%d%-%d%d%-%d%d", "due:" .. new_date, 1)
+  else
+    line = insert_due_before_first_tag(line, new_date)
+  end
+
+  vim.api.nvim_buf_set_lines(0, row - 1, row, false, { line, })
+  highlight_dates()
+end
+
+local function adjust_threshold_date (delta)
+  local row = vim.api.nvim_win_get_cursor(0)[1]
+  local line = vim.api.nvim_buf_get_lines(0, row - 1, row, false)[1] or ""
+  local pattern = "t:(%d%d%d%d%-%d%d%-%d%d)"
+  local current_threshold = line:match(pattern)
+
+  local base_date = current_threshold or os.date("%Y-%m-%d")
+  local year, month, day = base_date:match("(%d+)%-(%d+)%-(%d+)")
+  if not (year and month and day) then return end
+
+  local timestamp = os.time({
+    year = tonumber(year),
+    month = tonumber(month),
+    day = tonumber(day),
+  })
+  timestamp = timestamp + delta * 24 * 60 * 60
+  local new_date = os.date("%Y-%m-%d", timestamp)
+
+  if current_threshold then
+    line = line:gsub("t:%d%d%d%d%-%d%d%-%d%d", "t:" .. new_date, 1)
+  else
+    line = insert_threshold_as_second_tag(line, new_date)
+  end
+
+  vim.api.nvim_buf_set_lines(0, row - 1, row, false, { line, })
+  highlight_dates()
+end
+
+local function map_date_delta (lhs, delta, fn, desc)
+  vim.keymap.set("n", lhs, function()
+    fn(delta)
+  end, { buffer = 0, desc = desc, })
+end
+
+map_date_delta("<space>dm", -1, adjust_due_date, "Decrease due date by 1 day")
+map_date_delta("<space>dp", 1, adjust_due_date, "Increase due date by 1 day")
+map_date_delta("<space>tm", -1, adjust_threshold_date, "Decrease threshold date by 1 day")
+map_date_delta("<space>tp", 1, adjust_threshold_date, "Increase threshold date by 1 day")
+
 -- Sort todo.txt by various criteria
 local function tsort (sort_spec)
   -- Parse sort specification (e.g., "due,threshold" or just "due")
