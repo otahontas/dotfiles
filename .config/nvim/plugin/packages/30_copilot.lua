@@ -1,7 +1,5 @@
 -- TODO: replace with:
 -- https://github.com/copilotlsp-nvim/copilot-lsp
--- and
--- https://github.com/fang2hou/blink-copilot?tab=readme-ov-file
 
 require("utils").add_package({ "https://github.com/zbirenbaum/copilot.lua", },
   function()
