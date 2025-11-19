@@ -19,7 +19,7 @@ require("utils").add_package({ "https://github.com/zbirenbaum/copilot.lua", },
     local cache_keys = {}
 
     -- Setup Copilot first time InsertEnter is triggered
-    vim.api.nvim_create_autocmd({ "InsertEnter", }, {
+    vim.api.nvim_create_autocmd("InsertEnter", {
       callback = function()
         require("copilot").setup({
           -- Do not attach to sensitive files

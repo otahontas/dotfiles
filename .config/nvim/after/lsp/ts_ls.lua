@@ -11,7 +11,7 @@ local inlay_hints = {
 
 return {
   settings = {
-    typescript = { inlayHints = inlay_hints },
-    javascript = { inlayHints = inlay_hints },
+    typescript = { inlayHints = inlay_hints, },
+    javascript = { inlayHints = inlay_hints, },
   },
 }

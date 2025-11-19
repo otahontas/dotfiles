@@ -67,6 +67,10 @@
       "rev": "bd1f79a",
       "src": "https://github.com/folke/sidekick.nvim"
     },
+    "twoslash-queries.nvim": {
+      "rev": "1262c20cad5abd6e89995dc4bc0eaab0e2e4e0b9",
+      "src": "https://github.com/marilari88/twoslash-queries.nvim"
+    },
     "unnest.nvim": {
       "rev": "62790c8",
       "src": "https://github.com/brianhuster/unnest.nvim"
