@@ -49,3 +49,10 @@ set(
   "<C-\\><C-n>",
   { silent = true, desc = "Go to normal mode with Ctrl-W Esc in terminal mode", }
 )
+-- Copy github permalink for current line to clipboard
+set(
+  "n",
+  "<leader>gy",
+  require("gh").copy_github_permalink,
+  { silent = true, desc = "Copy GitHub permalink for current line", }
+)
