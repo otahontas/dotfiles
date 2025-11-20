@@ -69,118 +69,184 @@ local function highlight_dates ()
   end
 end
 
--- Tag helpers
-local function find_next_tag_span (line, start_index)
-  local search_start = start_index or 1
-  while true do
-    local tag_start, tag_end = line:find("([%w_%-]+:%S+)", search_start)
-    if not tag_start then return nil end
+-- Token classifiers
 
-    local preceding_ok = tag_start == 1
-    if not preceding_ok then
-      local before_char = line:sub(tag_start - 1, tag_start - 1)
-      preceding_ok = before_char:match("%s") ~= nil
+-- Formatting helpers
+local function is_iso_date (token)
+  return token:match("^%d%d%d%d%-%d%d%-%d%d$") ~= nil
+end
+
+local function is_priority_token (token)
+  return token:match("^%([A-Z]%)$") ~= nil
+end
+
+local function is_context_token (token)
+  return token:match("^@%S+$") ~= nil
+end
+
+local function is_project_token (token)
+  return token:match("^%+%S+$") ~= nil
+end
+
+local function is_key_value_token (token)
+  if not token:match("^[^%s:]+:[^%s]+$") then return false end
+  if token:match("://") then return false end
+  return true
+end
+
+local function extend (into, values)
+  for _, value in ipairs(values) do
+    table.insert(into, value)
+  end
+end
+
+local TodoLine = {}
+TodoLine.__index = TodoLine
+
+function TodoLine.parse (line)
+  local trimmed = vim.trim(line)
+  local tokens = (trimmed == "") and {} or vim.split(trimmed, "%s+", { trimempty = true, })
+
+  local obj = {
+    raw = line,
+    leading = line:match("^(%s*)") or "",
+    trailing = line:match("(%s*)$") or "",
+    tokens = tokens,
+    prefix = {},
+    priority = nil,
+    description = {},
+    contexts = {},
+    projects = {},
+    meta = { due = {}, t = {}, est = {}, other = {}, },
+  }
+
+  setmetatable(obj, TodoLine)
+
+  if #tokens == 0 then return obj end
+
+  local idx = 1
+  if tokens[idx] == "x" then
+    table.insert(obj.prefix, tokens[idx])
+    idx = idx + 1
+    while tokens[idx] and is_iso_date(tokens[idx]) do
+      table.insert(obj.prefix, tokens[idx])
+      idx = idx + 1
     end
+  end
 
-    if preceding_ok then return tag_start, tag_end end
-    search_start = tag_end + 1
+  for position = idx, #tokens do
+    local token = tokens[position]
+    if not obj.priority and is_priority_token(token) then
+      obj.priority = token
+    elseif is_context_token(token) then
+      table.insert(obj.contexts, token)
+    elseif is_project_token(token) then
+      table.insert(obj.projects, token)
+    elseif is_key_value_token(token) then
+      local key = token:match("^([^:]+):")
+      if obj.meta[key] then
+        table.insert(obj.meta[key], token)
+      else
+        table.insert(obj.meta.other, token)
+      end
+    else
+      table.insert(obj.description, token)
+    end
+  end
+
+  return obj
+end
+
+function TodoLine:get_meta_value (key)
+  local bucket = self.meta[key]
+  if not bucket or not bucket[1] then return nil end
+  return bucket[1]:match(":(%S+)$")
+end
+
+function TodoLine:set_meta_value (key, date_str)
+  local bucket = self.meta[key]
+  if not bucket then
+    bucket = {}
+    self.meta[key] = bucket
+  end
+  local token = key .. ":" .. date_str
+  if bucket[1] then
+    bucket[1] = token
+  else
+    table.insert(bucket, token)
   end
 end
 
-local function insert_token_before (line, index, token)
-  local prefix = line:sub(1, index - 1)
-  local suffix = line:sub(index)
-  local before_gap = (prefix == "" or prefix:match("%s$")) and "" or " "
-  local after_gap = (suffix == "" or suffix:match("^%s")) and "" or " "
-  return prefix .. before_gap .. token .. after_gap .. suffix
+function TodoLine:render ()
+  if #self.tokens == 0 then return self.raw end
+
+  local reordered = {}
+  extend(reordered, self.prefix)
+  if self.priority then table.insert(reordered, self.priority) end
+  extend(reordered, self.description)
+  extend(reordered, self.contexts)
+  extend(reordered, self.projects)
+  extend(reordered, self.meta.due)
+  extend(reordered, self.meta.t)
+  extend(reordered, self.meta.est)
+  extend(reordered, self.meta.other)
+
+  local rebuilt = table.concat(reordered, " ")
+  return self.leading .. rebuilt .. self.trailing
 end
 
-local function insert_token_after (line, index, token)
-  local prefix = line:sub(1, index)
-  local suffix = line:sub(index + 1)
-  local before_gap = (prefix == "" or prefix:match("%s$")) and "" or " "
-  local after_gap = (suffix == "" or suffix:match("^%s")) and "" or " "
-  return prefix .. before_gap .. token .. after_gap .. suffix
-end
+local function format_buffer ()
+  local buf = 0
+  local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
+  local changed = false
 
--- Adjust due date on current line
-local function insert_due_before_first_tag (line, new_date)
-  local due_token = "due:" .. new_date
-  local tag_start = find_next_tag_span(line, 1)
-  if tag_start then return insert_token_before(line, tag_start, due_token) end
-
-  local trailing_gap = (line == "" or line:match("%s$")) and "" or " "
-  return line .. trailing_gap .. due_token
-end
-
-local function insert_threshold_as_second_tag (line, new_date)
-  local threshold_token = "t:" .. new_date
-  local due_start, due_end = line:find("due:%d%d%d%d%-%d%d%-%d%d")
-  if due_start then return insert_token_after(line, due_end, threshold_token) end
-
-  local first_tag_start, first_tag_end = find_next_tag_span(line, 1)
-  if first_tag_start then
-    return insert_token_after(line, first_tag_end, threshold_token)
+  for idx, line in ipairs(lines) do
+    local formatted = TodoLine.parse(line):render()
+    if formatted ~= line then
+      lines[idx] = formatted
+      changed = true
+    end
   end
 
-  local trailing_gap = (line == "" or line:match("%s$")) and "" or " "
-  return line .. trailing_gap .. threshold_token
+  if changed then
+    vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
+  end
+
+  highlight_dates()
+end
+
+local function adjust_meta_date (meta_key, delta)
+  local row = vim.api.nvim_win_get_cursor(0)[1]
+  local line = vim.api.nvim_buf_get_lines(0, row - 1, row, false)[1] or ""
+  if line == "" then return end
+
+  local todo = TodoLine.parse(line)
+  if #todo.tokens == 0 then return end
+
+  local current_value = todo:get_meta_value(meta_key)
+  local base_date = current_value or os.date("%Y-%m-%d")
+  local year, month, day = base_date:match("(%d+)%-(%d+)%-(%d+)")
+  if not (year and month and day) then return end
+
+  local timestamp = os.time({
+    year = tonumber(year),
+    month = tonumber(month),
+    day = tonumber(day),
+  })
+  timestamp = timestamp + delta * 24 * 60 * 60
+  local new_date = os.date("%Y-%m-%d", timestamp)
+
+  todo:set_meta_value(meta_key, new_date)
+  vim.api.nvim_buf_set_lines(0, row - 1, row, false, { todo:render(), })
+  highlight_dates()
 end
 
 local function adjust_due_date (delta)
-  local row = vim.api.nvim_win_get_cursor(0)[1]
-  local line = vim.api.nvim_buf_get_lines(0, row - 1, row, false)[1] or ""
-  local pattern = "due:(%d%d%d%d%-%d%d%-%d%d)"
-  local current_due = line:match(pattern)
-
-  local base_date = current_due or os.date("%Y-%m-%d")
-  local year, month, day = base_date:match("(%d+)%-(%d+)%-(%d+)")
-  if not (year and month and day) then return end
-
-  local timestamp = os.time({
-    year = tonumber(year),
-    month = tonumber(month),
-    day = tonumber(day),
-  })
-  timestamp = timestamp + delta * 24 * 60 * 60
-  local new_date = os.date("%Y-%m-%d", timestamp)
-
-  if current_due then
-    line = line:gsub("due:%d%d%d%d%-%d%d%-%d%d", "due:" .. new_date, 1)
-  else
-    line = insert_due_before_first_tag(line, new_date)
-  end
-
-  vim.api.nvim_buf_set_lines(0, row - 1, row, false, { line, })
-  highlight_dates()
+  adjust_meta_date("due", delta)
 end
 
 local function adjust_threshold_date (delta)
-  local row = vim.api.nvim_win_get_cursor(0)[1]
-  local line = vim.api.nvim_buf_get_lines(0, row - 1, row, false)[1] or ""
-  local pattern = "t:(%d%d%d%d%-%d%d%-%d%d)"
-  local current_threshold = line:match(pattern)
-
-  local base_date = current_threshold or os.date("%Y-%m-%d")
-  local year, month, day = base_date:match("(%d+)%-(%d+)%-(%d+)")
-  if not (year and month and day) then return end
-
-  local timestamp = os.time({
-    year = tonumber(year),
-    month = tonumber(month),
-    day = tonumber(day),
-  })
-  timestamp = timestamp + delta * 24 * 60 * 60
-  local new_date = os.date("%Y-%m-%d", timestamp)
-
-  if current_threshold then
-    line = line:gsub("t:%d%d%d%d%-%d%d%-%d%d", "t:" .. new_date, 1)
-  else
-    line = insert_threshold_as_second_tag(line, new_date)
-  end
-
-  vim.api.nvim_buf_set_lines(0, row - 1, row, false, { line, })
-  highlight_dates()
+  adjust_meta_date("t", delta)
 end
 
 local function map_date_delta (lhs, delta, fn, desc)
@@ -218,26 +284,26 @@ local function tsort (sort_spec)
   local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
   local indexed_lines = {}
 
-  -- Get pattern for a sort type
-  local function get_pattern (sort_type)
-    if sort_type == "due" then return "due:(%d%d%d%d%-%d%d%-%d%d)" end
-    if sort_type == "threshold" then return "t:(%d%d%d%d%-%d%d%-%d%d)" end
-    if sort_type == "project" then return "%+(%S+)" end
-    if sort_type == "context" then return "@(%S+)" end
+  local function extract_value (todo, sort_type)
+    if sort_type == "due" then return todo:get_meta_value("due") or "" end
+    if sort_type == "threshold" then return todo:get_meta_value("t") or "" end
+    if sort_type == "project" then
+      local first = todo.projects[1]
+      return first and first:sub(2) or ""
+    end
+    if sort_type == "context" then
+      local first = todo.contexts[1]
+      return first and first:sub(2) or ""
+    end
+    return ""
   end
 
-  local primary_pattern = get_pattern(primary)
-  local secondary_pattern = secondary and get_pattern(secondary) or nil
-
   for _, line in ipairs(lines) do
-    local primary_value = line:match(primary_pattern) or ""
-    local secondary_value = secondary_pattern and (line:match(secondary_pattern) or "") or
-      nil
-
+    local todo = TodoLine.parse(line)
     table.insert(indexed_lines, {
       line = line,
-      primary = primary_value,
-      secondary = secondary_value,
+      primary = extract_value(todo, primary),
+      secondary = secondary and extract_value(todo, secondary) or nil,
     })
   end
 
@@ -293,6 +359,12 @@ end, {
       "context,due",
     }
   end,
+})
+
+vim.api.nvim_buf_create_user_command(0, "Format", function()
+  format_buffer()
+end, {
+  desc = "Normalize todo.txt tokens",
 })
 
 -- Set up autocommands to refresh highlights

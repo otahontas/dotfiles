@@ -1,7 +1,8 @@
 local set = vim.keymap.set
 
--- Use <space> as leader
+-- Use <space> as leader and localleader
 vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
 -- Toggle hidden chars
 set(
