@@ -9,10 +9,6 @@
       "rev": "af58927",
       "src": "https://github.com/catppuccin/nvim"
     },
-    "catppucin": {
-      "rev": "af58927"
-    },
-    "copilot-lsp": [],
     "copilot.lua": {
       "rev": "3123983",
       "src": "https://github.com/zbirenbaum/copilot.lua"
@@ -66,6 +62,10 @@
     "sidekick.nvim": {
       "rev": "bd1f79a",
       "src": "https://github.com/folke/sidekick.nvim"
+    },
+    "ts-error-translator.nvim": {
+      "rev": "17ec46d9827e39ee5fab23ad6346ac7ab0fff9e4",
+      "src": "https://github.com/dmmulroy/ts-error-translator.nvim"
     },
     "twoslash-queries.nvim": {
       "rev": "1262c20cad5abd6e89995dc4bc0eaab0e2e4e0b9",
