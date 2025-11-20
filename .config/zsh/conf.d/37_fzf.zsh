@@ -19,9 +19,13 @@ export FZF_CTRL_T_OPTS="--preview 'bat --style=numbers --color=always --line-ran
 
 # fzf-tab completion styles
 zstyle ':completion:*:git-checkout:*' sort false
+zstyle ':completion:*:git-worktree-pr:*' sort false
+zstyle ':completion:*:gwpr:*' sort false
 zstyle ':completion:*:descriptions' format '[%d]'
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
+zstyle ':fzf-tab:complete:git-worktree-pr:*' fzf-flags --no-sort
+zstyle ':fzf-tab:complete:gwpr:*' fzf-flags --no-sort
 zstyle ':fzf-tab:*' switch-group ',' '.'
 
 # Initialize fzf (keybindings and completions)
